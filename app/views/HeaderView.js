@@ -33,6 +33,7 @@ define(function (require, exports, module) {
             content: 'SVET Media Group',
             properties: {
                 fontSize: '22px',
+                textAlign: 'center',
                 color: "white",
                 lineHeight: "50px",
                 fontWeight: '700'
@@ -44,7 +45,8 @@ define(function (require, exports, module) {
         });
 
         this.titleModifier = new Modifier({
-            origin: [1, 0]
+            origin: [0.5, 0],
+            align: [0.5, 0]
         });
 
         this._add(this.hamburgerModifier).add(this.hamburgerSurface);
