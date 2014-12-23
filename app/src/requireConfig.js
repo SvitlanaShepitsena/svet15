@@ -4,9 +4,13 @@ require.config({
 
     },
     paths: {
-        famous: '../lib/famous/src',
+        famous: "../lib/famous/src",
         requirejs: '../lib/requirejs/require',
+        views: '../views',
         almond: '../lib/almond/almond'
-    }
+    },
+    packages: [
+
+    ]
 });
 require(['main']);
