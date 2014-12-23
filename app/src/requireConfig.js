@@ -5,9 +5,9 @@ require.config({
     },
     paths: {
         famous: "../lib/famous/src",
-        requirejs: '../lib/requirejs/require',
-        views: '../views',
-        almond: '../lib/almond/almond'
+        requirejs: "../lib/requirejs/require",
+        views: "../views",
+        almond: "../lib/almond/almond"
     },
     packages: [
 
