@@ -19,13 +19,13 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             properties: {
                 // coloring pink, but background should not be visible anyway when viewed at device screen size
-                backgroundColor: 'rgb(236,73,137)'
+                backgroundColor: '#D95829'
             }
         });
 
         this.hamburgerSurface = new Surface({
             size: [53, undefined],
-            content: '<img width="53" src="img/hamburger.png"/>'
+            content: '<img width="53" src="img/hamburger-template.png"/>'
         });
 
         this.titleSurface = new Surface({

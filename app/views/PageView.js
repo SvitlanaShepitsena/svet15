@@ -1,41 +1,77 @@
 define(function (require, exports, module) {
-	var Surface = require('famous/core/Surface');
-	var Modifier = require('famous/core/Modifier');
-	var Transform = require('famous/core/Transform');
-	var View = require('famous/core/View');
-	var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var View = require('famous/core/View');
+    var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
+    var GridLayout = require("famous/views/GridLayout");
 
-	var HeaderView = require('views/HeaderView');
+    var HeaderView = require('views/HeaderView');
 
-	function PageView() {
-		View.apply(this, arguments);
+    function PageView() {
+        View.apply(this, arguments);
 
-		this.layout = new HeaderFooterLayout({
-			headerSize: 50
-		});
+        this.layout = new HeaderFooterLayout({
+            headerSize: 50,
+            footerSize: 50
+        });
 
-		this.header = new HeaderView();
-		this.header.pipe(this);
+        this.header = new HeaderView();
+        this.header.pipe(this);
+        this.contents = [];
+        this.content = new GridLayout({
+            dimensions: [1, 2]
+        });
 
-		this.content = new Surface({
-			size: [undefined, undefined],
-			properties: {
-				backgroundImage: 'url(img/body.png)',
-				backgroundSize: 'cover'
-			}
-		});
-		this.content.pipe(this);
+        this.content.pipe(this);
 
-		this.layout.header.add(this.header);
-		this.layout.content.add(this.content);
+        this.contentTop = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                backgroundColor: '#23D9D7',
+                backgroundSize: 'cover'
 
-		this._eventInput.pipe(this._eventOutput);
+            }
+        });
+        this.contentBottom = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                backgroundColor: '#FAFBCB',
+                backgroundSize: 'cover'
+            }
+        });
+        this.contents.push(this.contentTop);
+        this.contents.push(this.contentBottom);
+        this.content.sequenceFrom(this.contents);
 
-		this.add(this.layout);
-	}
+        /* =Grid*/
 
-	PageView.prototype = Object.create(View.prototype);
-	PageView.prototype.constructor = PageView;
+        /* =Footer*/
+        this.footer = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                backgroundColor: '#F27649',
+                backgroundSize: 'cover'
+            }
+        });
+        this.footer.pipe(this);
 
-	module.exports = PageView;
-});
+        this.layout.header.add(this.header);
+        this.layout.content.add(this.content);
+        this.layout.footer.add(this.footer);
+
+        this._eventInput.pipe(this._eventOutput);
+
+        this.add(this.layout);
+    }
+
+    /*******************/
+
+    /*****************/
+    PageView.prototype = Object.create(View.prototype);
+    PageView.prototype.constructor = PageView;
+
+    module.exports = PageView;
+
+})
+;
