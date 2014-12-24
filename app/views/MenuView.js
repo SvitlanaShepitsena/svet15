@@ -58,7 +58,7 @@ define(function (require, exports, module) {
 		var backSurface = new Surface({
 			size: [this.options.width, this.options.height],
 			properties: {
-				backgroundColor: 'rgb(25,24,26)'
+				backgroundColor: '#595153'
 			}
 		});
 
@@ -69,7 +69,7 @@ define(function (require, exports, module) {
 		this.navModifiers = [];
 
 		var navData = [
-			{iconUrl: 'img/nav-icons/design.png'},
+			{iconUrl: 'img/nav-icons/about-us.png'},
 			{iconUrl: 'img/nav-icons/news.png'},
 			{iconUrl: 'img/nav-icons/entertainment.png'},
 			{iconUrl: 'img/nav-icons/sports.png'},

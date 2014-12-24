@@ -19,13 +19,14 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             properties: {
                 // coloring pink, but background should not be visible anyway when viewed at device screen size
-                backgroundColor: 'rgb(236,73,137)'
+                backgroundColor: '#D95829'
+                //backgroundColor: '#C8645B'
             }
         });
 
         this.hamburgerSurface = new Surface({
             size: [53, undefined],
-            content: '<img width="53" src="img/hamburger.png"/>'
+            content: '<img width="53" src="img/hamburger-template.png"/>'
         });
 
         this.titleSurface = new Surface({
@@ -33,6 +34,7 @@ define(function (require, exports, module) {
             content: 'SVET Media Group',
             properties: {
                 fontSize: '22px',
+                textAlign: 'center',
                 color: "white",
                 lineHeight: "50px",
                 fontWeight: '700'
@@ -44,7 +46,8 @@ define(function (require, exports, module) {
         });
 
         this.titleModifier = new Modifier({
-            origin: [1, 0]
+            origin: [0.5, 0],
+            align: [0.5, 0]
         });
 
         this._add(this.hamburgerModifier).add(this.hamburgerSurface);
