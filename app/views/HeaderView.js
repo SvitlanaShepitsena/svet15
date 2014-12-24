@@ -29,6 +29,7 @@ define(function (require, exports, module) {
             content: '<img width="53" src="img/hamburger-template.png"/>'
         });
 
+
         this.titleSurface = new Surface({
             size: [267, undefined],
             content: 'SVET Media Group22',
