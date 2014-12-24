@@ -28,16 +28,13 @@ define(function (require, exports, module) {
         this.contentTop = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: '#23D9D7',
-                backgroundSize: 'cover'
-
+                backgroundColor: '#A8FFFF'
             }
         });
         this.contentBottom = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: '#FAFBCB',
-                backgroundSize: 'cover'
+                backgroundColor: '#FAFBCB'
             }
         });
         this.contents.push(this.contentTop);
@@ -47,14 +44,39 @@ define(function (require, exports, module) {
         /* =Grid*/
 
         /* =Footer*/
-        this.footer = new Surface({
+        this.footers = [];
+        this.footer = new GridLayout({
+            dimensions: [3, 1]
+        });
+        this.footer.pipe(this);
+
+        this.footerLeft = new Surface({
             size: [undefined, undefined],
             properties: {
                 backgroundColor: '#F27649',
                 backgroundSize: 'cover'
             }
-        });
-        this.footer.pipe(this);
+        })
+
+        this.footerCenter = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                backgroundColor: '#D95829',
+                backgroundSize: 'cover'
+            }
+        })
+
+        this.footerRight = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                backgroundColor: '#F27649',
+                backgroundSize: 'cover'
+            }
+        })
+        this.footers.push(this.footerLeft);
+        this.footers.push(this.footerCenter);
+        this.footers.push(this.footerRight);
+        this.footer.sequenceFrom(this.footers);
 
         this.layout.header.add(this.header);
         this.layout.content.add(this.content);
