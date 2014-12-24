@@ -126,6 +126,7 @@
     "express-jade": "0.0.3",
     "express-logger": "0.0.3",
     "gulp-filter": "^2.0.0",
+    "gulp-jade": "^0.10.0",
     "gulp-rename": "^1.2.0",
     "sendgrid": "^1.4.0",
     "underscore": "^1.7.0"

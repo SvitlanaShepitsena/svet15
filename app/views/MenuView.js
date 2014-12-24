@@ -70,7 +70,7 @@ define(function (require, exports, module) {
 
 		var navData = [
 			{iconUrl: 'img/nav-icons/about-us.png'},
-			{iconUrl: 'img/nav-icons/news.png'},
+			{iconUrl: 'img/nav-icons/clients.png'},
 			{iconUrl: 'img/nav-icons/entertainment.png'},
 			{iconUrl: 'img/nav-icons/sports.png'},
 			{iconUrl: 'img/nav-icons/dribble.png'},
