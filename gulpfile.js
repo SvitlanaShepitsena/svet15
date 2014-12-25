@@ -141,7 +141,7 @@ gulp.task('browser-sync', ['nodemon'], function () {
 });
 
 gulp.task('default', ['jade','js'], function () {
-    gulp.watch('app/src/**/*.js', function () {
+    gulp.watch('app/**/*.js', function () {
         rjs({
             baseUrl: './app/src',
             out: 'app.js',
@@ -165,7 +165,7 @@ gulp.task('default', ['jade','js'], function () {
         .pipe(watch('app/*.jade'))
         .pipe(jade())
         .pipe(plumber({errorHandler: onError}))
-        .pipe(gulp.dest('app'))
+        .pipe(gulp.dest('./app'))
         .pipe(reload({stream: true}));
 
     gulp.run('browser-sync');

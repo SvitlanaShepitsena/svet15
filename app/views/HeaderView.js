@@ -32,7 +32,7 @@ define(function (require, exports, module) {
 
         this.titleSurface = new Surface({
             size: [267, undefined],
-            content: 'SVET Media Group22',
+            content: 'SVET Media Group',
             properties: {
                 fontSize: '22px',
                 textAlign: 'center',
