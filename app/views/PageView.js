@@ -25,13 +25,14 @@ define(function (require, exports, module) {
 
         this.contentTop = new Surface({
             size: [undefined, undefined],
-            content:'Test',
+            content:'I Love you :-). Vse bude ok!',
             properties: {
                 backgroundColor: '#A8FFFF'
             }
         });
         this.contentBottom = new Surface({
             size: [undefined, undefined],
+            content:'Bottom',
             properties: {
                 backgroundColor: '#FAFBCB'
             }
@@ -41,6 +42,7 @@ define(function (require, exports, module) {
         this.content.sequenceFrom(this.contents);
 
         this.contentTop.pipe(this.content);
+        this.contentBottom.pipe(this.content);
         /* =Grid*/
 
         /* =Footer*/

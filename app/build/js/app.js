@@ -9949,13 +9949,14 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
 
         this.contentTop = new Surface({
             size: [undefined, undefined],
-            content:'Test',
+            content:'I Love you :-). Vse bude ok!',
             properties: {
                 backgroundColor: '#A8FFFF'
             }
         });
         this.contentBottom = new Surface({
             size: [undefined, undefined],
+            content:'Bottom',
             properties: {
                 backgroundColor: '#FAFBCB'
             }
@@ -9965,6 +9966,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
         this.content.sequenceFrom(this.contents);
 
         this.contentTop.pipe(this.content);
+        this.contentBottom.pipe(this.content);
         /* =Grid*/
 
         /* =Footer*/
