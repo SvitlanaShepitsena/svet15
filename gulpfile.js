@@ -121,7 +121,7 @@ gulp.task('jade', function () {
 });
 
 gulp.task('js', function () {
-    gulp.src(['app/src/*.js'])
+    gulp.src(['app/src/*.js','app/lib/*.js'])
         .pipe(rjs(
             {
                 baseUrl: './app/src',
@@ -136,14 +136,10 @@ gulp.task('js', function () {
                 include: ['main'],
                 create: true
             }))
-        .pipe(uglify({mangle: true}))
-        //.pipe(concat('app.js'))
+        //.pipe(uglify({mangle: true}))
+        .pipe(concat('app.js'))
         .pipe(gulp.dest(dev + 'js'))
         .pipe(reload({stream: true}));
-
-
-    gulp.src('app/lib/**/*', {base: 'app'})
-        .pipe(gulp.dest(dev));
 });
 
 gulp.task('assets:dist', function () {
@@ -182,7 +178,7 @@ gulp.task('browser-sync', ['nodemon'], function () {
 });
 
 gulp.task('default', ['js', 'jade', 'autoprefix'], function () {
-    gulp.watch(['app/src/*.js'], ['js']);
+    gulp.watch(['app/src/*.js','app/views/*.js'], ['js']);
     gulp.watch('app/img/**/*', ['img']);
     gulp.watch('app/*.jade', ['jade']);
     gulp.watch('app/styles/**/*.styl', ['autoprefix']);
