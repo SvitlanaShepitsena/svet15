@@ -1,31 +1,45 @@
 'use strict';
 
 var express = require('express'),
+    uglify = require('gulp-uglifyjs'),
     bodyParser = require('body-parser'),
-    path = require('path');
-var _ = require('underscore');
-var gulp = require('gulp');
-var nodemon = require('gulp-nodemon');
-var rename = require("gulp-rename");
-var rjs = require('gulp-requirejs');
+    jeet = require('jeet'),
+    path = require('path'),
+    _ = require('underscore'),
+    gulp = require('gulp'),
+    nodemon = require('gulp-nodemon'),
+    rename = require("gulp-rename"),
+    rjs = require('gulp-requirejs'),
+    filter = require('gulp-filter'),
+    watch = require('gulp-watch'),
+    browserSync = require('browser-sync'),
+    reload = browserSync.reload,
+    plumber = require('gulp-plumber'),
+    jade = require('gulp-jade'),
+    stylus = require('gulp-stylus'),
+    nib = require('nib'),
+    prefix = require('gulp-autoprefixer'),
+    open = require("gulp-open"),
+    cssmin = require('gulp-minify-css'),
+    concat = require('gulp-concat'),
+    imagemin = require('gulp-imagemin'),
+    clean = require('gulp-clean'),
+    pngquant = require('imagemin-pngquant'),
+    runSequence = require('run-sequence'),
+    git = require('gulp-git'),
+    rimraf = require('gulp-rimraf'),
+    concatCss = require('gulp-concat-css'),
+    assets = require("gulp-assets"),
+    minifyHTML = require("gulp-minify-html"),
+    processhtml = require('gulp-processhtml');
 
-var filter = require('gulp-filter');
-var watch = require('gulp-watch');
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
+var dev = 'app/build/',
+    dist = 'app/dist/';
 
-var plumber = require('gulp-plumber');
-var notify = require("gulp-notify");
-var jade = require('gulp-jade');
-var stylus = require('gulp-stylus');
-var nib = require('nib');
-
-var open = require("gulp-open");
-var cssmin = require('gulp-cssmin');
-var logger = require('express-logger');
-
-var EXPRESS_PORT = 3001;
-var EXPRESS_ROOT = __dirname;
+var onError = function (err) {
+    gutil.beep();
+    console.log(err);
+};
 
 function startExpress() {
     var express = require('express');
@@ -33,100 +47,123 @@ function startExpress() {
 
     app.set('port', process.env.PORT || 3001);
     app.engine('jade', require('jade').__express);
-    app.set('view engine', 'jade');
-    //app.set('views', 'jade');
 
-    app.use(express.static(path.join(__dirname, './app')));
-    app.set('views', path.join(__dirname, './app'));
+    app.use(express.static(path.join(__dirname, dist)));
 
     app.get('/', function (req, res) {
         res.render('index');
     });
-    app.get('/about', function (req, res) {
-        res.render('about');
-    });
-    app.get('/demographics', function (req, res) {
-        res.render('demographics');
-    });
 
-    app.listen(EXPRESS_PORT);
+    app.listen(3001);
 }
 
-gulp.task('css', function () {
-    gulp.src('app/styles/main.css')
-        .pipe(cssmin())
-        .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest('app/styles'));
+gulp.task('img', function () {
+    return gulp.src('app/img/**/*')
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()]
+        }))
+        .pipe(gulp.dest(dev + 'img'));
 });
 
-gulp.task('nib', function () {
-    gulp.src('app/styles/nib.styl')
-        .pipe(stylus({use: [nib()]}))
-        .pipe(gulp.dest('app/styles/nib'));
+gulp.task('moveUp', function () {
+    return gulp.src(dev + 'index.html')
+        .pipe(gulp.dest("app"));
+});
+
+gulp.task('copyAssets', function () {
+
+    return gulp.src("app/index.html")
+        .pipe(assets({
+            js: true,
+            css: true
+        }))
+        .pipe(gulp.dest(dev));
+});
+gulp.task('delIndex', function () {
+
+    return gulp.src("app/index.html")
+        .pipe(rimraf());
 });
 
 gulp.task('stylus', function () {
-
-    var onError = function (err) {
-        notify.onError({
-            title: "Gulp",
-            subtitle: "Failure!",
-            message: "Error: <%= error.message %>",
-            sound: "Beep"
-        })(err);
-        this.emit('end');
-    };
-
-    gulp.src('app/styles/**/*.styl')
+    return gulp.src('app/styles/**/*.styl')
         .pipe(plumber({errorHandler: onError}))
         .pipe(stylus({
-            use: [nib()],
+            use: [nib(), jeet()],
             compress: true
         }))
         .pipe(gulp.dest('app/styles/'))
-        .pipe(filter('**/*.css'))
+        .pipe(reload({stream: true}));
 });
 
-var onError = function (err) {
-    notify.onError({
-        title: "Gulp",
-        subtitle: "Failure!",
-        message: "Error: <%= error.message %>",
-        sound: "Beep"
-    })(err);
-    this.emit('end');
-};
-gulp.task('jade', function () {
+gulp.task('autoprefix', ['stylus'], function () {
+    return gulp.src('app/styles/*.css')
+        .pipe(prefix())
+        .pipe(gulp.dest(dev + 'styles'))
+        .pipe(reload({stream: true}));
+});
 
-    gulp.src('app/*.jade')
-        //compiler does not stop on error
+gulp.task('add', function () {
+    return gulp.src('app')
+        .pipe(git.add());
+});
+
+gulp.task('jade', function () {
+    return gulp.src('app/*.jade')
         .pipe(plumber({errorHandler: onError}))
         .pipe(jade({
-            compileDebug: false
+            pretty: true
         }))
-        .pipe(gulp.dest('app/views/'))
+        .pipe(gulp.dest(dev))
         .pipe(reload({stream: true}))
 });
 
 gulp.task('js', function () {
-    gulp.src('app/src/**/*.js')
-        .pipe(plumber({errorHandler: onError}))
-    rjs({
-        baseUrl: './app/src',
-        out: 'app.js',
-        paths: {
-            famous: "../lib/famous/src",
-            requirejs: "../lib/requirejs/require",
-            views: "../views",
-            almond: "../lib/almond/almond"
-        },
-        include: ['main', 'about', 'demographics'],
-        findNestedDependencies: true,
-        skipPragmas: true,
-        create: true
+    gulp.src('app/src/*.js')
+        .pipe(rjs(
+            {
+                baseUrl: './app/src',
+                out: 'app.js',
+                paths: {
+                    famous: "../lib/famous/src",
+                    requirejs: "../lib/requirejs/require",
+                    views: "../views",
+                    almond: "../lib/almond/almond"
+                },
+                name: 'main',
+                include: ['main'],
+                create: true
+            }))
+        .pipe(uglify({mangle: true}))
+        .pipe(gulp.dest(dev + 'js'))
+        .pipe(reload({stream: true}));
+});
+var requireFilter = filter(['app/build/lib/requirejs/require.js']);
 
-    })
-        .pipe(gulp.dest('app/dist'))
+gulp.task('assets:dist', function () {
+    gulp.src(['app/build/**/*.js','!app/build/lib/requirejs/**'])
+        .pipe(uglify('app.js',{outSourceMap: false}))
+        .pipe(gulp.dest(dist + 'js'));
+
+    gulp.src(dev + '/**/*.css')
+        .pipe(concatCss("app.css"))
+        .pipe(cssmin())
+        .pipe(gulp.dest(dist + 'styles/'));
+
+    gulp.src(dev + 'img/**/*', {base: dev}).pipe(gulp.dest(dist));
+
+    gulp.src(dev + 'lib/requirejs/**/*', {base: dev})
+        .pipe(uglify({outSourceMap: false,mangle:false}))
+        .pipe(gulp.dest(dist));
+});
+
+gulp.task('index:dist', function () {
+    gulp.src(dev + 'index.html')
+        .pipe(processhtml())
+        .pipe(minifyHTML())
+        .pipe(gulp.dest(dist));
 });
 
 gulp.task('nodemon', function () {
@@ -140,35 +177,23 @@ gulp.task('browser-sync', ['nodemon'], function () {
     });
 });
 
-gulp.task('default', ['jade','js'], function () {
-    gulp.watch('app/**/*.js', function () {
-        rjs({
-            baseUrl: './app/src',
-            out: 'app.js',
-            paths: {
-                famous: "../lib/famous/src",
-                requirejs: "../lib/requirejs/require",
-                views: "../views",
-                almond: "../lib/almond/almond"
-            },
-            include: ['main', 'about', 'demographics'],
-            findNestedDependencies: true,
-            skipPragmas: true,
-            create: true
+gulp.task('default', ['js', 'jade', 'autoprefix'], function () {
+    gulp.watch('app/src/*.js', ['js']);
+    gulp.watch('app/img/**/*', ['img']);
+    gulp.watch('app/*.jade', ['jade']);
+    gulp.watch('app/styles/**/*.styl', ['autoprefix']);
 
-        })
-            .pipe(gulp.dest('app/dist'))
-            .pipe(reload({stream: true}));
-    });
-
-    gulp.src('app/*.jade')
-        .pipe(watch('app/*.jade'))
-        .pipe(jade())
-        .pipe(plumber({errorHandler: onError}))
-        .pipe(gulp.dest('./app'))
-        .pipe(reload({stream: true}));
-
-    gulp.run('browser-sync');
+    gulp.start('browser-sync');
 
 });
+
+gulp.task('clean', function () {
+    return gulp.src(dev, {read: false})
+        .pipe(clean());
+});
+
+gulp.task('deploy', function () {
+    runSequence('clean', 'jade', ['js', 'img'], 'moveUp', 'copyAssets', 'delIndex', 'autoprefix', 'add','assets:dist','index:dist');
+});
+
 
