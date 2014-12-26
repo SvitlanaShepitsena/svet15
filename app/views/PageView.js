@@ -27,6 +27,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content:'I Love you :-). Vse bude ok!',
             properties: {
+                color:'red',
                 backgroundColor: '#A8FFFF'
             }
         });
