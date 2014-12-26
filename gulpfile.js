@@ -47,8 +47,8 @@ function startExpress() {
 
     app.set('port', process.env.PORT || 3001);
     app.engine('jade', require('jade').__express);
-
-    app.use(express.static(path.join(__dirname, dist)));
+    app.set('views',dev);
+    app.use(express.static(path.join(__dirname, dev)));
 
     app.get('/', function (req, res) {
         res.render('index');
@@ -121,7 +121,7 @@ gulp.task('jade', function () {
 });
 
 gulp.task('js', function () {
-    gulp.src('app/src/*.js')
+    gulp.src(['app/src/*.js'])
         .pipe(rjs(
             {
                 baseUrl: './app/src',
@@ -137,14 +137,18 @@ gulp.task('js', function () {
                 create: true
             }))
         .pipe(uglify({mangle: true}))
+        //.pipe(concat('app.js'))
         .pipe(gulp.dest(dev + 'js'))
         .pipe(reload({stream: true}));
+
+
+    gulp.src('app/lib/**/*', {base: 'app'})
+        .pipe(gulp.dest(dev));
 });
-var requireFilter = filter(['app/build/lib/requirejs/require.js']);
 
 gulp.task('assets:dist', function () {
-    gulp.src(['app/build/**/*.js','!app/build/lib/requirejs/**'])
-        .pipe(uglify('app.js',{outSourceMap: false}))
+    gulp.src(['app/build/**/*.js', '!app/build/lib/requirejs/**'])
+        .pipe(uglify('app.js', {outSourceMap: false}))
         .pipe(gulp.dest(dist + 'js'));
 
     gulp.src(dev + '/**/*.css')
@@ -155,7 +159,7 @@ gulp.task('assets:dist', function () {
     gulp.src(dev + 'img/**/*', {base: dev}).pipe(gulp.dest(dist));
 
     gulp.src(dev + 'lib/requirejs/**/*', {base: dev})
-        .pipe(uglify({outSourceMap: false,mangle:false}))
+        .pipe(uglify({outSourceMap: false, mangle: false}))
         .pipe(gulp.dest(dist));
 });
 
@@ -178,7 +182,7 @@ gulp.task('browser-sync', ['nodemon'], function () {
 });
 
 gulp.task('default', ['js', 'jade', 'autoprefix'], function () {
-    gulp.watch('app/src/*.js', ['js']);
+    gulp.watch(['app/src/*.js'], ['js']);
     gulp.watch('app/img/**/*', ['img']);
     gulp.watch('app/*.jade', ['jade']);
     gulp.watch('app/styles/**/*.styl', ['autoprefix']);
@@ -193,7 +197,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('deploy', function () {
-    runSequence('clean', 'jade', ['js', 'img'], 'moveUp', 'copyAssets', 'delIndex', 'autoprefix', 'add','assets:dist','index:dist');
+    runSequence('clean', 'jade', ['js', 'img'], 'moveUp', 'copyAssets', 'delIndex', 'autoprefix', 'add', 'assets:dist', 'index:dist');
 });
 
 
