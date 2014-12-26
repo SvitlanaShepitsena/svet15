@@ -9951,9 +9951,11 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             size: [undefined, undefined],
             content:'I Love you :-). Vse bude ok!',
             properties: {
+                color:'red',
                 backgroundColor: '#A8FFFF'
             }
         });
+
         this.contentBottom = new Surface({
             size: [undefined, undefined],
             content:'Bottom',
