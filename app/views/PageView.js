@@ -31,6 +31,7 @@ define(function (require, exports, module) {
                 backgroundColor: '#A8FFFF'
             }
         });
+
         this.contentBottom = new Surface({
             size: [undefined, undefined],
             content:'Bottom',
