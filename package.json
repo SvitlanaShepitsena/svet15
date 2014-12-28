@@ -7,10 +7,6 @@
     "name": "Svetlana Shepitsena"
   },
   "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/ChicagoBusinessIntelligence1/svet15"
-  },
   "engines": {
     "node": ">= 0.10.0"
   },
