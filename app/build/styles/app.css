@@ -1,1 +1,40 @@
-html{background:#fff}.backfaceVisibility{-webkit-backface-visibility:visible;backface-visibility:visible}body{background:-webkit-linear-gradient(top, #fff, #000);background:linear-gradient(top,#fff,#000)}
+@import 'reset.css';
+
+html {
+  background: #fff;
+}
+
+html * {
+  background: rgba(0, 0, 0, 0.05)
+}
+
+.backfaceVisibility {
+  -webkit-backface-visibility: visible;
+  backface-visibility: visible
+}
+
+body {
+  background: -webkit-linear-gradient(top, #fff, #000);
+  background: linear-gradient(top, #fff, #000)
+}
+
+.center {
+  *zoom: 1;
+  width: auto;
+  max-width: 1440px;
+  float: none;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 0;
+  padding-right: 0
+}
+
+.center:before, .center:after {
+  content: '';
+  display: table
+}
+
+.center:after {
+  clear: both
+}

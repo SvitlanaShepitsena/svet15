@@ -10313,7 +10313,7 @@ define('text',['module'], function (module) {
     return text;
 });
 
-define('text!jade/page1.html',[],function () { return '\n<h2><em class="center">SVET Media Group</em>\n  <div>\n    is the Midwest’s first and oldest publishing and advertising company serving the Russian,\n    Ukrainian and Lithuanian communities since 1990. And Izya Oberman!\n  </div>\n</h2>';});
+define('text!jade/page1.html',[],function () { return '\n<div>\n  <h2 class="center">SVET Media Group</h2>\n  <div>\n    is the Midwest’s first and oldest publishing and advertising company serving the Russian,\n    Ukrainian and Lithuanian communities since 1990. And Izya Oberman!\n  </div>\n</div>';});
 
 define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/page1.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
