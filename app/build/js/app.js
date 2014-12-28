@@ -9866,7 +9866,7 @@ define('views/HeaderView',['require','exports','module','famous/core/Surface','f
             size: [undefined, undefined],
             properties: {
                 // coloring pink, but background should not be visible anyway when viewed at device screen size
-                backgroundColor: '#D95829'
+                backgroundColor: '#FC6E51'
                 //backgroundColor: '#C8645B'
             }
         });
@@ -10313,7 +10313,7 @@ define('text',['module'], function (module) {
     return text;
 });
 
-define('text!jade/page1.html',[],function () { return '\n<div>\n  <h2 class="center">SVET Media Group</h2>\n  <div>\n    is the Midwest’s first and oldest publishing and advertising company serving the Russian,\n    Ukrainian and Lithuanian communities since 1990. And Izya Oberman!\n  </div>\n</div>';});
+define('text!jade/page1.html',[],function () { return '\n<section>\n  <article>\n    <p><strong>SVET Russian Media Group</strong>is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>\n    <h3>Our Products and Services:</h3>\n  </article>\n  <article class="svet-services">\n    <div class="productsServises">\n      <h4>SVET Daily Newspaper</h4>\n      <p>Over 48 pages – circulation 12,000 copies weekly. It is the most up-to-date Russian language newspaper outside of Russia. It appears on the newsstands after 3:00 PM. It is free of charge. In addition, subscribers receive newspapers in their homes via second class mail.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Russian-American Yellow Pages</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Saturday Plus Weekly Newspaper</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Radio Program “OSA”</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n  </article>\n</section>';});
 
 define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/page1.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
@@ -10347,9 +10347,8 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             size: [undefined, undefined],
             content: page1,
             properties: {
-                color: 'black',
                 fontSize: '16px',
-                backgroundColor: '#FFA47F'
+                backgroundColor: '#FFE1D0'
             }
         });
         this.contentAbout = new Surface({
@@ -10357,7 +10356,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             content: '<h2>SVET International publishing house</h2>' +
             '<p>From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability. </p>',
             properties: {
-                backgroundColor: '#FAC883'
+                backgroundColor: '#E6FFEF'
             }
         });
         this.contentDemographics = new Surface({
@@ -10365,7 +10364,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             content: '<h2>Demographics</h2>' +
             '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
             properties: {
-                backgroundColor: '#95C79B'
+                backgroundColor: '#FFFAE2'
             }
         });
         this.contentClients = new Surface({
@@ -10373,7 +10372,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             content: '<h2>Demographics</h2>' +
             '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
             properties: {
-                backgroundColor: '#FFB1AC'
+                backgroundColor: '#E6FFDB'
             }
         });
         this.contentRadio = new Surface({
@@ -10381,7 +10380,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             content: '<h2>Radio Program “OSA”</h2>' +
             '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
             properties: {
-                backgroundColor: '#83BFE3'
+                backgroundColor: '#FFF1E9'
             }
         });
         this.contentContact = new Surface({
@@ -10389,7 +10388,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             content: '<h2>Contact Us</h2>' +
             '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
             properties: {
-                backgroundColor: '#998EBA'
+                backgroundColor: '#FFE1D0'
             }
         });
         this.contents.push(this.contentHome);

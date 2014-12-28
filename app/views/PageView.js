@@ -30,7 +30,6 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: page1,
             properties: {
-                color: '#3E3A3B',
                 fontSize: '16px',
                 backgroundColor: '#FFE1D0'
             }
