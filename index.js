@@ -15,7 +15,7 @@ app.set('views', dist);
 app.use(express.static(path.join(__dirname, dist)));
 
 app.get('/', function (req, res) {
-    res.render('index.html');
+    res.render('index');
 });
 
 
