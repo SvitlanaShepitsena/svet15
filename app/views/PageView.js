@@ -6,8 +6,9 @@ define(function (require, exports, module) {
     var ScrollView = require('famous/views/Scrollview');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var GridLayout = require("famous/views/GridLayout");
-
     var HeaderView = require('views/HeaderView');
+
+    var myView = require("text!views/test.html");
 
     function PageView() {
         View.apply(this, arguments);
@@ -20,21 +21,21 @@ define(function (require, exports, module) {
         this.header = new HeaderView();
         this.header.pipe(this);
         this.contents = [];
-        this.content = new ScrollView() ;
+        this.content = new ScrollView();
         //this.content.pipe(this);
 
         this.contentTop = new Surface({
             size: [undefined, undefined],
-            content:'I Love you :-). Vse bude ok!',
+            content: myView,
             properties: {
-                color:'red',
+                color: 'red',
                 backgroundColor: '#A8FFFF'
             }
         });
 
         this.contentBottom = new Surface({
             size: [undefined, undefined],
-            content:'Bottom',
+            content: 'Bottom',
             properties: {
                 backgroundColor: '#FAFBCB'
             }

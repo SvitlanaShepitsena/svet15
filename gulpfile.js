@@ -47,7 +47,7 @@ function startExpress() {
 
     app.set('port', process.env.PORT || 3001);
     app.engine('jade', require('jade').__express);
-    app.set('views',dev);
+    app.set('views', dev);
     app.use(express.static(path.join(__dirname, dev)));
 
     app.get('/', function (req, res) {
@@ -120,8 +120,18 @@ gulp.task('jade', function () {
         .pipe(reload({stream: true}))
 });
 
+gulp.task('jade:v', function () {
+    return gulp.src('app/jade/*.jade')
+        .pipe(plumber({errorHandler: onError}))
+        .pipe(jade({
+            pretty: true
+        }))
+        .pipe(gulp.dest('app/jade'))
+        .pipe(reload({stream: true}))
+});
+
 gulp.task('js', function () {
-    gulp.src(['app/src/*.js','app/lib/*.js'])
+    gulp.src(['app/src/*.js', 'app/lib/*.js'])
         .pipe(rjs(
             {
                 baseUrl: './app/src',
@@ -130,6 +140,7 @@ gulp.task('js', function () {
                     famous: "../lib/famous/src",
                     requirejs: "../lib/requirejs/require",
                     views: "../views",
+                    jade: "../jade",
                     almond: "../lib/almond/almond"
                 },
                 name: 'main',
@@ -177,10 +188,11 @@ gulp.task('browser-sync', ['nodemon'], function () {
     });
 });
 
-gulp.task('default', ['js', 'jade', 'autoprefix'], function () {
-    gulp.watch(['app/src/*.js','app/views/*.js'], ['js']);
+gulp.task('default', ['js', 'jade:v', 'jade', 'autoprefix'], function () {
+    gulp.watch(['app/src/*.js', 'app/views/*.js'], ['js']);
     gulp.watch('app/img/**/*', ['img']);
     gulp.watch('app/*.jade', ['jade']);
+    gulp.watch('app/jade/*.jade', ['jade:v']);
     gulp.watch('app/styles/**/*.styl', ['autoprefix']);
 
     gulp.start('browser-sync');
