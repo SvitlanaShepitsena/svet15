@@ -73,8 +73,8 @@ define(function (require, exports, module) {
             {iconUrl: 'img/nav-icons/about-us.png'},
             {iconUrl: 'img/nav-icons/demographics.png'},
             {iconUrl: 'img/nav-icons/clients.png'},
-            {iconUrl: 'img/nav-icons/contact-us.png'},
             {iconUrl: 'img/nav-icons/radio.png'},
+            {iconUrl: 'img/nav-icons/contact-us.png'},
         ];
 
         for (var i = 0; i < navData.length; i++) {

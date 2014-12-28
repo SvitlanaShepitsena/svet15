@@ -5757,8 +5757,8 @@ define('views/MenuView',['require','exports','module','famous/core/Surface','fam
             {iconUrl: 'img/nav-icons/about-us.png'},
             {iconUrl: 'img/nav-icons/demographics.png'},
             {iconUrl: 'img/nav-icons/clients.png'},
-            {iconUrl: 'img/nav-icons/contact-us.png'},
             {iconUrl: 'img/nav-icons/radio.png'},
+            {iconUrl: 'img/nav-icons/contact-us.png'},
         ];
 
         for (var i = 0; i < navData.length; i++) {
@@ -9866,7 +9866,7 @@ define('views/HeaderView',['require','exports','module','famous/core/Surface','f
             size: [undefined, undefined],
             properties: {
                 // coloring pink, but background should not be visible anyway when viewed at device screen size
-                backgroundColor: '#D95829'
+                backgroundColor: '#FC6E51'
                 //backgroundColor: '#C8645B'
             }
         });
@@ -9922,7 +9922,400 @@ define('views/HeaderView',['require','exports','module','famous/core/Surface','f
     module.exports = HeaderView;
 });
 
-define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView'],function (require, exports, module) {
+/**
+ * @license RequireJS text 2.0.12 Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
+ * Available via the MIT or new BSD license.
+ * see: http://github.com/requirejs/text for details
+ */
+/*jslint regexp: true */
+/*global require, XMLHttpRequest, ActiveXObject,
+  define, window, process, Packages,
+  java, location, Components, FileUtils */
+
+define('text',['module'], function (module) {
+    
+
+    var text, fs, Cc, Ci, xpcIsWindows,
+        progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
+        xmlRegExp = /^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,
+        bodyRegExp = /<body[^>]*>\s*([\s\S]+)\s*<\/body>/im,
+        hasLocation = typeof location !== 'undefined' && location.href,
+        defaultProtocol = hasLocation && location.protocol && location.protocol.replace(/\:/, ''),
+        defaultHostName = hasLocation && location.hostname,
+        defaultPort = hasLocation && (location.port || undefined),
+        buildMap = {},
+        masterConfig = (module.config && module.config()) || {};
+
+    text = {
+        version: '2.0.12',
+
+        strip: function (content) {
+            //Strips <?xml ...?> declarations so that external SVG and XML
+            //documents can be added to a document without worry. Also, if the string
+            //is an HTML document, only the part inside the body tag is returned.
+            if (content) {
+                content = content.replace(xmlRegExp, "");
+                var matches = content.match(bodyRegExp);
+                if (matches) {
+                    content = matches[1];
+                }
+            } else {
+                content = "";
+            }
+            return content;
+        },
+
+        jsEscape: function (content) {
+            return content.replace(/(['\\])/g, '\\$1')
+                .replace(/[\f]/g, "\\f")
+                .replace(/[\b]/g, "\\b")
+                .replace(/[\n]/g, "\\n")
+                .replace(/[\t]/g, "\\t")
+                .replace(/[\r]/g, "\\r")
+                .replace(/[\u2028]/g, "\\u2028")
+                .replace(/[\u2029]/g, "\\u2029");
+        },
+
+        createXhr: masterConfig.createXhr || function () {
+            //Would love to dump the ActiveX crap in here. Need IE 6 to die first.
+            var xhr, i, progId;
+            if (typeof XMLHttpRequest !== "undefined") {
+                return new XMLHttpRequest();
+            } else if (typeof ActiveXObject !== "undefined") {
+                for (i = 0; i < 3; i += 1) {
+                    progId = progIds[i];
+                    try {
+                        xhr = new ActiveXObject(progId);
+                    } catch (e) {}
+
+                    if (xhr) {
+                        progIds = [progId];  // so faster next time
+                        break;
+                    }
+                }
+            }
+
+            return xhr;
+        },
+
+        /**
+         * Parses a resource name into its component parts. Resource names
+         * look like: module/name.ext!strip, where the !strip part is
+         * optional.
+         * @param {String} name the resource name
+         * @returns {Object} with properties "moduleName", "ext" and "strip"
+         * where strip is a boolean.
+         */
+        parseName: function (name) {
+            var modName, ext, temp,
+                strip = false,
+                index = name.indexOf("."),
+                isRelative = name.indexOf('./') === 0 ||
+                             name.indexOf('../') === 0;
+
+            if (index !== -1 && (!isRelative || index > 1)) {
+                modName = name.substring(0, index);
+                ext = name.substring(index + 1, name.length);
+            } else {
+                modName = name;
+            }
+
+            temp = ext || modName;
+            index = temp.indexOf("!");
+            if (index !== -1) {
+                //Pull off the strip arg.
+                strip = temp.substring(index + 1) === "strip";
+                temp = temp.substring(0, index);
+                if (ext) {
+                    ext = temp;
+                } else {
+                    modName = temp;
+                }
+            }
+
+            return {
+                moduleName: modName,
+                ext: ext,
+                strip: strip
+            };
+        },
+
+        xdRegExp: /^((\w+)\:)?\/\/([^\/\\]+)/,
+
+        /**
+         * Is an URL on another domain. Only works for browser use, returns
+         * false in non-browser environments. Only used to know if an
+         * optimized .js version of a text resource should be loaded
+         * instead.
+         * @param {String} url
+         * @returns Boolean
+         */
+        useXhr: function (url, protocol, hostname, port) {
+            var uProtocol, uHostName, uPort,
+                match = text.xdRegExp.exec(url);
+            if (!match) {
+                return true;
+            }
+            uProtocol = match[2];
+            uHostName = match[3];
+
+            uHostName = uHostName.split(':');
+            uPort = uHostName[1];
+            uHostName = uHostName[0];
+
+            return (!uProtocol || uProtocol === protocol) &&
+                   (!uHostName || uHostName.toLowerCase() === hostname.toLowerCase()) &&
+                   ((!uPort && !uHostName) || uPort === port);
+        },
+
+        finishLoad: function (name, strip, content, onLoad) {
+            content = strip ? text.strip(content) : content;
+            if (masterConfig.isBuild) {
+                buildMap[name] = content;
+            }
+            onLoad(content);
+        },
+
+        load: function (name, req, onLoad, config) {
+            //Name has format: some.module.filext!strip
+            //The strip part is optional.
+            //if strip is present, then that means only get the string contents
+            //inside a body tag in an HTML string. For XML/SVG content it means
+            //removing the <?xml ...?> declarations so the content can be inserted
+            //into the current doc without problems.
+
+            // Do not bother with the work if a build and text will
+            // not be inlined.
+            if (config && config.isBuild && !config.inlineText) {
+                onLoad();
+                return;
+            }
+
+            masterConfig.isBuild = config && config.isBuild;
+
+            var parsed = text.parseName(name),
+                nonStripName = parsed.moduleName +
+                    (parsed.ext ? '.' + parsed.ext : ''),
+                url = req.toUrl(nonStripName),
+                useXhr = (masterConfig.useXhr) ||
+                         text.useXhr;
+
+            // Do not load if it is an empty: url
+            if (url.indexOf('empty:') === 0) {
+                onLoad();
+                return;
+            }
+
+            //Load the text. Use XHR if possible and in a browser.
+            if (!hasLocation || useXhr(url, defaultProtocol, defaultHostName, defaultPort)) {
+                text.get(url, function (content) {
+                    text.finishLoad(name, parsed.strip, content, onLoad);
+                }, function (err) {
+                    if (onLoad.error) {
+                        onLoad.error(err);
+                    }
+                });
+            } else {
+                //Need to fetch the resource across domains. Assume
+                //the resource has been optimized into a JS module. Fetch
+                //by the module name + extension, but do not include the
+                //!strip part to avoid file system issues.
+                req([nonStripName], function (content) {
+                    text.finishLoad(parsed.moduleName + '.' + parsed.ext,
+                                    parsed.strip, content, onLoad);
+                });
+            }
+        },
+
+        write: function (pluginName, moduleName, write, config) {
+            if (buildMap.hasOwnProperty(moduleName)) {
+                var content = text.jsEscape(buildMap[moduleName]);
+                write.asModule(pluginName + "!" + moduleName,
+                               "define(function () { return '" +
+                                   content +
+                               "';});\n");
+            }
+        },
+
+        writeFile: function (pluginName, moduleName, req, write, config) {
+            var parsed = text.parseName(moduleName),
+                extPart = parsed.ext ? '.' + parsed.ext : '',
+                nonStripName = parsed.moduleName + extPart,
+                //Use a '.js' file name so that it indicates it is a
+                //script that can be loaded across domains.
+                fileName = req.toUrl(parsed.moduleName + extPart) + '.js';
+
+            //Leverage own load() method to load plugin value, but only
+            //write out values that do not have the strip argument,
+            //to avoid any potential issues with ! in file names.
+            text.load(nonStripName, req, function (value) {
+                //Use own write() method to construct full module value.
+                //But need to create shell that translates writeFile's
+                //write() to the right interface.
+                var textWrite = function (contents) {
+                    return write(fileName, contents);
+                };
+                textWrite.asModule = function (moduleName, contents) {
+                    return write.asModule(moduleName, fileName, contents);
+                };
+
+                text.write(pluginName, nonStripName, textWrite, config);
+            }, config);
+        }
+    };
+
+    if (masterConfig.env === 'node' || (!masterConfig.env &&
+            typeof process !== "undefined" &&
+            process.versions &&
+            !!process.versions.node &&
+            !process.versions['node-webkit'])) {
+        //Using special require.nodeRequire, something added by r.js.
+        fs = require.nodeRequire('fs');
+
+        text.get = function (url, callback, errback) {
+            try {
+                var file = fs.readFileSync(url, 'utf8');
+                //Remove BOM (Byte Mark Order) from utf8 files if it is there.
+                if (file.indexOf('\uFEFF') === 0) {
+                    file = file.substring(1);
+                }
+                callback(file);
+            } catch (e) {
+                if (errback) {
+                    errback(e);
+                }
+            }
+        };
+    } else if (masterConfig.env === 'xhr' || (!masterConfig.env &&
+            text.createXhr())) {
+        text.get = function (url, callback, errback, headers) {
+            var xhr = text.createXhr(), header;
+            xhr.open('GET', url, true);
+
+            //Allow plugins direct access to xhr headers
+            if (headers) {
+                for (header in headers) {
+                    if (headers.hasOwnProperty(header)) {
+                        xhr.setRequestHeader(header.toLowerCase(), headers[header]);
+                    }
+                }
+            }
+
+            //Allow overrides specified in config
+            if (masterConfig.onXhr) {
+                masterConfig.onXhr(xhr, url);
+            }
+
+            xhr.onreadystatechange = function (evt) {
+                var status, err;
+                //Do not explicitly handle errors, those should be
+                //visible via console output in the browser.
+                if (xhr.readyState === 4) {
+                    status = xhr.status || 0;
+                    if (status > 399 && status < 600) {
+                        //An http 4xx or 5xx error. Signal an error.
+                        err = new Error(url + ' HTTP status: ' + status);
+                        err.xhr = xhr;
+                        if (errback) {
+                            errback(err);
+                        }
+                    } else {
+                        callback(xhr.responseText);
+                    }
+
+                    if (masterConfig.onXhrComplete) {
+                        masterConfig.onXhrComplete(xhr, url);
+                    }
+                }
+            };
+            xhr.send(null);
+        };
+    } else if (masterConfig.env === 'rhino' || (!masterConfig.env &&
+            typeof Packages !== 'undefined' && typeof java !== 'undefined')) {
+        //Why Java, why is this so awkward?
+        text.get = function (url, callback) {
+            var stringBuffer, line,
+                encoding = "utf-8",
+                file = new java.io.File(url),
+                lineSeparator = java.lang.System.getProperty("line.separator"),
+                input = new java.io.BufferedReader(new java.io.InputStreamReader(new java.io.FileInputStream(file), encoding)),
+                content = '';
+            try {
+                stringBuffer = new java.lang.StringBuffer();
+                line = input.readLine();
+
+                // Byte Order Mark (BOM) - The Unicode Standard, version 3.0, page 324
+                // http://www.unicode.org/faq/utf_bom.html
+
+                // Note that when we use utf-8, the BOM should appear as "EF BB BF", but it doesn't due to this bug in the JDK:
+                // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4508058
+                if (line && line.length() && line.charAt(0) === 0xfeff) {
+                    // Eat the BOM, since we've already found the encoding on this file,
+                    // and we plan to concatenating this buffer with others; the BOM should
+                    // only appear at the top of a file.
+                    line = line.substring(1);
+                }
+
+                if (line !== null) {
+                    stringBuffer.append(line);
+                }
+
+                while ((line = input.readLine()) !== null) {
+                    stringBuffer.append(lineSeparator);
+                    stringBuffer.append(line);
+                }
+                //Make sure we return a JavaScript string and not a Java string.
+                content = String(stringBuffer.toString()); //String
+            } finally {
+                input.close();
+            }
+            callback(content);
+        };
+    } else if (masterConfig.env === 'xpconnect' || (!masterConfig.env &&
+            typeof Components !== 'undefined' && Components.classes &&
+            Components.interfaces)) {
+        //Avert your gaze!
+        Cc = Components.classes;
+        Ci = Components.interfaces;
+        Components.utils['import']('resource://gre/modules/FileUtils.jsm');
+        xpcIsWindows = ('@mozilla.org/windows-registry-key;1' in Cc);
+
+        text.get = function (url, callback) {
+            var inStream, convertStream, fileObj,
+                readData = {};
+
+            if (xpcIsWindows) {
+                url = url.replace(/\//g, '\\');
+            }
+
+            fileObj = new FileUtils.File(url);
+
+            //XPCOM, you so crazy
+            try {
+                inStream = Cc['@mozilla.org/network/file-input-stream;1']
+                           .createInstance(Ci.nsIFileInputStream);
+                inStream.init(fileObj, 1, 0, false);
+
+                convertStream = Cc['@mozilla.org/intl/converter-input-stream;1']
+                                .createInstance(Ci.nsIConverterInputStream);
+                convertStream.init(inStream, "utf-8", inStream.available(),
+                Ci.nsIConverterInputStream.DEFAULT_REPLACEMENT_CHARACTER);
+
+                convertStream.readString(inStream.available(), readData);
+                convertStream.close();
+                inStream.close();
+                callback(readData.value);
+            } catch (e) {
+                throw new Error((fileObj && fileObj.path || '') + ': ' + e);
+            }
+        };
+    }
+    return text;
+});
+
+define('text!jade/page1.html',[],function () { return '\n<section>\n  <article>\n    <p><strong>SVET Russian Media Group</strong>is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>\n  </article>\n  <article class="svet-services">\n    <h3>Our Products and Services:</h3>\n    <div class="productsServises">\n      <h4>SVET<br/>Daily Newspaper</h4>\n      <p>Over 48 pages – circulation 12,000 copies weekly. It is the most up-to-date Russian language newspaper outside of Russia. It appears on the newsstands after 3:00 PM. It is free of charge. In addition, subscribers receive newspapers in their homes via second class mail.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Russian-American Yellow Pages</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Saturday Plus Weekly Newspaper</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Radio<br/>Program “OSA”</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n  </article>\n</section>';});
+
+define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/page1.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
@@ -9932,6 +10325,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
     var GridLayout = require("famous/views/GridLayout");
 
     var HeaderView = require('views/HeaderView');
+    var page1 = require('text!jade/page1.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -9941,35 +10335,76 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             footerSize: 50
         });
 
+        /*Header*/
         this.header = new HeaderView();
         this.header.pipe(this);
+
+        /*Content*/
         this.contents = [];
-        this.content = new ScrollView() ;
-        //this.content.pipe(this);
+        this.content = new ScrollView();
 
-        this.contentTop = new Surface({
+        this.contentHome = new Surface({
             size: [undefined, undefined],
-            content:'I Love you :-). Vse bude ok!',
+            content: page1,
             properties: {
-                color:'red',
-                backgroundColor: '#A8FFFF'
+                fontSize: '16px',
+                backgroundColor: '#FFE1D0'
             }
         });
-
-        this.contentBottom = new Surface({
+        this.contentAbout = new Surface({
             size: [undefined, undefined],
-            content:'Bottom',
+            content: '<h2>SVET International publishing house</h2>' +
+            '<p>From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability. </p>',
             properties: {
-                backgroundColor: '#FAFBCB'
+                backgroundColor: '#E6FFEF'
             }
         });
-        this.contents.push(this.contentTop);
-        this.contents.push(this.contentBottom);
+        this.contentDemographics = new Surface({
+            size: [undefined, undefined],
+            content: '<h2>Demographics</h2>' +
+            '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
+            properties: {
+                backgroundColor: '#FFFAE2'
+            }
+        });
+        this.contentClients = new Surface({
+            size: [undefined, undefined],
+            content: '<h2>Demographics</h2>' +
+            '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
+            properties: {
+                backgroundColor: '#E6FFDB'
+            }
+        });
+        this.contentRadio = new Surface({
+            size: [undefined, undefined],
+            content: '<h2>Radio Program “OSA”</h2>' +
+            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
+            properties: {
+                backgroundColor: '#FFF1E9'
+            }
+        });
+        this.contentContact = new Surface({
+            size: [undefined, undefined],
+            content: '<h2>Contact Us</h2>' +
+            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
+            properties: {
+                backgroundColor: '#FFE1D0'
+            }
+        });
+        this.contents.push(this.contentHome);
+        this.contents.push(this.contentAbout);
+        this.contents.push(this.contentDemographics);
+        this.contents.push(this.contentClients);
+        this.contents.push(this.contentRadio);
+        this.contents.push(this.contentContact);
         this.content.sequenceFrom(this.contents);
 
-        this.contentTop.pipe(this.content);
-        this.contentBottom.pipe(this.content);
-        /* =Grid*/
+        this.contentHome.pipe(this.content);
+        this.contentAbout.pipe(this.content);
+        this.contentDemographics.pipe(this.content);
+        this.contentClients.pipe(this.content);
+        this.contentRadio.pipe(this.content);
+        this.contentContact.pipe(this.content);
 
         /* =Footer*/
         this.footers = [];
@@ -10006,8 +10441,8 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
         this.footers.push(this.footerRight);
         this.footer.sequenceFrom(this.footers);
 
-        this.layout.header.add(this.header);
         this.layout.content.add(this.content);
+        this.layout.header.add(this.header);
         this.layout.footer.add(this.footer);
 
         this._eventInput.pipe(this._eventOutput);
@@ -10027,111 +10462,112 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
 ;
 
 define('views/AppView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/inputs/MouseSync','famous/inputs/GenericSync','famous/transitions/Transitionable','famous/views/HeaderFooterLayout','./MenuView','./PageView'],function (require, exports, module) {
-	var Surface = require('famous/core/Surface');
-	var Modifier = require('famous/core/Modifier');
-	var Transform = require('famous/core/Transform');
-	var View = require('famous/core/View');
-	var MouseSync = require('famous/inputs/MouseSync');
-	var GenericSync = require('famous/inputs/GenericSync');
-	var Transitionable = require('famous/transitions/Transitionable');
-	var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var View = require('famous/core/View');
+    var MouseSync = require('famous/inputs/MouseSync');
+    var GenericSync = require('famous/inputs/GenericSync');
+    var Transitionable = require('famous/transitions/Transitionable');
+    var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
 
-	var MenuView = require('./MenuView');
-	var PageView = require('./PageView');
+    var MenuView = require('./MenuView');
+    var PageView = require('./PageView');
 
-	function AppView() {
-		View.apply(this, arguments);
+    function AppView() {
+        View.apply(this, arguments);
 
-		this.menuToggle = false;
-		this.menuView = new MenuView();
+        this.menuToggle = false;
+        this.menuView = new MenuView();
 
-		this.pageView = new PageView();
-		this.pageViewPos = new Transitionable(0);
-		this.pageModifier = new Modifier();
-		this.pageModifier.transformFrom(function () {
-			return Transform.translate(this.pageViewPos.get(), 0, 0);
-		}.bind(this));
-		this.pageView.on('menuToggle', this.toggleMenu.bind(this));
+        this.pageView = new PageView();
+        this.pageViewPos = new Transitionable(0);
+        this.pageModifier = new Modifier();
+        this.pageModifier.transformFrom(function () {
+            return Transform.translate(this.pageViewPos.get(), 0, 0);
+        }.bind(this));
+        this.pageView.on('menuToggle', this.toggleMenu.bind(this));
 
-		this.add(this.menuView);
-		this.add(this.pageModifier).add(this.pageView);
+        this.add(this.menuView);
+        this.add(this.pageModifier).add(this.pageView);
 
-		_handleTouch.call(this);
-	}
+        _handleTouch.call(this);
+    }
 
-	AppView.prototype = Object.create(View.prototype);
-	AppView.prototype.constructor = AppView;
+    AppView.prototype = Object.create(View.prototype);
+    AppView.prototype.constructor = AppView;
 
-	AppView.DEFAULT_OPTIONS = {
-		posThreshold: 95.5,
-		velThreshold: 0.75,
-		transition: {
-			duration: 300,
-			curve: 'easeOut'
-		},
-		maxOpenPos: 191
-	};
+    AppView.DEFAULT_OPTIONS = {
+        posThreshold: 95.5,
+        velThreshold: 0.75,
+        transition: {
+            duration: 300,
+            curve: 'easeOut'
+        },
+        maxOpenPos: 191
+    };
 
-	function _handleTouch() {
-		GenericSync.register(MouseSync);
-		this.sync = new GenericSync(function () {
-			return this.pageViewPos.get(0);
-		}.bind(this), {direction: GenericSync.DIRECTION_X});
+    function _handleTouch() {
+        GenericSync.register(MouseSync);
+        this.sync = new GenericSync(function () {
+            return this.pageViewPos.get(0);
+        }.bind(this), {direction: GenericSync.DIRECTION_X});
 
-		this.pageView.pipe(this.sync);
+        this.pageView.pipe(this.sync);
 
-		this.sync.on('update', function (data) {
-			if (this.pageViewPos.get() === 0 && data.position > 0) {
-				this.menuView.animateNavItems();
-			}
+        this.sync.on('update', function (data) {
+            if (this.pageViewPos.get() === 0 && data.position > 0) {
+                this.menuView.animateNavItems();
+            }
 
-			this.pageViewPos.set(Math.min(Math.max(0, data.position), this.options.maxOpenPos));
-		}.bind(this));
+            this.pageViewPos.set(Math.min(Math.max(0, data.position), this.options.maxOpenPos));
+        }.bind(this));
 
-		this.sync.on('end', (function (data) {
-			var velocity = data.velocity;
-			var position = this.pageViewPos.get();
+        this.sync.on('end', (function (data) {
+            var velocity = data.velocity;
+            var position = this.pageViewPos.get();
 
-			if (this.pageViewPos.get() > this.options.posThreshold) {
-				if (velocity < -this.options.velThreshold) {
-					this.slideLeft();
-				} else {
-					this.slideRight();
-				}
-			} else {
-				if (velocity > this.options.velThreshold) {
-					this.slideRight();
-				} else {
-					this.slideLeft();
-				}
-			}
-		}).bind(this));
-	}
+            if (this.pageViewPos.get() > this.options.posThreshold) {
+                if (velocity < -this.options.velThreshold) {
+                    this.slideLeft();
+                } else {
+                    this.slideRight();
+                }
+            } else {
+                if (velocity > this.options.velThreshold) {
+                    this.slideRight();
+                } else {
+                    this.slideLeft();
+                }
+            }
+        }).bind(this));
+    }
 
-	AppView.prototype.toggleMenu = function () {
-		if (this.menuToggle) {
-			this.slideLeft();
-		} else {
-			this.slideRight();
-			this.menuView.animateNavItems();
-		}
-		this.menuToggle = !this.menuToggle;
-	};
+    AppView.prototype.toggleMenu = function () {
+        if (this.menuToggle) {
+            this.slideLeft();
+        } else {
+            this.slideRight();
+            this.menuView.animateNavItems();
+        }
+        this.menuToggle = !this.menuToggle;
+    };
 
-	AppView.prototype.slideLeft = function () {
-		this.pageViewPos.set(0, this.options.transition, function () {
-			this.menuToggle = false;
-		}.bind(this));
-	};
+    AppView.prototype.slideLeft = function () {
+        this.pageViewPos.set(0, this.options.transition, function () {
+            this.menuToggle = false;
+        }.bind(this));
+    };
 
-	AppView.prototype.slideRight = function () {
-		this.pageViewPos.set(this.options.maxOpenPos, this.options.transition, function () {
-			this.menuToggle = true;
-		}.bind(this));
-	};
+    AppView.prototype.slideRight = function () {
+        this.pageViewPos.set(this.options.maxOpenPos, this.options.transition, function () {
+            this.menuToggle = true;
+        }.bind(this));
+    };
 
-	module.exports = AppView;
+    module.exports = AppView;
 });
+
 define('main',['require', 'famous/core/Engine', 'views/AppView'], function (require, Engine, AppView) {
 
     var Transform = require('famous/core/Transform');
@@ -10140,8 +10576,6 @@ define('main',['require', 'famous/core/Engine', 'views/AppView'], function (requ
     var appView = new AppView();
 
     mainContext.add(appView);
-
-
 });
 
 define("main", function(){});
@@ -10154,6 +10588,395 @@ define(['require', 'famous/core/Engine', 'views/AppView'], function (require, En
     var appView = new AppView();
 
     mainContext.add(appView);
+});
 
+/**
+ * @license RequireJS text 2.0.12 Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
+ * Available via the MIT or new BSD license.
+ * see: http://github.com/requirejs/text for details
+ */
+/*jslint regexp: true */
+/*global require, XMLHttpRequest, ActiveXObject,
+  define, window, process, Packages,
+  java, location, Components, FileUtils */
 
+define(['module'], function (module) {
+    'use strict';
+
+    var text, fs, Cc, Ci, xpcIsWindows,
+        progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
+        xmlRegExp = /^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,
+        bodyRegExp = /<body[^>]*>\s*([\s\S]+)\s*<\/body>/im,
+        hasLocation = typeof location !== 'undefined' && location.href,
+        defaultProtocol = hasLocation && location.protocol && location.protocol.replace(/\:/, ''),
+        defaultHostName = hasLocation && location.hostname,
+        defaultPort = hasLocation && (location.port || undefined),
+        buildMap = {},
+        masterConfig = (module.config && module.config()) || {};
+
+    text = {
+        version: '2.0.12',
+
+        strip: function (content) {
+            //Strips <?xml ...?> declarations so that external SVG and XML
+            //documents can be added to a document without worry. Also, if the string
+            //is an HTML document, only the part inside the body tag is returned.
+            if (content) {
+                content = content.replace(xmlRegExp, "");
+                var matches = content.match(bodyRegExp);
+                if (matches) {
+                    content = matches[1];
+                }
+            } else {
+                content = "";
+            }
+            return content;
+        },
+
+        jsEscape: function (content) {
+            return content.replace(/(['\\])/g, '\\$1')
+                .replace(/[\f]/g, "\\f")
+                .replace(/[\b]/g, "\\b")
+                .replace(/[\n]/g, "\\n")
+                .replace(/[\t]/g, "\\t")
+                .replace(/[\r]/g, "\\r")
+                .replace(/[\u2028]/g, "\\u2028")
+                .replace(/[\u2029]/g, "\\u2029");
+        },
+
+        createXhr: masterConfig.createXhr || function () {
+            //Would love to dump the ActiveX crap in here. Need IE 6 to die first.
+            var xhr, i, progId;
+            if (typeof XMLHttpRequest !== "undefined") {
+                return new XMLHttpRequest();
+            } else if (typeof ActiveXObject !== "undefined") {
+                for (i = 0; i < 3; i += 1) {
+                    progId = progIds[i];
+                    try {
+                        xhr = new ActiveXObject(progId);
+                    } catch (e) {}
+
+                    if (xhr) {
+                        progIds = [progId];  // so faster next time
+                        break;
+                    }
+                }
+            }
+
+            return xhr;
+        },
+
+        /**
+         * Parses a resource name into its component parts. Resource names
+         * look like: module/name.ext!strip, where the !strip part is
+         * optional.
+         * @param {String} name the resource name
+         * @returns {Object} with properties "moduleName", "ext" and "strip"
+         * where strip is a boolean.
+         */
+        parseName: function (name) {
+            var modName, ext, temp,
+                strip = false,
+                index = name.indexOf("."),
+                isRelative = name.indexOf('./') === 0 ||
+                             name.indexOf('../') === 0;
+
+            if (index !== -1 && (!isRelative || index > 1)) {
+                modName = name.substring(0, index);
+                ext = name.substring(index + 1, name.length);
+            } else {
+                modName = name;
+            }
+
+            temp = ext || modName;
+            index = temp.indexOf("!");
+            if (index !== -1) {
+                //Pull off the strip arg.
+                strip = temp.substring(index + 1) === "strip";
+                temp = temp.substring(0, index);
+                if (ext) {
+                    ext = temp;
+                } else {
+                    modName = temp;
+                }
+            }
+
+            return {
+                moduleName: modName,
+                ext: ext,
+                strip: strip
+            };
+        },
+
+        xdRegExp: /^((\w+)\:)?\/\/([^\/\\]+)/,
+
+        /**
+         * Is an URL on another domain. Only works for browser use, returns
+         * false in non-browser environments. Only used to know if an
+         * optimized .js version of a text resource should be loaded
+         * instead.
+         * @param {String} url
+         * @returns Boolean
+         */
+        useXhr: function (url, protocol, hostname, port) {
+            var uProtocol, uHostName, uPort,
+                match = text.xdRegExp.exec(url);
+            if (!match) {
+                return true;
+            }
+            uProtocol = match[2];
+            uHostName = match[3];
+
+            uHostName = uHostName.split(':');
+            uPort = uHostName[1];
+            uHostName = uHostName[0];
+
+            return (!uProtocol || uProtocol === protocol) &&
+                   (!uHostName || uHostName.toLowerCase() === hostname.toLowerCase()) &&
+                   ((!uPort && !uHostName) || uPort === port);
+        },
+
+        finishLoad: function (name, strip, content, onLoad) {
+            content = strip ? text.strip(content) : content;
+            if (masterConfig.isBuild) {
+                buildMap[name] = content;
+            }
+            onLoad(content);
+        },
+
+        load: function (name, req, onLoad, config) {
+            //Name has format: some.module.filext!strip
+            //The strip part is optional.
+            //if strip is present, then that means only get the string contents
+            //inside a body tag in an HTML string. For XML/SVG content it means
+            //removing the <?xml ...?> declarations so the content can be inserted
+            //into the current doc without problems.
+
+            // Do not bother with the work if a build and text will
+            // not be inlined.
+            if (config && config.isBuild && !config.inlineText) {
+                onLoad();
+                return;
+            }
+
+            masterConfig.isBuild = config && config.isBuild;
+
+            var parsed = text.parseName(name),
+                nonStripName = parsed.moduleName +
+                    (parsed.ext ? '.' + parsed.ext : ''),
+                url = req.toUrl(nonStripName),
+                useXhr = (masterConfig.useXhr) ||
+                         text.useXhr;
+
+            // Do not load if it is an empty: url
+            if (url.indexOf('empty:') === 0) {
+                onLoad();
+                return;
+            }
+
+            //Load the text. Use XHR if possible and in a browser.
+            if (!hasLocation || useXhr(url, defaultProtocol, defaultHostName, defaultPort)) {
+                text.get(url, function (content) {
+                    text.finishLoad(name, parsed.strip, content, onLoad);
+                }, function (err) {
+                    if (onLoad.error) {
+                        onLoad.error(err);
+                    }
+                });
+            } else {
+                //Need to fetch the resource across domains. Assume
+                //the resource has been optimized into a JS module. Fetch
+                //by the module name + extension, but do not include the
+                //!strip part to avoid file system issues.
+                req([nonStripName], function (content) {
+                    text.finishLoad(parsed.moduleName + '.' + parsed.ext,
+                                    parsed.strip, content, onLoad);
+                });
+            }
+        },
+
+        write: function (pluginName, moduleName, write, config) {
+            if (buildMap.hasOwnProperty(moduleName)) {
+                var content = text.jsEscape(buildMap[moduleName]);
+                write.asModule(pluginName + "!" + moduleName,
+                               "define(function () { return '" +
+                                   content +
+                               "';});\n");
+            }
+        },
+
+        writeFile: function (pluginName, moduleName, req, write, config) {
+            var parsed = text.parseName(moduleName),
+                extPart = parsed.ext ? '.' + parsed.ext : '',
+                nonStripName = parsed.moduleName + extPart,
+                //Use a '.js' file name so that it indicates it is a
+                //script that can be loaded across domains.
+                fileName = req.toUrl(parsed.moduleName + extPart) + '.js';
+
+            //Leverage own load() method to load plugin value, but only
+            //write out values that do not have the strip argument,
+            //to avoid any potential issues with ! in file names.
+            text.load(nonStripName, req, function (value) {
+                //Use own write() method to construct full module value.
+                //But need to create shell that translates writeFile's
+                //write() to the right interface.
+                var textWrite = function (contents) {
+                    return write(fileName, contents);
+                };
+                textWrite.asModule = function (moduleName, contents) {
+                    return write.asModule(moduleName, fileName, contents);
+                };
+
+                text.write(pluginName, nonStripName, textWrite, config);
+            }, config);
+        }
+    };
+
+    if (masterConfig.env === 'node' || (!masterConfig.env &&
+            typeof process !== "undefined" &&
+            process.versions &&
+            !!process.versions.node &&
+            !process.versions['node-webkit'])) {
+        //Using special require.nodeRequire, something added by r.js.
+        fs = require.nodeRequire('fs');
+
+        text.get = function (url, callback, errback) {
+            try {
+                var file = fs.readFileSync(url, 'utf8');
+                //Remove BOM (Byte Mark Order) from utf8 files if it is there.
+                if (file.indexOf('\uFEFF') === 0) {
+                    file = file.substring(1);
+                }
+                callback(file);
+            } catch (e) {
+                if (errback) {
+                    errback(e);
+                }
+            }
+        };
+    } else if (masterConfig.env === 'xhr' || (!masterConfig.env &&
+            text.createXhr())) {
+        text.get = function (url, callback, errback, headers) {
+            var xhr = text.createXhr(), header;
+            xhr.open('GET', url, true);
+
+            //Allow plugins direct access to xhr headers
+            if (headers) {
+                for (header in headers) {
+                    if (headers.hasOwnProperty(header)) {
+                        xhr.setRequestHeader(header.toLowerCase(), headers[header]);
+                    }
+                }
+            }
+
+            //Allow overrides specified in config
+            if (masterConfig.onXhr) {
+                masterConfig.onXhr(xhr, url);
+            }
+
+            xhr.onreadystatechange = function (evt) {
+                var status, err;
+                //Do not explicitly handle errors, those should be
+                //visible via console output in the browser.
+                if (xhr.readyState === 4) {
+                    status = xhr.status || 0;
+                    if (status > 399 && status < 600) {
+                        //An http 4xx or 5xx error. Signal an error.
+                        err = new Error(url + ' HTTP status: ' + status);
+                        err.xhr = xhr;
+                        if (errback) {
+                            errback(err);
+                        }
+                    } else {
+                        callback(xhr.responseText);
+                    }
+
+                    if (masterConfig.onXhrComplete) {
+                        masterConfig.onXhrComplete(xhr, url);
+                    }
+                }
+            };
+            xhr.send(null);
+        };
+    } else if (masterConfig.env === 'rhino' || (!masterConfig.env &&
+            typeof Packages !== 'undefined' && typeof java !== 'undefined')) {
+        //Why Java, why is this so awkward?
+        text.get = function (url, callback) {
+            var stringBuffer, line,
+                encoding = "utf-8",
+                file = new java.io.File(url),
+                lineSeparator = java.lang.System.getProperty("line.separator"),
+                input = new java.io.BufferedReader(new java.io.InputStreamReader(new java.io.FileInputStream(file), encoding)),
+                content = '';
+            try {
+                stringBuffer = new java.lang.StringBuffer();
+                line = input.readLine();
+
+                // Byte Order Mark (BOM) - The Unicode Standard, version 3.0, page 324
+                // http://www.unicode.org/faq/utf_bom.html
+
+                // Note that when we use utf-8, the BOM should appear as "EF BB BF", but it doesn't due to this bug in the JDK:
+                // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4508058
+                if (line && line.length() && line.charAt(0) === 0xfeff) {
+                    // Eat the BOM, since we've already found the encoding on this file,
+                    // and we plan to concatenating this buffer with others; the BOM should
+                    // only appear at the top of a file.
+                    line = line.substring(1);
+                }
+
+                if (line !== null) {
+                    stringBuffer.append(line);
+                }
+
+                while ((line = input.readLine()) !== null) {
+                    stringBuffer.append(lineSeparator);
+                    stringBuffer.append(line);
+                }
+                //Make sure we return a JavaScript string and not a Java string.
+                content = String(stringBuffer.toString()); //String
+            } finally {
+                input.close();
+            }
+            callback(content);
+        };
+    } else if (masterConfig.env === 'xpconnect' || (!masterConfig.env &&
+            typeof Components !== 'undefined' && Components.classes &&
+            Components.interfaces)) {
+        //Avert your gaze!
+        Cc = Components.classes;
+        Ci = Components.interfaces;
+        Components.utils['import']('resource://gre/modules/FileUtils.jsm');
+        xpcIsWindows = ('@mozilla.org/windows-registry-key;1' in Cc);
+
+        text.get = function (url, callback) {
+            var inStream, convertStream, fileObj,
+                readData = {};
+
+            if (xpcIsWindows) {
+                url = url.replace(/\//g, '\\');
+            }
+
+            fileObj = new FileUtils.File(url);
+
+            //XPCOM, you so crazy
+            try {
+                inStream = Cc['@mozilla.org/network/file-input-stream;1']
+                           .createInstance(Ci.nsIFileInputStream);
+                inStream.init(fileObj, 1, 0, false);
+
+                convertStream = Cc['@mozilla.org/intl/converter-input-stream;1']
+                                .createInstance(Ci.nsIConverterInputStream);
+                convertStream.init(inStream, "utf-8", inStream.available(),
+                Ci.nsIConverterInputStream.DEFAULT_REPLACEMENT_CHARACTER);
+
+                convertStream.readString(inStream.available(), readData);
+                convertStream.close();
+                inStream.close();
+                callback(readData.value);
+            } catch (e) {
+                throw new Error((fileObj && fileObj.path || '') + ': ' + e);
+            }
+        };
+    }
+    return text;
 });
