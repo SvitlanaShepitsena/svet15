@@ -2,7 +2,7 @@
 @import 'reset.css'
 
 
-zize-med = 960px
+size-med = 960px
 
 html
     background: #fff;
@@ -34,6 +34,9 @@ article
 
 .productsServises
     col(1 / 4, cycle:4)
+    +below(size-med)
+        col(1 / 2, cycle:2)
+
     h4
         font-size 14px
     p
