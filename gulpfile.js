@@ -31,6 +31,7 @@ var express = require('express'),
     concatCss = require('gulp-concat-css'),
     assets = require("gulp-assets"),
     minifyHTML = require("gulp-minify-html"),
+    changed = require('gulp-changed'),
     processhtml = require('gulp-processhtml');
 
 var dev = 'app/build/',
@@ -59,13 +60,15 @@ function startExpress() {
 }
 
 gulp.task('img', function () {
+	var DEST = dev + 'img';
     return gulp.src('app/img/**/*')
+        .pipe(changed(DEST))
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
-        .pipe(gulp.dest(dev + 'img'));
+        .pipe(gulp.dest(DEST));
 });
 
 gulp.task('moveUp', function () {
@@ -132,6 +135,7 @@ gulp.task('jade:v', function () {
 });
 
 gulp.task('js', function () {
+	var DEST = dev + 'js';
     gulp.src(['app/src/*.js', 'app/lib/*.js'])
         .pipe(rjs(
             {
@@ -150,7 +154,7 @@ gulp.task('js', function () {
             }))
         //.pipe(uglify({mangle: true}))
         .pipe(concat('app.js'))
-        .pipe(gulp.dest(dev + 'js'))
+        .pipe(gulp.dest(DEST))
         .pipe(reload({stream: true}));
 });
 
