@@ -14,9 +14,3 @@ node_modules
 ########
 *.log
 
-# Project Files #
-#################
-dist
-.tmp
-app/lib
-.yo-rc.json
