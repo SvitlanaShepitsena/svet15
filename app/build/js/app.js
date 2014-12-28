@@ -10313,7 +10313,7 @@ define('text',['module'], function (module) {
     return text;
 });
 
-define('text!jade/page1.html',[],function () { return '\n<section>\n  <article>\n    <p><strong>SVET Russian Media Group</strong>is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>\n    <h3>Our Products and Services:</h3>\n  </article>\n  <article class="svet-services">\n    <div class="productsServises">\n      <h4>SVET Daily Newspaper</h4>\n      <p>Over 48 pages – circulation 12,000 copies weekly. It is the most up-to-date Russian language newspaper outside of Russia. It appears on the newsstands after 3:00 PM. It is free of charge. In addition, subscribers receive newspapers in their homes via second class mail.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Russian-American Yellow Pages</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Saturday Plus Weekly Newspaper</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Radio Program “OSA”</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n  </article>\n</section>';});
+define('text!jade/page1.html',[],function () { return '\n<section>\n  <article>\n    <p><strong>SVET Russian Media Group</strong>is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>\n  </article>\n  <article class="svet-services">\n    <h3>Our Products and Services:</h3>\n    <div class="productsServises">\n      <h4>SVET<br/>Daily Newspaper</h4>\n      <p>Over 48 pages – circulation 12,000 copies weekly. It is the most up-to-date Russian language newspaper outside of Russia. It appears on the newsstands after 3:00 PM. It is free of charge. In addition, subscribers receive newspapers in their homes via second class mail.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Russian-American Yellow Pages</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Saturday Plus Weekly Newspaper</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Radio<br/>Program “OSA”</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n  </article>\n</section>';});
 
 define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/page1.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
@@ -10462,111 +10462,112 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
 ;
 
 define('views/AppView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/inputs/MouseSync','famous/inputs/GenericSync','famous/transitions/Transitionable','famous/views/HeaderFooterLayout','./MenuView','./PageView'],function (require, exports, module) {
-	var Surface = require('famous/core/Surface');
-	var Modifier = require('famous/core/Modifier');
-	var Transform = require('famous/core/Transform');
-	var View = require('famous/core/View');
-	var MouseSync = require('famous/inputs/MouseSync');
-	var GenericSync = require('famous/inputs/GenericSync');
-	var Transitionable = require('famous/transitions/Transitionable');
-	var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var View = require('famous/core/View');
+    var MouseSync = require('famous/inputs/MouseSync');
+    var GenericSync = require('famous/inputs/GenericSync');
+    var Transitionable = require('famous/transitions/Transitionable');
+    var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
 
-	var MenuView = require('./MenuView');
-	var PageView = require('./PageView');
+    var MenuView = require('./MenuView');
+    var PageView = require('./PageView');
 
-	function AppView() {
-		View.apply(this, arguments);
+    function AppView() {
+        View.apply(this, arguments);
 
-		this.menuToggle = false;
-		this.menuView = new MenuView();
+        this.menuToggle = false;
+        this.menuView = new MenuView();
 
-		this.pageView = new PageView();
-		this.pageViewPos = new Transitionable(0);
-		this.pageModifier = new Modifier();
-		this.pageModifier.transformFrom(function () {
-			return Transform.translate(this.pageViewPos.get(), 0, 0);
-		}.bind(this));
-		this.pageView.on('menuToggle', this.toggleMenu.bind(this));
+        this.pageView = new PageView();
+        this.pageViewPos = new Transitionable(0);
+        this.pageModifier = new Modifier();
+        this.pageModifier.transformFrom(function () {
+            return Transform.translate(this.pageViewPos.get(), 0, 0);
+        }.bind(this));
+        this.pageView.on('menuToggle', this.toggleMenu.bind(this));
 
-		this.add(this.menuView);
-		this.add(this.pageModifier).add(this.pageView);
+        this.add(this.menuView);
+        this.add(this.pageModifier).add(this.pageView);
 
-		_handleTouch.call(this);
-	}
+        _handleTouch.call(this);
+    }
 
-	AppView.prototype = Object.create(View.prototype);
-	AppView.prototype.constructor = AppView;
+    AppView.prototype = Object.create(View.prototype);
+    AppView.prototype.constructor = AppView;
 
-	AppView.DEFAULT_OPTIONS = {
-		posThreshold: 95.5,
-		velThreshold: 0.75,
-		transition: {
-			duration: 300,
-			curve: 'easeOut'
-		},
-		maxOpenPos: 191
-	};
+    AppView.DEFAULT_OPTIONS = {
+        posThreshold: 95.5,
+        velThreshold: 0.75,
+        transition: {
+            duration: 300,
+            curve: 'easeOut'
+        },
+        maxOpenPos: 191
+    };
 
-	function _handleTouch() {
-		GenericSync.register(MouseSync);
-		this.sync = new GenericSync(function () {
-			return this.pageViewPos.get(0);
-		}.bind(this), {direction: GenericSync.DIRECTION_X});
+    function _handleTouch() {
+        GenericSync.register(MouseSync);
+        this.sync = new GenericSync(function () {
+            return this.pageViewPos.get(0);
+        }.bind(this), {direction: GenericSync.DIRECTION_X});
 
-		this.pageView.pipe(this.sync);
+        this.pageView.pipe(this.sync);
 
-		this.sync.on('update', function (data) {
-			if (this.pageViewPos.get() === 0 && data.position > 0) {
-				this.menuView.animateNavItems();
-			}
+        this.sync.on('update', function (data) {
+            if (this.pageViewPos.get() === 0 && data.position > 0) {
+                this.menuView.animateNavItems();
+            }
 
-			this.pageViewPos.set(Math.min(Math.max(0, data.position), this.options.maxOpenPos));
-		}.bind(this));
+            this.pageViewPos.set(Math.min(Math.max(0, data.position), this.options.maxOpenPos));
+        }.bind(this));
 
-		this.sync.on('end', (function (data) {
-			var velocity = data.velocity;
-			var position = this.pageViewPos.get();
+        this.sync.on('end', (function (data) {
+            var velocity = data.velocity;
+            var position = this.pageViewPos.get();
 
-			if (this.pageViewPos.get() > this.options.posThreshold) {
-				if (velocity < -this.options.velThreshold) {
-					this.slideLeft();
-				} else {
-					this.slideRight();
-				}
-			} else {
-				if (velocity > this.options.velThreshold) {
-					this.slideRight();
-				} else {
-					this.slideLeft();
-				}
-			}
-		}).bind(this));
-	}
+            if (this.pageViewPos.get() > this.options.posThreshold) {
+                if (velocity < -this.options.velThreshold) {
+                    this.slideLeft();
+                } else {
+                    this.slideRight();
+                }
+            } else {
+                if (velocity > this.options.velThreshold) {
+                    this.slideRight();
+                } else {
+                    this.slideLeft();
+                }
+            }
+        }).bind(this));
+    }
 
-	AppView.prototype.toggleMenu = function () {
-		if (this.menuToggle) {
-			this.slideLeft();
-		} else {
-			this.slideRight();
-			this.menuView.animateNavItems();
-		}
-		this.menuToggle = !this.menuToggle;
-	};
+    AppView.prototype.toggleMenu = function () {
+        if (this.menuToggle) {
+            this.slideLeft();
+        } else {
+            this.slideRight();
+            this.menuView.animateNavItems();
+        }
+        this.menuToggle = !this.menuToggle;
+    };
 
-	AppView.prototype.slideLeft = function () {
-		this.pageViewPos.set(0, this.options.transition, function () {
-			this.menuToggle = false;
-		}.bind(this));
-	};
+    AppView.prototype.slideLeft = function () {
+        this.pageViewPos.set(0, this.options.transition, function () {
+            this.menuToggle = false;
+        }.bind(this));
+    };
 
-	AppView.prototype.slideRight = function () {
-		this.pageViewPos.set(this.options.maxOpenPos, this.options.transition, function () {
-			this.menuToggle = true;
-		}.bind(this));
-	};
+    AppView.prototype.slideRight = function () {
+        this.pageViewPos.set(this.options.maxOpenPos, this.options.transition, function () {
+            this.menuToggle = true;
+        }.bind(this));
+    };
 
-	module.exports = AppView;
+    module.exports = AppView;
 });
+
 define('main',['require', 'famous/core/Engine', 'views/AppView'], function (require, Engine, AppView) {
 
     var Transform = require('famous/core/Transform');

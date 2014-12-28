@@ -35,7 +35,7 @@ var express = require('express'),
 
 var dev = 'app/build/',
     dist = 'app/dist/';
-var currentView=dist;
+var currentView=dev;
 
 var onError = function (err) {
     gutil.beep();
