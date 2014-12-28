@@ -1,19 +1,15 @@
 {
-  "name": "requirejs-seed",
-  "description": "A seed project used to keep track of what yo famous scaffolds....",
+  "name": "svet",
+  "description": "Russian Media Group",
   "version": "0.4.0",
-  "homepage": "https://github.com/Famous/requirejs-seed",
+  "homepage": "https://github.com/ChicagoBusinessIntelligence1/svet15",
   "author": {
-    "name": "Myles Borins",
-    "url": "http://github.com/Famous/"
+    "name": "Svetlana Shepitsena"
   },
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Famous/requirejs-seed.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Famous/requirejs-seed/issues"
+    "url": "git://github.com/ChicagoBusinessIntelligence1/svet15"
   },
   "engines": {
     "node": ">= 0.10.0"
@@ -25,22 +21,6 @@
     "error-handler": "^0.1.4",
     "errorhandler": "^1.3.0",
     "express": "~4.1.1",
-    "express-livereload": "0.0.24",
-    "grunt": "~0.4.4",
-    "grunt-bower-requirejs": "^1.1.0",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-connect": "^0.9.0",
-    "grunt-contrib-copy": "^0.7.0",
-    "grunt-contrib-cssmin": "^0.10.0",
-    "grunt-contrib-htmlmin": "^0.3.0",
-    "grunt-contrib-requirejs": "^0.4.4",
-    "grunt-contrib-uglify": "^0.6.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-eslint": "^2.0.0",
-    "grunt-jscs": "^1.0.0",
-    "grunt-processhtml": "^0.3.3",
-    "grunt-rev": "^0.1.0",
     "grunt-usemin": "^2.1.1",
     "gulp": "^3.8.10",
     "gulp-amd-optimizer": "^0.3.2",
@@ -62,8 +42,6 @@
     "gulp-inject-string": "0.0.2",
     "gulp-jade": "^0.8.0",
     "gulp-jshint": "^1.8",
-    "gulp-karma": "0.0.4",
-    "gulp-livereload": "^2.1.1",
     "gulp-load-plugins": "^0.5",
     "gulp-minify-css": "^0.3.11",
     "gulp-minify-html": "~0.1.3",
@@ -75,7 +53,6 @@
     "gulp-order": "^1.1.1",
     "gulp-plumber": "^0.6.5",
     "gulp-print": "^1.1.0",
-    "gulp-protractor": "0.0.7",
     "gulp-rename": "^1.2.0",
     "gulp-replace": "^0.4",
     "gulp-requirejs": "^0.1.3",
@@ -95,8 +72,6 @@
     "http-proxy": "^1.1",
     "jade": "~0.31.2",
     "jshint-stylish": "^0.4",
-    "karma-jasmine": "^0.1.5",
-    "load-grunt-config": "^0.16.0",
     "lodash": "^2.4.1",
     "main-bower-files": "^1.0",
     "merge-stream": "^0.1.5",
