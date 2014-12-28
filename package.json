@@ -100,6 +100,7 @@
     "amd-optimize": "^0.4.0",
     "browser-sync": "^1.8.2",
     "connect-browser-sync": "^1.0.2",
+    "consolidate": "^0.10.0",
     "ejs": "^1.0.0",
     "express": "^4.10.6",
     "express-jade": "0.0.3",
