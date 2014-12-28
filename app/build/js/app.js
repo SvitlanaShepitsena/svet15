@@ -10313,7 +10313,7 @@ define('text',['module'], function (module) {
     return text;
 });
 
-define('text!jade/page1.html',[],function () { return '\n<section>\n  <article>\n    <p><strong>\n        <SVET>Russian Media Group</SVET></strong>is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>\n  </article>\n  <h3 class="text-center">Our Products and Services:</h3>\n  <article class="svet-services">\n    <div class="productsServises">\n      <h4>SVET<br/>Daily Newspaper</h4>\n      <p>Over 48 pages – circulation 12,000 copies weekly. It is the most up-to-date Russian language newspaper outside of Russia. It appears on the newsstands after 3:00 PM. It is free of charge. In addition, subscribers receive newspapers in their homes via second class mail.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Russian-American<br/>Yellow Pages</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Saturday Plus Weekly Newspaper</h4>\n      <p>Free Paper with over 48 pages weekly. It covers entertainment and other social news in Unites States and abroad. It packs the latest information on travel destinations and hot vacation spots.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Radio<br/>Program “OSA”</h4>\n      <p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m. listen to Radio OSA programs.</p>\n    </div>\n  </article>\n  <article class="svet-market">\n    <h2 class="text-center">Is the Russian-speaking population in the U.S. an attractive market?</h2>\n    <p> Definitely! Russian-American community consists not only of Russians, but Russian speaking ethnicities such as Ukrainians, Bulgarians, Lithuanian, and other Eastern European nationalities. With an average household income of $87,500, the Russian-speaking community is among the wealthiest, most educated groups in Chicagoland. Their lifestyle preferences and wealth make the Russian speaking segment of Chicago an attractive target market for advertisement.</p>\n  </article>\n</section>';});
+define('text!jade/page1.html',[],function () { return '\n<section>\n  <article>\n    <p><strong>\n        <SVET>Russian Media Group</SVET></strong>is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>\n  </article>\n  <article class="svet-services">\n    <h3>Our Products and Services:</h3>\n    <div class="productsServises">\n      <h4>SVET<br/>Daily Newspaper</h4>\n      <p>Over 48 pages – circulation 12,000 copies weekly. It is the most up-to-date Russian language newspaper outside of Russia. It appears on the newsstands after 3:00 PM. It is free of charge. In addition, subscribers receive newspapers in their homes via second class mail.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Russian-American<br/>Yellow Pages</h4>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Saturday Plus Weekly Newspaper</h4>\n      <p>Free Paper with over 48 pages weekly. It covers entertainment and other social news in Unites States and abroad. It packs the latest information on travel destinations and hot vacation spots.</p>\n    </div>\n    <div class="productsServises">\n      <h4>Radio<br/>Program “OSA”</h4>\n      <p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m. listen to Radio OSA programs.</p>\n    </div>\n  </article>\n  <article class="svet-market">\n    <h2 class="text-center">Is the Russian-speaking population in the U.S. an attractive market?</h2>\n    <p> Definitely! Russian-American community consists not only of Russians, but Russian speaking ethnicities such as Ukrainians, Bulgarians, Lithuanian, and other Eastern European nationalities. With an average household income of $87,500, the Russian-speaking community is among the wealthiest, most educated groups in Chicagoland. Their lifestyle preferences and wealth make the Russian speaking segment of Chicago an attractive target market for advertisement.</p>\n  </article>\n</section>';});
 
 define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/page1.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
@@ -10980,3 +10980,464 @@ define(['module'], function (module) {
     }
     return text;
 });
+
+define(function (require, exports, module) {
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var View = require('famous/core/View');
+    var MouseSync = require('famous/inputs/MouseSync');
+    var GenericSync = require('famous/inputs/GenericSync');
+    var Transitionable = require('famous/transitions/Transitionable');
+    var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
+
+    var MenuView = require('./MenuView');
+    var PageView = require('./PageView');
+
+    function AppView() {
+        View.apply(this, arguments);
+
+        this.menuToggle = false;
+        this.menuView = new MenuView();
+
+        this.pageView = new PageView();
+        this.pageViewPos = new Transitionable(0);
+        this.pageModifier = new Modifier();
+        this.pageModifier.transformFrom(function () {
+            return Transform.translate(this.pageViewPos.get(), 0, 0);
+        }.bind(this));
+        this.pageView.on('menuToggle', this.toggleMenu.bind(this));
+
+        this.add(this.menuView);
+        this.add(this.pageModifier).add(this.pageView);
+
+        _handleTouch.call(this);
+    }
+
+    AppView.prototype = Object.create(View.prototype);
+    AppView.prototype.constructor = AppView;
+
+    AppView.DEFAULT_OPTIONS = {
+        posThreshold: 95.5,
+        velThreshold: 0.75,
+        transition: {
+            duration: 300,
+            curve: 'easeOut'
+        },
+        maxOpenPos: 191
+    };
+
+    function _handleTouch() {
+        GenericSync.register(MouseSync);
+        this.sync = new GenericSync(function () {
+            return this.pageViewPos.get(0);
+        }.bind(this), {direction: GenericSync.DIRECTION_X});
+
+        this.pageView.pipe(this.sync);
+
+        this.sync.on('update', function (data) {
+            if (this.pageViewPos.get() === 0 && data.position > 0) {
+                this.menuView.animateNavItems();
+            }
+
+            this.pageViewPos.set(Math.min(Math.max(0, data.position), this.options.maxOpenPos));
+        }.bind(this));
+
+        this.sync.on('end', (function (data) {
+            var velocity = data.velocity;
+            var position = this.pageViewPos.get();
+
+            if (this.pageViewPos.get() > this.options.posThreshold) {
+                if (velocity < -this.options.velThreshold) {
+                    this.slideLeft();
+                } else {
+                    this.slideRight();
+                }
+            } else {
+                if (velocity > this.options.velThreshold) {
+                    this.slideRight();
+                } else {
+                    this.slideLeft();
+                }
+            }
+        }).bind(this));
+    }
+
+    AppView.prototype.toggleMenu = function () {
+        if (this.menuToggle) {
+            this.slideLeft();
+        } else {
+            this.slideRight();
+            this.menuView.animateNavItems();
+        }
+        this.menuToggle = !this.menuToggle;
+    };
+
+    AppView.prototype.slideLeft = function () {
+        this.pageViewPos.set(0, this.options.transition, function () {
+            this.menuToggle = false;
+        }.bind(this));
+    };
+
+    AppView.prototype.slideRight = function () {
+        this.pageViewPos.set(this.options.maxOpenPos, this.options.transition, function () {
+            this.menuToggle = true;
+        }.bind(this));
+    };
+
+    module.exports = AppView;
+});
+
+define(function (require, exports, module) {
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var View = require('famous/core/View');
+
+    function HeaderView() {
+        View.apply(this, arguments);
+
+        _createHeader.call(this);
+        _setListeners.call(this);
+    }
+
+    HeaderView.prototype = Object.create(View.prototype);
+    HeaderView.prototype.constructor = HeaderView;
+
+    function _createHeader() {
+        var backgroundSurface = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                // coloring pink, but background should not be visible anyway when viewed at device screen size
+                backgroundColor: '#FC6E51'
+                //backgroundColor: '#C8645B'
+            }
+        });
+
+        this.hamburgerSurface = new Surface({
+            size: [53, undefined],
+            content: '<img width="53" src="img/hamburger-template.png"/>'
+        });
+
+
+        this.titleSurface = new Surface({
+            size: [267, undefined],
+            content: 'SVET Media Group',
+            properties: {
+                fontSize: '22px',
+                textAlign: 'center',
+                color: "white",
+                lineHeight: "50px",
+                fontWeight: '700'
+            }
+        });
+
+        this.hamburgerModifier = new Modifier({
+            transform: Transform.translate(0, 0, 1)
+        });
+
+        this.titleModifier = new Modifier({
+            origin: [0.5, 0],
+            align: [0.5, 0]
+        });
+
+        this._add(this.hamburgerModifier).add(this.hamburgerSurface);
+        this._add(this.titleModifier).add(this.titleSurface);
+
+        this._add(backgroundSurface);
+    }
+
+    function _setListeners() {
+        this.hamburgerSurface.on('touchstart', function () {
+            this.hamburgerModifier.setOpacity(0.5);
+        }.bind(this));
+
+        this.hamburgerSurface.on('mousedown', function () {
+            this.hamburgerModifier.setOpacity(0.5);
+        }.bind(this));
+
+        this.hamburgerSurface.on('click', function () {
+            this.hamburgerModifier.setOpacity(1);
+            this._eventOutput.emit('menuToggle');
+        }.bind(this));
+    }
+
+    module.exports = HeaderView;
+});
+
+define(function (require, exports, module) {
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var View = require('famous/core/View');
+    var Timer = require('famous/utilities/Timer');
+
+    var NavigationView = require('./NavigationView');
+
+    function MenuView() {
+        View.apply(this, arguments);
+
+        _createBacking.call(this);
+        _createNavigationViews.call(this);
+    }
+
+    MenuView.prototype = Object.create(View.prototype);
+    MenuView.prototype.constructor = MenuView;
+
+    MenuView.prototype.resetNavItems = function () {
+        for (var i = 0; i < this.navModifiers.length; i++) {
+            var initX = -this.options.navWidth / 4;
+            var initY = this.options.topOffset + this.options.navItemOffset * i + this.options.navHeight * 2;
+
+            this.navModifiers[i].setOpacity(0.0);
+            this.navModifiers[i].setTransform(Transform.translate(initX, initY, 0));
+        }
+    };
+
+    MenuView.prototype.animateNavItems = function () {
+        this.resetNavItems();
+
+        for (var i = 0; i < this.navModifiers.length; i++) {
+            // use Timer.setTimeout instead of window.setTimeout
+            // Time can be found in famous/utilities
+
+            Timer.setTimeout(function (i) {
+                var yOffset = this.options.topOffset + this.options.navItemOffset * i;
+
+                this.navModifiers[i].setOpacity(1, {duration: this.options.duration, curve: 'easeOut'});
+                this.navModifiers[i].setTransform(
+                    Transform.translate(0, yOffset, 0),
+                    {duration: this.options.duration, curve: 'easeOut'});
+            }.bind(this, i), i * this.options.staggerDelay);
+        }
+    };
+
+    MenuView.DEFAULT_OPTIONS = {
+        navWidth: 191,
+        navHeight: 81,
+        topOffset: 10,
+        navItemOffset: 90,
+        duration: 400,
+        staggerDelay: 35
+    };
+
+    function _createBacking() {
+        var backSurface = new Surface({
+            size: [this.options.width, this.options.height],
+            properties: {
+                backgroundColor: '#595153'
+            }
+        });
+
+        this._add(backSurface);
+    }
+
+    function _createNavigationViews() {
+        this.navModifiers = [];
+
+        var navData = [
+            {iconUrl: 'img/nav-icons/home.png'},
+            {iconUrl: 'img/nav-icons/about-us.png'},
+            {iconUrl: 'img/nav-icons/demographics.png'},
+            {iconUrl: 'img/nav-icons/clients.png'},
+            {iconUrl: 'img/nav-icons/radio.png'},
+            {iconUrl: 'img/nav-icons/contact-us.png'},
+        ];
+
+        for (var i = 0; i < navData.length; i++) {
+            var navView = new NavigationView({
+                width: this.options.navWidth,
+                height: this.options.navHeight,
+                iconUrl: navData[i].iconUrl
+            });
+
+            var yOffset = this.options.topOffset + this.options.navItemOffset * i;
+
+            var navModifier = new Modifier({
+                transform: Transform.translate(0, yOffset, 0)
+            });
+
+            this.navModifiers.push(navModifier);
+            this._add(navModifier).add(navView);
+        }
+    }
+
+    module.exports = MenuView;
+});
+
+define(function(require, exports, module) {
+    var Surface         = require('famous/core/Surface');
+    var Modifier        = require('famous/core/Modifier');
+    var Transform       = require('famous/core/Transform');
+    var View            = require('famous/core/View');
+
+    function NavigationView() {
+        View.apply(this, arguments);
+
+        _createIcon.call(this);
+    }
+
+    NavigationView.prototype = Object.create(View.prototype);
+    NavigationView.prototype.constructor = NavigationView;
+
+    NavigationView.DEFAULT_OPTIONS = {
+        width: null,
+        height: null,
+        iconUrl: null
+    };
+
+    function _createIcon() {
+        var iconSurface = new Surface({
+            content: '<img width="191" src="' + this.options.iconUrl + '"/>'
+        });
+
+        this._add(iconSurface);
+    };
+
+    module.exports = NavigationView;
+});
+define(function (require, exports, module) {
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var View = require('famous/core/View');
+    var ScrollView = require('famous/views/Scrollview');
+    var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
+    var GridLayout = require("famous/views/GridLayout");
+
+    var HeaderView = require('views/HeaderView');
+    var page1 = require('text!jade/page1.html');
+
+    function PageView() {
+        View.apply(this, arguments);
+
+        this.layout = new HeaderFooterLayout({
+            headerSize: 50,
+            footerSize: 50
+        });
+
+        /*Header*/
+        this.header = new HeaderView();
+        this.header.pipe(this);
+
+        /*Content*/
+        this.contents = [];
+        this.content = new ScrollView();
+
+        this.contentHome = new Surface({
+            size: [undefined, undefined],
+            content: page1,
+            properties: {
+                fontSize: '16px',
+                backgroundColor: '#FFE1D0'
+            }
+        });
+        this.contentAbout = new Surface({
+            size: [undefined, undefined],
+            content: '<h2>SVET International publishing house</h2>' +
+            '<p>From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability. </p>',
+            properties: {
+                backgroundColor: '#E6FFEF'
+            }
+        });
+        this.contentDemographics = new Surface({
+            size: [undefined, undefined],
+            content: '<h2>Demographics</h2>' +
+            '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
+            properties: {
+                backgroundColor: '#FFFAE2'
+            }
+        });
+        this.contentClients = new Surface({
+            size: [undefined, undefined],
+            content: '<h2>Demographics</h2>' +
+            '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
+            properties: {
+                backgroundColor: '#E6FFDB'
+            }
+        });
+        this.contentRadio = new Surface({
+            size: [undefined, undefined],
+            content: '<h2>Radio Program “OSA”</h2>' +
+            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
+            properties: {
+                backgroundColor: '#FFF1E9'
+            }
+        });
+        this.contentContact = new Surface({
+            size: [undefined, undefined],
+            content: '<h2>Contact Us</h2>' +
+            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
+            properties: {
+                backgroundColor: '#FFE1D0'
+            }
+        });
+        this.contents.push(this.contentHome);
+        this.contents.push(this.contentAbout);
+        this.contents.push(this.contentDemographics);
+        this.contents.push(this.contentClients);
+        this.contents.push(this.contentRadio);
+        this.contents.push(this.contentContact);
+        this.content.sequenceFrom(this.contents);
+
+        this.contentHome.pipe(this.content);
+        this.contentAbout.pipe(this.content);
+        this.contentDemographics.pipe(this.content);
+        this.contentClients.pipe(this.content);
+        this.contentRadio.pipe(this.content);
+        this.contentContact.pipe(this.content);
+
+        /* =Footer*/
+        this.footers = [];
+        this.footer = new GridLayout({
+            dimensions: [3, 1]
+        });
+        this.footer.pipe(this);
+
+        this.footerLeft = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                backgroundColor: '#F27649',
+                backgroundSize: 'cover'
+            }
+        })
+
+        this.footerCenter = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                backgroundColor: '#D95829',
+                backgroundSize: 'cover'
+            }
+        })
+
+        this.footerRight = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                backgroundColor: '#F27649',
+                backgroundSize: 'cover'
+            }
+        })
+        this.footers.push(this.footerLeft);
+        this.footers.push(this.footerCenter);
+        this.footers.push(this.footerRight);
+        this.footer.sequenceFrom(this.footers);
+
+        this.layout.content.add(this.content);
+        this.layout.header.add(this.header);
+        this.layout.footer.add(this.footer);
+
+        this._eventInput.pipe(this._eventOutput);
+
+        this.add(this.layout);
+    }
+
+    /*******************/
+
+    /*****************/
+    PageView.prototype = Object.create(View.prototype);
+    PageView.prototype.constructor = PageView;
+
+    module.exports = PageView;
+
+})
+;
