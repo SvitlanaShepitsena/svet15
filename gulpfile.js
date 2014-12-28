@@ -35,6 +35,7 @@ var express = require('express'),
 
 var dev = 'app/build/',
     dist = 'app/dist/';
+var currentView=dist;
 
 var onError = function (err) {
     gutil.beep();
@@ -47,8 +48,8 @@ function startExpress() {
 
     app.set('port', process.env.PORT || 3001);
     app.engine('jade', require('jade').__express);
-    app.set('views', dev);
-    app.use(express.static(path.join(__dirname, dev)));
+    app.set('views', currentView);
+    app.use(express.static(path.join(__dirname, currentView)));
 
     app.get('/', function (req, res) {
         res.render('index');

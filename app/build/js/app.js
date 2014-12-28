@@ -9866,7 +9866,7 @@ define('views/HeaderView',['require','exports','module','famous/core/Surface','f
             size: [undefined, undefined],
             properties: {
                 // coloring pink, but background should not be visible anyway when viewed at device screen size
-                backgroundColor: '#FC6E51'
+                backgroundColor: '#D95829'
                 //backgroundColor: '#C8645B'
             }
         });
@@ -10313,7 +10313,7 @@ define('text',['module'], function (module) {
     return text;
 });
 
-define('text!jade/page1.html',[],function () { return '\n<h2><em class="center">SVET Media Group</em>\n  <div>\n    is the Midwest’s first and oldest publishing and advertising company serving the Russian,\n    Ukrainian and Lithuanian communities since 1990.\n  </div>\n</h2>';});
+define('text!jade/page1.html',[],function () { return '\n<div>\n  <h2 class="center">SVET Media Group</h2>\n  <div>\n    is the Midwest’s first and oldest publishing and advertising company serving the Russian,\n    Ukrainian and Lithuanian communities since 1990. And Izya Oberman!\n  </div>\n</div>';});
 
 define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/page1.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
@@ -10347,9 +10347,9 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             size: [undefined, undefined],
             content: page1,
             properties: {
-                color: '#3E3A3B',
+                color: 'black',
                 fontSize: '16px',
-                backgroundColor: '#FFE1D0'
+                backgroundColor: '#FFA47F'
             }
         });
         this.contentAbout = new Surface({
@@ -10357,7 +10357,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             content: '<h2>SVET International publishing house</h2>' +
             '<p>From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability. </p>',
             properties: {
-                backgroundColor: '#E6FFEF'
+                backgroundColor: '#FAC883'
             }
         });
         this.contentDemographics = new Surface({
@@ -10365,7 +10365,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             content: '<h2>Demographics</h2>' +
             '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
             properties: {
-                backgroundColor: '#FFFAE2'
+                backgroundColor: '#95C79B'
             }
         });
         this.contentClients = new Surface({
@@ -10373,7 +10373,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             content: '<h2>Demographics</h2>' +
             '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
             properties: {
-                backgroundColor: '#E6FFDB'
+                backgroundColor: '#FFB1AC'
             }
         });
         this.contentRadio = new Surface({
@@ -10381,7 +10381,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             content: '<h2>Radio Program “OSA”</h2>' +
             '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
             properties: {
-                backgroundColor: '#FFF1E9'
+                backgroundColor: '#83BFE3'
             }
         });
         this.contentContact = new Surface({
@@ -10389,7 +10389,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             content: '<h2>Contact Us</h2>' +
             '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
             properties: {
-                backgroundColor: '#FFE1D0'
+                backgroundColor: '#998EBA'
             }
         });
         this.contents.push(this.contentHome);
