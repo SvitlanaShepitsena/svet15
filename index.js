@@ -3,6 +3,7 @@ var app = express();
 var path = require('path');
 app.engine('html', require('consolidate').handlebars);
 app.set('view engine', 'html');
+app.set('views', 'app/dist');
 
 var dev = '/app/build/',
     dist = '/app/dist/';
