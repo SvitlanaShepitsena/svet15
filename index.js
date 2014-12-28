@@ -12,7 +12,7 @@ var dev = 'app/build/',
 app.use(express.static(path.join(__dirname, dist)));
 
 app.get('/', function (req, res) {
-    res.render('index');
+    res.render('index.html');
 });
 
 
