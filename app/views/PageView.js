@@ -8,6 +8,7 @@ define(function (require, exports, module) {
     var GridLayout = require("famous/views/GridLayout");
 
     var HeaderView = require('views/HeaderView');
+    var page1 = require('text!jade/page1.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -27,7 +28,7 @@ define(function (require, exports, module) {
 
         this.contentHome = new Surface({
             size: [undefined, undefined],
-            content: '<h2><em>SVET Media Group</em> is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</h2>',
+            content: page1,
             properties: {
                 color: 'black',
                 fontSize: '16px',

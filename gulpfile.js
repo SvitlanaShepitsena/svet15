@@ -188,11 +188,14 @@ gulp.task('browser-sync', ['nodemon'], function () {
     });
 });
 
-gulp.task('default', ['js', 'jade:v', 'jade', 'autoprefix'], function () {
+gulp.task('default', ['jade:v', 'jade', 'autoprefix'], function () {
+    gulp.run('js');
     gulp.watch(['app/src/*.js', 'app/views/*.js'], ['js']);
     gulp.watch('app/img/**/*', ['img']);
     gulp.watch('app/*.jade', ['jade']);
-    gulp.watch('app/jade/*.jade', ['jade:v']);
+    gulp.watch('app/jade/*.jade', function () {
+       runSequence('jade:v','js') ;
+    })
     gulp.watch('app/styles/**/*.styl', ['autoprefix']);
 
     gulp.start('browser-sync');
