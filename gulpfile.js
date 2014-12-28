@@ -34,6 +34,7 @@ var express = require('express'),
     changed = require('gulp-changed'),
     newer = require('gulp-newer'),
     rupture = require("rupture"),
+    gutil = require('gulp-util'),
     processhtml = require('gulp-processhtml');
 
 var dev = 'app/build/',
@@ -97,8 +98,8 @@ gulp.task('stylus', function () {
     return gulp.src('app/styles/**/*.styl')
         .pipe(plumber({errorHandler: onError}))
         .pipe(stylus({
-            use: [nib(), jeet(), rupture()],
-            compress: true
+            use: [nib(), jeet()],
+            compress: false
         }))
         .pipe(gulp.dest('app/styles/'))
         .pipe(reload({stream: true}));

@@ -1,11 +1,6 @@
 @import 'jeet'
 @import 'reset.css'
 
-/*Values*/
-
-zize-med = 960px
-
-/*Styles*/
 html
     background: #fff;
 
@@ -27,31 +22,28 @@ article
         max-width 100%
 
 .svet-services
-    margin-top 10px
     col(1)
     h3
         text-align center
 
 .text-center
     text-align center
-    color green
 
 .productsServises
     col(1 / 4, cycle:4)
+    +below(960px)
+        col(1 / 2, cycle:2)
+
     h4
         font-size 14px
-        margin-bottom 30px
     p
-        margin-bottom 10px
         font-size 12px
     h4, p
         text-align center
-    +below(size-med)
-        col(1 / 2, cycle:2)
 
 .text-center
     text-align center
-
 .svet-market
     min-width: 100%;
     line-height 26px
+    color red

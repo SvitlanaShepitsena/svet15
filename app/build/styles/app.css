@@ -1,153 +1,49 @@
-@import 'reset.css';
-
-med, html {
-  background: #fff
+/*Values*/
+/*Styles*/
+html {
+  background: #fff;
 }
-
 .backfaceVisibility {
   -webkit-backface-visibility: visible;
-  backface-visibility: visible
+  backface-visibility: visible;
 }
-
 body {
   background: -webkit-linear-gradient(top, #fff, #000);
   background: linear-gradient(top, #fff, #000);
   font-size: 14px;
   line-height: 20px;
-  color: #3e3a3b
+  color: #3e3a3b;
 }
-
-section {
-  *zoom: 1;
-  width: auto;
-  max-width: 98%;
-  float: none;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 0;
-  padding-right: 0
-}
-
-section:before, section:after {
-  content: '';
-  display: table
-}
-
-section:after {
-  clear: both
-}
-
 article p {
-  max-width: 100%
+  max-width: 100%;
 }
-
 .svet-services {
-  *zoom: 1;
-  float: left;
-  clear: none;
-  text-align: inherit;
-  width: 100%;
-  margin-left: 0%;
-  margin-right: 3%;
+  margin-top: 10px;
 }
-
-.svet-services:before, .svet-services:after {
-  content: '';
-  display: table
-}
-
-.svet-services:after {
-  clear: both
-}
-
-.svet-services:last-child {
-  margin-right: 0%
-}
-
 .svet-services h3 {
-  text-align: center
+  text-align: center;
 }
-
 .text-center {
-  text-align: center
+  text-align: center;
+  color: #008000;
 }
-
-.productsServises {
-  *zoom: 1;
-  float: left;
-  clear: none;
-  text-align: inherit;
-  width: 22.75%;
-  margin-left: 0%;
-  margin-right: 3%;
-}
-
-.productsServises:before, .productsServises:after {
-  content: '';
-  display: table
-}
-
-.productsServises:after {
-  clear: both
-}
-
-.productsServises:nth-child(4n) {
-  margin-right: 0%;
-  float: right
-}
-
-.productsServises:nth-child(4n+1) {
-  clear: both
-}
-
-@media only screen and (max-width: 960px) {
-  .productsServises {
-    *zoom: 1;
-    float: left;
-    clear: none;
-    text-align: inherit;
-    width: 48.5%;
-    margin-left: 0%;
-    margin-right: 3%
-  }
-
-  .productsServises:before, .productsServises:after {
-    content: '';
-    display: table
-  }
-
-  .productsServises:after {
-    clear: both
-  }
-
-  .productsServises:nth-child(2n) {
-    margin-right: 0%;
-    float: right
-  }
-
-  .productsServises:nth-child(2n+1) {
-    clear: both
-  }
-}
-
 .productsServises h4 {
-  font-size: 14px
+  font-size: 14px;
+  margin-bottom: 30px;
 }
-
 .productsServises p {
-  font-size: 12px
+  margin-bottom: 10px;
+  font-size: 12px;
 }
-
-.productsServises h4, .productsServises p {
-  text-align: center
+.productsServises h4,
+.productsServises p {
+  text-align: center;
 }
-
 .text-center {
-  text-align: center
+  text-align: center;
+  color: #f00;
 }
-
 .svet-market {
   min-width: 100%;
-  line-height: 26px
+  line-height: 26px;
 }
