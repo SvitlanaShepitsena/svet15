@@ -30,9 +30,9 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: page1,
             properties: {
-                color: 'black',
+                color: '#3E3A3B',
                 fontSize: '16px',
-                backgroundColor: '#FFA47F'
+                backgroundColor: '#FFE1D0'
             }
         });
         this.contentAbout = new Surface({
@@ -40,7 +40,7 @@ define(function (require, exports, module) {
             content: '<h2>SVET International publishing house</h2>' +
             '<p>From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability. </p>',
             properties: {
-                backgroundColor: '#FAC883'
+                backgroundColor: '#E6FFEF'
             }
         });
         this.contentDemographics = new Surface({
@@ -48,7 +48,7 @@ define(function (require, exports, module) {
             content: '<h2>Demographics</h2>' +
             '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
             properties: {
-                backgroundColor: '#95C79B'
+                backgroundColor: '#FFFAE2'
             }
         });
         this.contentClients = new Surface({
@@ -56,7 +56,7 @@ define(function (require, exports, module) {
             content: '<h2>Demographics</h2>' +
             '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
             properties: {
-                backgroundColor: '#FFB1AC'
+                backgroundColor: '#E6FFDB'
             }
         });
         this.contentRadio = new Surface({
@@ -64,7 +64,7 @@ define(function (require, exports, module) {
             content: '<h2>Radio Program “OSA”</h2>' +
             '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
             properties: {
-                backgroundColor: '#83BFE3'
+                backgroundColor: '#FFF1E9'
             }
         });
         this.contentContact = new Surface({
@@ -72,7 +72,7 @@ define(function (require, exports, module) {
             content: '<h2>Contact Us</h2>' +
             '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
             properties: {
-                backgroundColor: '#998EBA'
+                backgroundColor: '#FFE1D0'
             }
         });
         this.contents.push(this.contentHome);
