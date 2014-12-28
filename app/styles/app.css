@@ -1,5 +1,4 @@
-/*Values*/
-/*Styles*/
+@import 'reset.css';
 html {
   background: #fff;
 }
@@ -13,25 +12,82 @@ body {
   line-height: 20px;
   color: #3e3a3b;
 }
+section {
+  *zoom: 1;
+  width: auto;
+  max-width: 98%;
+  float: none;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+section:before,
+section:after {
+  content: '';
+  display: table;
+}
+section:after {
+  clear: both;
+}
 article p {
   max-width: 100%;
 }
 .svet-services {
-  margin-top: 10px;
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 100%;
+  margin-left: 0%;
+  margin-right: 3%;
+}
+.svet-services:before,
+.svet-services:after {
+  content: '';
+  display: table;
+}
+.svet-services:after {
+  clear: both;
+}
+.svet-services:last-child {
+  margin-right: 0%;
 }
 .svet-services h3 {
   text-align: center;
 }
 .text-center {
   text-align: center;
-  color: #008000;
+}
+.productsServises {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 22.75%;
+  margin-left: 0%;
+  margin-right: 3%;
+}
+.productsServises:before,
+.productsServises:after {
+  content: '';
+  display: table;
+}
+.productsServises:after {
+  clear: both;
+}
+.productsServises:nth-child(4n) {
+  margin-right: 0%;
+  float: right;
+}
+.productsServises:nth-child(4n+1) {
+  clear: both;
 }
 .productsServises h4 {
   font-size: 14px;
-  margin-bottom: 30px;
 }
 .productsServises p {
-  margin-bottom: 10px;
   font-size: 12px;
 }
 .productsServises h4,
@@ -40,7 +96,7 @@ article p {
 }
 .text-center {
   text-align: center;
-  color: #f00;
+  color: #008000;
 }
 .svet-market {
   min-width: 100%;

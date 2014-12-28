@@ -1,6 +1,9 @@
 @import 'jeet'
 @import 'reset.css'
 
+
+zize-med = 960px
+
 html
     background: #fff;
 
@@ -31,9 +34,6 @@ article
 
 .productsServises
     col(1 / 4, cycle:4)
-    +below(960px)
-        col(1 / 2, cycle:2)
-
     h4
         font-size 14px
     p
@@ -43,7 +43,8 @@ article
 
 .text-center
     text-align center
+    color green
+
 .svet-market
     min-width: 100%;
     line-height 26px
-    color red
