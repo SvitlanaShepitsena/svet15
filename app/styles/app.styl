@@ -29,14 +29,19 @@ article
     text-align center
 
 .productsServises
-    col(1 / 4)
+    col(1 / 4, cycle:4)
+    +below(960px)
+        col(1 / 2, cycle:2)
+
     h4
         font-size 14px
     p
         font-size 12px
-    h3, h4, p
+    h4, p
         text-align center
 
+.text-center
+    text-align center
 .svet-market
     min-width: 100%;
     line-height 26px
