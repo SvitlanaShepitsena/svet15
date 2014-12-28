@@ -6,6 +6,4 @@ define(['require', 'famous/core/Engine', 'views/AppView'], function (require, En
     var appView = new AppView();
 
     mainContext.add(appView);
-
-
 });
