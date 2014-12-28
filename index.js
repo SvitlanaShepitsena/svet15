@@ -1,23 +1,21 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-
-app.set('port', (process.env.PORT || 5000));
-app.use(express.static(__dirname + '/app/dist'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+var bodyParser = require('body-parser'),
+    methodOverride = require('method-override');
 
 var dev = 'app/build/',
     dist = 'app/dist/';
-app.set('views', dist);
 
+app.set('port', (process.env.PORT || 5000));
+app.use(express.static(__dirname + './app/dist'));
+app.set('view engine', 'jade');
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(methodOverride());
 
-app.use(express.static(path.join(__dirname, dist)));
-
-app.get('/', function (req, res) {
-    res.sendFile('./app/dist/index.html');
-});
-
+app.get('*', function (req, res) {
+    res.render('index');
+})
 
 
 app.listen(app.get('port'), function() {
