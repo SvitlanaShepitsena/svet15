@@ -1,20 +1,15 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-var bodyParser = require('body-parser'),
-    methodOverride = require('method-override');
 
-var dev = 'app/build/',
-    dist = 'app/dist/';
+var dev = '/app/build/',
+    dist = '/app/dist/';
 
 app.set('port', (process.env.PORT || 5000));
-app.use(express.static(__dirname + './app/dist'));
-app.set('view engine', 'jade');
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(methodOverride());
+app.use(express.static(__dirname + '/app/dist'));
 
 app.get('*', function (req, res) {
-    res.render('index');
+    res.sendFile('index.html', { root: path.join(__dirname, 'app/dist') });
 })
 
 

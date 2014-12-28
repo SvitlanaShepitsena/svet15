@@ -35,7 +35,7 @@ var express = require('express'),
 
 var dev = 'app/build/',
     dist = 'app/dist/';
-var currentView = dev;
+var currentView=dist;
 
 var onError = function (err) {
     gutil.beep();
@@ -195,7 +195,7 @@ gulp.task('default', ['jade:v', 'jade', 'autoprefix'], function () {
     gulp.watch('app/img/**/*', ['img']);
     gulp.watch('app/*.jade', ['jade']);
     gulp.watch('app/jade/*.jade', function () {
-        runSequence('jade:v', 'js');
+       runSequence('jade:v','js') ;
     })
     gulp.watch('app/styles/**/*.styl', ['autoprefix']);
 
