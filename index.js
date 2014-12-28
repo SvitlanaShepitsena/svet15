@@ -9,6 +9,7 @@ app.set('view engine', 'html');
 
 var dev = 'app/build/',
     dist = 'app/dist/';
+app.set('views', dist);
 
 
 app.use(express.static(path.join(__dirname, dist)));
