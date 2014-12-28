@@ -132,6 +132,7 @@
     "readable-stream": "^1.0.33",
     "rimraf": "^2.2.8",
     "run-sequence": "^1.0.2",
+    "rupture": "^0.6.1",
     "sendgrid": "^1.4.0",
     "sigmund": "^1.0.0",
     "strip-dirs": "^1.0.0",

@@ -33,6 +33,7 @@ var express = require('express'),
     minifyHTML = require("gulp-minify-html"),
     changed = require('gulp-changed'),
     newer = require('gulp-newer'),
+    rupture = require("rupture"),
     processhtml = require('gulp-processhtml');
 
 var dev = 'app/build/',
@@ -96,7 +97,7 @@ gulp.task('stylus', function () {
     return gulp.src('app/styles/**/*.styl')
         .pipe(plumber({errorHandler: onError}))
         .pipe(stylus({
-            use: [nib(), jeet()],
+            use: [nib(), jeet(), rupture()],
             compress: true
         }))
         .pipe(gulp.dest('app/styles/'))
