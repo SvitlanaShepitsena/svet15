@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var GridLayout = require("famous/views/GridLayout");
 
     var HeaderView = require('views/HeaderView');
-    var page1 = require('text!jade/page1.html');
+    var page1 = require('text!jade/homePage.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -28,7 +28,7 @@ define(function (require, exports, module) {
 
         this.contentHome = new Surface({
             size: [undefined, undefined],
-            content: page1,
+            content: homePage,
             properties: {
                 fontSize: '16px',
                 backgroundColor: '#FFFAE2'

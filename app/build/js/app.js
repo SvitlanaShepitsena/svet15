@@ -10313,9 +10313,9 @@ define('text',['module'], function (module) {
     return text;
 });
 
-define('text!jade/page1.html',[],function () { return '\n<section>\n  <article class="svet-media-group">\n    <h2 class="h-services text-center">SVET Russian Media Group</h2>\n    <h3 class="text-center">is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</h3>\n  </article>\n  <article class="svet-services">\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>SVET<br/>Daily Newspaper</h3>\n      <p>Over 48 pages – circulation 12,000 copies weekly. It is the most up-to-date Russian language newspaper outside of Russia. It appears on the newsstands after 3:00 PM. It is free of charge. In addition, subscribers receive newspapers in their homes via second class mail.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>Russian-American<br/>Yellow Pages</h3>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>Saturday Plus<br/>Weekly Newspaper</h3>\n      <p>Free Paper with over 48 pages weekly. It covers entertainment and other social news in Unites States and abroad. It packs the latest information on travel destinations and hot vacation spots.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>Radio<br/>Program “OSA”</h3>\n      <p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m. listen to Radio OSA programs.</p>\n    </div>\n  </article>\n</section>';});
+define('text!jade/homePage.html',[],function () { return '\n<section>\n  <article class="svet-media-group">\n    <h2 class="h-services text-center">SVET Russian Media Group</h2>\n    <h3 class="text-center">is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</h3>\n  </article>\n  <article class="svet-services">\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>SVET<br/>Daily Newspaper</h3>\n      <p>Over 48 pages – circulation 12,000 copies weekly. It is the most up-to-date Russian language newspaper outside of Russia. It appears on the newsstands after 3:00 PM. It is free of charge. In addition, subscribers receive newspapers in their homes via second class mail.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>Russian-American<br/>Yellow Pages</h3>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>Saturday Plus<br/>Weekly Newspaper</h3>\n      <p>Free Paper with over 48 pages weekly. It covers entertainment and other social news in Unites States and abroad. It packs the latest information on travel destinations and hot vacation spots.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>Radio<br/>Program “OSA”</h3>\n      <p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m. listen to Radio OSA programs.</p>\n    </div>\n  </article>\n</section>';});
 
-define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/page1.html'],function (require, exports, module) {
+define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/homePage.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
@@ -10325,7 +10325,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
     var GridLayout = require("famous/views/GridLayout");
 
     var HeaderView = require('views/HeaderView');
-    var page1 = require('text!jade/page1.html');
+    var page1 = require('text!jade/homePage.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -10345,7 +10345,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
 
         this.contentHome = new Surface({
             size: [undefined, undefined],
-            content: page1,
+            content: homePage,
             properties: {
                 fontSize: '16px',
                 backgroundColor: '#FFFAE2'
@@ -11307,7 +11307,7 @@ define(function (require, exports, module) {
     var GridLayout = require("famous/views/GridLayout");
 
     var HeaderView = require('views/HeaderView');
-    var page1 = require('text!jade/page1.html');
+    var page1 = require('text!jade/homePage.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -11327,7 +11327,7 @@ define(function (require, exports, module) {
 
         this.contentHome = new Surface({
             size: [undefined, undefined],
-            content: page1,
+            content: homePage,
             properties: {
                 fontSize: '16px',
                 backgroundColor: '#FFFAE2'
