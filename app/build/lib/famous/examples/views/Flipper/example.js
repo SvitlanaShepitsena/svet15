@@ -22,7 +22,7 @@ define(function(require, exports, module) {
 
     var frontSurface = new Surface({
         size : [200, 200],
-        content : 'front',
+        scroll : 'front',
         properties : {
             background : 'red',
             lineHeight : '200px',
@@ -32,7 +32,7 @@ define(function(require, exports, module) {
 
     var backSurface = new Surface({
         size : [200, 200],
-        content : 'back',
+        scroll : 'back',
         properties : {
             background : 'blue',
             color : 'white',

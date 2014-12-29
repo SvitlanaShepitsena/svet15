@@ -54,7 +54,7 @@ define(function(require, exports, module) {
     var surface = new Surface({
         size: [undefined, undefined],
         classes: ['grey-bg'],
-        content: contentTemplate()
+        scroll: contentTemplate()
     });
 
     genericSync.on('start', function(){

@@ -9616,312 +9616,6 @@ define('famous/views/Scrollview',['require','exports','module','../physics/Physi
     module.exports = Scrollview;
 });
 
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- *
- * Owner: felix@famo.us
- * @license MPL 2.0
- * @copyright Famous Industries, Inc. 2014
- */
-
-define('famous/views/GridLayout',['require','exports','module','../core/Entity','../core/RenderNode','../core/Transform','../core/ViewSequence','../core/EventHandler','../core/Modifier','../core/OptionsManager','../transitions/Transitionable','../transitions/TransitionableTransform'],function(require, exports, module) {
-    var Entity = require('../core/Entity');
-    var RenderNode = require('../core/RenderNode');
-    var Transform = require('../core/Transform');
-    var ViewSequence = require('../core/ViewSequence');
-    var EventHandler = require('../core/EventHandler');
-    var Modifier = require('../core/Modifier');
-    var OptionsManager = require('../core/OptionsManager');
-    var Transitionable = require('../transitions/Transitionable');
-    var TransitionableTransform = require('../transitions/TransitionableTransform');
-
-    /**
-     * A layout which divides a context into several evenly-sized grid cells.
-     *   If dimensions are provided, the grid is evenly subdivided with children
-     *   cells representing their own context, otherwise the cellSize property is used to compute
-     *   dimensions so that items of cellSize will fit.
-     * @class GridLayout
-     * @constructor
-     * @param {Options} [options] An object of configurable options.
-     * @param {Array.Number} [options.dimensions=[1, 1]] A two value array which specifies the amount of columns
-     * and rows in your Gridlayout instance.
-     * @param {Array.Number} [options.gutterSize=[0, 0]] A two-value array which specifies size of the
-     * horizontal and vertical gutters between items in the grid layout.
-     * @param {Transition} [options.transition=false] The transiton that controls the Gridlayout instance's reflow.
-     */
-    function GridLayout(options) {
-        this.options = Object.create(GridLayout.DEFAULT_OPTIONS);
-        this.optionsManager = new OptionsManager(this.options);
-        if (options) this.setOptions(options);
-
-        this.id = Entity.register(this);
-
-        this._modifiers = [];
-        this._states = [];
-        this._contextSizeCache = [0, 0];
-        this._dimensionsCache = [0, 0];
-        this._activeCount = 0;
-
-        this._eventOutput = new EventHandler();
-        EventHandler.setOutputHandler(this, this._eventOutput);
-    }
-
-    function _reflow(size, cols, rows) {
-        var usableSize = [size[0], size[1]];
-        usableSize[0] -= this.options.gutterSize[0] * (cols - 1);
-        usableSize[1] -= this.options.gutterSize[1] * (rows - 1);
-
-        var rowSize = Math.round(usableSize[1] / rows);
-        var colSize = Math.round(usableSize[0] / cols);
-
-        var currY = 0;
-        var currX;
-        var currIndex = 0;
-        for (var i = 0; i < rows; i++) {
-            currX = 0;
-            for (var j = 0; j < cols; j++) {
-                if (this._modifiers[currIndex] === undefined) {
-                    _createModifier.call(this, currIndex, [colSize, rowSize], [currX, currY, 0], 1);
-                }
-                else {
-                    _animateModifier.call(this, currIndex, [colSize, rowSize], [currX, currY, 0], 1);
-                }
-
-                currIndex++;
-                currX += colSize + this.options.gutterSize[0];
-            }
-
-            currY += rowSize + this.options.gutterSize[1];
-        }
-
-        this._dimensionsCache = [this.options.dimensions[0], this.options.dimensions[1]];
-        this._contextSizeCache = [size[0], size[1]];
-
-        this._activeCount = rows * cols;
-
-        for (i = this._activeCount ; i < this._modifiers.length; i++) _animateModifier.call(this, i, [Math.round(colSize), Math.round(rowSize)], [0, 0], 0);
-
-        this._eventOutput.emit('reflow');
-    }
-
-    function _createModifier(index, size, position, opacity) {
-        var transitionItem = {
-            transform: new TransitionableTransform(Transform.translate.apply(null, position)),
-            opacity: new Transitionable(opacity),
-            size: new Transitionable(size)
-        };
-
-        var modifier = new Modifier({
-            transform: transitionItem.transform,
-            opacity: transitionItem.opacity,
-            size: transitionItem.size
-        });
-
-        this._states[index] = transitionItem;
-        this._modifiers[index] = modifier;
-
-    }
-
-    function _animateModifier(index, size, position, opacity) {
-        var currState = this._states[index];
-
-        var currSize = currState.size;
-        var currOpacity = currState.opacity;
-        var currTransform = currState.transform;
-
-        var transition = this.options.transition;
-
-        currTransform.halt();
-        currOpacity.halt();
-        currSize.halt();
-
-        currTransform.setTranslate(position, transition);
-        currSize.set(size, transition);
-        currOpacity.set(opacity, transition);
-    }
-
-    GridLayout.DEFAULT_OPTIONS = {
-        dimensions: [1, 1],
-        transition: false,
-        gutterSize: [0, 0]
-    };
-
-    /**
-     * Generate a render spec from the contents of this component.
-     *
-     * @private
-     * @method render
-     * @return {Object} Render spec for this component
-     */
-    GridLayout.prototype.render = function render() {
-        return this.id;
-    };
-
-    /**
-     * Patches the GridLayout instance's options with the passed-in ones.
-     *
-     * @method setOptions
-     * @param {Options} options An object of configurable options for the GridLayout instance.
-     */
-    GridLayout.prototype.setOptions = function setOptions(options) {
-        return this.optionsManager.setOptions(options);
-    };
-
-    /**
-     * Sets the collection of renderables under the Gridlayout instance's control.
-     *
-     * @method sequenceFrom
-     * @param {Array|ViewSequence} sequence Either an array of renderables or a Famous viewSequence.
-     */
-    GridLayout.prototype.sequenceFrom = function sequenceFrom(sequence) {
-        if (sequence instanceof Array) sequence = new ViewSequence(sequence);
-        this.sequence = sequence;
-    };
-
-    /**
-     * Returns the size of the grid layout.
-     *
-     * @method getSize
-     * @return {Array} Total size of the grid layout.
-     */
-    GridLayout.prototype.getSize = function getSize() {
-      return this._contextSizeCache;
-    };
-
-    /**
-     * Apply changes from this component to the corresponding document element.
-     * This includes changes to classes, styles, size, content, opacity, origin,
-     * and matrix transforms.
-     *
-     * @private
-     * @method commit
-     * @param {Context} context commit context
-     */
-    GridLayout.prototype.commit = function commit(context) {
-        var transform = context.transform;
-        var opacity = context.opacity;
-        var origin = context.origin;
-        var size = context.size;
-
-        var cols = this.options.dimensions[0];
-        var rows = this.options.dimensions[1];
-
-        if (size[0] !== this._contextSizeCache[0] || size[1] !== this._contextSizeCache[1] || cols !== this._dimensionsCache[0] || rows !== this._dimensionsCache[1]) {
-            _reflow.call(this, size, cols, rows);
-        }
-
-        var sequence = this.sequence;
-        var result = [];
-        var currIndex = 0;
-        while (sequence && (currIndex < this._modifiers.length)) {
-            var item = sequence.get();
-            var modifier = this._modifiers[currIndex];
-            if (currIndex >= this._activeCount && this._states[currIndex].opacity.isActive()) {
-                this._modifiers.splice(currIndex, 1);
-                this._states.splice(currIndex, 1);
-            }
-            if (item) {
-                result.push(
-                    modifier.modify({
-                        origin: origin,
-                        target: item.render()
-                    })
-                );
-            }
-            sequence = sequence.getNext();
-            currIndex++;
-        }
-
-        if (size) transform = Transform.moveThen([-size[0]*origin[0], -size[1]*origin[1], 0], transform);
-        return {
-            transform: transform,
-            opacity: opacity,
-            size: size,
-            target: result
-        };
-    };
-
-    module.exports = GridLayout;
-});
-
-define('views/HeaderView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View'],function (require, exports, module) {
-    var Surface = require('famous/core/Surface');
-    var Modifier = require('famous/core/Modifier');
-    var Transform = require('famous/core/Transform');
-    var View = require('famous/core/View');
-
-    function HeaderView() {
-        View.apply(this, arguments);
-
-        _createHeader.call(this);
-        _setListeners.call(this);
-    }
-
-    HeaderView.prototype = Object.create(View.prototype);
-    HeaderView.prototype.constructor = HeaderView;
-
-    function _createHeader() {
-        var backgroundSurface = new Surface({
-            size: [undefined, undefined],
-            properties: {
-                // coloring pink, but background should not be visible anyway when viewed at device screen size
-                backgroundColor: '#FC6E51'
-                //backgroundColor: '#C8645B'
-            }
-        });
-
-        this.hamburgerSurface = new Surface({
-            size: [53, undefined],
-            content: '<img width="53" src="img/hamburger-template.png"/>'
-        });
-
-
-        this.titleSurface = new Surface({
-            size: [267, undefined],
-            content: 'SVET Media Group',
-            properties: {
-                fontSize: '22px',
-                textAlign: 'center',
-                color: "white",
-                lineHeight: "50px",
-                fontWeight: '700'
-            }
-        });
-
-        this.hamburgerModifier = new Modifier({
-            transform: Transform.translate(0, 0, 1)
-        });
-
-        this.titleModifier = new Modifier({
-            origin: [0.5, 0],
-            align: [0.5, 0]
-        });
-
-        this._add(this.hamburgerModifier).add(this.hamburgerSurface);
-        this._add(this.titleModifier).add(this.titleSurface);
-
-        this._add(backgroundSurface);
-    }
-
-    function _setListeners() {
-        this.hamburgerSurface.on('touchstart', function () {
-            this.hamburgerModifier.setOpacity(0.5);
-        }.bind(this));
-
-        this.hamburgerSurface.on('mousedown', function () {
-            this.hamburgerModifier.setOpacity(0.5);
-        }.bind(this));
-
-        this.hamburgerSurface.on('click', function () {
-            this.hamburgerModifier.setOpacity(1);
-            this._eventOutput.emit('menuToggle');
-        }.bind(this));
-    }
-
-    module.exports = HeaderView;
-});
-
 /**
  * @license RequireJS text 2.0.12 Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
@@ -10315,17 +10009,421 @@ define('text',['module'], function (module) {
 
 define('text!jade/page1.html',[],function () { return '\n<section>\n  <article class="svet-media-group">\n    <h2 class="h-services text-center">SVET Russian Media Group</h2>\n    <h3 class="text-center">is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</h3>\n  </article>\n  <article class="svet-services">\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>SVET<br/>Daily Newspaper</h3>\n      <p>Over 48 pages – circulation 12,000 copies weekly. It is the most up-to-date Russian language newspaper outside of Russia. It appears on the newsstands after 3:00 PM. It is free of charge. In addition, subscribers receive newspapers in their homes via second class mail.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>Russian-American<br/>Yellow Pages</h3>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>Saturday Plus<br/>Weekly Newspaper</h3>\n      <p>Free Paper with over 48 pages weekly. It covers entertainment and other social news in Unites States and abroad. It packs the latest information on travel destinations and hot vacation spots.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <h3>Radio<br/>Program “OSA”</h3>\n      <p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m. listen to Radio OSA programs.</p>\n    </div>\n  </article>\n</section>';});
 
-define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/page1.html'],function (require, exports, module) {
+define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/inputs/GenericSync','famous/inputs/MouseSync','famous/inputs/TouchSync','famous/inputs/ScrollSync','text!jade/page1.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var ScrollView = require('famous/views/Scrollview');
+
+    var GenericSync = require("famous/inputs/GenericSync");
+    var MouseSync = require("famous/inputs/MouseSync");
+    var TouchSync = require("famous/inputs/TouchSync");
+    var ScrollSync = require("famous/inputs/ScrollSync");
+
+    function HomeScroll() {
+        ScrollView.apply(this, arguments);
+
+        _createContent.call(this);
+    }
+
+    HomeScroll.prototype = Object.create(ScrollView.prototype);
+    HomeScroll.prototype.constructor = HomeScroll;
+
+    HomeScroll.DEFAULT_OPTIONS = {
+        options: {
+            pageSwitchSpeed: 0.6
+        }
+    };
+
+    function _createContent() {
+        var that = this;
+
+        GenericSync.register({
+            mouse: MouseSync,
+            touch: TouchSync,
+            scroll: ScrollSync
+        });
+
+        var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
+
+        var homePage = require('text!jade/page1.html');
+        this.contents = [];
+        this.setOptions({
+            pageSwitchSpeed:0.9,
+            speedLimit:1,
+            pagePeriod:900
+        });
+
+        console.log(this.options.pageSwitchSpeed);
+        this.contentHome = new Surface({
+            size: [undefined, undefined],
+            content: homePage,
+            properties: {
+                fontSize: '16px',
+                backgroundColor: '#FFFAE2'
+                //backgroundColor: '#FFE1D0'
+            }
+        });
+        this.contentAbout = new Surface({
+            size: [undefined, undefined],
+            content: 'About',
+            properties: {
+                fontSize: '16px',
+                backgroundColor: 'green'
+                //backgroundColor: '#FFE1D0'
+            }
+        });
+
+        var velocity = 0;
+        var delta = 0;
+
+        this.contentHome.pipe(genericSync);
+        this.contentAbout.pipe(genericSync);
+
+        genericSync.on("start", function () {
+        });
+
+        genericSync.on("update", function (data) {
+            delta = data.delta[1];
+            if (delta < 0) {
+                that.goToNextPage();
+            } else {
+
+                that.goToPreviousPage();
+            }
+        });
+
+        genericSync.on("end", function () {
+
+        });
+
+        this.contents.push(this.contentHome);
+        this.contents.push(this.contentAbout);
+        this.sequenceFrom(this.contents);
+
+
+    };
+
+    module.exports = HomeScroll;
+});
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * Owner: felix@famo.us
+ * @license MPL 2.0
+ * @copyright Famous Industries, Inc. 2014
+ */
+
+define('famous/views/GridLayout',['require','exports','module','../core/Entity','../core/RenderNode','../core/Transform','../core/ViewSequence','../core/EventHandler','../core/Modifier','../core/OptionsManager','../transitions/Transitionable','../transitions/TransitionableTransform'],function(require, exports, module) {
+    var Entity = require('../core/Entity');
+    var RenderNode = require('../core/RenderNode');
+    var Transform = require('../core/Transform');
+    var ViewSequence = require('../core/ViewSequence');
+    var EventHandler = require('../core/EventHandler');
+    var Modifier = require('../core/Modifier');
+    var OptionsManager = require('../core/OptionsManager');
+    var Transitionable = require('../transitions/Transitionable');
+    var TransitionableTransform = require('../transitions/TransitionableTransform');
+
+    /**
+     * A layout which divides a context into several evenly-sized grid cells.
+     *   If dimensions are provided, the grid is evenly subdivided with children
+     *   cells representing their own context, otherwise the cellSize property is used to compute
+     *   dimensions so that items of cellSize will fit.
+     * @class GridLayout
+     * @constructor
+     * @param {Options} [options] An object of configurable options.
+     * @param {Array.Number} [options.dimensions=[1, 1]] A two value array which specifies the amount of columns
+     * and rows in your Gridlayout instance.
+     * @param {Array.Number} [options.gutterSize=[0, 0]] A two-value array which specifies size of the
+     * horizontal and vertical gutters between items in the grid layout.
+     * @param {Transition} [options.transition=false] The transiton that controls the Gridlayout instance's reflow.
+     */
+    function GridLayout(options) {
+        this.options = Object.create(GridLayout.DEFAULT_OPTIONS);
+        this.optionsManager = new OptionsManager(this.options);
+        if (options) this.setOptions(options);
+
+        this.id = Entity.register(this);
+
+        this._modifiers = [];
+        this._states = [];
+        this._contextSizeCache = [0, 0];
+        this._dimensionsCache = [0, 0];
+        this._activeCount = 0;
+
+        this._eventOutput = new EventHandler();
+        EventHandler.setOutputHandler(this, this._eventOutput);
+    }
+
+    function _reflow(size, cols, rows) {
+        var usableSize = [size[0], size[1]];
+        usableSize[0] -= this.options.gutterSize[0] * (cols - 1);
+        usableSize[1] -= this.options.gutterSize[1] * (rows - 1);
+
+        var rowSize = Math.round(usableSize[1] / rows);
+        var colSize = Math.round(usableSize[0] / cols);
+
+        var currY = 0;
+        var currX;
+        var currIndex = 0;
+        for (var i = 0; i < rows; i++) {
+            currX = 0;
+            for (var j = 0; j < cols; j++) {
+                if (this._modifiers[currIndex] === undefined) {
+                    _createModifier.call(this, currIndex, [colSize, rowSize], [currX, currY, 0], 1);
+                }
+                else {
+                    _animateModifier.call(this, currIndex, [colSize, rowSize], [currX, currY, 0], 1);
+                }
+
+                currIndex++;
+                currX += colSize + this.options.gutterSize[0];
+            }
+
+            currY += rowSize + this.options.gutterSize[1];
+        }
+
+        this._dimensionsCache = [this.options.dimensions[0], this.options.dimensions[1]];
+        this._contextSizeCache = [size[0], size[1]];
+
+        this._activeCount = rows * cols;
+
+        for (i = this._activeCount ; i < this._modifiers.length; i++) _animateModifier.call(this, i, [Math.round(colSize), Math.round(rowSize)], [0, 0], 0);
+
+        this._eventOutput.emit('reflow');
+    }
+
+    function _createModifier(index, size, position, opacity) {
+        var transitionItem = {
+            transform: new TransitionableTransform(Transform.translate.apply(null, position)),
+            opacity: new Transitionable(opacity),
+            size: new Transitionable(size)
+        };
+
+        var modifier = new Modifier({
+            transform: transitionItem.transform,
+            opacity: transitionItem.opacity,
+            size: transitionItem.size
+        });
+
+        this._states[index] = transitionItem;
+        this._modifiers[index] = modifier;
+
+    }
+
+    function _animateModifier(index, size, position, opacity) {
+        var currState = this._states[index];
+
+        var currSize = currState.size;
+        var currOpacity = currState.opacity;
+        var currTransform = currState.transform;
+
+        var transition = this.options.transition;
+
+        currTransform.halt();
+        currOpacity.halt();
+        currSize.halt();
+
+        currTransform.setTranslate(position, transition);
+        currSize.set(size, transition);
+        currOpacity.set(opacity, transition);
+    }
+
+    GridLayout.DEFAULT_OPTIONS = {
+        dimensions: [1, 1],
+        transition: false,
+        gutterSize: [0, 0]
+    };
+
+    /**
+     * Generate a render spec from the contents of this component.
+     *
+     * @private
+     * @method render
+     * @return {Object} Render spec for this component
+     */
+    GridLayout.prototype.render = function render() {
+        return this.id;
+    };
+
+    /**
+     * Patches the GridLayout instance's options with the passed-in ones.
+     *
+     * @method setOptions
+     * @param {Options} options An object of configurable options for the GridLayout instance.
+     */
+    GridLayout.prototype.setOptions = function setOptions(options) {
+        return this.optionsManager.setOptions(options);
+    };
+
+    /**
+     * Sets the collection of renderables under the Gridlayout instance's control.
+     *
+     * @method sequenceFrom
+     * @param {Array|ViewSequence} sequence Either an array of renderables or a Famous viewSequence.
+     */
+    GridLayout.prototype.sequenceFrom = function sequenceFrom(sequence) {
+        if (sequence instanceof Array) sequence = new ViewSequence(sequence);
+        this.sequence = sequence;
+    };
+
+    /**
+     * Returns the size of the grid layout.
+     *
+     * @method getSize
+     * @return {Array} Total size of the grid layout.
+     */
+    GridLayout.prototype.getSize = function getSize() {
+      return this._contextSizeCache;
+    };
+
+    /**
+     * Apply changes from this component to the corresponding document element.
+     * This includes changes to classes, styles, size, content, opacity, origin,
+     * and matrix transforms.
+     *
+     * @private
+     * @method commit
+     * @param {Context} context commit context
+     */
+    GridLayout.prototype.commit = function commit(context) {
+        var transform = context.transform;
+        var opacity = context.opacity;
+        var origin = context.origin;
+        var size = context.size;
+
+        var cols = this.options.dimensions[0];
+        var rows = this.options.dimensions[1];
+
+        if (size[0] !== this._contextSizeCache[0] || size[1] !== this._contextSizeCache[1] || cols !== this._dimensionsCache[0] || rows !== this._dimensionsCache[1]) {
+            _reflow.call(this, size, cols, rows);
+        }
+
+        var sequence = this.sequence;
+        var result = [];
+        var currIndex = 0;
+        while (sequence && (currIndex < this._modifiers.length)) {
+            var item = sequence.get();
+            var modifier = this._modifiers[currIndex];
+            if (currIndex >= this._activeCount && this._states[currIndex].opacity.isActive()) {
+                this._modifiers.splice(currIndex, 1);
+                this._states.splice(currIndex, 1);
+            }
+            if (item) {
+                result.push(
+                    modifier.modify({
+                        origin: origin,
+                        target: item.render()
+                    })
+                );
+            }
+            sequence = sequence.getNext();
+            currIndex++;
+        }
+
+        if (size) transform = Transform.moveThen([-size[0]*origin[0], -size[1]*origin[1], 0], transform);
+        return {
+            transform: transform,
+            opacity: opacity,
+            size: size,
+            target: result
+        };
+    };
+
+    module.exports = GridLayout;
+});
+
+define('views/HeaderView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View'],function (require, exports, module) {
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var View = require('famous/core/View');
+
+    function HeaderView() {
+        View.apply(this, arguments);
+
+        _createHeader.call(this);
+        _setListeners.call(this);
+    }
+
+    HeaderView.prototype = Object.create(View.prototype);
+    HeaderView.prototype.constructor = HeaderView;
+
+    function _createHeader() {
+        var backgroundSurface = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                // coloring pink, but background should not be visible anyway when viewed at device screen size
+                backgroundColor: '#FC6E51'
+                //backgroundColor: '#C8645B'
+            }
+        });
+
+        this.hamburgerSurface = new Surface({
+            size: [53, undefined],
+            content: '<img width="53" src="img/hamburger-template.png"/>'
+        });
+
+
+        this.titleSurface = new Surface({
+            size: [267, undefined],
+            content: 'SVET Media Group',
+            properties: {
+                fontSize: '22px',
+                textAlign: 'center',
+                color: "white",
+                lineHeight: "50px",
+                fontWeight: '700'
+            }
+        });
+
+        this.hamburgerModifier = new Modifier({
+            transform: Transform.translate(0, 0, 1)
+        });
+
+        this.titleModifier = new Modifier({
+            origin: [0.5, 0],
+            align: [0.5, 0]
+        });
+
+        this._add(this.hamburgerModifier).add(this.hamburgerSurface);
+        this._add(this.titleModifier).add(this.titleSurface);
+
+        this._add(backgroundSurface);
+    }
+
+    function _setListeners() {
+        this.hamburgerSurface.on('touchstart', function () {
+            this.hamburgerModifier.setOpacity(0.5);
+        }.bind(this));
+
+        this.hamburgerSurface.on('mousedown', function () {
+            this.hamburgerModifier.setOpacity(0.5);
+        }.bind(this));
+
+        this.hamburgerSurface.on('click', function () {
+            this.hamburgerModifier.setOpacity(1);
+            this._eventOutput.emit('menuToggle');
+        }.bind(this));
+    }
+
+    module.exports = HeaderView;
+});
+
+define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','views/HomeScroll','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView'],function (require, exports, module) {
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var View = require('famous/core/View');
+    var HomeScroll = require('views/HomeScroll');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var GridLayout = require("famous/views/GridLayout");
 
     var HeaderView = require('views/HeaderView');
-    var page1 = require('text!jade/page1.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -10340,72 +10438,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
         this.header.pipe(this);
 
         /*Content*/
-        this.contents = [];
-        this.content = new ScrollView();
-
-        this.contentHome = new Surface({
-            size: [undefined, undefined],
-            content: page1,
-            properties: {
-                fontSize: '16px',
-                backgroundColor: '#FFFAE2'
-                //backgroundColor: '#FFE1D0'
-            }
-        });
-        this.contentAbout = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>SVET International publishing house</h2>' +
-            '<p>From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability. </p>',
-            properties: {
-                backgroundColor: '#E6FFEF'
-            }
-        });
-        this.contentDemographics = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Demographics</h2>' +
-            '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
-            properties: {
-                backgroundColor: '#FFFAE2'
-            }
-        });
-        this.contentClients = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Demographics</h2>' +
-            '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
-            properties: {
-                backgroundColor: '#E6FFDB'
-            }
-        });
-        this.contentRadio = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Radio Program “OSA”</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
-            properties: {
-                backgroundColor: '#FFF1E9'
-            }
-        });
-        this.contentContact = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Contact Us</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
-            properties: {
-                backgroundColor: '#FFE1D0'
-            }
-        });
-        this.contents.push(this.contentHome);
-        this.contents.push(this.contentAbout);
-        this.contents.push(this.contentDemographics);
-        this.contents.push(this.contentClients);
-        this.contents.push(this.contentRadio);
-        this.contents.push(this.contentContact);
-        this.content.sequenceFrom(this.contents);
-
-        this.contentHome.pipe(this.content);
-        this.contentAbout.pipe(this.content);
-        this.contentDemographics.pipe(this.content);
-        this.contentClients.pipe(this.content);
-        this.contentRadio.pipe(this.content);
-        this.contentContact.pipe(this.content);
+        this.content = new HomeScroll();
 
         /* =Footer*/
         this.footers = [];
@@ -11171,6 +11204,105 @@ define(function (require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
+    var ScrollView = require('famous/views/Scrollview');
+
+    var GenericSync = require("famous/inputs/GenericSync");
+    var MouseSync = require("famous/inputs/MouseSync");
+    var TouchSync = require("famous/inputs/TouchSync");
+    var ScrollSync = require("famous/inputs/ScrollSync");
+
+    function HomeScroll() {
+        ScrollView.apply(this, arguments);
+
+        _createContent.call(this);
+    }
+
+    HomeScroll.prototype = Object.create(ScrollView.prototype);
+    HomeScroll.prototype.constructor = HomeScroll;
+
+    HomeScroll.DEFAULT_OPTIONS = {
+        options: {
+            pageSwitchSpeed: 0.6
+        }
+    };
+
+    function _createContent() {
+        var that = this;
+
+        GenericSync.register({
+            mouse: MouseSync,
+            touch: TouchSync,
+            scroll: ScrollSync
+        });
+
+        var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
+
+        var homePage = require('text!jade/page1.html');
+        this.contents = [];
+        this.setOptions({
+            pageSwitchSpeed:0.9,
+            speedLimit:1,
+            pagePeriod:900
+        });
+
+        console.log(this.options.pageSwitchSpeed);
+        this.contentHome = new Surface({
+            size: [undefined, undefined],
+            content: homePage,
+            properties: {
+                fontSize: '16px',
+                backgroundColor: '#FFFAE2'
+                //backgroundColor: '#FFE1D0'
+            }
+        });
+        this.contentAbout = new Surface({
+            size: [undefined, undefined],
+            content: 'About',
+            properties: {
+                fontSize: '16px',
+                backgroundColor: 'green'
+                //backgroundColor: '#FFE1D0'
+            }
+        });
+
+        var velocity = 0;
+        var delta = 0;
+
+        this.contentHome.pipe(genericSync);
+        this.contentAbout.pipe(genericSync);
+
+        genericSync.on("start", function () {
+        });
+
+        genericSync.on("update", function (data) {
+            delta = data.delta[1];
+            if (delta < 0) {
+                that.goToNextPage();
+            } else {
+
+                that.goToPreviousPage();
+            }
+        });
+
+        genericSync.on("end", function () {
+
+        });
+
+        this.contents.push(this.contentHome);
+        this.contents.push(this.contentAbout);
+        this.sequenceFrom(this.contents);
+
+
+    };
+
+    module.exports = HomeScroll;
+});
+
+define(function (require, exports, module) {
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var View = require('famous/core/View');
     var Timer = require('famous/utilities/Timer');
 
     var NavigationView = require('./NavigationView');
@@ -11302,12 +11434,11 @@ define(function (require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
-    var ScrollView = require('famous/views/Scrollview');
+    var HomeScroll = require('views/HomeScroll');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var GridLayout = require("famous/views/GridLayout");
 
     var HeaderView = require('views/HeaderView');
-    var page1 = require('text!jade/page1.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -11322,72 +11453,7 @@ define(function (require, exports, module) {
         this.header.pipe(this);
 
         /*Content*/
-        this.contents = [];
-        this.content = new ScrollView();
-
-        this.contentHome = new Surface({
-            size: [undefined, undefined],
-            content: page1,
-            properties: {
-                fontSize: '16px',
-                backgroundColor: '#FFFAE2'
-                //backgroundColor: '#FFE1D0'
-            }
-        });
-        this.contentAbout = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>SVET International publishing house</h2>' +
-            '<p>From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability. </p>',
-            properties: {
-                backgroundColor: '#E6FFEF'
-            }
-        });
-        this.contentDemographics = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Demographics</h2>' +
-            '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
-            properties: {
-                backgroundColor: '#FFFAE2'
-            }
-        });
-        this.contentClients = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Demographics</h2>' +
-            '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
-            properties: {
-                backgroundColor: '#E6FFDB'
-            }
-        });
-        this.contentRadio = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Radio Program “OSA”</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
-            properties: {
-                backgroundColor: '#FFF1E9'
-            }
-        });
-        this.contentContact = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Contact Us</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
-            properties: {
-                backgroundColor: '#FFE1D0'
-            }
-        });
-        this.contents.push(this.contentHome);
-        this.contents.push(this.contentAbout);
-        this.contents.push(this.contentDemographics);
-        this.contents.push(this.contentClients);
-        this.contents.push(this.contentRadio);
-        this.contents.push(this.contentContact);
-        this.content.sequenceFrom(this.contents);
-
-        this.contentHome.pipe(this.content);
-        this.contentAbout.pipe(this.content);
-        this.contentDemographics.pipe(this.content);
-        this.contentClients.pipe(this.content);
-        this.contentRadio.pipe(this.content);
-        this.contentContact.pipe(this.content);
+        this.content = new HomeScroll();
 
         /* =Footer*/
         this.footers = [];
@@ -11443,3 +11509,36 @@ define(function (require, exports, module) {
 
 })
 ;
+
+define(function (require, exports, module) {
+    var Surface = require('famous/core/Surface');
+
+    var View = require('famous/core/View');
+
+    function HomePage() {
+        _createContent.call(this);
+    }
+
+    HomePage.prototype = Object.create(Surface.prototype);
+    HomePage.prototype.constructor = HomePage;
+
+    HomePage.DEFAULT_OPTIONS = {};
+
+    function _createContent() {
+
+        var page1 = require('text!jade/page1.html');
+
+        this.contentHome = new Surface({
+            size: [undefined, undefined],
+            content: page1,
+            properties: {
+                fontSize: '16px',
+                backgroundColor: '#FFFAE2'
+            }
+        });
+
+    };
+
+    module.exports = HomePage;
+});
+

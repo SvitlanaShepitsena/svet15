@@ -1,22 +1,22 @@
 /**
  * Copyright (c) 2014 Famous Industries, Inc.
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a 
- * copy of this software and associated documentation files (the "Software"), 
- * to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- * and/or sell copies of the Software, and to permit persons to whom the 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in 
+ *
+ * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
  * @license MIT
@@ -32,7 +32,7 @@
  * it will fit the size of the modifier instead of the
  * context's size.
  *
- * In this example, we have a HeaderFooterLayout sit below a 
+ * In this example, we have a HeaderFooterLayout sit below a
  * sized modifier in the render tree with a rotation applied
  * as well.
  */
@@ -52,7 +52,7 @@ define(function(require, exports, module) {
 
     layout.header.add(new Surface({
         size: [undefined, 100],
-        content: "Header",
+        scroll: "Header",
         classes: ["red-bg"],
         properties: {
             lineHeight: "100px",
@@ -60,9 +60,9 @@ define(function(require, exports, module) {
         }
     }));
 
-    layout.content.add(new Surface({
+    layout.scroll.add(new Surface({
         size: [undefined, undefined],
-        content: "Content",
+        scroll: "Content",
         classes: ["grey-bg"],
         properties: {
             lineHeight: '150px',
@@ -72,7 +72,7 @@ define(function(require, exports, module) {
 
     layout.footer.add(new Surface({
         size: [undefined, 50],
-        content: "Footer",
+        scroll: "Footer",
         classes: ["red-bg"],
         properties: {
             lineHeight: "50px",

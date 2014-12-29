@@ -3,12 +3,11 @@ define(function (require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
-    var ScrollView = require('famous/views/Scrollview');
+    var HomeScroll = require('views/HomeScroll');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var GridLayout = require("famous/views/GridLayout");
 
     var HeaderView = require('views/HeaderView');
-    var page1 = require('text!jade/page1.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -23,72 +22,7 @@ define(function (require, exports, module) {
         this.header.pipe(this);
 
         /*Content*/
-        this.contents = [];
-        this.content = new ScrollView();
-
-        this.contentHome = new Surface({
-            size: [undefined, undefined],
-            content: page1,
-            properties: {
-                fontSize: '16px',
-                backgroundColor: '#FFFAE2'
-                //backgroundColor: '#FFE1D0'
-            }
-        });
-        this.contentAbout = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>SVET International publishing house</h2>' +
-            '<p>From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability. </p>',
-            properties: {
-                backgroundColor: '#E6FFEF'
-            }
-        });
-        this.contentDemographics = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Demographics</h2>' +
-            '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
-            properties: {
-                backgroundColor: '#FFFAE2'
-            }
-        });
-        this.contentClients = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Demographics</h2>' +
-            '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
-            properties: {
-                backgroundColor: '#E6FFDB'
-            }
-        });
-        this.contentRadio = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Radio Program “OSA”</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
-            properties: {
-                backgroundColor: '#FFF1E9'
-            }
-        });
-        this.contentContact = new Surface({
-            size: [undefined, undefined],
-            content: '<h2>Contact Us</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
-            properties: {
-                backgroundColor: '#FFE1D0'
-            }
-        });
-        this.contents.push(this.contentHome);
-        this.contents.push(this.contentAbout);
-        this.contents.push(this.contentDemographics);
-        this.contents.push(this.contentClients);
-        this.contents.push(this.contentRadio);
-        this.contents.push(this.contentContact);
-        this.content.sequenceFrom(this.contents);
-
-        this.contentHome.pipe(this.content);
-        this.contentAbout.pipe(this.content);
-        this.contentDemographics.pipe(this.content);
-        this.contentClients.pipe(this.content);
-        this.contentRadio.pipe(this.content);
-        this.contentContact.pipe(this.content);
+        this.content = new HomeScroll();
 
         /* =Footer*/
         this.footers = [];

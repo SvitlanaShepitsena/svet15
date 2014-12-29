@@ -150,7 +150,7 @@ gulp.task('lib', function () {
 
 gulp.task('js', ['lib'], function () {
     var DEST = dev + 'js';
-    return gulp.src(['app/src/*.js', 'app/views/*.js'])
+    return gulp.src(['app/src/*.js', 'app/views/**/*.js'])
         .pipe(rjs(
             {
                 baseUrl: './app/src',
@@ -210,7 +210,7 @@ gulp.task('browser-sync', ['nodemon'], function () {
 gulp.task('default', ['jade:v', 'jade', 'autoprefix'], function () {
     runSequence('js', 'add');
 
-    gulp.watch(['app/src/*.js', 'app/views/*.js'], ['js']);
+    gulp.watch(['app/src/*.js', 'app/views/**/*.js'], ['js']);
     gulp.watch('app/img/**/*', ['img']);
     gulp.watch('app/*.jade', ['jade']);
     gulp.watch('app/jade/*.jade', function () {
