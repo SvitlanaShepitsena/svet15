@@ -9,6 +9,7 @@ define(function (require, exports, module) {
 
     var HeaderView = require('views/HeaderView');
     var homePage = require('text!jade/homePage.html');
+    var aboutUsPage = require('text!jade/aboutUsPage.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -37,8 +38,7 @@ define(function (require, exports, module) {
         });
         this.contentAbout = new Surface({
             size: [undefined, undefined],
-            content: '<h2>SVET International publishing house</h2>' +
-            '<p>From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability. </p>',
+            content: aboutUsPage,
             properties: {
                 backgroundColor: '#E6FFEF'
             }

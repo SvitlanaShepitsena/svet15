@@ -88,6 +88,78 @@ article p {
 .svet-services h3 {
   text-align: center;
 }
+.sun-times {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 31.3333333333333%;
+  margin-left: 0%;
+  margin-right: 3%;
+}
+.sun-times:before,
+.sun-times:after {
+  content: '';
+  display: table;
+}
+.sun-times:after {
+  clear: both;
+}
+.sun-times:last-child {
+  margin-right: 0%;
+}
+.sun-times img {
+  max-width: 100%;
+}
+.chicago-news {
+  margin-top: 30px;
+}
+.about-content-top {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 65.6666666666667%;
+  margin-left: 0%;
+  margin-right: 3%;
+}
+.about-content-top:before,
+.about-content-top:after {
+  content: '';
+  display: table;
+}
+.about-content-top:after {
+  clear: both;
+}
+.about-content-top:last-child {
+  margin-right: 0%;
+}
+.about-content-top p {
+  margin-bottom: 15px;
+}
+.about-content-bottom {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 65.6666666666667%;
+  margin-left: 0%;
+  margin-right: 3%;
+}
+.about-content-bottom:before,
+.about-content-bottom:after {
+  content: '';
+  display: table;
+}
+.about-content-bottom:after {
+  clear: both;
+}
+.about-content-bottom:last-child {
+  margin-right: 0%;
+}
+.about-content-bottom p {
+  margin-top: 15px;
+}
 .text-center {
   text-align: center;
 }
@@ -165,6 +237,9 @@ article p {
   margin: 0 auto;
   border-radius: 100px;
   margin-bottom: 20px;
+}
+.h-services {
+  font-size: 32px;
 }
 @media only screen and (min-width: 400px) {
   .h-services {
