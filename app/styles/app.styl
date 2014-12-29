@@ -2,6 +2,24 @@
 @import 'reset.css'
 
 size-med = 960px
+size-sm = 400px
+
+/*Headers*/
+h1
+    +below(size-med)
+        font-size 32px
+
+h2
+    +below(size-med)
+        font-size 26px
+
+h3
+    +below(size-med)
+        font-size 20px
+
+h4
+    +below(size-med)
+        font-size 16px
 
 html
     background: #fff;
@@ -20,7 +38,11 @@ section
     center(98%)
 
 article
+    margin-bottom 10px
+    margin-top 10px
     p
+        +below(size-med)
+            font-size 12px
         max-width 100%
 
 .svet-services
@@ -32,21 +54,36 @@ article
     text-align center
 
 .productsServises
-    col(1 / 4, cycle:4)
-    +below(size-med)
-        col(1 / 2, cycle:2)
-
+    col(1 / 2, cycle:2)
     h4
         font-size 14px
+        margin-bottom 10px
     p
-        font-size 12px
+        padding-left 5px
+        line-height 26px
+        padding-right margin-bottom 5px
+        margin-bottom 30px
+        +below(size-sm)
+            font-size 11px
     h4, p
         text-align center
 
 .text-center
     text-align center
-    color green
 
-.svet-market
-    min-width: 100%;
-    line-height 26px
+.home-icon
+    max-width 200px
+
+.home-icon-container
+    width 150px
+    height 150px
+    background-color: lighten(#FC6E51, 15%)
+    text-align center
+    margin 0 auto
+    border-radius 100px
+    margin-bottom 20px
+
+.h-services
+    +above(size-sm)
+        font-size 30px
+        margin-bottom 30px
