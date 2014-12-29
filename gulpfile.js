@@ -34,6 +34,7 @@ var express = require('express'),
     changed = require('gulp-changed'),
     newer = require('gulp-newer'),
     rupture = require("rupture"),
+    gutil = require('gulp-util'),
     processhtml = require('gulp-processhtml');
 
 var dev = 'app/build/',
@@ -98,7 +99,7 @@ gulp.task('stylus', function () {
         .pipe(plumber({errorHandler: onError}))
         .pipe(stylus({
             use: [nib(), jeet(), rupture()],
-            compress: true
+            compress: false
         }))
         .pipe(gulp.dest('app/styles/'))
         .pipe(reload({stream: true}));
@@ -118,19 +119,6 @@ gulp.task('add', function () {
 gulp.task('commit', function () {
     return gulp.src('./app/*')
         .pipe(git.commit('Deploy to Heroku'));
-});
-
-gulp.task('remote', function(){
-    git.addRemote('heroku', 'https://git.heroku.com/svet15.git', function (err) {
-        if (err) throw err;
-    });
-});
-
-
-gulp.task('push', function(){
-    git.push('heroku', 'master', function (err) {
-        if (err) throw err;
-    });
 });
 
 gulp.task('jade', function () {
@@ -153,17 +141,14 @@ gulp.task('jade:v', function () {
         .pipe(reload({stream: true}))
 });
 
-
-
-
 gulp.task('lib', function () {
-    return gulp.src(['app/lib/**/*.js','app/lib/**/*.css'], {base: 'app'})
+    return gulp.src(['app/lib/**/*.js', 'app/lib/**/*.css'], {base: 'app'})
         .pipe(newer(dev))
         .pipe(gulp.dest(dev))
 
 });
 
-gulp.task('js',['lib'], function () {
+gulp.task('js', ['lib'], function () {
     var DEST = dev + 'js';
     return gulp.src(['app/src/*.js', 'app/views/*.js'])
         .pipe(rjs(
@@ -188,8 +173,8 @@ gulp.task('js',['lib'], function () {
 });
 
 gulp.task('assets:dist', function () {
-    gulp.src(['app/build/**/*.js', '!app/build/lib/requirejs/**'])
-        .pipe(uglify('app.js', {outSourceMap: false}))
+    gulp.src(['app/build/lib/*.js','app/build/js/*.js', '!app/build/lib/requirejs/**'])
+        .pipe(uglify('app.js', {outSourceMap: false, mangle: false}))
         .pipe(gulp.dest(dist + 'js'));
 
     gulp.src(dev + '/**/*.css')
@@ -223,7 +208,7 @@ gulp.task('browser-sync', ['nodemon'], function () {
 });
 
 gulp.task('default', ['jade:v', 'jade', 'autoprefix'], function () {
-    runSequence('js','add');
+    runSequence('js', 'add');
 
     gulp.watch(['app/src/*.js', 'app/views/*.js'], ['js']);
     gulp.watch('app/img/**/*', ['img']);
@@ -243,7 +228,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('deploy', function () {
-    runSequence('clean', 'jade', ['js', 'img'], 'moveUp', 'copyAssets', 'delIndex', 'autoprefix',  'assets:dist', 'index:dist','add','commit');
+    runSequence('clean', 'jade', ['js', 'img'], 'moveUp', 'copyAssets', 'delIndex', 'autoprefix', 'assets:dist', 'index:dist', 'add', 'commit');
 });
 
 
