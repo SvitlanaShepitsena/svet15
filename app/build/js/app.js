@@ -10073,8 +10073,6 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
             }
         });
 
-        var velocity = 0;
-        var delta = 0;
 
         this.contentHome.pipe(genericSync);
         this.contentAbout.pipe(genericSync);
@@ -11261,8 +11259,6 @@ define(function (require, exports, module) {
             }
         });
 
-        var velocity = 0;
-        var delta = 0;
 
         this.contentHome.pipe(genericSync);
         this.contentAbout.pipe(genericSync);
