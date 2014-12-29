@@ -191,6 +191,30 @@ article p {
 .about-content-bottom h2 {
   margin-bottom: 15px;
 }
+.clients-content {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 31.3333333333333%;
+  margin-left: 0%;
+  margin-right: 3%;
+}
+.clients-content:before,
+.clients-content:after {
+  content: '';
+  display: table;
+}
+.clients-content:after {
+  clear: both;
+}
+.clients-content:last-child {
+  margin-right: 0%;
+}
+.clients-content ul {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 .text-center {
   text-align: center;
 }

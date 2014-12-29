@@ -11,6 +11,7 @@ define(function (require, exports, module) {
     var homePage = require('text!jade/homePage.html');
     var aboutUsPage = require('text!jade/aboutUsPage.html');
     var demographicsPage = require('text!jade/demographicsPage.html');
+    var clientsPage = require('text!jade/clientsPage.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -53,8 +54,7 @@ define(function (require, exports, module) {
         });
         this.contentClients = new Surface({
             size: [undefined, undefined],
-            content: '<h2>Demographics</h2>' +
-            '<p>The Russian - American population in the United States is estimated at nearly 2.9 million people</p>',
+            content: clientsPage,
             properties: {
                 backgroundColor: '#E6FFDB'
             }
