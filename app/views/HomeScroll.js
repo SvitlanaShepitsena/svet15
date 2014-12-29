@@ -36,12 +36,10 @@ define(function (require, exports, module) {
 
         var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
 
-        var homePage = require('text!jade/page1.html');
+        var homePage = require('text!jade/homePage.html');
         this.contents = [];
         this.setOptions({
-            pageSwitchSpeed:0.9,
-            speedLimit:1,
-            pagePeriod:900
+            pagePeriod:700
         });
 
         console.log(this.options.pageSwitchSpeed);
