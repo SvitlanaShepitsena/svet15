@@ -14,7 +14,21 @@ define(function (require, exports, module) {
     var clientsPage = require('text!jade/clientsPage.html');
     var radioPage = require('text!jade/radioPage.html');
 
+    var GenericSync = require("famous/inputs/GenericSync");
+    var MouseSync = require("famous/inputs/MouseSync");
+    var TouchSync = require("famous/inputs/TouchSync");
+    var ScrollSync = require("famous/inputs/ScrollSync");
+
     function PageView() {
+        var that = this;
+        GenericSync.register({
+            mouse: MouseSync,
+            touch: TouchSync,
+            scroll: ScrollSync
+        });
+
+        var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
+
         View.apply(this, arguments);
 
         this.layout = new HeaderFooterLayout({
@@ -27,8 +41,27 @@ define(function (require, exports, module) {
         this.header.pipe(this);
 
         /*Content*/
-        this.content = new HomeScroll();
+        this.content = new HomeScroll(genericSync);
+        var currentIndex = 0;
 
+        genericSync.on("update", function (data) {
+            delta = data.delta[1];
+            if (delta < 0) {
+                currentIndex++;
+            } else {
+
+                currentIndex--;
+            }
+
+            if (currentIndex > 5) {
+                currentIndex = 5;
+            }
+            if (currentIndex < 0) {
+                currentIndex = 0;
+            }
+            console.log(currentIndex);
+            that.footerLeft.setAttributes({backgroundColor: 'black'})
+        });
 
         /* =Footer*/
         this.footers = [];
@@ -40,7 +73,7 @@ define(function (require, exports, module) {
         this.footerLeft = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: '#F27649',
+                backgroundColor: this.getColor(currentIndex),
                 backgroundSize: 'cover'
             }
         })
@@ -79,6 +112,11 @@ define(function (require, exports, module) {
     /*****************/
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
+
+    PageView.prototype.getColor = function (currentPage) {
+        var colors = ['red', 'green', 'yellow', 'brown', 'orange', 'black'];
+        return colors[currentPage];
+    }
 
     module.exports = PageView;
 

@@ -5,10 +5,6 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var ScrollView = require('famous/views/Scrollview');
 
-    var GenericSync = require("famous/inputs/GenericSync");
-    var MouseSync = require("famous/inputs/MouseSync");
-    var TouchSync = require("famous/inputs/TouchSync");
-    var ScrollSync = require("famous/inputs/ScrollSync");
 
     function HomeScroll(sync) {
         this.generalSync = sync;
@@ -26,14 +22,8 @@ define(function (require, exports, module) {
 
     function _createContent() {
         var that = this;
+        var genericSync = this.generalSync;
 
-        GenericSync.register({
-            mouse: MouseSync,
-            touch: TouchSync,
-            scroll: ScrollSync
-        });
-
-        var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
 
         var homePage = require('text!jade/homePage.html');
         var aboutUsPage = require('text!jade/aboutUsPage.html');
