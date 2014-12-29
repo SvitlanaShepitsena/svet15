@@ -40,6 +40,7 @@ define(function (require, exports, module) {
         var demographicsPage = require('text!jade/demographicsPage.html');
         var clientsPage = require('text!jade/clientsPage.html');
         var radioPage = require('text!jade/radioPage.html');
+        var contactUsPage = require('text!jade/contactUsPage.html');
 
         this.contents = [];
         this.setOptions({
@@ -85,8 +86,7 @@ define(function (require, exports, module) {
         });
         this.contentContact = new Surface({
             size: [undefined, undefined],
-            content: '<h2>Contact Us</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
+            content: contactUsPage,
             properties: {
                 backgroundColor: '#FFE1D0'
             }
@@ -97,6 +97,7 @@ define(function (require, exports, module) {
         this.contentDemographics.pipe(genericSync);
         this.contentClients.pipe(genericSync);
         this.contentRadio.pipe(genericSync);
+        this.contentContact.pipe(genericSync);
 
         genericSync.on("start", function () {
         });
@@ -120,6 +121,7 @@ define(function (require, exports, module) {
         this.contents.push(this.contentDemographics);
         this.contents.push(this.contentClients);
         this.contents.push(this.contentRadio);
+        this.contents.push(this.contentContact);
         this.sequenceFrom(this.contents);
 
     };

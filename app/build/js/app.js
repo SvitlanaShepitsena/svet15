@@ -10017,7 +10017,9 @@ define('text!jade/clientsPage.html',[],function () { return '\n<section class="s
 
 define('text!jade/radioPage.html',[],function () { return '\n<section class="svet-services">\n  <div class="h-services text-center">Radio "OSA"</div>\n  <article>\n    <div class="clients-content">\n      <ul class="list-unstyled">\n        <li><a href="mms://strean.imcpro.com/svet/2014-12-28.asf">\n            2014-12-28.asf\n            &nbsp\n            Sunday, December 28, 2014</a></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Auto</h2>\n      <ul>\n        <li>Arlington Toyota</li>\n        <li>Berman’s Auto Group</li>\n        <li>Castle Honda</li>\n        <li>Fields Dodge and Jeep</li>\n        <li>Fields Infinity</li>\n        <li>Harley Davidson</li>\n        <li>Lexus of Orland</li>\n        <li>Prestige Leasing</li>\n        <li>Rich\'s Yamaha</li>\n        <li>Star Nissan</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Stores</h2>\n      <ul>\n        <li>Studio 41 Home Design</li>\n        <li>Home Depot</li>\n        <li>C.D. Peacock</li>\n        <li>Fresh Farms</li>\n        <li>Highland Health Food</li>\n        <li>Garden Fresh</li>\n        <li>Farmers Best</li>\n        <li>H-Mart</li>\n        <li>Bende’s Specialty Foods</li>\n        <li>Jimenez</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n  </article>\n</section>';});
 
-define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/inputs/GenericSync','famous/inputs/MouseSync','famous/inputs/TouchSync','famous/inputs/ScrollSync','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html'],function (require, exports, module) {
+define('text!jade/contactUsPage.html',[],function () { return '\n<section class="svet-services">\n  <div class="h-services text-center">Contact Us</div><br/>\n  <article class="dem-content-bottom">\n    <table width="220" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;" class="simpleText">\n      <tbody>\n        <tr>\n          <td> </td>\n          <td colspan="2">900 Skokie Blvd., Suite 103, Northbrook, IL 60062<br/>Tel. (847)715-9407<br/>Fax: (847)715-9677<br/>E-mail:<a href="mailto:svet@svet.com" class="menu2"> manager@svet.com</a></td>\n        </tr>\n        <tr>\n          <td colspan="3" height="8"></td>\n        </tr>\n      </tbody>\n    </table>\n  </article>\n</section>';});
+
+define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/inputs/GenericSync','famous/inputs/MouseSync','famous/inputs/TouchSync','famous/inputs/ScrollSync','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','text!jade/contactUsPage.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
@@ -10059,6 +10061,7 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
         var demographicsPage = require('text!jade/demographicsPage.html');
         var clientsPage = require('text!jade/clientsPage.html');
         var radioPage = require('text!jade/radioPage.html');
+        var contactUsPage = require('text!jade/contactUsPage.html');
 
         this.contents = [];
         this.setOptions({
@@ -10104,8 +10107,7 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
         });
         this.contentContact = new Surface({
             size: [undefined, undefined],
-            content: '<h2>Contact Us</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
+            content: contactUsPage,
             properties: {
                 backgroundColor: '#FFE1D0'
             }
@@ -10116,6 +10118,7 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
         this.contentDemographics.pipe(genericSync);
         this.contentClients.pipe(genericSync);
         this.contentRadio.pipe(genericSync);
+        this.contentContact.pipe(genericSync);
 
         genericSync.on("start", function () {
         });
@@ -10139,6 +10142,7 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
         this.contents.push(this.contentDemographics);
         this.contents.push(this.contentClients);
         this.contents.push(this.contentRadio);
+        this.contents.push(this.contentContact);
         this.sequenceFrom(this.contents);
 
     };
@@ -11305,6 +11309,7 @@ define(function (require, exports, module) {
         var demographicsPage = require('text!jade/demographicsPage.html');
         var clientsPage = require('text!jade/clientsPage.html');
         var radioPage = require('text!jade/radioPage.html');
+        var contactUsPage = require('text!jade/contactUsPage.html');
 
         this.contents = [];
         this.setOptions({
@@ -11350,8 +11355,7 @@ define(function (require, exports, module) {
         });
         this.contentContact = new Surface({
             size: [undefined, undefined],
-            content: '<h2>Contact Us</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
+            content: contactUsPage,
             properties: {
                 backgroundColor: '#FFE1D0'
             }
@@ -11362,6 +11366,7 @@ define(function (require, exports, module) {
         this.contentDemographics.pipe(genericSync);
         this.contentClients.pipe(genericSync);
         this.contentRadio.pipe(genericSync);
+        this.contentContact.pipe(genericSync);
 
         genericSync.on("start", function () {
         });
@@ -11385,6 +11390,7 @@ define(function (require, exports, module) {
         this.contents.push(this.contentDemographics);
         this.contents.push(this.contentClients);
         this.contents.push(this.contentRadio);
+        this.contents.push(this.contentContact);
         this.sequenceFrom(this.contents);
 
     };
