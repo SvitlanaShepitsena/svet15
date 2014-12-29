@@ -10037,7 +10037,7 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
         ScrollView.apply(this, arguments);
 
         _createContent.call(this);
-        
+
     }
 
     HomeScroll.prototype = Object.create(ScrollView.prototype);
@@ -11285,7 +11285,7 @@ define(function (require, exports, module) {
         ScrollView.apply(this, arguments);
 
         _createContent.call(this);
-        
+
     }
 
     HomeScroll.prototype = Object.create(ScrollView.prototype);
