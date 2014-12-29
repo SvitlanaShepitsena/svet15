@@ -213,6 +213,10 @@ article p {
 .svet-media-group:last-child {
   margin-right: 0%;
 }
+.svet-media-group p {
+  font-size: 18px;
+  line-height: 28px;
+}
 .productsServises {
   *zoom: 1;
   float: left;
@@ -267,6 +271,13 @@ article p {
   margin: 0 auto;
   border-radius: 100px;
   margin-bottom: 20px;
+}
+.h-home {
+  font-size: 25px;
+  line-height: 28px;
+  font-weight: normal;
+  text-align: center;
+  margin-bottom: 15px;
 }
 .h-services {
   font-size: 32px;
