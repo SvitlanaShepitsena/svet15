@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var GridLayout = require("famous/views/GridLayout");
 
     var HeaderView = require('views/HeaderView');
-    var page1 = require('text!jade/homePage.html');
+    var homePage = require('text!jade/homePage.html');
 
     function PageView() {
         View.apply(this, arguments);
