@@ -8,6 +8,11 @@ define(function (require, exports, module) {
     var GridLayout = require("famous/views/GridLayout");
 
     var HeaderView = require('views/HeaderView');
+    var homePage = require('text!jade/homePage.html');
+    var aboutUsPage = require('text!jade/aboutUsPage.html');
+    var demographicsPage = require('text!jade/demographicsPage.html');
+    var clientsPage = require('text!jade/clientsPage.html');
+    var radioPage = require('text!jade/radioPage.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -23,6 +28,7 @@ define(function (require, exports, module) {
 
         /*Content*/
         this.content = new HomeScroll();
+
 
         /* =Footer*/
         this.footers = [];
