@@ -10029,20 +10029,19 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
     var TouchSync = require("famous/inputs/TouchSync");
     var ScrollSync = require("famous/inputs/ScrollSync");
 
-    function HomeScroll() {
+    function HomeScroll(sync) {
+        this.generalSync = sync;
+
         ScrollView.apply(this, arguments);
 
         _createContent.call(this);
+        
     }
 
     HomeScroll.prototype = Object.create(ScrollView.prototype);
     HomeScroll.prototype.constructor = HomeScroll;
 
-    HomeScroll.DEFAULT_OPTIONS = {
-        options: {
-            pageSwitchSpeed: 0.6
-        }
-    };
+    HomeScroll.DEFAULT_OPTIONS = {};
 
     function _createContent() {
         var that = this;
@@ -10112,7 +10111,6 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
             }
         });
 
-
         this.contentHome.pipe(genericSync);
         this.contentAbout.pipe(genericSync);
         this.contentDemographics.pipe(genericSync);
@@ -10142,7 +10140,6 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
         this.contents.push(this.contentClients);
         this.contents.push(this.contentRadio);
         this.sequenceFrom(this.contents);
-
 
     };
 
@@ -10491,7 +10488,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
 
         /*Header*/
         this.header = new HeaderView();
-        //this.header.pipe(this);
+        this.header.pipe(this);
 
         /*Content*/
         this.content = new HomeScroll();
@@ -11278,20 +11275,19 @@ define(function (require, exports, module) {
     var TouchSync = require("famous/inputs/TouchSync");
     var ScrollSync = require("famous/inputs/ScrollSync");
 
-    function HomeScroll() {
+    function HomeScroll(sync) {
+        this.generalSync = sync;
+
         ScrollView.apply(this, arguments);
 
         _createContent.call(this);
+        
     }
 
     HomeScroll.prototype = Object.create(ScrollView.prototype);
     HomeScroll.prototype.constructor = HomeScroll;
 
-    HomeScroll.DEFAULT_OPTIONS = {
-        options: {
-            pageSwitchSpeed: 0.6
-        }
-    };
+    HomeScroll.DEFAULT_OPTIONS = {};
 
     function _createContent() {
         var that = this;
@@ -11361,7 +11357,6 @@ define(function (require, exports, module) {
             }
         });
 
-
         this.contentHome.pipe(genericSync);
         this.contentAbout.pipe(genericSync);
         this.contentDemographics.pipe(genericSync);
@@ -11391,7 +11386,6 @@ define(function (require, exports, module) {
         this.contents.push(this.contentClients);
         this.contents.push(this.contentRadio);
         this.sequenceFrom(this.contents);
-
 
     };
 
@@ -11555,7 +11549,7 @@ define(function (require, exports, module) {
 
         /*Header*/
         this.header = new HeaderView();
-        //this.header.pipe(this);
+        this.header.pipe(this);
 
         /*Content*/
         this.content = new HomeScroll();

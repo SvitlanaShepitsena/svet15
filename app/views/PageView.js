@@ -24,7 +24,7 @@ define(function (require, exports, module) {
 
         /*Header*/
         this.header = new HeaderView();
-        //this.header.pipe(this);
+        this.header.pipe(this);
 
         /*Content*/
         this.content = new HomeScroll();
