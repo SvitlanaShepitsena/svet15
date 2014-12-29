@@ -10019,17 +10019,13 @@ define('text!jade/radioPage.html',[],function () { return '\n<section class="sve
 
 define('text!jade/contactUsPage.html',[],function () { return '\n<section class="svet-services">\n  <div class="h-services text-center">Contact Us</div><br/>\n  <article class="dem-content-bottom">\n    <table width="220" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;" class="simpleText">\n      <tbody>\n        <tr>\n          <td> </td>\n          <td colspan="2">900 Skokie Blvd., Suite 103, Northbrook, IL 60062<br/>Tel. (847)715-9407<br/>Fax: (847)715-9677<br/>E-mail:<a href="mailto:svet@svet.com" class="menu2"> manager@svet.com</a></td>\n        </tr>\n        <tr>\n          <td colspan="3" height="8"></td>\n        </tr>\n      </tbody>\n    </table>\n  </article>\n</section>';});
 
-define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/inputs/GenericSync','famous/inputs/MouseSync','famous/inputs/TouchSync','famous/inputs/ScrollSync','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','text!jade/contactUsPage.html'],function (require, exports, module) {
+define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','text!jade/contactUsPage.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var ScrollView = require('famous/views/Scrollview');
 
-    var GenericSync = require("famous/inputs/GenericSync");
-    var MouseSync = require("famous/inputs/MouseSync");
-    var TouchSync = require("famous/inputs/TouchSync");
-    var ScrollSync = require("famous/inputs/ScrollSync");
 
     function HomeScroll(sync) {
         this.generalSync = sync;
@@ -10047,14 +10043,8 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
 
     function _createContent() {
         var that = this;
+        var genericSync = this.generalSync;
 
-        GenericSync.register({
-            mouse: MouseSync,
-            touch: TouchSync,
-            scroll: ScrollSync
-        });
-
-        var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
 
         var homePage = require('text!jade/homePage.html');
         var aboutUsPage = require('text!jade/aboutUsPage.html');
@@ -10466,7 +10456,7 @@ define('views/HeaderView',['require','exports','module','famous/core/Surface','f
     module.exports = HeaderView;
 });
 
-define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','views/HomeScroll','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html'],function (require, exports, module) {
+define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','views/HomeScroll','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','famous/inputs/GenericSync','famous/inputs/MouseSync','famous/inputs/TouchSync','famous/inputs/ScrollSync'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
@@ -10482,7 +10472,21 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
     var clientsPage = require('text!jade/clientsPage.html');
     var radioPage = require('text!jade/radioPage.html');
 
+    var GenericSync = require("famous/inputs/GenericSync");
+    var MouseSync = require("famous/inputs/MouseSync");
+    var TouchSync = require("famous/inputs/TouchSync");
+    var ScrollSync = require("famous/inputs/ScrollSync");
+
     function PageView() {
+        var that = this;
+        GenericSync.register({
+            mouse: MouseSync,
+            touch: TouchSync,
+            scroll: ScrollSync
+        });
+
+        var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
+
         View.apply(this, arguments);
 
         this.layout = new HeaderFooterLayout({
@@ -10495,8 +10499,27 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
         this.header.pipe(this);
 
         /*Content*/
-        this.content = new HomeScroll();
+        this.content = new HomeScroll(genericSync);
+        var currentIndex = 0;
 
+        genericSync.on("update", function (data) {
+            delta = data.delta[1];
+            if (delta < 0) {
+                currentIndex++;
+            } else {
+
+                currentIndex--;
+            }
+
+            if (currentIndex > 5) {
+                currentIndex = 5;
+            }
+            if (currentIndex < 0) {
+                currentIndex = 0;
+            }
+            console.log(currentIndex);
+            that.footerLeft.setAttributes({backgroundColor: 'black'})
+        });
 
         /* =Footer*/
         this.footers = [];
@@ -10508,7 +10531,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
         this.footerLeft = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: '#F27649',
+                backgroundColor: this.getColor(currentIndex),
                 backgroundSize: 'cover'
             }
         })
@@ -10547,6 +10570,11 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
     /*****************/
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
+
+    PageView.prototype.getColor = function (currentPage) {
+        var colors = ['red', 'green', 'yellow', 'brown', 'orange', 'black'];
+        return colors[currentPage];
+    }
 
     module.exports = PageView;
 
@@ -11274,10 +11302,6 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var ScrollView = require('famous/views/Scrollview');
 
-    var GenericSync = require("famous/inputs/GenericSync");
-    var MouseSync = require("famous/inputs/MouseSync");
-    var TouchSync = require("famous/inputs/TouchSync");
-    var ScrollSync = require("famous/inputs/ScrollSync");
 
     function HomeScroll(sync) {
         this.generalSync = sync;
@@ -11295,14 +11319,8 @@ define(function (require, exports, module) {
 
     function _createContent() {
         var that = this;
+        var genericSync = this.generalSync;
 
-        GenericSync.register({
-            mouse: MouseSync,
-            touch: TouchSync,
-            scroll: ScrollSync
-        });
-
-        var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
 
         var homePage = require('text!jade/homePage.html');
         var aboutUsPage = require('text!jade/aboutUsPage.html');
@@ -11545,7 +11563,21 @@ define(function (require, exports, module) {
     var clientsPage = require('text!jade/clientsPage.html');
     var radioPage = require('text!jade/radioPage.html');
 
+    var GenericSync = require("famous/inputs/GenericSync");
+    var MouseSync = require("famous/inputs/MouseSync");
+    var TouchSync = require("famous/inputs/TouchSync");
+    var ScrollSync = require("famous/inputs/ScrollSync");
+
     function PageView() {
+        var that = this;
+        GenericSync.register({
+            mouse: MouseSync,
+            touch: TouchSync,
+            scroll: ScrollSync
+        });
+
+        var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
+
         View.apply(this, arguments);
 
         this.layout = new HeaderFooterLayout({
@@ -11558,8 +11590,27 @@ define(function (require, exports, module) {
         this.header.pipe(this);
 
         /*Content*/
-        this.content = new HomeScroll();
+        this.content = new HomeScroll(genericSync);
+        var currentIndex = 0;
 
+        genericSync.on("update", function (data) {
+            delta = data.delta[1];
+            if (delta < 0) {
+                currentIndex++;
+            } else {
+
+                currentIndex--;
+            }
+
+            if (currentIndex > 5) {
+                currentIndex = 5;
+            }
+            if (currentIndex < 0) {
+                currentIndex = 0;
+            }
+            console.log(currentIndex);
+            that.footerLeft.setAttributes({backgroundColor: 'black'})
+        });
 
         /* =Footer*/
         this.footers = [];
@@ -11571,7 +11622,7 @@ define(function (require, exports, module) {
         this.footerLeft = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: '#F27649',
+                backgroundColor: this.getColor(currentIndex),
                 backgroundSize: 'cover'
             }
         })
@@ -11610,6 +11661,11 @@ define(function (require, exports, module) {
     /*****************/
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
+
+    PageView.prototype.getColor = function (currentPage) {
+        var colors = ['red', 'green', 'yellow', 'brown', 'orange', 'black'];
+        return colors[currentPage];
+    }
 
     module.exports = PageView;
 
