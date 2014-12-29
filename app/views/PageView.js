@@ -31,7 +31,8 @@ define(function (require, exports, module) {
             content: page1,
             properties: {
                 fontSize: '16px',
-                backgroundColor: '#FFE1D0'
+                backgroundColor: '#FFFAE2'
+                //backgroundColor: '#FFE1D0'
             }
         });
         this.contentAbout = new Surface({

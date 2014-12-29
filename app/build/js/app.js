@@ -10348,7 +10348,8 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             content: page1,
             properties: {
                 fontSize: '16px',
-                backgroundColor: '#FFE1D0'
+                backgroundColor: '#FFFAE2'
+                //backgroundColor: '#FFE1D0'
             }
         });
         this.contentAbout = new Surface({
@@ -11329,7 +11330,8 @@ define(function (require, exports, module) {
             content: page1,
             properties: {
                 fontSize: '16px',
-                backgroundColor: '#FFE1D0'
+                backgroundColor: '#FFFAE2'
+                //backgroundColor: '#FFE1D0'
             }
         });
         this.contentAbout = new Surface({
