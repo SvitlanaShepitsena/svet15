@@ -12,6 +12,7 @@ define(function (require, exports, module) {
     var aboutUsPage = require('text!jade/aboutUsPage.html');
     var demographicsPage = require('text!jade/demographicsPage.html');
     var clientsPage = require('text!jade/clientsPage.html');
+    var radioPage = require('text!jade/radioPage.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -61,8 +62,7 @@ define(function (require, exports, module) {
         });
         this.contentRadio = new Surface({
             size: [undefined, undefined],
-            content: '<h2>Radio Program “OSA”</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
+            content: radioPage,
             properties: {
                 backgroundColor: '#FFF1E9'
             }

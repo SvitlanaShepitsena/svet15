@@ -10321,7 +10321,9 @@ define('text!jade/demographicsPage.html',[],function () { return '\n<section cla
 
 define('text!jade/clientsPage.html',[],function () { return '\n<section class="svet-services">\n  <div class="h-services text-center">Our Clients</div>\n  <article>\n    <div class="clients-content">\n      <h2>Finance</h2>\n      <ul>\n        <li>MB Financial Bank</li>\n        <li>Harris Bank</li>\n        <li>ColeTaylor Bank</li>\n        <li>Devon Bank</li>\n        <li>Western Union</li>\n        <li>Bank Financial</li>\n        <li>Robbins & Lloyd Mortgage Corporation</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Auto</h2>\n      <ul>\n        <li>Arlington Toyota</li>\n        <li>Berman’s Auto Group</li>\n        <li>Castle Honda</li>\n        <li>Fields Dodge and Jeep</li>\n        <li>Fields Infinity</li>\n        <li>Harley Davidson</li>\n        <li>Lexus of Orland</li>\n        <li>Prestige Leasing</li>\n        <li>Rich\'s Yamaha</li>\n        <li>Star Nissan</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Stores</h2>\n      <ul>\n        <li>Studio 41 Home Design</li>\n        <li>Home Depot</li>\n        <li>C.D. Peacock</li>\n        <li>Fresh Farms</li>\n        <li>Highland Health Food</li>\n        <li>Garden Fresh</li>\n        <li>Farmers Best</li>\n        <li>H-Mart</li>\n        <li>Bende’s Specialty Foods</li>\n        <li>Jimenez</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n  </article>\n  <article>\n    <div class="clients-content">\n      <h2>Restaurants</h2>\n      <ul>\n        <li>Maggiano’s</li>\n        <li>McCormick and Schmicks</li>\n        <li>Zhivago (Skokie)</li>\n        <li>Kamehachi (Chicago, Northbrook)</li>\n        <li>Gridley’s Grille (Long Grove)</li>\n        <li>Bella Via (Highland Park)</li>\n        <li>Dover Straits</li>\n        <li>Elephant (Niles)</li>\n        <li>Michael (Winnetka)</li>\n        <li>Le Titi De Paris (Arl Hts)</li>\n        <li>India House (Buffalo Grove)</li>\n        <li>Jimmy’s Charhouse (Riverwoods)</li>\n        <li>Omega (Niles)</li>\n        <li>Tapas Gitana (Northfield)</li>\n        <li>Raw Bar (Chicago)</li>\n        <li>Wild Fish (Arl Hts)</li>\n        <li>Brazzaz (Chicago)</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Insurance</h2>\n      <ul>\n        <li>Allstate Insurance / Roman Sher</li>\n        <li>State Farm Insurance / Bonnie Perkovich</li>\n        <li>Country Insurance / Paul Moskvitin</li>\n        <li>Country Insurance / Yelena Sokolova</li>\n        <li>American Family insurance / Renata Tolvaisaite</li>\n        <li><em>And more...</em></li>\n      </ul>\n      <h2>Health</h2>\n      <ul>\n        <li>Pearle Vision</li>\n        <li>Women’s Health First</li>\n        <li>Gordin Medical Center</li>\n        <li>Rush North Shore Medical Center</li>\n        <li>IL Dental Center</li>\n        <li>North Shore Vascular</li>\n        <li>Mount Sinai Hospital</li>\n        <li>Dr. Elena Levitina</li>\n        <li>Healthy Trust<em>And more...</em></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Attorneys</h2>\n      <ul>\n        <li>Davidson & Schiller, LLC</li>\n        <li>Chepov & Scott</li>\n        <li>Law Office of A. Gruzmark</li>\n        <li>Law Office of A. Liberfarb</li>\n        <li>DeFrenza, Moskoni Matyjewicz, P.C.</li>\n        <li>Birg & Meltser</li>\n        <li>Law office of A. Tolmatsky</li>\n        <li>Law Office of L. Golub</li>\n        <li>Law office of M. Kern</li>\n        <li> Slava A. Tenenbaum, chartered</li>\n        <li>Barry Rabovsky</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n  </article>\n  <!--article-->\n  <!--    .clients-img-container-->\n  <!--        img(src="img/clients/clientsBEST.jpg")-->\n</section>';});
 
-define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html'],function (require, exports, module) {
+define('text!jade/radioPage.html',[],function () { return '\n<section class="svet-services">\n  <div class="h-services text-center">Radio "OSA"</div>\n  <article>\n    <div class="clients-content">\n      <ul class="list-unstyled">\n        <li><a href="mms://strean.imcpro.com/svet/2014-12-28.asf">\n            2014-12-28.asf\n            &nbsp\n            Sunday, December 28, 2014</a></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Auto</h2>\n      <ul>\n        <li>Arlington Toyota</li>\n        <li>Berman’s Auto Group</li>\n        <li>Castle Honda</li>\n        <li>Fields Dodge and Jeep</li>\n        <li>Fields Infinity</li>\n        <li>Harley Davidson</li>\n        <li>Lexus of Orland</li>\n        <li>Prestige Leasing</li>\n        <li>Rich\'s Yamaha</li>\n        <li>Star Nissan</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Stores</h2>\n      <ul>\n        <li>Studio 41 Home Design</li>\n        <li>Home Depot</li>\n        <li>C.D. Peacock</li>\n        <li>Fresh Farms</li>\n        <li>Highland Health Food</li>\n        <li>Garden Fresh</li>\n        <li>Farmers Best</li>\n        <li>H-Mart</li>\n        <li>Bende’s Specialty Foods</li>\n        <li>Jimenez</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n  </article>\n</section>';});
+
+define('views/PageView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/views/HeaderFooterLayout','famous/views/GridLayout','views/HeaderView','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
@@ -10335,6 +10337,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
     var aboutUsPage = require('text!jade/aboutUsPage.html');
     var demographicsPage = require('text!jade/demographicsPage.html');
     var clientsPage = require('text!jade/clientsPage.html');
+    var radioPage = require('text!jade/radioPage.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -10384,8 +10387,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
         });
         this.contentRadio = new Surface({
             size: [undefined, undefined],
-            content: '<h2>Radio Program “OSA”</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
+            content: radioPage,
             properties: {
                 backgroundColor: '#FFF1E9'
             }
@@ -11317,6 +11319,7 @@ define(function (require, exports, module) {
     var aboutUsPage = require('text!jade/aboutUsPage.html');
     var demographicsPage = require('text!jade/demographicsPage.html');
     var clientsPage = require('text!jade/clientsPage.html');
+    var radioPage = require('text!jade/radioPage.html');
 
     function PageView() {
         View.apply(this, arguments);
@@ -11366,8 +11369,7 @@ define(function (require, exports, module) {
         });
         this.contentRadio = new Surface({
             size: [undefined, undefined],
-            content: '<h2>Radio Program “OSA”</h2>' +
-            '<p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m.</p>',
+            content: radioPage,
             properties: {
                 backgroundColor: '#FFF1E9'
             }
