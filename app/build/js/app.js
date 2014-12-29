@@ -10410,33 +10410,43 @@ define('views/HeaderView',['require','exports','module','famous/core/Surface','f
 
         this.hamburgerSurface = new Surface({
             size: [53, undefined],
-            content: '<img width="53" src="img/hamburger-template.png"/>'
+            content: '<img width="53" src="img/hamburger-template.png"/>',
+
+            properties: {
+                zIndex: '10'
+            }
         });
 
 
         this.titleSurface = new Surface({
-            size: [267, undefined],
+            size: [undefined, undefined],
             content: 'SVET Media Group',
             properties: {
                 fontSize: '22px',
                 textAlign: 'center',
                 color: "white",
                 lineHeight: "50px",
-                fontWeight: '700'
+                fontWeight: '700',
+                backgroundColor: '#FC6E51'
             }
         });
 
         this.hamburgerModifier = new Modifier({
+            transform: Transform.translate(0, 0, 2)
+        });
+
+        this.bgModifier = new Modifier({
             transform: Transform.translate(0, 0, 1)
         });
 
         this.titleModifier = new Modifier({
+            transform: Transform.translate(0, 0, 1),
             origin: [0.5, 0],
             align: [0.5, 0]
         });
 
-        this._add(this.hamburgerModifier).add(this.hamburgerSurface);
         this._add(this.titleModifier).add(this.titleSurface);
+        this._add(this.hamburgerModifier).add(this.hamburgerSurface);
 
         this._add(backgroundSurface);
     }
@@ -10485,7 +10495,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
 
         /*Header*/
         this.header = new HeaderView();
-        this.header.pipe(this);
+        //this.header.pipe(this);
 
         /*Content*/
         this.content = new HomeScroll();
@@ -11201,33 +11211,43 @@ define(function (require, exports, module) {
 
         this.hamburgerSurface = new Surface({
             size: [53, undefined],
-            content: '<img width="53" src="img/hamburger-template.png"/>'
+            content: '<img width="53" src="img/hamburger-template.png"/>',
+
+            properties: {
+                zIndex: '10'
+            }
         });
 
 
         this.titleSurface = new Surface({
-            size: [267, undefined],
+            size: [undefined, undefined],
             content: 'SVET Media Group',
             properties: {
                 fontSize: '22px',
                 textAlign: 'center',
                 color: "white",
                 lineHeight: "50px",
-                fontWeight: '700'
+                fontWeight: '700',
+                backgroundColor: '#FC6E51'
             }
         });
 
         this.hamburgerModifier = new Modifier({
+            transform: Transform.translate(0, 0, 2)
+        });
+
+        this.bgModifier = new Modifier({
             transform: Transform.translate(0, 0, 1)
         });
 
         this.titleModifier = new Modifier({
+            transform: Transform.translate(0, 0, 1),
             origin: [0.5, 0],
             align: [0.5, 0]
         });
 
-        this._add(this.hamburgerModifier).add(this.hamburgerSurface);
         this._add(this.titleModifier).add(this.titleSurface);
+        this._add(this.hamburgerModifier).add(this.hamburgerSurface);
 
         this._add(backgroundSurface);
     }
@@ -11541,7 +11561,7 @@ define(function (require, exports, module) {
 
         /*Header*/
         this.header = new HeaderView();
-        this.header.pipe(this);
+        //this.header.pipe(this);
 
         /*Content*/
         this.content = new HomeScroll();
