@@ -1,22 +1,22 @@
 /**
  * Copyright (c) 2014 Famous Industries, Inc.
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a 
- * copy of this software and associated documentation files (the "Software"), 
- * to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- * and/or sell copies of the Software, and to permit persons to whom the 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in 
+ *
+ * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
  * @license MIT
@@ -65,7 +65,7 @@ define(function(require, exports, module) {
     function _playCurve(curve){
         modifier.setTransform(Transform.translate(100,-240,0));
         modifier.setTransform(
-            Transform.translate(100,0,0), 
+            Transform.translate(100,0,0),
             { curve: curve, duration: 1000}
         );
     }
@@ -75,7 +75,7 @@ define(function(require, exports, module) {
     for(var curve in Easing){
         var surface = new Surface({
             size:[200,40],
-            content: "<h3>" + curve + "</h3>",
+            scroll: "<h3>" + curve + "</h3>",
             properties: {
                 color:"#3cf",
                 cursor: 'pointer'
@@ -83,7 +83,7 @@ define(function(require, exports, module) {
         });
 
         curves.push(surface);
-        surface.on("click", 
+        surface.on("click",
             _playCurve.bind(null, Easing[curve])
         );
     }
@@ -103,7 +103,7 @@ define(function(require, exports, module) {
         clipSize: 460
     });
 
-    //set where the items come from 
+    //set where the items come from
     scrollView.sequenceFrom(curves);
 
     //give the scroll view input
@@ -111,7 +111,7 @@ define(function(require, exports, module) {
 
     //add the scrollview to the scroll container
     scrollContainer.add(new Modifier({transform: Transform.translate(20,0,0)})).add(scrollView);
-    
+
     //finally add the scroll container to the context
     mainContext.add(new Modifier({align: [.5, .5], origin: [.5, .5], transform: Transform.translate(-240,0,0)})).add(scrollContainer);
 });
