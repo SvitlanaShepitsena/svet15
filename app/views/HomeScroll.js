@@ -25,10 +25,7 @@ define(function (require, exports, module) {
         this.scrollview.setOptions({
             pageSwitchSpeed: 0.7,
             paginated: true,
-            speedLimit: 1,
-            edgeGrip: 2,
-            edgePeriod: 1300,
-            edgeDamp: 1
+            speedLimit: 1
         })
         this.scrollview.setPosition(1);
         this.scrollview.setPosition(1);
