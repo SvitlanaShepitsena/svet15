@@ -391,6 +391,9 @@ article p {
 .spring h4 {
   color: #5a7b6c;
 }
+hr {
+  color: #a19a9c;
+}
 .live-radio img {
   max-width: 100%;
   overflow: auto;
