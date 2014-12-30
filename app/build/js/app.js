@@ -10707,13 +10707,16 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
         this.add(this.layout);
     }
 
-    /*******************/
-
-    /*****************/
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
 
     PageView.prototype.navigateTo = function (index) {
+        for (var i = 0; i < this.states.length; i++) {
+            var state = this.states[i];
+            state.set(0);
+        }
+        var navigatedState = this.states[index];
+        navigatedState.set(1,{duration:300});
         this.content.goToPage(index);
     }
 
@@ -11963,13 +11966,16 @@ define(function (require, exports, module) {
         this.add(this.layout);
     }
 
-    /*******************/
-
-    /*****************/
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
 
     PageView.prototype.navigateTo = function (index) {
+        for (var i = 0; i < this.states.length; i++) {
+            var state = this.states[i];
+            state.set(0);
+        }
+        var navigatedState = this.states[index];
+        navigatedState.set(1,{duration:300});
         this.content.goToPage(index);
     }
 
