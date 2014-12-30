@@ -26,6 +26,7 @@ define(function (require, exports, module) {
     HomeScroll.prototype = Object.create(ScrollView.prototype);
     HomeScroll.prototype.constructor = HomeScroll;
 
+
     HomeScroll.DEFAULT_OPTIONS = {};
 
     function _createContent() {

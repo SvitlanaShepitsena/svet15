@@ -5673,7 +5673,7 @@ define('views/NavigationView',['require','exports','module','famous/core/Surface
         width: null,
         height: null,
         iconUrl: null,
-        index: null
+        index:null
     };
 
     function _createIcon() {
@@ -5682,7 +5682,7 @@ define('views/NavigationView',['require','exports','module','famous/core/Surface
             content: '<img width="191" src="' + this.options.iconUrl + '"/>'
         });
         iconSurface.on('click', function () {
-            that.eventOutput.emit('pageChange', that.options.index);
+            that.eventOutput.emit('pageChange',that.options.index);
         })
         this._add(iconSurface);
     };
@@ -5710,7 +5710,7 @@ define('views/MenuView',['require','exports','module','famous/core/Surface','fam
         EventHandler.setOutputHandler(this, this.eventOutput);
 
         this.eventInput.on('pageChange', function (index) {
-            that.eventOutput.emit('navigateTo', index);
+            that.eventOutput.emit('navigateTo',index);
 
         })
         _createBacking.call(this);
@@ -5785,7 +5785,7 @@ define('views/MenuView',['require','exports','module','famous/core/Surface','fam
                 width: this.options.navWidth,
                 height: this.options.navHeight,
                 iconUrl: navData[i].iconUrl,
-                index: i
+                index:i
             });
             navView.pipe(this);
 
@@ -10068,6 +10068,7 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
     HomeScroll.prototype = Object.create(ScrollView.prototype);
     HomeScroll.prototype.constructor = HomeScroll;
 
+
     HomeScroll.DEFAULT_OPTIONS = {};
 
     function _createContent() {
@@ -10531,6 +10532,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
 
         /*Content*/
         this.content = new HomeScroll(genericSync);
+
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,
@@ -10711,9 +10713,8 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
 
-    PageView.prototype.getColor = function (currentPage) {
-        var colors = ['red', 'green', 'yellow', 'brown', 'orange', 'black'];
-        return colors[currentPage];
+    PageView.prototype.navigateTo = function (index) {
+        this.content.goToPage(index);
     }
 
     module.exports = PageView;
@@ -10737,26 +10738,27 @@ define('views/AppView',['require','exports','module','famous/core/Surface','famo
 
     function AppView() {
         var that = this;
+
         View.apply(this, arguments);
+
         this.menuToggle = false;
+
         this.eventInput = new EventHandler();
         EventHandler.setInputHandler(this, this.eventInput);
+
+        this.eventInput.on('navigateTo', function (index) {
+            that.pageView.navigateTo(index);
+        })
+
         this.menuView = new MenuView();
         this.menuView.pipe(this);
 
         this.pageView = new PageView();
         this.pageViewPos = new Transitionable(0);
-
-        this.eventInput.on('navigateTo', function (index) {
-            console.log(index);
-            that.pageView.content.goToPage(index);
-        })
         this.pageModifier = new Modifier();
-
         this.pageModifier.transformFrom(function () {
             return Transform.translate(this.pageViewPos.get(), 0, 0);
         }.bind(this));
-
         this.pageView.on('menuToggle', this.toggleMenu.bind(this));
 
         this.add(this.menuView);
@@ -11254,39 +11256,6 @@ define(['module'], function (module) {
 
 define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
-
-    var View = require('famous/core/View');
-
-    function HomePage() {
-        _createContent.call(this);
-    }
-
-    HomePage.prototype = Object.create(Surface.prototype);
-    HomePage.prototype.constructor = HomePage;
-
-    HomePage.DEFAULT_OPTIONS = {};
-
-    function _createContent() {
-
-        var page1 = require('text!jade/page1.html');
-
-        this.contentHome = new Surface({
-            size: [undefined, undefined],
-            content: page1,
-            properties: {
-                fontSize: '16px',
-                backgroundColor: '#FFFAE2'
-            }
-        });
-
-    };
-
-    module.exports = HomePage;
-});
-
-
-define(function (require, exports, module) {
-    var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
@@ -11301,26 +11270,27 @@ define(function (require, exports, module) {
 
     function AppView() {
         var that = this;
+
         View.apply(this, arguments);
+
         this.menuToggle = false;
+
         this.eventInput = new EventHandler();
         EventHandler.setInputHandler(this, this.eventInput);
+
+        this.eventInput.on('navigateTo', function (index) {
+            that.pageView.navigateTo(index);
+        })
+
         this.menuView = new MenuView();
         this.menuView.pipe(this);
 
         this.pageView = new PageView();
         this.pageViewPos = new Transitionable(0);
-
-        this.eventInput.on('navigateTo', function (index) {
-            console.log(index);
-            that.pageView.content.goToPage(index);
-        })
         this.pageModifier = new Modifier();
-
         this.pageModifier.transformFrom(function () {
             return Transform.translate(this.pageViewPos.get(), 0, 0);
         }.bind(this));
-
         this.pageView.on('menuToggle', this.toggleMenu.bind(this));
 
         this.add(this.menuView);
@@ -11518,6 +11488,7 @@ define(function (require, exports, module) {
     HomeScroll.prototype = Object.create(ScrollView.prototype);
     HomeScroll.prototype.constructor = HomeScroll;
 
+
     HomeScroll.DEFAULT_OPTIONS = {};
 
     function _createContent() {
@@ -11638,7 +11609,7 @@ define(function (require, exports, module) {
         EventHandler.setOutputHandler(this, this.eventOutput);
 
         this.eventInput.on('pageChange', function (index) {
-            that.eventOutput.emit('navigateTo', index);
+            that.eventOutput.emit('navigateTo',index);
 
         })
         _createBacking.call(this);
@@ -11713,7 +11684,7 @@ define(function (require, exports, module) {
                 width: this.options.navWidth,
                 height: this.options.navHeight,
                 iconUrl: navData[i].iconUrl,
-                index: i
+                index:i
             });
             navView.pipe(this);
 
@@ -11753,7 +11724,7 @@ define(function (require, exports, module) {
         width: null,
         height: null,
         iconUrl: null,
-        index: null
+        index:null
     };
 
     function _createIcon() {
@@ -11762,7 +11733,7 @@ define(function (require, exports, module) {
             content: '<img width="191" src="' + this.options.iconUrl + '"/>'
         });
         iconSurface.on('click', function () {
-            that.eventOutput.emit('pageChange', that.options.index);
+            that.eventOutput.emit('pageChange',that.options.index);
         })
         this._add(iconSurface);
     };
@@ -11817,6 +11788,7 @@ define(function (require, exports, module) {
 
         /*Content*/
         this.content = new HomeScroll(genericSync);
+
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,
@@ -11997,12 +11969,44 @@ define(function (require, exports, module) {
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
 
-    PageView.prototype.getColor = function (currentPage) {
-        var colors = ['red', 'green', 'yellow', 'brown', 'orange', 'black'];
-        return colors[currentPage];
+    PageView.prototype.navigateTo = function (index) {
+        this.content.goToPage(index);
     }
 
     module.exports = PageView;
 
 })
 ;
+
+define(function (require, exports, module) {
+    var Surface = require('famous/core/Surface');
+
+    var View = require('famous/core/View');
+
+    function HomePage() {
+        _createContent.call(this);
+    }
+
+    HomePage.prototype = Object.create(Surface.prototype);
+    HomePage.prototype.constructor = HomePage;
+
+    HomePage.DEFAULT_OPTIONS = {};
+
+    function _createContent() {
+
+        var page1 = require('text!jade/page1.html');
+
+        this.contentHome = new Surface({
+            size: [undefined, undefined],
+            content: page1,
+            properties: {
+                fontSize: '16px',
+                backgroundColor: '#FFFAE2'
+            }
+        });
+
+    };
+
+    module.exports = HomePage;
+});
+

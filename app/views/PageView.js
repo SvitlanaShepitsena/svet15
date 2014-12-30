@@ -45,6 +45,7 @@ define(function (require, exports, module) {
 
         /*Content*/
         this.content = new HomeScroll(genericSync);
+
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,
@@ -225,9 +226,8 @@ define(function (require, exports, module) {
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
 
-    PageView.prototype.getColor = function (currentPage) {
-        var colors = ['red', 'green', 'yellow', 'brown', 'orange', 'black'];
-        return colors[currentPage];
+    PageView.prototype.navigateTo = function (index) {
+        this.content.goToPage(index);
     }
 
     module.exports = PageView;
