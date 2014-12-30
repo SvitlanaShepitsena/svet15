@@ -45,6 +45,7 @@ define(function (require, exports, module) {
 
         /*Content*/
         this.content = new HomeScroll(genericSync);
+
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,
@@ -52,11 +53,11 @@ define(function (require, exports, module) {
         genericSync.on("update", function (data) {
             delta = data.delta[1];
             if (delta < 0) {
-                direction=-1;
+                direction = -1;
                 currentIndex++;
             } else {
                 currentIndex--;
-                direction=1;
+                direction = 1;
             }
 
             if (currentIndex > 5) {
@@ -225,9 +226,8 @@ define(function (require, exports, module) {
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
 
-    PageView.prototype.getColor = function (currentPage) {
-        var colors = ['red', 'green', 'yellow', 'brown', 'orange', 'black'];
-        return colors[currentPage];
+    PageView.prototype.navigateTo = function (index) {
+        this.content.goToPage(index);
     }
 
     module.exports = PageView;

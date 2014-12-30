@@ -19,12 +19,11 @@ define(function (require, exports, module) {
 
         this.menuToggle = false;
 
-
         this.eventInput = new EventHandler();
         EventHandler.setInputHandler(this, this.eventInput);
 
         this.eventInput.on('navigateTo', function (index) {
-            that.pageView.content.goToPage(index);
+            that.pageView.navigateTo(index);
         })
 
         this.menuView = new MenuView();

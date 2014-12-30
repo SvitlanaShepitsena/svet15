@@ -10068,6 +10068,7 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
     HomeScroll.prototype = Object.create(ScrollView.prototype);
     HomeScroll.prototype.constructor = HomeScroll;
 
+
     HomeScroll.DEFAULT_OPTIONS = {};
 
     function _createContent() {
@@ -10531,6 +10532,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
 
         /*Content*/
         this.content = new HomeScroll(genericSync);
+
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,
@@ -10538,11 +10540,11 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
         genericSync.on("update", function (data) {
             delta = data.delta[1];
             if (delta < 0) {
-                direction=-1;
+                direction = -1;
                 currentIndex++;
             } else {
                 currentIndex--;
-                direction=1;
+                direction = 1;
             }
 
             if (currentIndex > 5) {
@@ -10711,9 +10713,8 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
 
-    PageView.prototype.getColor = function (currentPage) {
-        var colors = ['red', 'green', 'yellow', 'brown', 'orange', 'black'];
-        return colors[currentPage];
+    PageView.prototype.navigateTo = function (index) {
+        this.content.goToPage(index);
     }
 
     module.exports = PageView;
@@ -10742,12 +10743,11 @@ define('views/AppView',['require','exports','module','famous/core/Surface','famo
 
         this.menuToggle = false;
 
-
         this.eventInput = new EventHandler();
         EventHandler.setInputHandler(this, this.eventInput);
 
         this.eventInput.on('navigateTo', function (index) {
-            that.pageView.content.goToPage(index);
+            that.pageView.navigateTo(index);
         })
 
         this.menuView = new MenuView();
@@ -11275,12 +11275,11 @@ define(function (require, exports, module) {
 
         this.menuToggle = false;
 
-
         this.eventInput = new EventHandler();
         EventHandler.setInputHandler(this, this.eventInput);
 
         this.eventInput.on('navigateTo', function (index) {
-            that.pageView.content.goToPage(index);
+            that.pageView.navigateTo(index);
         })
 
         this.menuView = new MenuView();
@@ -11488,6 +11487,7 @@ define(function (require, exports, module) {
 
     HomeScroll.prototype = Object.create(ScrollView.prototype);
     HomeScroll.prototype.constructor = HomeScroll;
+
 
     HomeScroll.DEFAULT_OPTIONS = {};
 
@@ -11788,6 +11788,7 @@ define(function (require, exports, module) {
 
         /*Content*/
         this.content = new HomeScroll(genericSync);
+
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,
@@ -11795,11 +11796,11 @@ define(function (require, exports, module) {
         genericSync.on("update", function (data) {
             delta = data.delta[1];
             if (delta < 0) {
-                direction=-1;
+                direction = -1;
                 currentIndex++;
             } else {
                 currentIndex--;
-                direction=1;
+                direction = 1;
             }
 
             if (currentIndex > 5) {
@@ -11968,9 +11969,8 @@ define(function (require, exports, module) {
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
 
-    PageView.prototype.getColor = function (currentPage) {
-        var colors = ['red', 'green', 'yellow', 'brown', 'orange', 'black'];
-        return colors[currentPage];
+    PageView.prototype.navigateTo = function (index) {
+        this.content.goToPage(index);
     }
 
     module.exports = PageView;
