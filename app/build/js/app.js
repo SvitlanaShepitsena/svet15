@@ -5803,6 +5803,122 @@ define('views/MenuView',['require','exports','module','famous/core/Surface','fam
     module.exports = MenuView;
 });
 
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * Owner: mark@famo.us
+ * @license MPL 2.0
+ * @copyright Famous Industries, Inc. 2014
+ */
+
+define('famous/surfaces/ContainerSurface',['require','exports','module','../core/Surface','../core/Context'],function(require, exports, module) {
+    var Surface = require('../core/Surface');
+    var Context = require('../core/Context');
+
+    /**
+     * ContainerSurface is an object designed to contain surfaces and
+     *   set properties to be applied to all of them at once.
+     *   This extends the Surface class.
+     *   A container surface will enforce these properties on the
+     *   surfaces it contains:
+     *
+     *   size (clips contained surfaces to its own width and height);
+     *
+     *   origin;
+     *
+     *   its own opacity and transform, which will be automatically
+     *   applied to  all Surfaces contained directly and indirectly.
+     *
+     * @class ContainerSurface
+     * @extends Surface
+     * @constructor
+     * @param {Array.Number} [options.size] [width, height] in pixels
+     * @param {Array.string} [options.classes] CSS classes to set on all inner content
+     * @param {Array} [options.properties] string dictionary of HTML attributes to set on target div
+     * @param {string} [options.content] inner (HTML) content of surface (should not be used)
+     */
+    function ContainerSurface(options) {
+        Surface.call(this, options);
+        this._container = document.createElement('div');
+        this._container.classList.add('famous-group');
+        this._container.classList.add('famous-container-group');
+        this._shouldRecalculateSize = false;
+        this.context = new Context(this._container);
+        this.setContent(this._container);
+    }
+
+    ContainerSurface.prototype = Object.create(Surface.prototype);
+    ContainerSurface.prototype.constructor = ContainerSurface;
+    ContainerSurface.prototype.elementType = 'div';
+    ContainerSurface.prototype.elementClass = 'famous-surface';
+
+    /**
+     * Add renderables to this object's render tree
+     *
+     * @method add
+     *
+     * @param {Object} obj renderable object
+     * @return {RenderNode} RenderNode wrapping this object, if not already a RenderNode
+     */
+    ContainerSurface.prototype.add = function add() {
+        return this.context.add.apply(this.context, arguments);
+    };
+
+    /**
+     * Return spec for this surface.  Note: Can result in a size recalculation.
+     *
+     * @private
+     * @method render
+     *
+     * @return {Object} render spec for this surface (spec id)
+     */
+    ContainerSurface.prototype.render = function render() {
+        if (this._sizeDirty) this._shouldRecalculateSize = true;
+        return Surface.prototype.render.apply(this, arguments);
+    };
+
+    /**
+     * Place the document element this component manages into the document.
+     *
+     * @private
+     * @method deploy
+     * @param {Node} target document parent of this container
+     */
+    ContainerSurface.prototype.deploy = function deploy() {
+        this._shouldRecalculateSize = true;
+        return Surface.prototype.deploy.apply(this, arguments);
+    };
+
+    /**
+     * Apply changes from this component to the corresponding document element.
+     * This includes changes to classes, styles, size, content, opacity, origin,
+     * and matrix transforms.
+     *
+     * @private
+     * @method commit
+     * @param {Context} context commit context
+     * @param {Transform} transform unused TODO
+     * @param {Number} opacity  unused TODO
+     * @param {Array.Number} origin unused TODO
+     * @param {Array.Number} size unused TODO
+     * @return {undefined} TODO returns an undefined value
+     */
+    ContainerSurface.prototype.commit = function commit(context, transform, opacity, origin, size) {
+        var previousSize = this._size ? [this._size[0], this._size[1]] : null;
+        var result = Surface.prototype.commit.apply(this, arguments);
+        if (this._shouldRecalculateSize || (previousSize && (this._size[0] !== previousSize[0] || this._size[1] !== previousSize[1]))) {
+            this.context.setSize();
+            this._shouldRecalculateSize = false;
+        }
+        this.context.update();
+        return result;
+    };
+
+    module.exports = ContainerSurface;
+});
+
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -9637,6 +9753,107 @@ define('famous/views/Scrollview',['require','exports','module','../physics/Physi
     module.exports = Scrollview;
 });
 
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * Owner: felix@famo.us
+ * @license MPL 2.0
+ * @copyright Famous Industries, Inc. 2014
+ */
+
+define('famous/views/ScrollContainer',['require','exports','module','../surfaces/ContainerSurface','../core/EventHandler','./Scrollview','../utilities/Utility','../core/OptionsManager'],function(require, exports, module) {
+    var ContainerSurface = require('../surfaces/ContainerSurface');
+    var EventHandler = require('../core/EventHandler');
+    var Scrollview = require('./Scrollview');
+    var Utility = require('../utilities/Utility');
+    var OptionsManager = require('../core/OptionsManager');
+
+    /**
+     * A Container surface with a scrollview automatically added. The convenience of ScrollContainer lies in
+     * being able to clip out portions of the associated scrollview that lie outside the bounding surface,
+     * and in being able to move the scrollview more easily by applying modifiers to the parent container
+     * surface.
+     * @class ScrollContainer
+     * @constructor
+     * @param {Options} [options] An object of configurable options.
+     * @param {Options} [options.container=undefined] Options for the ScrollContainer instance's surface.
+     * @param {Options} [options.scrollview={direction:Utility.Direction.X}]  Options for the ScrollContainer instance's scrollview.
+     */
+    function ScrollContainer(options) {
+        this.options = Object.create(ScrollContainer.DEFAULT_OPTIONS);
+        this._optionsManager = new OptionsManager(this.options);
+
+        if (options) this.setOptions(options);
+
+        this.container = new ContainerSurface(this.options.container);
+        this.scrollview = new Scrollview(this.options.scrollview);
+
+        this.container.add(this.scrollview);
+
+        this._eventInput = new EventHandler();
+        EventHandler.setInputHandler(this, this._eventInput);
+
+        this._eventInput.pipe(this.scrollview);
+
+        this._eventOutput = new EventHandler();
+        EventHandler.setOutputHandler(this, this._eventOutput);
+
+        this.container.pipe(this._eventOutput);
+        this.scrollview.pipe(this._eventOutput);
+    }
+
+    ScrollContainer.DEFAULT_OPTIONS = {
+        container: {
+            properties: {overflow : 'hidden'}
+        },
+        scrollview: {}
+    };
+
+    /**
+     * Patches the ScrollContainer instance's options with the passed-in ones.
+     *
+     * @method setOptions
+     * @param {Options} options An object of configurable options for the ScrollContainer instance.
+     */
+    ScrollContainer.prototype.setOptions = function setOptions(options) {
+        return this._optionsManager.setOptions(options);
+    };
+
+    /**
+     * Sets the collection of renderables under the ScrollContainer instance scrollview's control.
+     *
+     * @method sequenceFrom
+     * @param {Array|ViewSequence} sequence Either an array of renderables or a Famous ViewSequence.
+     */
+    ScrollContainer.prototype.sequenceFrom = function sequenceFrom() {
+        return this.scrollview.sequenceFrom.apply(this.scrollview, arguments);
+    };
+
+    /**
+     * Returns the width and the height of the ScrollContainer instance.
+     *
+     * @method getSize
+     * @return {Array} A two value array of the ScrollContainer instance's current width and height (in that order).
+     */
+    ScrollContainer.prototype.getSize = function getSize() {
+        return this.container.getSize.apply(this.container, arguments);
+    };
+
+    /**
+     * Generate a render spec from the contents of this component.
+     *
+     * @private
+     * @method render
+     * @return {number} Render spec for this component
+     */
+    ScrollContainer.prototype.render = function render() {
+        return this.container.render();
+    };
+
+    module.exports = ScrollContainer;
+});
+
 /**
  * @license RequireJS text 2.0.12 Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
@@ -10040,11 +10257,12 @@ define('text!jade/radioPage.html',[],function () { return '\n<section class="sve
 
 define('text!jade/contactUsPage.html',[],function () { return '\n<section class="svet-services">\n  <div class="h-services text-center">Contact Us</div><br/>\n  <article class="dem-content-bottom">\n    <table width="220" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;" class="simpleText">\n      <tbody>\n        <tr>\n          <td> </td>\n          <td colspan="2">900 Skokie Blvd., Suite 103, Northbrook, IL 60062<br/>Tel. (847)715-9407<br/>Fax: (847)715-9677<br/>E-mail:<a href="mailto:svet@svet.com" class="menu2"> manager@svet.com</a></td>\n        </tr>\n        <tr>\n          <td colspan="3" height="8"></td>\n        </tr>\n      </tbody>\n    </table>\n  </article>\n</section>';});
 
-define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/core/EventHandler','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','text!jade/contactUsPage.html'],function (require, exports, module) {
+define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/ScrollContainer','famous/views/Scrollview','famous/core/EventHandler','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','text!jade/contactUsPage.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
+    var ScrollContainer = require('famous/views/ScrollContainer');
     var ScrollView = require('famous/views/Scrollview');
 
     var EventHandler = require('famous/core/EventHandler');
@@ -10059,22 +10277,31 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
             alert(index);
         })
 
-        ScrollView.apply(this, arguments);
+        ScrollContainer.apply(this, arguments);
 
         _createContent.call(this);
 
+        this.scrollview.setOptions({
+            pageSwitchSpeed: 0.7,
+            paginated: true,
+            speedLimit: 1,
+            edgeGrip: 2,
+            edgePeriod: 1300,
+            edgeDamp: 1
+        })
+        this.scrollview.setPosition(1);
+        this.scrollview.setPosition(1);
+
     }
 
-    HomeScroll.prototype = Object.create(ScrollView.prototype);
+    HomeScroll.prototype = Object.create(ScrollContainer.prototype);
     HomeScroll.prototype.constructor = HomeScroll;
-
 
     HomeScroll.DEFAULT_OPTIONS = {};
 
     function _createContent() {
         var that = this;
         var genericSync = this.generalSync;
-
 
         var homePage = require('text!jade/homePage.html');
         var aboutUsPage = require('text!jade/aboutUsPage.html');
@@ -10145,10 +10372,10 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
         genericSync.on("update", function (data) {
             delta = data.delta[1];
             if (delta < 0) {
-                that.goToNextPage();
+                that.scrollview.goToNextPage();
             } else {
 
-                that.goToPreviousPage();
+                that.scrollview.goToPreviousPage();
             }
         });
 
@@ -10717,7 +10944,8 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
         }
         var navigatedState = this.states[index];
         navigatedState.set(1,{duration:300});
-        this.content.goToPage(index);
+        this.content.scrollview.goToPage(index);
+        console.log(this.content.scrollview);
     }
 
     module.exports = PageView;
@@ -11464,6 +11692,7 @@ define(function (require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
+    var ScrollContainer = require('famous/views/ScrollContainer');
     var ScrollView = require('famous/views/Scrollview');
 
     var EventHandler = require('famous/core/EventHandler');
@@ -11478,22 +11707,31 @@ define(function (require, exports, module) {
             alert(index);
         })
 
-        ScrollView.apply(this, arguments);
+        ScrollContainer.apply(this, arguments);
 
         _createContent.call(this);
 
+        this.scrollview.setOptions({
+            pageSwitchSpeed: 0.7,
+            paginated: true,
+            speedLimit: 1,
+            edgeGrip: 2,
+            edgePeriod: 1300,
+            edgeDamp: 1
+        })
+        this.scrollview.setPosition(1);
+        this.scrollview.setPosition(1);
+
     }
 
-    HomeScroll.prototype = Object.create(ScrollView.prototype);
+    HomeScroll.prototype = Object.create(ScrollContainer.prototype);
     HomeScroll.prototype.constructor = HomeScroll;
-
 
     HomeScroll.DEFAULT_OPTIONS = {};
 
     function _createContent() {
         var that = this;
         var genericSync = this.generalSync;
-
 
         var homePage = require('text!jade/homePage.html');
         var aboutUsPage = require('text!jade/aboutUsPage.html');
@@ -11564,10 +11802,10 @@ define(function (require, exports, module) {
         genericSync.on("update", function (data) {
             delta = data.delta[1];
             if (delta < 0) {
-                that.goToNextPage();
+                that.scrollview.goToNextPage();
             } else {
 
-                that.goToPreviousPage();
+                that.scrollview.goToPreviousPage();
             }
         });
 
@@ -11972,7 +12210,8 @@ define(function (require, exports, module) {
         }
         var navigatedState = this.states[index];
         navigatedState.set(1,{duration:300});
-        this.content.goToPage(index);
+        this.content.scrollview.goToPage(index);
+        console.log(this.content.scrollview);
     }
 
     module.exports = PageView;

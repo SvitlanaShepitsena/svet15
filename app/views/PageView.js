@@ -230,7 +230,8 @@ define(function (require, exports, module) {
         }
         var navigatedState = this.states[index];
         navigatedState.set(1,{duration:300});
-        this.content.goToPage(index);
+        this.content.scrollview.goToPage(index);
+        console.log(this.content.scrollview);
     }
 
     module.exports = PageView;

@@ -3,6 +3,7 @@ define(function (require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
+    var ScrollContainer = require('famous/views/ScrollContainer');
     var ScrollView = require('famous/views/Scrollview');
 
     var EventHandler = require('famous/core/EventHandler');
@@ -17,22 +18,28 @@ define(function (require, exports, module) {
             alert(index);
         })
 
-        ScrollView.apply(this, arguments);
+        ScrollContainer.apply(this, arguments);
 
         _createContent.call(this);
 
+        this.scrollview.setOptions({
+            pageSwitchSpeed: 0.7,
+            paginated: true,
+            speedLimit: 1
+        })
+        this.scrollview.setPosition(1);
+        this.scrollview.setPosition(1);
+
     }
 
-    HomeScroll.prototype = Object.create(ScrollView.prototype);
+    HomeScroll.prototype = Object.create(ScrollContainer.prototype);
     HomeScroll.prototype.constructor = HomeScroll;
-
 
     HomeScroll.DEFAULT_OPTIONS = {};
 
     function _createContent() {
         var that = this;
         var genericSync = this.generalSync;
-
 
         var homePage = require('text!jade/homePage.html');
         var aboutUsPage = require('text!jade/aboutUsPage.html');
@@ -103,10 +110,10 @@ define(function (require, exports, module) {
         genericSync.on("update", function (data) {
             delta = data.delta[1];
             if (delta < 0) {
-                that.goToNextPage();
+                that.scrollview.goToNextPage();
             } else {
 
-                that.goToPreviousPage();
+                that.scrollview.goToPreviousPage();
             }
         });
 
