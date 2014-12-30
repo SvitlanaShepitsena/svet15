@@ -227,6 +227,7 @@ define(function (require, exports, module) {
     PageView.prototype.constructor = PageView;
 
     PageView.prototype.navigateTo = function (index) {
+
         this.content.goToPage(index);
     }
 
