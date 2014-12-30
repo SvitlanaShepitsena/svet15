@@ -49,7 +49,6 @@ define(function (require, exports, module) {
             if (delta < 0) {
                 currentIndex++;
             } else {
-
                 currentIndex--;
             }
 
@@ -60,7 +59,8 @@ define(function (require, exports, module) {
                 currentIndex = 0;
             }
             console.log(currentIndex);
-            that.footerLeft.setAttributes({backgroundColor: 'black'})
+            that.footerLeft.setContent(currentI);
+            that.footerLeft.setContent(currentI);
         });
 
         /* =Footer*/
