@@ -5673,7 +5673,7 @@ define('views/NavigationView',['require','exports','module','famous/core/Surface
         width: null,
         height: null,
         iconUrl: null,
-        index:null
+        index: null
     };
 
     function _createIcon() {
@@ -5682,7 +5682,7 @@ define('views/NavigationView',['require','exports','module','famous/core/Surface
             content: '<img width="191" src="' + this.options.iconUrl + '"/>'
         });
         iconSurface.on('click', function () {
-            that.eventOutput.emit('pageChange',that.options.index);
+            that.eventOutput.emit('pageChange', that.options.index);
         })
         this._add(iconSurface);
     };
@@ -5710,7 +5710,7 @@ define('views/MenuView',['require','exports','module','famous/core/Surface','fam
         EventHandler.setOutputHandler(this, this.eventOutput);
 
         this.eventInput.on('pageChange', function (index) {
-            that.eventOutput.emit('navigateTo',index);
+            that.eventOutput.emit('navigateTo', index);
 
         })
         _createBacking.call(this);
@@ -5785,7 +5785,7 @@ define('views/MenuView',['require','exports','module','famous/core/Surface','fam
                 width: this.options.navWidth,
                 height: this.options.navHeight,
                 iconUrl: navData[i].iconUrl,
-                index:i
+                index: i
             });
             navView.pipe(this);
 
@@ -10741,27 +10741,25 @@ define('views/AppView',['require','exports','module','famous/core/Surface','famo
 
     function AppView() {
         var that = this;
-
         View.apply(this, arguments);
-
         this.menuToggle = false;
-
         this.eventInput = new EventHandler();
         EventHandler.setInputHandler(this, this.eventInput);
-
-        this.eventInput.on('navigateTo', function (index) {
-            that.pageView.navigateTo(index);
-        })
-
         this.menuView = new MenuView();
         this.menuView.pipe(this);
 
         this.pageView = new PageView();
         this.pageViewPos = new Transitionable(0);
+
+        this.eventInput.on('navigateTo', function (index) {
+            that.pageView.content.goToPage(index);
+       })
         this.pageModifier = new Modifier();
+
         this.pageModifier.transformFrom(function () {
             return Transform.translate(this.pageViewPos.get(), 0, 0);
         }.bind(this));
+
         this.pageView.on('menuToggle', this.toggleMenu.bind(this));
 
         this.add(this.menuView);
@@ -11273,27 +11271,25 @@ define(function (require, exports, module) {
 
     function AppView() {
         var that = this;
-
         View.apply(this, arguments);
-
         this.menuToggle = false;
-
         this.eventInput = new EventHandler();
         EventHandler.setInputHandler(this, this.eventInput);
-
-        this.eventInput.on('navigateTo', function (index) {
-            that.pageView.navigateTo(index);
-        })
-
         this.menuView = new MenuView();
         this.menuView.pipe(this);
 
         this.pageView = new PageView();
         this.pageViewPos = new Transitionable(0);
+
+        this.eventInput.on('navigateTo', function (index) {
+            that.pageView.content.goToPage(index);
+       })
         this.pageModifier = new Modifier();
+
         this.pageModifier.transformFrom(function () {
             return Transform.translate(this.pageViewPos.get(), 0, 0);
         }.bind(this));
+
         this.pageView.on('menuToggle', this.toggleMenu.bind(this));
 
         this.add(this.menuView);
@@ -11612,7 +11608,7 @@ define(function (require, exports, module) {
         EventHandler.setOutputHandler(this, this.eventOutput);
 
         this.eventInput.on('pageChange', function (index) {
-            that.eventOutput.emit('navigateTo',index);
+            that.eventOutput.emit('navigateTo', index);
 
         })
         _createBacking.call(this);
@@ -11687,7 +11683,7 @@ define(function (require, exports, module) {
                 width: this.options.navWidth,
                 height: this.options.navHeight,
                 iconUrl: navData[i].iconUrl,
-                index:i
+                index: i
             });
             navView.pipe(this);
 
@@ -11727,7 +11723,7 @@ define(function (require, exports, module) {
         width: null,
         height: null,
         iconUrl: null,
-        index:null
+        index: null
     };
 
     function _createIcon() {
@@ -11736,7 +11732,7 @@ define(function (require, exports, module) {
             content: '<img width="191" src="' + this.options.iconUrl + '"/>'
         });
         iconSurface.on('click', function () {
-            that.eventOutput.emit('pageChange',that.options.index);
+            that.eventOutput.emit('pageChange', that.options.index);
         })
         this._add(iconSurface);
     };
