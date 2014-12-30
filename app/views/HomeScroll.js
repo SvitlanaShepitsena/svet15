@@ -45,7 +45,6 @@ define(function (require, exports, module) {
             pagePeriod: 700
         });
 
-        console.log(this.options.pageSwitchSpeed);
         this.contentHome = new Surface({
             size: [undefined, undefined],
             content: homePage,

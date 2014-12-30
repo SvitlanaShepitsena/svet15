@@ -5,11 +5,22 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var Timer = require('famous/utilities/Timer');
 
+    var EventHandler = require('famous/core/EventHandler');
     var NavigationView = require('./NavigationView');
 
     function MenuView() {
+        var that = this;
         View.apply(this, arguments);
 
+        this.eventInput = new EventHandler();
+        this.eventOutput = new EventHandler();
+        EventHandler.setInputHandler(this, this.eventInput);
+        EventHandler.setOutputHandler(this, this.eventOutput);
+
+        this.eventInput.on('pageChange', function (index) {
+            that.eventOutput.emit('navigateTo',index);
+
+        })
         _createBacking.call(this);
         _createNavigationViews.call(this);
     }
@@ -84,6 +95,7 @@ define(function (require, exports, module) {
                 iconUrl: navData[i].iconUrl,
                 index:i
             });
+            navView.pipe(this);
 
             var yOffset = this.options.topOffset + this.options.navItemOffset * i;
 

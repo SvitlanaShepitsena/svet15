@@ -8,14 +8,27 @@ define(function (require, exports, module) {
     var Transitionable = require('famous/transitions/Transitionable');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
 
+    var EventHandler = require('famous/core/EventHandler');
     var MenuView = require('./MenuView');
     var PageView = require('./PageView');
 
     function AppView() {
+        var that = this;
+
         View.apply(this, arguments);
 
         this.menuToggle = false;
+
+
+        this.eventInput = new EventHandler();
+        EventHandler.setInputHandler(this, this.eventInput);
+
+        this.eventInput.on('navigateTo', function (index) {
+            that.pageView.content.goToPage(index);
+        })
+
         this.menuView = new MenuView();
+        this.menuView.pipe(this);
 
         this.pageView = new PageView();
         this.pageViewPos = new Transitionable(0);

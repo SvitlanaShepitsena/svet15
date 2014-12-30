@@ -5690,18 +5690,29 @@ define('views/NavigationView',['require','exports','module','famous/core/Surface
     module.exports = NavigationView;
 });
 
-define('views/MenuView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/utilities/Timer','./NavigationView'],function (require, exports, module) {
+define('views/MenuView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/utilities/Timer','famous/core/EventHandler','./NavigationView'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var Timer = require('famous/utilities/Timer');
 
+    var EventHandler = require('famous/core/EventHandler');
     var NavigationView = require('./NavigationView');
 
     function MenuView() {
+        var that = this;
         View.apply(this, arguments);
 
+        this.eventInput = new EventHandler();
+        this.eventOutput = new EventHandler();
+        EventHandler.setInputHandler(this, this.eventInput);
+        EventHandler.setOutputHandler(this, this.eventOutput);
+
+        this.eventInput.on('pageChange', function (index) {
+            that.eventOutput.emit('navigateTo',index);
+
+        })
         _createBacking.call(this);
         _createNavigationViews.call(this);
     }
@@ -5776,6 +5787,7 @@ define('views/MenuView',['require','exports','module','famous/core/Surface','fam
                 iconUrl: navData[i].iconUrl,
                 index:i
             });
+            navView.pipe(this);
 
             var yOffset = this.options.topOffset + this.options.navItemOffset * i;
 
@@ -10075,7 +10087,6 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
             pagePeriod: 700
         });
 
-        console.log(this.options.pageSwitchSpeed);
         this.contentHome = new Surface({
             size: [undefined, undefined],
             content: homePage,
@@ -10710,7 +10721,7 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
 })
 ;
 
-define('views/AppView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/inputs/MouseSync','famous/inputs/GenericSync','famous/transitions/Transitionable','famous/views/HeaderFooterLayout','./MenuView','./PageView'],function (require, exports, module) {
+define('views/AppView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/inputs/MouseSync','famous/inputs/GenericSync','famous/transitions/Transitionable','famous/views/HeaderFooterLayout','famous/core/EventHandler','./MenuView','./PageView'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
@@ -10720,14 +10731,27 @@ define('views/AppView',['require','exports','module','famous/core/Surface','famo
     var Transitionable = require('famous/transitions/Transitionable');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
 
+    var EventHandler = require('famous/core/EventHandler');
     var MenuView = require('./MenuView');
     var PageView = require('./PageView');
 
     function AppView() {
+        var that = this;
+
         View.apply(this, arguments);
 
         this.menuToggle = false;
+
+
+        this.eventInput = new EventHandler();
+        EventHandler.setInputHandler(this, this.eventInput);
+
+        this.eventInput.on('navigateTo', function (index) {
+            that.pageView.content.goToPage(index);
+        })
+
         this.menuView = new MenuView();
+        this.menuView.pipe(this);
 
         this.pageView = new PageView();
         this.pageViewPos = new Transitionable(0);
@@ -11240,14 +11264,27 @@ define(function (require, exports, module) {
     var Transitionable = require('famous/transitions/Transitionable');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
 
+    var EventHandler = require('famous/core/EventHandler');
     var MenuView = require('./MenuView');
     var PageView = require('./PageView');
 
     function AppView() {
+        var that = this;
+
         View.apply(this, arguments);
 
         this.menuToggle = false;
+
+
+        this.eventInput = new EventHandler();
+        EventHandler.setInputHandler(this, this.eventInput);
+
+        this.eventInput.on('navigateTo', function (index) {
+            that.pageView.content.goToPage(index);
+        })
+
         this.menuView = new MenuView();
+        this.menuView.pipe(this);
 
         this.pageView = new PageView();
         this.pageViewPos = new Transitionable(0);
@@ -11471,7 +11508,6 @@ define(function (require, exports, module) {
             pagePeriod: 700
         });
 
-        console.log(this.options.pageSwitchSpeed);
         this.contentHome = new Surface({
             size: [undefined, undefined],
             content: homePage,
@@ -11560,11 +11596,22 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var Timer = require('famous/utilities/Timer');
 
+    var EventHandler = require('famous/core/EventHandler');
     var NavigationView = require('./NavigationView');
 
     function MenuView() {
+        var that = this;
         View.apply(this, arguments);
 
+        this.eventInput = new EventHandler();
+        this.eventOutput = new EventHandler();
+        EventHandler.setInputHandler(this, this.eventInput);
+        EventHandler.setOutputHandler(this, this.eventOutput);
+
+        this.eventInput.on('pageChange', function (index) {
+            that.eventOutput.emit('navigateTo',index);
+
+        })
         _createBacking.call(this);
         _createNavigationViews.call(this);
     }
@@ -11639,6 +11686,7 @@ define(function (require, exports, module) {
                 iconUrl: navData[i].iconUrl,
                 index:i
             });
+            navView.pipe(this);
 
             var yOffset = this.options.topOffset + this.options.navItemOffset * i;
 
