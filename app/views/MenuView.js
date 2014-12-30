@@ -18,7 +18,7 @@ define(function (require, exports, module) {
         EventHandler.setOutputHandler(this, this.eventOutput);
 
         this.eventInput.on('pageChange', function (index) {
-            that.eventOutput.emit('navigateTo',index);
+            that.eventOutput.emit('navigateTo', index);
 
         })
         _createBacking.call(this);
@@ -93,7 +93,7 @@ define(function (require, exports, module) {
                 width: this.options.navWidth,
                 height: this.options.navHeight,
                 iconUrl: navData[i].iconUrl,
-                index:i
+                index: i
             });
             navView.pipe(this);
 

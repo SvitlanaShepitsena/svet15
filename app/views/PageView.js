@@ -52,11 +52,11 @@ define(function (require, exports, module) {
         genericSync.on("update", function (data) {
             delta = data.delta[1];
             if (delta < 0) {
-                direction=-1;
+                direction = -1;
                 currentIndex++;
             } else {
                 currentIndex--;
-                direction=1;
+                direction = 1;
             }
 
             if (currentIndex > 5) {
