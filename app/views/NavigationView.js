@@ -20,7 +20,7 @@ define(function (require, exports, module) {
         width: null,
         height: null,
         iconUrl: null,
-        index:null
+        index: null
     };
 
     function _createIcon() {
@@ -29,7 +29,7 @@ define(function (require, exports, module) {
             content: '<img width="191" src="' + this.options.iconUrl + '"/>'
         });
         iconSurface.on('click', function () {
-            that.eventOutput.emit('pageChange',that.options.index);
+            that.eventOutput.emit('pageChange', that.options.index);
         })
         this._add(iconSurface);
     };
