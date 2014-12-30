@@ -5651,14 +5651,17 @@ define('famous/utilities/Timer',['require','exports','module','../core/Engine'],
 
 });
 
-define('views/NavigationView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View'],function(require, exports, module) {
-    var Surface         = require('famous/core/Surface');
-    var Modifier        = require('famous/core/Modifier');
-    var Transform       = require('famous/core/Transform');
-    var View            = require('famous/core/View');
+define('views/NavigationView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/EventHandler','famous/core/View'],function (require, exports, module) {
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var EventHandler = require('famous/core/EventHandler');
+    var View = require('famous/core/View');
 
     function NavigationView() {
         View.apply(this, arguments);
+        this.eventOutput = new EventHandler();
+        EventHandler.setOutputHandler(this, this.eventOutput);
 
         _createIcon.call(this);
     }
@@ -5669,19 +5672,24 @@ define('views/NavigationView',['require','exports','module','famous/core/Surface
     NavigationView.DEFAULT_OPTIONS = {
         width: null,
         height: null,
-        iconUrl: null
+        iconUrl: null,
+        index:null
     };
 
     function _createIcon() {
+        var that = this;
         var iconSurface = new Surface({
             content: '<img width="191" src="' + this.options.iconUrl + '"/>'
         });
-
+        iconSurface.on('click', function () {
+            that.eventOutput.emit('pageChange',that.options.index);
+        })
         this._add(iconSurface);
     };
 
     module.exports = NavigationView;
 });
+
 define('views/MenuView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/utilities/Timer','./NavigationView'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
@@ -5765,7 +5773,8 @@ define('views/MenuView',['require','exports','module','famous/core/Surface','fam
             var navView = new NavigationView({
                 width: this.options.navWidth,
                 height: this.options.navHeight,
-                iconUrl: navData[i].iconUrl
+                iconUrl: navData[i].iconUrl,
+                index:i
             });
 
             var yOffset = this.options.topOffset + this.options.navItemOffset * i;
@@ -10019,16 +10028,24 @@ define('text!jade/radioPage.html',[],function () { return '\n<section class="sve
 
 define('text!jade/contactUsPage.html',[],function () { return '\n<section class="svet-services">\n  <div class="h-services text-center">Contact Us</div><br/>\n  <article class="dem-content-bottom">\n    <table width="220" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;" class="simpleText">\n      <tbody>\n        <tr>\n          <td> </td>\n          <td colspan="2">900 Skokie Blvd., Suite 103, Northbrook, IL 60062<br/>Tel. (847)715-9407<br/>Fax: (847)715-9677<br/>E-mail:<a href="mailto:svet@svet.com" class="menu2"> manager@svet.com</a></td>\n        </tr>\n        <tr>\n          <td colspan="3" height="8"></td>\n        </tr>\n      </tbody>\n    </table>\n  </article>\n</section>';});
 
-define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','text!jade/contactUsPage.html'],function (require, exports, module) {
+define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/Scrollview','famous/core/EventHandler','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','text!jade/contactUsPage.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var ScrollView = require('famous/views/Scrollview');
 
+    var EventHandler = require('famous/core/EventHandler');
 
     function HomeScroll(sync) {
         this.generalSync = sync;
+
+        this.eventInput = new EventHandler();
+        EventHandler.setInputHandler(this, this.eventInput);
+
+        this.eventInput.on('pageChange', function (index) {
+            alert(index);
+        })
 
         ScrollView.apply(this, arguments);
 
@@ -11414,9 +11431,17 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var ScrollView = require('famous/views/Scrollview');
 
+    var EventHandler = require('famous/core/EventHandler');
 
     function HomeScroll(sync) {
         this.generalSync = sync;
+
+        this.eventInput = new EventHandler();
+        EventHandler.setInputHandler(this, this.eventInput);
+
+        this.eventInput.on('pageChange', function (index) {
+            alert(index);
+        })
 
         ScrollView.apply(this, arguments);
 
@@ -11611,7 +11636,8 @@ define(function (require, exports, module) {
             var navView = new NavigationView({
                 width: this.options.navWidth,
                 height: this.options.navHeight,
-                iconUrl: navData[i].iconUrl
+                iconUrl: navData[i].iconUrl,
+                index:i
             });
 
             var yOffset = this.options.topOffset + this.options.navItemOffset * i;
@@ -11628,14 +11654,17 @@ define(function (require, exports, module) {
     module.exports = MenuView;
 });
 
-define(function(require, exports, module) {
-    var Surface         = require('famous/core/Surface');
-    var Modifier        = require('famous/core/Modifier');
-    var Transform       = require('famous/core/Transform');
-    var View            = require('famous/core/View');
+define(function (require, exports, module) {
+    var Surface = require('famous/core/Surface');
+    var Modifier = require('famous/core/Modifier');
+    var Transform = require('famous/core/Transform');
+    var EventHandler = require('famous/core/EventHandler');
+    var View = require('famous/core/View');
 
     function NavigationView() {
         View.apply(this, arguments);
+        this.eventOutput = new EventHandler();
+        EventHandler.setOutputHandler(this, this.eventOutput);
 
         _createIcon.call(this);
     }
@@ -11646,19 +11675,24 @@ define(function(require, exports, module) {
     NavigationView.DEFAULT_OPTIONS = {
         width: null,
         height: null,
-        iconUrl: null
+        iconUrl: null,
+        index:null
     };
 
     function _createIcon() {
+        var that = this;
         var iconSurface = new Surface({
             content: '<img width="191" src="' + this.options.iconUrl + '"/>'
         });
-
+        iconSurface.on('click', function () {
+            that.eventOutput.emit('pageChange',that.options.index);
+        })
         this._add(iconSurface);
     };
 
     module.exports = NavigationView;
 });
+
 define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');

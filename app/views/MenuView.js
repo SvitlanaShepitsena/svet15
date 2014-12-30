@@ -81,7 +81,8 @@ define(function (require, exports, module) {
             var navView = new NavigationView({
                 width: this.options.navWidth,
                 height: this.options.navHeight,
-                iconUrl: navData[i].iconUrl
+                iconUrl: navData[i].iconUrl,
+                index:i
             });
 
             var yOffset = this.options.topOffset + this.options.navItemOffset * i;

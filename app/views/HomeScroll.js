@@ -5,9 +5,17 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var ScrollView = require('famous/views/Scrollview');
 
+    var EventHandler = require('famous/core/EventHandler');
 
     function HomeScroll(sync) {
         this.generalSync = sync;
+
+        this.eventInput = new EventHandler();
+        EventHandler.setInputHandler(this, this.eventInput);
+
+        this.eventInput.on('pageChange', function (index) {
+            alert(index);
+        })
 
         ScrollView.apply(this, arguments);
 
