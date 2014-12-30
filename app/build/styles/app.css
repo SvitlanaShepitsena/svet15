@@ -236,6 +236,13 @@ article p {
 }
 .radio-content-inline a {
   font-size: 12px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.radio-content-inline a:hover,
+.radio-content-inline a:active,
+.radio-content-inline a:focus {
+  color: #666061;
 }
 .clients-content {
   *zoom: 1;
@@ -359,4 +366,28 @@ article p {
     margin-bottom: 30px;
     margin-top: 30px;
   }
+}
+.winter a {
+  color: #61899e;
+}
+.winter h4 {
+  color: #537587;
+}
+.summer a {
+  color: #e16886;
+}
+.summer h4 {
+  color: #de5779;
+}
+.fall a {
+  color: #fc7d62;
+}
+.fall h4 {
+  color: #fc6e51;
+}
+.spring a {
+  color: #678c7b;
+}
+.spring h4 {
+  color: #5a7b6c;
 }

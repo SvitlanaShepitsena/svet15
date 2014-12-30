@@ -3,6 +3,7 @@
 
 size-med = 960px
 size-sm = 400px
+color-font = #3E3A3B
 
 /*Headers*/
 h1
@@ -86,6 +87,12 @@ article
     col(1 / 12)
     a
         font-size 12px
+        font-weight bold
+        text-decoration none
+        &:hover
+        &:active
+        &:focus
+            color lighten(color-font, 20%)
 
 .clients-content
     col(4 / 12)
@@ -142,3 +149,27 @@ article
         font-size 30px
         margin-bottom 30px
         margin-top 30px
+
+.winter
+    a
+        color lighten(#374E5A, 30%)
+    h4
+        color lighten(#374E5A, 20%)
+
+.summer
+    a
+        color lighten(#DE5779, 10%)
+    h4
+        color #DE5779
+
+.fall
+    a
+        color lighten(#FC6E51, 10%)
+    h4
+        color #FC6E51
+
+.spring
+    a
+        color lighten(#5A7B6C, 10%)
+    h4
+        color #5A7B6C
