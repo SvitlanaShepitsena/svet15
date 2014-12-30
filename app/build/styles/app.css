@@ -391,3 +391,13 @@ article p {
 .spring h4 {
   color: #5a7b6c;
 }
+.live-radio img {
+  max-width: 100%;
+  overflow: auto;
+  width: 100px;
+  height: auto;
+}
+.live-radio a {
+  color: #3e3a3b;
+  text-decoration: none;
+}
