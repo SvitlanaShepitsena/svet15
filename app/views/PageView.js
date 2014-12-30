@@ -25,7 +25,6 @@ define(function (require, exports, module) {
     function PageView() {
         var that = this;
 
-
         GenericSync.register({
             touch: TouchSync,
             scroll: ScrollSync
@@ -40,7 +39,6 @@ define(function (require, exports, module) {
             footerSize: 50
         });
 
-
         /*Header*/
         this.header = new HeaderView();
         this.header.pipe(this);
@@ -49,14 +47,16 @@ define(function (require, exports, module) {
         this.content = new HomeScroll(genericSync);
         var currentIndex = 0;
         var part = 1 / 6;
-        var prevElement,
-            currentElement;
+        var prevElement, prevElementTemp,
+            currentElement, currentElementTemp, direction;
         genericSync.on("update", function (data) {
             delta = data.delta[1];
             if (delta < 0) {
+                direction=-1;
                 currentIndex++;
             } else {
                 currentIndex--;
+                direction=1;
             }
 
             if (currentIndex > 5) {
@@ -65,14 +65,24 @@ define(function (require, exports, module) {
             if (currentIndex < 0) {
                 currentIndex = 0;
             }
-            prevElement = that.states[currentIndex];
-            currentElement= that.states[currentIndex];
 
-            //prevElement.set(0,{duration:100});
-            currentElement.set(1,{duration:200});
-            that.footerLeft.setContent(currentIndex);
-            console.log(that.states[currentIndex]);
-            //that.state.set(1-currentIndex*part,{duration:100});
+            try {
+                prevElementTemp = that.states[currentIndex + direction];
+            } catch (e) {
+                prevElementTemp = null;
+            }
+            if (prevElementTemp !== null && prevElementTemp !== prevElement) {
+                prevElement = prevElementTemp;
+                prevElement.set(0, {duration: 100});
+            }
+
+            currentElementTemp = that.states[currentIndex];
+            if (currentElementTemp !== currentElement) {
+                currentElement = currentElementTemp;
+                currentElement.set(1, {duration: 200});
+
+            }
+
         });
 
         /* =Footer*/
@@ -88,7 +98,6 @@ define(function (require, exports, module) {
                 backgroundSize: 'cover'
             }
         })
-
 
         this.footerCenter = new Surface({
             size: [undefined, undefined],
@@ -113,7 +122,6 @@ define(function (require, exports, module) {
         this.layout.content.add(this.content);
         this.layout.header.add(this.header);
 
-
         this.state1 = new Transitionable(1);
         this.modifier1 = new Modifier({
             opacity: function () {
@@ -126,7 +134,6 @@ define(function (require, exports, module) {
                 backgroundColor: 'purple'
             }
         });
-
 
         this.state2 = new Transitionable(0);
         this.modifier2 = new Modifier({
@@ -141,7 +148,6 @@ define(function (require, exports, module) {
             }
         });
 
-
         this.state3 = new Transitionable(0);
         this.modifier3 = new Modifier({
             opacity: function () {
@@ -154,7 +160,6 @@ define(function (require, exports, module) {
                 backgroundColor: 'red'
             }
         });
-
 
         this.state4 = new Transitionable(0);
         this.modifier4 = new Modifier({
@@ -169,7 +174,6 @@ define(function (require, exports, module) {
             }
         });
 
-
         this.state5 = new Transitionable(0);
         this.modifier5 = new Modifier({
             opacity: function () {
@@ -182,7 +186,6 @@ define(function (require, exports, module) {
                 backgroundColor: 'brown'
             }
         });
-
 
         this.state6 = new Transitionable(0);
         this.modifier6 = new Modifier({
