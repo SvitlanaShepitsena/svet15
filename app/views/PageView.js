@@ -47,7 +47,6 @@ define(function (require, exports, module) {
         this.content = new HomeScroll(genericSync);
         this.content.pipe(this);
 
-        console.log(this.content);
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,

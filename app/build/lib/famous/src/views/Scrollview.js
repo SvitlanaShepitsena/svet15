@@ -158,7 +158,7 @@ define(function(require, exports, module) {
         pagePeriod: 500,
         pageDamp: 0.8,
         pageStopSpeed: 10,
-        pageSwitchSpeed: 0.1,
+        pageSwitchSpeed: 0.5,
         speedLimit: 5,
         groupScroll: false,
         syncScale: 1

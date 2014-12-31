@@ -18,22 +18,23 @@ define(function (require, exports, module) {
             alert(index);
         })
 
-        this.scrollview = new Scrollview(
-        );
 
         ScrollContainer.apply(this, arguments);
 
         _createContent.call(this);
 
         this.scrollview.setOptions({
-            pageSwitchSpeed: 0.7,
-            direction: 1,
+            pageSwitchSpeed: 0.2,
             paginated: true,
-            speedLimit: 5,
-            margin: 5330,
-            syncScale: 0.5
+
+            friction: 0.005,
+            drag: 0.0001,
+            edgeGrip: 0.2,
+            edgePeriod: 300,
+            edgeDamp: 1,
+            speedLimit: 1,
+            margin: 5330
         })
-        this.scrollview.clipSize = 400;
     }
 
     HomeScroll.prototype = Object.create(ScrollContainer.prototype);
@@ -98,12 +99,12 @@ define(function (require, exports, module) {
             }
         });
 
-        this.contentHome.pipe(this.scrollview);
-        this.contentAbout.pipe(this.scrollview);
-        this.contentDemographics.pipe(this.scrollview);
-        this.contentClients.pipe(this.scrollview);
-        this.contentRadio.pipe(this.scrollview);
-        this.contentContact.pipe(this.scrollview);
+        this.contentHome.pipe(genericSync);
+        this.contentAbout.pipe(genericSync);
+        this.contentDemographics.pipe(genericSync);
+        this.contentClients.pipe(genericSync);
+        this.contentRadio.pipe(genericSync);
+        this.contentContact.pipe(genericSync);
 
         genericSync.on("start", function () {
         });
