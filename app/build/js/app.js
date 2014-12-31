@@ -10286,11 +10286,11 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
 
         this.scrollview.setOptions({
             pageSwitchSpeed: 0.7,
-            direction:1,
+            direction: 1,
             paginated: true,
             speedLimit: 5,
-            margin:12000,
-            syncScale:0.5
+            margin: 5330,
+            syncScale: 0.5
         })
         this.scrollview.clipSize = 400;
     }
@@ -11717,11 +11717,11 @@ define(function (require, exports, module) {
 
         this.scrollview.setOptions({
             pageSwitchSpeed: 0.7,
-            direction:1,
+            direction: 1,
             paginated: true,
             speedLimit: 5,
-            margin:12000,
-            syncScale:0.5
+            margin: 5330,
+            syncScale: 0.5
         })
         this.scrollview.clipSize = 400;
     }
