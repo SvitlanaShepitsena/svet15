@@ -10257,12 +10257,13 @@ define('text!jade/radioPage.html',[],function () { return '\n<section class="sve
 
 define('text!jade/contactUsPage.html',[],function () { return '\n<section class="svet-services">\n  <div class="h-services text-center">Contact Us</div><br/>\n  <article class="dem-content-bottom">\n    <table width="220" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;" class="simpleText">\n      <tbody>\n        <tr>\n          <td> </td>\n          <td colspan="2">900 Skokie Blvd., Suite 103, Northbrook, IL 60062<br/>Tel. (847)715-9407<br/>Fax: (847)715-9677<br/>E-mail:<a href="mailto:svet@svet.com" class="menu2"> manager@svet.com</a></td>\n        </tr>\n        <tr>\n          <td colspan="3" height="8"></td>\n        </tr>\n      </tbody>\n    </table>\n  </article>\n</section>';});
 
-define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/ScrollContainer','famous/core/EventHandler','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','text!jade/contactUsPage.html'],function (require, exports, module) {
+define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/ScrollContainer','famous/views/ScrollContainer','famous/core/EventHandler','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','text!jade/contactUsPage.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var ScrollContainer = require('famous/views/ScrollContainer');
+    var Scrollview = require('famous/views/ScrollContainer');
 
     var EventHandler = require('famous/core/EventHandler');
 
@@ -10276,16 +10277,22 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
             alert(index);
         })
 
+        this.scrollview = new Scrollview(
+        );
+
         ScrollContainer.apply(this, arguments);
 
         _createContent.call(this);
 
         this.scrollview.setOptions({
             pageSwitchSpeed: 0.7,
+            direction:1,
             paginated: true,
-            speedLimit: 1
+            speedLimit: 5,
+            margin:12000,
+            syncScale:0.5
         })
-
+        this.scrollview.clipSize = 400;
     }
 
     HomeScroll.prototype = Object.create(ScrollContainer.prototype);
@@ -10343,7 +10350,7 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
             }
         });
         this.contentContact = new Surface({
-            size: [undefined, undefined],
+            size: [undefined, 500],
             content: contactUsPage,
             properties: {
                 backgroundColor: '#FFE1D0'
@@ -11687,6 +11694,7 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var ScrollContainer = require('famous/views/ScrollContainer');
+    var Scrollview = require('famous/views/ScrollContainer');
 
     var EventHandler = require('famous/core/EventHandler');
 
@@ -11700,16 +11708,22 @@ define(function (require, exports, module) {
             alert(index);
         })
 
+        this.scrollview = new Scrollview(
+        );
+
         ScrollContainer.apply(this, arguments);
 
         _createContent.call(this);
 
         this.scrollview.setOptions({
             pageSwitchSpeed: 0.7,
+            direction:1,
             paginated: true,
-            speedLimit: 1
+            speedLimit: 5,
+            margin:12000,
+            syncScale:0.5
         })
-
+        this.scrollview.clipSize = 400;
     }
 
     HomeScroll.prototype = Object.create(ScrollContainer.prototype);
@@ -11767,7 +11781,7 @@ define(function (require, exports, module) {
             }
         });
         this.contentContact = new Surface({
-            size: [undefined, undefined],
+            size: [undefined, 500],
             content: contactUsPage,
             properties: {
                 backgroundColor: '#FFE1D0'

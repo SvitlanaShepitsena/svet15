@@ -4,6 +4,7 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var ScrollContainer = require('famous/views/ScrollContainer');
+    var Scrollview = require('famous/views/ScrollContainer');
 
     var EventHandler = require('famous/core/EventHandler');
 
@@ -17,16 +18,22 @@ define(function (require, exports, module) {
             alert(index);
         })
 
+        this.scrollview = new Scrollview(
+        );
+
         ScrollContainer.apply(this, arguments);
 
         _createContent.call(this);
 
         this.scrollview.setOptions({
             pageSwitchSpeed: 0.7,
+            direction:1,
             paginated: true,
-            speedLimit: 1
+            speedLimit: 5,
+            margin:12000,
+            syncScale:0.5
         })
-
+        this.scrollview.clipSize = 400;
     }
 
     HomeScroll.prototype = Object.create(ScrollContainer.prototype);
@@ -84,7 +91,7 @@ define(function (require, exports, module) {
             }
         });
         this.contentContact = new Surface({
-            size: [undefined, undefined],
+            size: [undefined, 500],
             content: contactUsPage,
             properties: {
                 backgroundColor: '#FFE1D0'
