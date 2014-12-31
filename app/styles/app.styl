@@ -142,8 +142,9 @@ article
     margin 0 auto
     border-radius 100px
     margin-bottom 20px
-    +below(800px)
-        background-color: lighten(#008000, 30%)
+
+   @media screen and (min-width: 992px)
+        background-color lighten(#008000, 30%)
         width 50px
         height 50px
         border-radius 10px
