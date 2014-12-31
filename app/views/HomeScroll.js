@@ -91,7 +91,7 @@ define(function (require, exports, module) {
             }
         });
         this.contentContact = new Surface({
-            size: [undefined, 500],
+            size: [undefined, undefined],
             content: contactUsPage,
             properties: {
                 backgroundColor: '#FFE1D0'
