@@ -35,6 +35,7 @@ var express = require('express'),
     newer = require('gulp-newer'),
     rupture = require("rupture"),
     gutil = require('gulp-util'),
+    notify = require("gulp-notify"),
     processhtml = require('gulp-processhtml');
 
 var dev = 'app/build/',
@@ -42,8 +43,19 @@ var dev = 'app/build/',
 var currentView = dev;
 
 var onError = function (err) {
-    gutil.beep();
-    console.log(err);
+
+        notify.onError({
+            title:    "Gulp",
+            subtitle: "Failure!",
+            message:  "Error: <%= error.message %>",
+            sound:    "Beep"
+        })(err);
+
+
+
+
+        this.emit('end');
+
 };
 
 function startExpress() {
@@ -95,6 +107,10 @@ gulp.task('delIndex', function () {
 });
 
 gulp.task('stylus', function () {
+
+
+
+
     return gulp.src('app/styles/**/*.styl')
         .pipe(plumber({errorHandler: onError}))
         .pipe(stylus({
