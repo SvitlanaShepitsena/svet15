@@ -1,26 +1,33 @@
 @import 'jeet'
 @import 'reset.css'
 
-size-med = 960px
-size-sm = 400px
+size-xs = 400px
+size-s = 600px
+size-m = 800px
+size-l = 1050px
+size-xl = 1800px
+
 color-main = #3E3A3B
 
 /*Headers*/
 h1
-    +below(size-med)
+    +below(size-m)
         font-size 32px
 
 h2
-    +below(size-med)
+    +below(size-m)
         font-size 26px
 
 h3
-    +below(size-med)
+    +below(size-m)
         font-size 20px
 
 h4
-    +below(size-med)
+    +below(size-m)
         font-size 16px
+
+hr
+    color lighten(color-main, 50%)
 
 html
     background: #fff;
@@ -42,9 +49,9 @@ article
     margin-bottom 10px
     margin-top 10px
     p
-        +below(size-med)
+        +below(size-m)
             font-size 12px
-        max-width 100%
+            max-width 100%
 
 .svet-services
     col(10 / 12, offset:1 / 12)
@@ -128,13 +135,18 @@ article
     max-width 200px
 
 .home-icon-container
-    width 150px
+    width 145px
     height 150px
     background-color: lighten(#FC6E51, 30%)
     text-align center
     margin 0 auto
     border-radius 100px
     margin-bottom 20px
+    +below(800px)
+        background-color: lighten(#008000, 30%)
+        width 50px
+        height 50px
+        border-radius 10px
 
 .h-home
     font-size 25px
@@ -173,9 +185,6 @@ article
         color lighten(#5A7B6C, 10%)
     h4
         color #5A7B6C
-
-hr
-    color lighten(color-main, 50%)
 
 .live-radio
     img

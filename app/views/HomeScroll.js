@@ -4,7 +4,6 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var ScrollContainer = require('famous/views/ScrollContainer');
-    var ScrollView = require('famous/views/Scrollview');
 
     var EventHandler = require('famous/core/EventHandler');
 
@@ -27,8 +26,6 @@ define(function (require, exports, module) {
             paginated: true,
             speedLimit: 1
         })
-        this.scrollview.setPosition(1);
-        this.scrollview.setPosition(1);
 
     }
 
@@ -49,9 +46,6 @@ define(function (require, exports, module) {
         var contactUsPage = require('text!jade/contactUsPage.html');
 
         this.contents = [];
-        this.setOptions({
-            pagePeriod: 700
-        });
 
         this.contentHome = new Surface({
             size: [undefined, undefined],
@@ -97,12 +91,12 @@ define(function (require, exports, module) {
             }
         });
 
-        this.contentHome.pipe(genericSync);
-        this.contentAbout.pipe(genericSync);
-        this.contentDemographics.pipe(genericSync);
-        this.contentClients.pipe(genericSync);
-        this.contentRadio.pipe(genericSync);
-        this.contentContact.pipe(genericSync);
+        this.contentHome.pipe(this.scrollview);
+        this.contentAbout.pipe(this.scrollview);
+        this.contentDemographics.pipe(this.scrollview);
+        this.contentClients.pipe(this.scrollview);
+        this.contentRadio.pipe(this.scrollview);
+        this.contentContact.pipe(this.scrollview);
 
         genericSync.on("start", function () {
         });

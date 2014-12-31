@@ -45,7 +45,9 @@ define(function (require, exports, module) {
 
         /*Content*/
         this.content = new HomeScroll(genericSync);
+        this.content.pipe(this);
 
+        console.log(this.content);
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,
@@ -229,9 +231,8 @@ define(function (require, exports, module) {
             state.set(0);
         }
         var navigatedState = this.states[index];
-        navigatedState.set(1,{duration:300});
+        navigatedState.set(1, {duration: 300});
         this.content.scrollview.goToPage(index);
-        console.log(this.content.scrollview);
     }
 
     module.exports = PageView;

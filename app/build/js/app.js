@@ -10257,13 +10257,12 @@ define('text!jade/radioPage.html',[],function () { return '\n<section class="sve
 
 define('text!jade/contactUsPage.html',[],function () { return '\n<section class="svet-services">\n  <div class="h-services text-center">Contact Us</div><br/>\n  <article class="dem-content-bottom">\n    <table width="220" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;" class="simpleText">\n      <tbody>\n        <tr>\n          <td> </td>\n          <td colspan="2">900 Skokie Blvd., Suite 103, Northbrook, IL 60062<br/>Tel. (847)715-9407<br/>Fax: (847)715-9677<br/>E-mail:<a href="mailto:svet@svet.com" class="menu2"> manager@svet.com</a></td>\n        </tr>\n        <tr>\n          <td colspan="3" height="8"></td>\n        </tr>\n      </tbody>\n    </table>\n  </article>\n</section>';});
 
-define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/ScrollContainer','famous/views/Scrollview','famous/core/EventHandler','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','text!jade/contactUsPage.html'],function (require, exports, module) {
+define('views/HomeScroll',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/ScrollContainer','famous/core/EventHandler','text!jade/homePage.html','text!jade/aboutUsPage.html','text!jade/demographicsPage.html','text!jade/clientsPage.html','text!jade/radioPage.html','text!jade/contactUsPage.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var ScrollContainer = require('famous/views/ScrollContainer');
-    var ScrollView = require('famous/views/Scrollview');
 
     var EventHandler = require('famous/core/EventHandler');
 
@@ -10284,13 +10283,8 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
         this.scrollview.setOptions({
             pageSwitchSpeed: 0.7,
             paginated: true,
-            speedLimit: 1,
-            edgeGrip: 2,
-            edgePeriod: 1300,
-            edgeDamp: 1
+            speedLimit: 1
         })
-        this.scrollview.setPosition(1);
-        this.scrollview.setPosition(1);
 
     }
 
@@ -10311,9 +10305,6 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
         var contactUsPage = require('text!jade/contactUsPage.html');
 
         this.contents = [];
-        this.setOptions({
-            pagePeriod: 700
-        });
 
         this.contentHome = new Surface({
             size: [undefined, undefined],
@@ -10359,12 +10350,12 @@ define('views/HomeScroll',['require','exports','module','famous/core/Surface','f
             }
         });
 
-        this.contentHome.pipe(genericSync);
-        this.contentAbout.pipe(genericSync);
-        this.contentDemographics.pipe(genericSync);
-        this.contentClients.pipe(genericSync);
-        this.contentRadio.pipe(genericSync);
-        this.contentContact.pipe(genericSync);
+        this.contentHome.pipe(this.scrollview);
+        this.contentAbout.pipe(this.scrollview);
+        this.contentDemographics.pipe(this.scrollview);
+        this.contentClients.pipe(this.scrollview);
+        this.contentRadio.pipe(this.scrollview);
+        this.contentContact.pipe(this.scrollview);
 
         genericSync.on("start", function () {
         });
@@ -10759,7 +10750,9 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
 
         /*Content*/
         this.content = new HomeScroll(genericSync);
+        this.content.pipe(this);
 
+        console.log(this.content);
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,
@@ -10943,9 +10936,8 @@ define('views/PageView',['require','exports','module','famous/core/Surface','fam
             state.set(0);
         }
         var navigatedState = this.states[index];
-        navigatedState.set(1,{duration:300});
+        navigatedState.set(1, {duration: 300});
         this.content.scrollview.goToPage(index);
-        console.log(this.content.scrollview);
     }
 
     module.exports = PageView;
@@ -10980,7 +10972,7 @@ define('views/AppView',['require','exports','module','famous/core/Surface','famo
         this.pageViewPos = new Transitionable(0);
 
         this.eventInput.on('navigateTo', function (index) {
-            that.pageView.content.goToPage(index);
+            that.pageView.navigateTo(index);
        })
         this.pageModifier = new Modifier();
 
@@ -11070,10 +11062,11 @@ define('views/AppView',['require','exports','module','famous/core/Surface','famo
     module.exports = AppView;
 });
 
-define('main',['require', 'famous/core/Engine', 'views/AppView'], function (require, Engine, AppView) {
+define('main',['require', 'famous/core/Engine', 'views/AppView', 'views/PageView','views/HomeScroll'], function (require, Engine, AppView,PageView, HomeScroll) {
 
     var Transform = require('famous/core/Transform');
     var mainContext = Engine.createContext();
+
 
     var appView = new AppView();
 
@@ -11082,10 +11075,11 @@ define('main',['require', 'famous/core/Engine', 'views/AppView'], function (requ
 
 define("main", function(){});
 
-define(['require', 'famous/core/Engine', 'views/AppView'], function (require, Engine, AppView) {
+define(['require', 'famous/core/Engine', 'views/AppView', 'views/PageView','views/HomeScroll'], function (require, Engine, AppView,PageView, HomeScroll) {
 
     var Transform = require('famous/core/Transform');
     var mainContext = Engine.createContext();
+
 
     var appView = new AppView();
 
@@ -11510,7 +11504,7 @@ define(function (require, exports, module) {
         this.pageViewPos = new Transitionable(0);
 
         this.eventInput.on('navigateTo', function (index) {
-            that.pageView.content.goToPage(index);
+            that.pageView.navigateTo(index);
        })
         this.pageModifier = new Modifier();
 
@@ -11693,7 +11687,6 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var ScrollContainer = require('famous/views/ScrollContainer');
-    var ScrollView = require('famous/views/Scrollview');
 
     var EventHandler = require('famous/core/EventHandler');
 
@@ -11714,13 +11707,8 @@ define(function (require, exports, module) {
         this.scrollview.setOptions({
             pageSwitchSpeed: 0.7,
             paginated: true,
-            speedLimit: 1,
-            edgeGrip: 2,
-            edgePeriod: 1300,
-            edgeDamp: 1
+            speedLimit: 1
         })
-        this.scrollview.setPosition(1);
-        this.scrollview.setPosition(1);
 
     }
 
@@ -11741,9 +11729,6 @@ define(function (require, exports, module) {
         var contactUsPage = require('text!jade/contactUsPage.html');
 
         this.contents = [];
-        this.setOptions({
-            pagePeriod: 700
-        });
 
         this.contentHome = new Surface({
             size: [undefined, undefined],
@@ -11789,12 +11774,12 @@ define(function (require, exports, module) {
             }
         });
 
-        this.contentHome.pipe(genericSync);
-        this.contentAbout.pipe(genericSync);
-        this.contentDemographics.pipe(genericSync);
-        this.contentClients.pipe(genericSync);
-        this.contentRadio.pipe(genericSync);
-        this.contentContact.pipe(genericSync);
+        this.contentHome.pipe(this.scrollview);
+        this.contentAbout.pipe(this.scrollview);
+        this.contentDemographics.pipe(this.scrollview);
+        this.contentClients.pipe(this.scrollview);
+        this.contentRadio.pipe(this.scrollview);
+        this.contentContact.pipe(this.scrollview);
 
         genericSync.on("start", function () {
         });
@@ -12025,7 +12010,9 @@ define(function (require, exports, module) {
 
         /*Content*/
         this.content = new HomeScroll(genericSync);
+        this.content.pipe(this);
 
+        console.log(this.content);
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,
@@ -12209,9 +12196,8 @@ define(function (require, exports, module) {
             state.set(0);
         }
         var navigatedState = this.states[index];
-        navigatedState.set(1,{duration:300});
+        navigatedState.set(1, {duration: 300});
         this.content.scrollview.goToPage(index);
-        console.log(this.content.scrollview);
     }
 
     module.exports = PageView;

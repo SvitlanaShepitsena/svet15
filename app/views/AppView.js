@@ -25,7 +25,7 @@ define(function (require, exports, module) {
         this.pageViewPos = new Transitionable(0);
 
         this.eventInput.on('navigateTo', function (index) {
-            that.pageView.content.goToPage(index);
+            that.pageView.navigateTo(index);
        })
         this.pageModifier = new Modifier();
 
