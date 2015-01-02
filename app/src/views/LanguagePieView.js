@@ -7,6 +7,8 @@ define(function (require, exports, module) {
     var Timer = require('famous/utilities/Timer');
     var EventHandler = require('famous/core/EventHandler');
 
+    var Transitionable = require('famous/transitions/Transitionable');
+
 
     function LanguagePieView(genericSync) {
         var that = this;
@@ -20,10 +22,21 @@ define(function (require, exports, module) {
         var svgLanguage = _createLanguageSvg();
         var flex = new FlexibleLayout({
             ratios: [2, 10]
-        })
+        });
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+        var widthScale = 0.82;
+        this.contentWidth = widthScale * windowWidth;
+
+        var transWidth = new Transitionable([this.contentWidth,100]);
+        window.onresize = function () {
+         windowWidth = window.innerWidth;
+        }
+
+
         this.languageModifier = new Modifier({
-            size: [1200, 100],
-            transform: Transform.translate(130, 0, 10),
+            size: transWidth.get(),
+            transform: Transform.translate(0, 0, 10),
             origin: [0.5, 0],
             align: [0.5, 0]
         });
@@ -63,7 +76,7 @@ define(function (require, exports, module) {
     function _createLanguageSvg() {
         var svgLanguage = document.createElementNS(d3.ns.prefix.svg, 'svg');
         var w = 150;
-        var h = 150;
+        var h = w;
         var r = h / 2;
         var color = d3.scale.category20c();
         var data = [{"label": "Russian", "value": 20},
@@ -82,8 +95,6 @@ define(function (require, exports, module) {
                 return color(i);
             })
             .attr("d", function (d) {
-                // log the result of the arc generator to show how cool it is :)
-                console.log(arc(d));
                 return arc(d);
             });
 
