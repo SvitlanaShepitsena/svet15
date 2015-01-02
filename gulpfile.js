@@ -216,9 +216,15 @@ gulp.task('reload', function () {
     browserSync.reload();
 });
 
-gulp.task('browser-sync', ['nodemon'], function () {
+gulp.task('browser-sync', function () {
+    //browserSync({
+    //    proxy: "localhost:3001",
+    //    notify: false
+    //});
     browserSync({
-        proxy: "localhost:3001",
+        server: {
+            baseDir:'./app'
+        },
         notify: false
     });
 });
@@ -232,6 +238,7 @@ gulp.task('default', ['jade:v', 'jade', 'autoprefix'], function () {
     gulp.watch('app/jade/*.jade', ['jade:v']);
     gulp.watch('app/styles/**/*.styl', ['autoprefix']);
 
+    //browserSync();
     gulp.start('browser-sync');
 
 });

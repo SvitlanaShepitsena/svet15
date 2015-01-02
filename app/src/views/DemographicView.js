@@ -23,21 +23,21 @@ define(function (require, exports, module) {
         var svg = _createSvg();
         var demographicsPart2 = require('text!jade/demographicsPart2.html');
 
-        this.contentPart1= new Surface({
+        this.contentPart1 = new Surface({
             size: [undefined, undefined],
             content: demographicsPart1,
             properties: {
                 backgroundColor: '#FFFAE2'
             }
         });
-        this.contentPart2= new Surface({
+        this.contentPart2 = new Surface({
             size: [undefined, undefined],
             content: svg,
             properties: {
                 backgroundColor: '#FFFAE2'
             }
         });
-        this.contentPart3= new Surface({
+        this.contentPart3 = new Surface({
             size: [undefined, undefined],
             content: demographicsPart2,
             properties: {
@@ -67,6 +67,7 @@ define(function (require, exports, module) {
         var svg = document.createElementNS(d3.ns.prefix.svg, 'svg');
         var w = 200;
         var h = 200;
+
         var r = h / 2;
         var color = d3.scale.category20c();
 
@@ -88,7 +89,6 @@ define(function (require, exports, module) {
             })
             .attr("d", function (d) {
                 // log the result of the arc generator to show how cool it is :)
-                console.log(arc(d));
                 return arc(d);
             });
 
@@ -101,14 +101,13 @@ define(function (require, exports, module) {
             }
         );
         return svg;
+
     }
 
     DemographicView.prototype = Object.create(View.prototype);
     DemographicView.prototype.constructor = DemographicView;
 
-
     DemographicView.DEFAULT_OPTIONS = {};
-
 
     module.exports = DemographicView;
 });
