@@ -67,6 +67,8 @@ article
 
 .about-content-top
     col(8 / 12)
+    +below(size-m)
+        col(12 / 12)
     p
         margin-bottom 15px
 
@@ -79,6 +81,8 @@ article
 
 .about-content-bottom
     col(8 / 12)
+    +below(size-m)
+        col(12 / 12)
     h2
         font-weight normal
     p, h2
@@ -110,9 +114,13 @@ article
 
 .svet-media-group
     col(8 / 12, offset:2 / 12)
+    +below(size-m)
+        col(12 / 12)
     p
         font-size 18px
         line-height 28px
+        +below(size-m)
+            font-size 90%
 
 .productsServises
     col(1 / 2, cycle:2)
@@ -123,6 +131,7 @@ article
         margin-bottom 30px
         +below(size-s)
             font-size 11px
+            line-height 16px
     h4, p
         text-align center
 
@@ -133,7 +142,7 @@ article
     max-width 200px
 
 .home-icon-container
-    width 145px
+    width 150px
     height 150px
     background-color: lighten(#FC6E51, 30%)
     text-align center
@@ -141,10 +150,9 @@ article
     border-radius 100px
     margin-bottom 20px
     +below(size-m)
-        background-color: lighten(#008000, 30%)
-        width 50px
-        height 50px
-        border-radius 10px
+        width 100px
+        height 100px
+        border-radius 50px
 
 .h-home
     font-size 25px
@@ -152,11 +160,13 @@ article
     font-weight normal
     text-align center
     margin-bottom 15px
+    +below(size-m)
+        font-size 100%
 
 .h-services
     font-size 32px
-    +above(size-s)
-        font-size 30px
+    +below(size-m)
+        font-size 130%
         margin-bottom 30px
         margin-top 30px
 
