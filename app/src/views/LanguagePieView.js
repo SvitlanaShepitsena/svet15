@@ -19,14 +19,16 @@ define(function (require, exports, module) {
         EventHandler.setInputHandler(this, this.eventInput);
         EventHandler.setOutputHandler(this, this.eventOutput);
 
-        var svgLanguage = _createLanguageSvg();
         var flex = new FlexibleLayout({
             ratios: [2, 10]
         });
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
         var widthScale = 0.82;
+        var svgScale = 0.1;
         this.contentWidth = widthScale * windowWidth;
+        this.svgWidth = Math.floor(svgScale * windowWidth);
+        var svgLanguage = _createLanguageSvg(this.svgWidth);
 
         var transWidth = new Transitionable([this.contentWidth,100]);
         window.onresize = function () {
@@ -73,9 +75,10 @@ define(function (require, exports, module) {
         this.add(this.languageModifier).add(flex);
     }
 
-    function _createLanguageSvg() {
+    function _createLanguageSvg(width) {
         var svgLanguage = document.createElementNS(d3.ns.prefix.svg, 'svg');
-        var w = 150;
+
+        var w = width;
         var h = w;
         var r = h / 2;
         var color = d3.scale.category20c();
