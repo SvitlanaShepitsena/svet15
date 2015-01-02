@@ -22,7 +22,7 @@ define(function (require, exports, module) {
             ratios: [2, 10]
         })
         this.languageModifier = new Modifier({
-            size: [500,300],
+            size: [500, 300],
             transform: Transform.translate(130, 0, 10)
         });
         this.svgLanguage = new Surface({

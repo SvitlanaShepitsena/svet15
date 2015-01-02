@@ -46,9 +46,11 @@ define(function (require, exports, module) {
     function _createContent() {
         var that = this;
         var genericSync = this.generalSync;
+
         var homePage = require('text!jade/homePage.html');
         var aboutUsPage = require('text!jade/aboutUsPage.html');
         this.demographicsPage = new DemographicView(genericSync);
+
         var clientsPage = require('text!jade/clientsPage.html');
         var radioPage = require('text!jade/radioPage.html');
         var contactUsPage = require('text!jade/contactUsPage.html');
