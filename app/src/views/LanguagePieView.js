@@ -22,8 +22,10 @@ define(function (require, exports, module) {
             ratios: [2, 10]
         })
         this.languageModifier = new Modifier({
-            size: [500, 300],
-            transform: Transform.translate(130, 0, 10)
+            size: [1200, 100],
+            transform: Transform.translate(130, 0, 10),
+            origin: [0.5, 0],
+            align: [0.5, 0]
         });
         this.svgLanguage = new Surface({
             size: [undefined, undefined],
@@ -33,11 +35,11 @@ define(function (require, exports, module) {
                 zIndex: 10
             }
         });
+
         this.textLanguage = new Surface({
             size: [undefined, undefined],
             content: '<h2> Language</h2><p>Ukrainian, Lithuanian, Bulgarian, and other Eastern European communities speak Russian, which makes the Russian speaking community the second largest segment of the foreign born US population, which is estimated at 5 million people.</p>',
             properties: {
-                fontSize: '11px',
                 zIndex: 10
             }
         });
