@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     var NavigationView = require('./NavigationView');
 
 
-    function DemographicView() {
+    function DemographicView(genericSync) {
         var that = this;
         View.apply(this, arguments);
 
@@ -57,11 +57,10 @@ define(function (require, exports, module) {
 
         this.add(grid);
 
-        this.contentPart1.pipe(grid);
-        this.contentPart2.pipe(grid);
-        this.contentPart3.pipe(grid);
+        this.contentPart1.pipe(genericSync);
+        this.contentPart2.pipe(genericSync);
+        this.contentPart3.pipe(genericSync);
 
-        grid.pipe(this);
     }
 
     function _createSvg() {
