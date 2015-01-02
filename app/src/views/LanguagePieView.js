@@ -30,9 +30,9 @@ define(function (require, exports, module) {
         this.svgWidth = Math.floor(svgScale * windowWidth);
         var svgLanguage = _createLanguageSvg(this.svgWidth);
 
-        var transWidth = new Transitionable([this.contentWidth,100]);
+        var transWidth = new Transitionable([this.contentWidth, 100]);
         window.onresize = function () {
-         windowWidth = window.innerWidth;
+            windowWidth = window.innerWidth;
         }
 
 
