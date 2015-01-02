@@ -6,7 +6,11 @@ define(function (require, exports, module) {
     var GridLayout = require('famous/views/GridLayout');
     var Timer = require('famous/utilities/Timer');
     var EventHandler = require('famous/core/EventHandler');
+
     var LanguagePieView = require('views/LanguagePieView');
+    var HouseholdView = require('views/HouseholdView');
+    var EducationView = require('views/EducationView');
+    var EmploymentView = require('views/EmploymentView');
 
 
     function DemographicView(genericSync) {
@@ -19,7 +23,6 @@ define(function (require, exports, module) {
         EventHandler.setOutputHandler(this, this.eventOutput);
 
         var demographicsPart1 = require('text!jade/demographicsPage.html');
-        var demographicsPart2 = require('text!jade/demographicsPart2.html');
 
         this.contentPart1 = new Surface({
             size: [undefined, undefined],
@@ -29,29 +32,26 @@ define(function (require, exports, module) {
             }
         });
         this.languagePieView = new LanguagePieView(genericSync);
+        this.householdView = new HouseholdView(genericSync);
+        this.educationView = new EducationView(genericSync);
+        this.employmentView = new EmploymentView(genericSync);
 
-        this.contentPart3 = new Surface({
-            size: [undefined, undefined],
-            content: demographicsPart2,
-            properties: {
-                backgroundColor: '#FFFAE2'
-            }
-        });
         var demographContent = [];
         demographContent.push(this.contentPart1);
         demographContent.push(this.languagePieView);
-        demographContent.push(this.contentPart3);
+        demographContent.push(this.householdView);
+        demographContent.push(this.educationView);
+        demographContent.push(this.employmentView);
 
         var grid = new GridLayout({
             direction: 1,
-            dimensions: [1, 3]
+            dimensions: [1, 5]
         });
         grid.sequenceFrom(demographContent);
 
         this.add(grid);
 
         this.contentPart1.pipe(genericSync);
-        this.contentPart3.pipe(genericSync);
 
     }
 
