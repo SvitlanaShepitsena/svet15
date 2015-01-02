@@ -9,7 +9,6 @@ define(function (require, exports, module) {
     var LanguagePieView = require('views/LanguagePieView');
 
 
-
     function DemographicView(genericSync) {
         var that = this;
         View.apply(this, arguments);

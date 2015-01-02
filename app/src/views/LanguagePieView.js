@@ -28,9 +28,9 @@ define(function (require, exports, module) {
         var widthScale = 0.82;
         this.contentWidth = widthScale * windowWidth;
 
-        var transWidth = new Transitionable([this.contentWidth,100]);
+        var transWidth = new Transitionable([this.contentWidth, 100]);
         window.onresize = function () {
-         windowWidth = window.innerWidth;
+            windowWidth = window.innerWidth;
         }
 
 
