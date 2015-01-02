@@ -39,8 +39,13 @@ var express = require('express'),
     processhtml = require('gulp-processhtml');
 
 var dev = 'app/build/',
+    app = 'app/',
+    temp = '.tmp/',
     dist = 'app/dist/';
-var currentView = dev;
+
+
+
+var currentView = app;
 
 var onError = function (err) {
 
@@ -50,12 +55,7 @@ var onError = function (err) {
             message:  "Error: <%= error.message %>",
             sound:    "Beep"
         })(err);
-
-
-
-
         this.emit('end');
-
 };
 
 function startExpress() {
@@ -107,24 +107,20 @@ gulp.task('delIndex', function () {
 });
 
 gulp.task('stylus', function () {
-
-
-
-
     return gulp.src('app/styles/**/*.styl')
         .pipe(plumber({errorHandler: onError}))
         .pipe(stylus({
             use: [nib(), jeet(), rupture()],
             compress: false
         }))
-        .pipe(gulp.dest('app/styles/'))
+        .pipe(gulp.dest(temp+'styles/'))
         .pipe(reload({stream: true}));
 });
 
 gulp.task('autoprefix', ['stylus'], function () {
-    return gulp.src('app/styles/*.css')
+    return gulp.src(temp+'/styles/*.css')
         .pipe(prefix())
-        .pipe(gulp.dest(dev + 'styles'))
+        .pipe(gulp.dest(app + 'styles'))
         .pipe(reload({stream: true}));
 });
 
@@ -143,7 +139,7 @@ gulp.task('jade', function () {
         .pipe(jade({
             pretty: true
         }))
-        .pipe(gulp.dest(dev))
+        .pipe(gulp.dest(app))
         .pipe(reload({stream: true}))
 });
 
@@ -166,7 +162,7 @@ gulp.task('lib', function () {
 
 gulp.task('js', ['lib'], function () {
     var DEST = dev + 'js';
-    return gulp.src(['app/src/*.js', 'app/views/**/*.js'])
+    return gulp.src(['app/src/*.js', 'app/src/views/**/*.js'])
         .pipe(rjs(
             {
                 baseUrl: './app/src',
@@ -174,7 +170,7 @@ gulp.task('js', ['lib'], function () {
                 paths: {
                     famous: "../lib/famous/src",
                     requirejs: "../lib/requirejs/require",
-                    views: "../views",
+                    views: "views",
                     jade: "../jade",
                     almond: "../lib/almond/almond"
                 },
@@ -216,6 +212,10 @@ gulp.task('nodemon', function () {
     startExpress();
 });
 
+gulp.task('reload', function () {
+    browserSync.reload();
+});
+
 gulp.task('browser-sync', ['nodemon'], function () {
     browserSync({
         proxy: "localhost:3001",
@@ -224,14 +224,12 @@ gulp.task('browser-sync', ['nodemon'], function () {
 });
 
 gulp.task('default', ['jade:v', 'jade', 'autoprefix'], function () {
-    runSequence('js', 'add');
+    //runSequence('js', 'add');
 
-    gulp.watch(['app/src/*.js', 'app/views/**/*.js'], ['js']);
+    gulp.watch(['app/src/*.js', 'app/src/views/**/*.js'], ['reload']);
     gulp.watch('app/img/**/*', ['img']);
     gulp.watch('app/*.jade', ['jade']);
-    gulp.watch('app/jade/*.jade', function () {
-        runSequence('jade:v', 'js');
-    })
+    gulp.watch('app/jade/*.jade', ['jade:v']);
     gulp.watch('app/styles/**/*.styl', ['autoprefix']);
 
     gulp.start('browser-sync');
