@@ -84,7 +84,7 @@ define(function (require, exports, module) {
         var color = d3.scale.category20c();
 
         var data = [{"label": "Russian Speaking Population", "value": 20},
-            {"label": "Ukrainian", "value": 50},
+            {"label": "Hispanic", "value": 50},
             {"label": "Others", "value": 30}];
 
         var vis = d3.select(svg).data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");

@@ -133,6 +133,28 @@ article {
 .about-content-top:last-child {
   margin-right: 0%;
 }
+@media only screen and (max-width: 800px) {
+  .about-content-top {
+    *zoom: 1;
+    float: left;
+    clear: none;
+    text-align: inherit;
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 3%;
+  }
+  .about-content-top:before,
+  .about-content-top:after {
+    content: '';
+    display: table;
+  }
+  .about-content-top:after {
+    clear: both;
+  }
+  .about-content-top:last-child {
+    margin-right: 0%;
+  }
+}
 .about-content-top p {
   margin-bottom: 15px;
 }
@@ -182,6 +204,28 @@ article {
 }
 .about-content-bottom:last-child {
   margin-right: 0%;
+}
+@media only screen and (max-width: 800px) {
+  .about-content-bottom {
+    *zoom: 1;
+    float: left;
+    clear: none;
+    text-align: inherit;
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 3%;
+  }
+  .about-content-bottom:before,
+  .about-content-bottom:after {
+    content: '';
+    display: table;
+  }
+  .about-content-bottom:after {
+    clear: both;
+  }
+  .about-content-bottom:last-child {
+    margin-right: 0%;
+  }
 }
 .about-content-bottom h2 {
   font-weight: normal;
@@ -270,9 +314,36 @@ article {
 .svet-media-group:last-child {
   margin-right: 0%;
 }
+@media only screen and (max-width: 800px) {
+  .svet-media-group {
+    *zoom: 1;
+    float: left;
+    clear: none;
+    text-align: inherit;
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 3%;
+  }
+  .svet-media-group:before,
+  .svet-media-group:after {
+    content: '';
+    display: table;
+  }
+  .svet-media-group:after {
+    clear: both;
+  }
+  .svet-media-group:last-child {
+    margin-right: 0%;
+  }
+}
 .svet-media-group p {
   font-size: 18px;
   line-height: 28px;
+}
+@media only screen and (max-width: 800px) {
+  .svet-media-group p {
+    font-size: 90%;
+  }
 }
 .productsServises {
   *zoom: 1;
@@ -308,6 +379,7 @@ article {
 @media only screen and (max-width: 600px) {
   .productsServises p {
     font-size: 11px;
+    line-height: 16px;
   }
 }
 .productsServises h4,
@@ -321,7 +393,7 @@ article {
   max-width: 200px;
 }
 .home-icon-container {
-  width: 145px;
+  width: 150px;
   height: 150px;
   background-color: #fd9a85;
   text-align: center;
@@ -331,10 +403,9 @@ article {
 }
 @media only screen and (max-width: 800px) {
   .home-icon-container {
-    background-color: #00f300;
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
   }
 }
 .h-home {
@@ -344,12 +415,17 @@ article {
   text-align: center;
   margin-bottom: 15px;
 }
+@media only screen and (max-width: 800px) {
+  .h-home {
+    font-size: 100%;
+  }
+}
 .h-services {
   font-size: 32px;
 }
-@media only screen and (min-width: 600px) {
+@media only screen and (max-width: 800px) {
   .h-services {
-    font-size: 30px;
+    font-size: 130%;
     margin-bottom: 30px;
     margin-top: 30px;
   }
