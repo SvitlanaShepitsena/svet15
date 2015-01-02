@@ -19,9 +19,10 @@ define(function (require, exports, module) {
 
         var svgLanguage = _createLanguageSvg();
         var flex = new FlexibleLayout({
-            ratios: [1, 3]
+            ratios: [2, 10]
         })
         this.languageModifier = new Modifier({
+            size: [500,300],
             transform: Transform.translate(130, 0, 10)
         });
         this.svgLanguage = new Surface({
