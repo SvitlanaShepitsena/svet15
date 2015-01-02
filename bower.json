@@ -1,0 +1,29 @@
+{
+  "name": "svet15",
+  "main": "index.js",
+  "version": "0.4.0",
+  "homepage": "https://github.com/ChicagoBusinessIntelligence1/svet15",
+  "authors": [
+    "Svitlana <chicagobusinessintelligence1@gmail.com>"
+  ],
+  "description": "Svet Media Pilot Project",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "famo.us",
+    "d3"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.5.3",
+    "bootstrap": "~3.3.1"
+  }
+}

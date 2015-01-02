@@ -5651,43 +5651,43 @@ define('famous/utilities/Timer',['require','exports','module','../core/Engine'],
 
 });
 
-define('views/NavigationView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/EventHandler','famous/core/View'],function (require, exports, module) {
-    var Surface = require('famous/core/Surface');
-    var Modifier = require('famous/core/Modifier');
-    var Transform = require('famous/core/Transform');
-    var EventHandler = require('famous/core/EventHandler');
-    var View = require('famous/core/View');
+define('views/NavigationView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/EventHandler','famous/core/View'],function(require, exports, module) {
+	var Surface = require('famous/core/Surface');
+	var Modifier = require('famous/core/Modifier');
+	var Transform = require('famous/core/Transform');
+	var EventHandler = require('famous/core/EventHandler');
+	var View = require('famous/core/View');
 
-    function NavigationView() {
-        View.apply(this, arguments);
-        this.eventOutput = new EventHandler();
-        EventHandler.setOutputHandler(this, this.eventOutput);
+	function NavigationView() {
+		View.apply(this, arguments);
+		this.eventOutput = new EventHandler();
+		EventHandler.setOutputHandler(this, this.eventOutput);
 
-        _createIcon.call(this);
-    }
+		_createIcon.call(this);
+	}
 
-    NavigationView.prototype = Object.create(View.prototype);
-    NavigationView.prototype.constructor = NavigationView;
+	NavigationView.prototype = Object.create(View.prototype);
+	NavigationView.prototype.constructor = NavigationView;
 
-    NavigationView.DEFAULT_OPTIONS = {
-        width: null,
-        height: null,
-        iconUrl: null,
-        index: null
-    };
+	NavigationView.DEFAULT_OPTIONS = {
+		width: 1000,
+		height: null,
+		iconUrl: null,
+		index: null
+	};
 
-    function _createIcon() {
-        var that = this;
-        var iconSurface = new Surface({
-            content: '<img width="191" src="' + this.options.iconUrl + '"/>'
-        });
-        iconSurface.on('click', function () {
-            that.eventOutput.emit('pageChange', that.options.index);
-        })
-        this._add(iconSurface);
-    };
+	function _createIcon() {
+		var that = this;
+		var iconSurface = new Surface({
+			content: '<img width="191" src="' + this.options.iconUrl + '"/>'
+		});
+		iconSurface.on('click', function() {
+			that.eventOutput.emit('pageChange', that.options.index);
+		})
+		this._add(iconSurface);
+	};
 
-    module.exports = NavigationView;
+	module.exports = NavigationView;
 });
 
 define('views/MenuView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/utilities/Timer','famous/core/EventHandler','./NavigationView'],function (require, exports, module) {
@@ -10249,7 +10249,7 @@ define('text!jade/homePage.html',[],function () { return '\n<section>\n  <articl
 
 define('text!jade/aboutUsPage.html',[],function () { return '\n<section class="svet-services">\n  <aside class="sun-times">\n    <div class="chicago-news text-center"><img src="img/aboutUs/aboutus_1.jpg"/></div>\n  </aside>\n  <article class="about-content-top">\n    <div class="h-services text-center">SVET International publishing house</div>\n    <p>From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability.</p>\n    <p>The competitors consider SVET International Publishing House to be a typical "company with the future", with steady dynamic growth of all indicators which have to be taken into account willingly or not. Once in two years a completely new project is given birth, which is introducing radical changes into the ethnic publishing market in Chicagoland.</p>\n    <p>Our colleagues recognize with an imperceptible shade of envy that the SVET International Publishing house managed to combine incompatible things: the creative approach to technologies and technological approach to creativity.</p>\n  </article>\n</section>\n<section class="svet-services"><br/>\n  <article class="about-content-bottom">\n    <p>One more feature is even more intriguing. For some reason it is a current belief that poverty and dependence are inherent to the nature of every writing person. This formula is overturned by the very existence of SVET Publishing House where creativity in journalism is rated as high as commercial or administrative skills.</p>\n    <p>The fact of popularity of SVET\'s publications speaks for itself and do not need any further commends. Each paper is ranking highest among other press publications in its field. The total circulation of publishing house is leading well ahead all other Chicago-based Russian language press publications at large.</p>\n    <p>Over the past THIRTEEN years our publishing house has accumulated a considerable brainpower and intellectual potential. Journalists and designers regard invitation for work in SVET International Publishing House as a highest appreciation of their proficiency and skills.</p>\n    <p>What does it mean in the real life? Our partners can completely rely on immaculate professionalism of our managers. They have the best authors and designers at their command. SVET International Publishing House is associated not only with the most effective advertising media. It is a great source of new ideas!</p>\n  </article>\n  <aside class="sun-times">\n    <div class="chicago-news text-center"><img src="img/aboutUs/aboutus_2.jpg"/></div>\n  </aside>\n</section>';});
 
-define('text!jade/demographicsPage.html',[],function () { return '\n<section class="svet-services">\n  <article class="about-content-top">\n    <div class="h-services text-center">Demographics</div>\n    <p class="text-center">The Russian - American population in the United States is estimated at nearly</p>\n    <h2 class="text-center">2.9 million people</h2><br/>\n    <p>It is the second largest ethnic market, making up 10.4% of 28.4 million foreign born people in the country.</p>\n    <h4>States with the highest concentration of the Russian-American population:</h4>\n    <p>New York Tri-State area – 24% (approx. 696,000 people)<br/>California – 17% (approx. 493,000 people)<br/>Illinois – 16% (approx. 464,000 plus people)</p>\n  </article>\n  <aside class="sun-times">\n    <div class="chicago-news text-center"><img src="img/dem/map.jpg"/></div>\n  </aside>\n</section>\n<section class="svet-services"><br/>\n  <article class="dem-content-bottom">\n    <h2>Language</h2>\n    <p>Ukrainian, Lithuanian, Bulgarian, and other Eastern European communities speak Russian, which makes the Russian speaking community the second largest segment of the foreign born US population, which is estimated at 5 million people.</p>\n    <h2>Household</h2>\n    <p>\n      •\t64% are married with an average of 1.6 children per family.\n      • 57% are homeowners (compared to 41% for all US foreign born)\n    </p>\n    <h2>Income</h2>\n    <p>\n      • Average Annual Household Income is $87,500.\n      • 27.4% have an income of $100,000 or higher.\n    </p>\n    <h2>Education</h2>\n    <p>\n      • 63% of the population hold a bachelor\'s degree or higher.\n      • 82.3% have a High School Diplomas (compared to 67% for all foreign born population).\n      The inclination of this second largest foreign-born market segment towards higher education and high-paying employment ultimately leads to higher readership.\n    </p>\n    <h2>Age average</h2>\n    <p>\n      The median age is 32.5 years (compared to 38.1 years for all foreign born).\n      • 33.8% are 55 years old and over\n      • 57.6% are 25-54 years old\n      • 8.6% are 0-24 years oldsegment towards higher education and high-paying employment ultimately leads to higher readership.\n    </p>\n    <h2>Employment</h2>\n    <p>\n      As an educated community, Russian-Americans focus more on business ownership and post-collegiate work, which results in higher-paying employment.\n      • 67.5% hold managerial, technical and sales occupations (compared to 45.6% within these same areas for all foreign-born).\n      • 21.4% are employed in service occupations (compared to 31.2% for all foreign-born).\n      • 11.9% are employed as operators, fabricators and/or laborers (compared to 18.7% for all foreign-born).\n    </p>\n  </article>\n</section>';});
+define('text!jade/demographicsPage.html',[],function () { return '\n<section class="svet-services">\n  <article class="demo">Test</article>\n</section>';});
 
 define('text!jade/clientsPage.html',[],function () { return '\n<section class="svet-services">\n  <div class="h-services text-center">Our Clients</div>\n  <article>\n    <div class="clients-content">\n      <h2>Finance</h2>\n      <ul>\n        <li>MB Financial Bank</li>\n        <li>Harris Bank</li>\n        <li>ColeTaylor Bank</li>\n        <li>Devon Bank</li>\n        <li>Western Union</li>\n        <li>Bank Financial</li>\n        <li>Robbins & Lloyd Mortgage Corporation</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Auto</h2>\n      <ul>\n        <li>Arlington Toyota</li>\n        <li>Berman’s Auto Group</li>\n        <li>Castle Honda</li>\n        <li>Fields Dodge and Jeep</li>\n        <li>Fields Infinity</li>\n        <li>Harley Davidson</li>\n        <li>Lexus of Orland</li>\n        <li>Prestige Leasing</li>\n        <li>Rich\'s Yamaha</li>\n        <li>Star Nissan</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Stores</h2>\n      <ul>\n        <li>Studio 41 Home Design</li>\n        <li>Home Depot</li>\n        <li>C.D. Peacock</li>\n        <li>Fresh Farms</li>\n        <li>Highland Health Food</li>\n        <li>Garden Fresh</li>\n        <li>Farmers Best</li>\n        <li>H-Mart</li>\n        <li>Bende’s Specialty Foods</li>\n        <li>Jimenez</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n  </article>\n  <article>\n    <div class="clients-content">\n      <h2>Restaurants</h2>\n      <ul>\n        <li>Maggiano’s</li>\n        <li>McCormick and Schmicks</li>\n        <li>Zhivago (Skokie)</li>\n        <li>Kamehachi (Chicago, Northbrook)</li>\n        <li>Gridley’s Grille (Long Grove)</li>\n        <li>Bella Via (Highland Park)</li>\n        <li>Dover Straits</li>\n        <li>Elephant (Niles)</li>\n        <li>Michael (Winnetka)</li>\n        <li>Le Titi De Paris (Arl Hts)</li>\n        <li>India House (Buffalo Grove)</li>\n        <li>Jimmy’s Charhouse (Riverwoods)</li>\n        <li>Omega (Niles)</li>\n        <li>Tapas Gitana (Northfield)</li>\n        <li>Raw Bar (Chicago)</li>\n        <li>Wild Fish (Arl Hts)</li>\n        <li>Brazzaz (Chicago)</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Insurance</h2>\n      <ul>\n        <li>Allstate Insurance / Roman Sher</li>\n        <li>State Farm Insurance / Bonnie Perkovich</li>\n        <li>Country Insurance / Paul Moskvitin</li>\n        <li>Country Insurance / Yelena Sokolova</li>\n        <li>American Family insurance / Renata Tolvaisaite</li>\n        <li><em>And more...</em></li>\n      </ul>\n      <h2>Health</h2>\n      <ul>\n        <li>Pearle Vision</li>\n        <li>Women’s Health First</li>\n        <li>Gordin Medical Center</li>\n        <li>Rush North Shore Medical Center</li>\n        <li>IL Dental Center</li>\n        <li>North Shore Vascular</li>\n        <li>Mount Sinai Hospital</li>\n        <li>Dr. Elena Levitina</li>\n        <li>Healthy Trust<em>And more...</em></li>\n      </ul>\n    </div>\n    <div class="clients-content">\n      <h2>Attorneys</h2>\n      <ul>\n        <li>Davidson & Schiller, LLC</li>\n        <li>Chepov & Scott</li>\n        <li>Law Office of A. Gruzmark</li>\n        <li>Law Office of A. Liberfarb</li>\n        <li>DeFrenza, Moskoni Matyjewicz, P.C.</li>\n        <li>Birg & Meltser</li>\n        <li>Law office of A. Tolmatsky</li>\n        <li>Law Office of L. Golub</li>\n        <li>Law office of M. Kern</li>\n        <li> Slava A. Tenenbaum, chartered</li>\n        <li>Barry Rabovsky</li>\n        <li><em>And more...</em></li>\n      </ul>\n    </div>\n  </article>\n  <!--article-->\n  <!--    .clients-img-container-->\n  <!--        img(src="img/clients/clientsBEST.jpg")-->\n</section>';});
 
@@ -11939,43 +11939,43 @@ define(function (require, exports, module) {
     module.exports = MenuView;
 });
 
-define(function (require, exports, module) {
-    var Surface = require('famous/core/Surface');
-    var Modifier = require('famous/core/Modifier');
-    var Transform = require('famous/core/Transform');
-    var EventHandler = require('famous/core/EventHandler');
-    var View = require('famous/core/View');
+define(function(require, exports, module) {
+	var Surface = require('famous/core/Surface');
+	var Modifier = require('famous/core/Modifier');
+	var Transform = require('famous/core/Transform');
+	var EventHandler = require('famous/core/EventHandler');
+	var View = require('famous/core/View');
 
-    function NavigationView() {
-        View.apply(this, arguments);
-        this.eventOutput = new EventHandler();
-        EventHandler.setOutputHandler(this, this.eventOutput);
+	function NavigationView() {
+		View.apply(this, arguments);
+		this.eventOutput = new EventHandler();
+		EventHandler.setOutputHandler(this, this.eventOutput);
 
-        _createIcon.call(this);
-    }
+		_createIcon.call(this);
+	}
 
-    NavigationView.prototype = Object.create(View.prototype);
-    NavigationView.prototype.constructor = NavigationView;
+	NavigationView.prototype = Object.create(View.prototype);
+	NavigationView.prototype.constructor = NavigationView;
 
-    NavigationView.DEFAULT_OPTIONS = {
-        width: null,
-        height: null,
-        iconUrl: null,
-        index: null
-    };
+	NavigationView.DEFAULT_OPTIONS = {
+		width: 1000,
+		height: null,
+		iconUrl: null,
+		index: null
+	};
 
-    function _createIcon() {
-        var that = this;
-        var iconSurface = new Surface({
-            content: '<img width="191" src="' + this.options.iconUrl + '"/>'
-        });
-        iconSurface.on('click', function () {
-            that.eventOutput.emit('pageChange', that.options.index);
-        })
-        this._add(iconSurface);
-    };
+	function _createIcon() {
+		var that = this;
+		var iconSurface = new Surface({
+			content: '<img width="191" src="' + this.options.iconUrl + '"/>'
+		});
+		iconSurface.on('click', function() {
+			that.eventOutput.emit('pageChange', that.options.index);
+		})
+		this._add(iconSurface);
+	};
 
-    module.exports = NavigationView;
+	module.exports = NavigationView;
 });
 
 define(function (require, exports, module) {
