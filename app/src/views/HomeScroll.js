@@ -5,17 +5,17 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var ScrollContainer = require('famous/views/ScrollContainer');
     var ViewSequence = require('famous/core/ViewSequence');
-
     var StateModifier = require('famous/modifiers/StateModifier');
-    var DemographicView = require('views/DemographicView');
-    var d3 = require('d3/d3');
-
     var EventHandler = require('famous/core/EventHandler');
+
+    var d3 = require('d3/d3');
+    var DemographicView = require('views/DemographicView');
+
 
     function HomeScroll(sync) {
         this.generalSync = sync;
-
         this.eventInput = new EventHandler();
+        /*Assign an event handler to receive an object's input events.*/
         EventHandler.setInputHandler(this, this.eventInput);
 
         this.eventInput.on('pageChange', function (index) {
@@ -23,7 +23,6 @@ define(function (require, exports, module) {
         })
 
         ScrollContainer.apply(this, arguments);
-
         _createContent.call(this);
 
         this.scrollview.setOptions({
@@ -45,7 +44,6 @@ define(function (require, exports, module) {
     HomeScroll.DEFAULT_OPTIONS = {};
 
     function _createContent() {
-
         var that = this;
         var genericSync = this.generalSync;
 
@@ -123,9 +121,9 @@ define(function (require, exports, module) {
 
         });
 
+        this.contents.push(this.demographicsPage);
         this.contents.push(this.contentHome);
         this.contents.push(this.contentAbout);
-        this.contents.push(this.demographicsPage);
         this.contents.push(this.contentClients);
         this.contents.push(this.contentRadio);
         this.contents.push(this.contentContact);
