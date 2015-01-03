@@ -20120,7 +20120,7 @@ define('views/LanguagePieView',['require','exports','module','famous/core/Surfac
         EventHandler.setOutputHandler(this, this.eventOutput);
 
         var flex = new FlexibleLayout({
-            ratios: [2, 10]
+            ratios: [6, 6]
         });
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
@@ -20183,8 +20183,8 @@ define('views/LanguagePieView',['require','exports','module','famous/core/Surfac
         var r = h / 2;
         var color = d3.scale.category20c();
         var data = [{"label": "Russian", "value": 20},
-            {"label": "Hispanic", "value": 50},
-            {"label": "Others", "value": 30}];
+            {"label": "Hispanic", "value": 65},
+            {"label": "Others", "value": 25}];
         var vis = d3.select(svgLanguage).data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
         var pie = d3.layout.pie().value(function (d) {
             return d.value;
@@ -20221,402 +20221,6 @@ define('views/LanguagePieView',['require','exports','module','famous/core/Surfac
 
     module.exports = LanguagePieView;
 });
-
-define('views/HouseholdView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/FlexibleLayout','famous/utilities/Timer','famous/core/EventHandler','famous/transitions/Transitionable'],function (require, exports, module) {
-    var Surface = require('famous/core/Surface');
-    var Modifier = require('famous/core/Modifier');
-    var Transform = require('famous/core/Transform');
-    var View = require('famous/core/View');
-    var FlexibleLayout = require('famous/views/FlexibleLayout');
-    var Timer = require('famous/utilities/Timer');
-    var EventHandler = require('famous/core/EventHandler');
-
-    var Transitionable = require('famous/transitions/Transitionable');
-
-
-    function HouseholdView(genericSync) {
-        var that = this;
-        View.apply(this, arguments);
-
-        this.eventInput = new EventHandler();
-        this.eventOutput = new EventHandler();
-        EventHandler.setInputHandler(this, this.eventInput);
-        EventHandler.setOutputHandler(this, this.eventOutput);
-
-        var flex = new FlexibleLayout({
-            ratios: [2, 10]
-        });
-        var windowWidth = window.innerWidth;
-        var windowHeight = window.innerHeight;
-        var widthScale = 0.82;
-        var svgScale = 0.1;
-        this.contentWidth = widthScale * windowWidth;
-        this.svgWidth = Math.floor(svgScale * windowWidth);
-        var svgHousehold = _creageHouseholdSvg(this.svgWidth);
-
-        var transWidth = new Transitionable([this.contentWidth, 100]);
-        window.onresize = function () {
-            windowWidth = window.innerWidth;
-        }
-
-
-        this.householdModifier = new Modifier({
-            size: transWidth.get(),
-            transform: Transform.translate(0, 0, 10),
-            origin: [0.5, 0],
-            align: [0.5, 0]
-        });
-        this.svgHousehold = new Surface({
-            size: [undefined, undefined],
-            content: svgHousehold,
-            properties: {
-                fontSize: '11px',
-                zIndex: 10
-            }
-        });
-
-        this.textHousehold = new Surface({
-            size: [undefined, undefined],
-            content: '<h2> Household and Income</h2><ul>' +
-            '<li>64% are married with an average of 1.6 children per family. </li>' +
-            '<li> 57% are homeowners (compared to 41% for all US foreign born). </li>' +
-            '<li> Average Annual Household Income is $87,500. </li>' +
-            '<li> 27.4% have an income of $100,000 or higher. </li>' +
-            '</ul>',
-            properties: {
-                zIndex: 10
-            }
-        });
-
-        var householdContent = [];
-        householdContent.push(this.svgHousehold);
-        householdContent.push(this.textHousehold);
-        flex.sequenceFrom(householdContent);
-
-        this.bgColor = new Surface({
-            size: [undefined, undefined],
-            properties: {
-                backgroundColor: '#FFFAE2'
-            }
-
-        });
-        this.svgHousehold.pipe(genericSync);
-        this.add(this.bgColor);
-        this.add(this.householdModifier).add(flex);
-    }
-
-    function _creageHouseholdSvg(width) {
-        var svgHousehold = document.createElementNS(d3.ns.prefix.svg, 'svg');
-
-        var w = width;
-        var h = w;
-        var r = h / 2;
-        var color = d3.scale.category20c();
-        var data = [{"label": "Russian", "value": 20},
-            {"label": "Hispanic", "value": 50},
-            {"label": "Others", "value": 30}];
-        var vis = d3.select(svgHousehold).data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
-        var pie = d3.layout.pie().value(function (d) {
-            return d.value;
-        });
-
-        var arc = d3.svg.arc().outerRadius(r);
-
-        var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
-        arcs.append("svg:path")
-            .attr("fill", function (d, i) {
-                return color(i);
-            })
-            .attr("d", function (d) {
-                return arc(d);
-            });
-
-        arcs.append("svg:text").attr("transform", function (d) {
-            d.innerRadius = 0;
-            d.outerRadius = r;
-            return "translate(" + arc.centroid(d) + ")";
-        }).attr("text-anchor", "middle").text(function (d, i) {
-                return data[i].label;
-            }
-        );
-        return svgHousehold;
-    }
-
-    HouseholdView.prototype = Object.create(View.prototype);
-    HouseholdView.prototype.constructor = HouseholdView;
-
-
-    HouseholdView.DEFAULT_OPTIONS = {};
-
-
-    module.exports = HouseholdView;
-});
-
-define('views/EducationView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/FlexibleLayout','famous/utilities/Timer','famous/core/EventHandler','famous/transitions/Transitionable'],function (require, exports, module) {
-    var Surface = require('famous/core/Surface');
-    var Modifier = require('famous/core/Modifier');
-    var Transform = require('famous/core/Transform');
-    var View = require('famous/core/View');
-    var FlexibleLayout = require('famous/views/FlexibleLayout');
-    var Timer = require('famous/utilities/Timer');
-    var EventHandler = require('famous/core/EventHandler');
-
-    var Transitionable = require('famous/transitions/Transitionable');
-
-
-    function EducationView(genericSync) {
-        var that = this;
-        View.apply(this, arguments);
-
-        this.eventInput = new EventHandler();
-        this.eventOutput = new EventHandler();
-        EventHandler.setInputHandler(this, this.eventInput);
-        EventHandler.setOutputHandler(this, this.eventOutput);
-
-        var flex = new FlexibleLayout({
-            ratios: [2, 10]
-        });
-        var windowWidth = window.innerWidth;
-        var windowHeight = window.innerHeight;
-        var widthScale = 0.82;
-        var svgScale = 0.1;
-        this.contentWidth = widthScale * windowWidth;
-        this.svgWidth = Math.floor(svgScale * windowWidth);
-        var svgHousehold = _creageHouseholdSvg(this.svgWidth);
-
-        var transWidth = new Transitionable([this.contentWidth, 100]);
-        window.onresize = function () {
-            windowWidth = window.innerWidth;
-        }
-
-
-        this.householdModifier = new Modifier({
-            size: transWidth.get(),
-            transform: Transform.translate(0, 0, 10),
-            origin: [0.5, 0],
-            align: [0.5, 0]
-        });
-        this.svgHousehold = new Surface({
-            size: [undefined, undefined],
-            content: svgHousehold,
-            properties: {
-                fontSize: '11px',
-                zIndex: 10
-            }
-        });
-
-        this.textHousehold = new Surface({
-            size: [undefined, undefined],
-            content:
-            '<h3> Age average and Education</h3><ul>' +
-            "<li> 63% of the population hold a bachelor's degree or higher. </li>" +
-            '<li> 82.3% have a High School Diplomas (compared to 67% for all foreign born population). </li>' +
-            '</ul>' +
-            //'<p> The inclination of this second largest foreign-born market segment towards higher education and high-paying employment ultimately leads to higher readership. </p><h2> Age average and Education</h2><ul>' +
-            //"<li> 63% of the population hold a bachelor's degree or higher. </li>" +
-            //'<li> 82.3% have a High School Diplomas (compared to 67% for all foreign born population). </li>' +
-            //'</ul>' +
-            '<p> The inclination of this second largest foreign-born market segment towards higher education and high-paying employment ultimately leads to higher readership. </p>',
-            properties: {
-                zIndex: 10
-            }
-        });
-
-        var householdContent = [];
-        householdContent.push(this.svgHousehold);
-        householdContent.push(this.textHousehold);
-        flex.sequenceFrom(householdContent);
-
-        this.bgColor = new Surface({
-            size: [undefined, undefined],
-            properties: {
-                backgroundColor: '#FFFAE2'
-            }
-
-        });
-        this.svgHousehold.pipe(genericSync);
-        this.add(this.bgColor);
-        this.add(this.householdModifier).add(flex);
-    }
-
-    function _creageHouseholdSvg(width) {
-        var svgHousehold = document.createElementNS(d3.ns.prefix.svg, 'svg');
-
-        var w = width;
-        var h = w;
-        var r = h / 2;
-        var color = d3.scale.category20c();
-        var data = [{"label": "Russian", "value": 20},
-            {"label": "Hispanic", "value": 50},
-            {"label": "Others", "value": 30}];
-        var vis = d3.select(svgHousehold).data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
-        var pie = d3.layout.pie().value(function (d) {
-            return d.value;
-        });
-
-        var arc = d3.svg.arc().outerRadius(r);
-
-        var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
-        arcs.append("svg:path")
-            .attr("fill", function (d, i) {
-                return color(i);
-            })
-            .attr("d", function (d) {
-                return arc(d);
-            });
-
-        arcs.append("svg:text").attr("transform", function (d) {
-            d.innerRadius = 0;
-            d.outerRadius = r;
-            return "translate(" + arc.centroid(d) + ")";
-        }).attr("text-anchor", "middle").text(function (d, i) {
-                return data[i].label;
-            }
-        );
-        return svgHousehold;
-    }
-
-    EducationView.prototype = Object.create(View.prototype);
-    EducationView.prototype.constructor = EducationView;
-
-
-    EducationView.DEFAULT_OPTIONS = {};
-
-
-    module.exports = EducationView;
-});
-
-
-define('views/EmploymentView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/FlexibleLayout','famous/utilities/Timer','famous/core/EventHandler','famous/transitions/Transitionable'],function (require, exports, module) {
-    var Surface = require('famous/core/Surface');
-    var Modifier = require('famous/core/Modifier');
-    var Transform = require('famous/core/Transform');
-    var View = require('famous/core/View');
-    var FlexibleLayout = require('famous/views/FlexibleLayout');
-    var Timer = require('famous/utilities/Timer');
-    var EventHandler = require('famous/core/EventHandler');
-
-    var Transitionable = require('famous/transitions/Transitionable');
-
-
-    function EmploymentView(genericSync) {
-        var that = this;
-        View.apply(this, arguments);
-
-        this.eventInput = new EventHandler();
-        this.eventOutput = new EventHandler();
-        EventHandler.setInputHandler(this, this.eventInput);
-        EventHandler.setOutputHandler(this, this.eventOutput);
-
-        var flex = new FlexibleLayout({
-            ratios: [2, 10]
-        });
-        var windowWidth = window.innerWidth;
-        var windowHeight = window.innerHeight;
-        var widthScale = 0.82;
-        var svgScale = 0.1;
-        this.contentWidth = widthScale * windowWidth;
-        this.svgWidth = Math.floor(svgScale * windowWidth);
-        var svgHousehold = _creageHouseholdSvg(this.svgWidth);
-
-        var transWidth = new Transitionable([this.contentWidth, 100]);
-        window.onresize = function () {
-            windowWidth = window.innerWidth;
-        }
-
-
-        this.householdModifier = new Modifier({
-            size: transWidth.get(),
-            transform: Transform.translate(0, 0, 10),
-            origin: [0.5, 0],
-            align: [0.5, 0]
-        });
-        this.svgHousehold = new Surface({
-            size: [undefined, undefined],
-            content: svgHousehold,
-            properties: {
-                fontSize: '11px',
-                zIndex: 10
-            }
-        });
-
-        this.textHousehold = new Surface({
-            size: [undefined, undefined],
-            content: '' +
-            '<h3> Employment</h3><ul>' +
-            "<li> 67.5% hold managerial, technical and sales occupations (compared to 45.6% within these same areas for all foreign-born). </li>" +
-            '<li> 21.4% are employed in service occupations (compared to 31.2% for all foreign-born). </li>' +
-            '<li> 11.9% are employed as operators, fabricators and/or laborers (compared to 18.7% for all foreign-born). </li>' +
-            '</ul>',
-            properties: {
-                zIndex: 10
-            }
-        });
-
-        var householdContent = [];
-        householdContent.push(this.svgHousehold);
-        householdContent.push(this.textHousehold);
-        flex.sequenceFrom(householdContent);
-
-        this.bgColor = new Surface({
-            size: [undefined, undefined],
-            properties: {
-                backgroundColor: '#FFFAE2'
-            }
-
-        });
-        this.svgHousehold.pipe(genericSync);
-        this.add(this.bgColor);
-        this.add(this.householdModifier).add(flex);
-    }
-
-    function _creageHouseholdSvg(width) {
-        var svgHousehold = document.createElementNS(d3.ns.prefix.svg, 'svg');
-
-        var w = width;
-        var h = w;
-        var r = h / 2;
-        var color = d3.scale.category20c();
-        var data = [{"label": "Russian", "value": 20},
-            {"label": "Hispanic", "value": 50},
-            {"label": "Others", "value": 30}];
-        var vis = d3.select(svgHousehold).data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
-        var pie = d3.layout.pie().value(function (d) {
-            return d.value;
-        });
-
-        var arc = d3.svg.arc().outerRadius(r);
-
-        var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
-        arcs.append("svg:path")
-            .attr("fill", function (d, i) {
-                return color(i);
-            })
-            .attr("d", function (d) {
-                return arc(d);
-            });
-
-        arcs.append("svg:text").attr("transform", function (d) {
-            d.innerRadius = 0;
-            d.outerRadius = r;
-            return "translate(" + arc.centroid(d) + ")";
-        }).attr("text-anchor", "middle").text(function (d, i) {
-                return data[i].label;
-            }
-        );
-        return svgHousehold;
-    }
-
-    EmploymentView.prototype = Object.create(View.prototype);
-    EmploymentView.prototype.constructor = EmploymentView;
-
-
-    EmploymentView.DEFAULT_OPTIONS = {};
-
-
-    module.exports = EmploymentView;
-});
-
 
 /**
  * @license RequireJS text 2.0.12 Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
@@ -21011,7 +20615,7 @@ define('text',['module'], function (module) {
 
 define('text!jade/demographicsPage.html',[],function () { return '\n<section class="svet-services">\n  <article class="dem-content-top">\n    <div class="h-services text-center">Demographics</div>\n    <p class="text-center">The Russian - American population in the United States is estimated at nearly</p>\n    <h2 class="text-center">2.9 million people</h2><br/>\n    <p>It is the second largest ethnic market, making up 10.4% of 28.4 million foreign born people in the country.</p>\n    <h4>States with the highest concentration of the Russian-American population:</h4>\n    <p>New York Tri-State area – 24% (approx. 696,000 people)<br/>California – 17% (approx. 493,000 people)<br/>Illinois – 16% (approx. 464,000 plus people)</p>\n  </article>\n  <aside class="sun-times">\n    <div class="chicago-news text-center"><img src="img/dem/map.jpg"/></div>\n  </aside>\n</section>';});
 
-define('views/DemographicView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/GridLayout','famous/utilities/Timer','famous/core/EventHandler','views/LanguagePieView','views/HouseholdView','views/EducationView','views/EmploymentView','text!jade/demographicsPage.html'],function (require, exports, module) {
+define('views/DemographicView',['require','exports','module','famous/core/Surface','famous/core/Modifier','famous/core/Transform','famous/core/View','famous/views/GridLayout','famous/utilities/Timer','famous/core/EventHandler','views/LanguagePieView','text!jade/demographicsPage.html'],function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
@@ -21021,9 +20625,6 @@ define('views/DemographicView',['require','exports','module','famous/core/Surfac
     var EventHandler = require('famous/core/EventHandler');
 
     var LanguagePieView = require('views/LanguagePieView');
-    var HouseholdView = require('views/HouseholdView');
-    var EducationView = require('views/EducationView');
-    var EmploymentView = require('views/EmploymentView');
 
 
     function DemographicView(genericSync) {
@@ -21045,20 +20646,14 @@ define('views/DemographicView',['require','exports','module','famous/core/Surfac
             }
         });
         this.languagePieView = new LanguagePieView(genericSync);
-        this.householdView = new HouseholdView(genericSync);
-        this.educationView = new EducationView(genericSync);
-        this.employmentView = new EmploymentView(genericSync);
 
         var demographContent = [];
         demographContent.push(this.contentPart1);
         demographContent.push(this.languagePieView);
-        demographContent.push(this.householdView);
-        demographContent.push(this.educationView);
-        demographContent.push(this.employmentView);
 
         var grid = new GridLayout({
             direction: 1,
-            dimensions: [1, 5]
+            dimensions: [1, 2]
         });
         grid.sequenceFrom(demographContent);
 
@@ -21079,7 +20674,7 @@ define('views/DemographicView',['require','exports','module','famous/core/Surfac
     module.exports = DemographicView;
 });
 
-define('text!jade/homePage.html',[],function () { return '\n<section>\n  <article class="svet-media-group">\n    <h2 class="h-services text-center">SVET Russian Media Group</h2>\n    <p class="text-center">is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>\n  </article>\n  <article class="svet-services">\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <div class="h-home">SVET<br/>Daily Newspaper</div>\n      <p>Over 48 pages – circulation 12,000 copies weekly. It is the most up-to-date Russian language newspaper outside of Russia. It appears on the newsstands after 3:00 PM. It is free of charge. In addition, subscribers receive newspapers in their homes via second class mail.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <div class="h-home">Russian-American<br/>Yellow Pages</div>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <div class="h-home">Saturday Plus<br/>Weekly Newspaper</div>\n      <p>Free Paper with over 48 pages weekly. It covers entertainment and other social news in Unites States and abroad. It packs the latest information on travel destinations and hot vacation spots.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container"></div>\n      <div class="h-home">Radio<br/>Program “OSA”</div>\n      <p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m. listen to Radio OSA programs.</p>\n    </div>\n  </article>\n</section>';});
+define('text!jade/homePage.html',[],function () { return '\n<section>\n  <article class="svet-media-group">\n    <h2 class="h-services text-center">SVET Russian Media Group</h2>\n    <p class="text-center">is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>\n  </article>\n  <article class="svet-services">\n    <div class="productsServises">\n      <div class="home-icon-container news-daily"><img src="img/home-page/news-daily.png"/></div>\n      <div class="h-home">SVET<br/>Daily Newspaper</div>\n      <p>Over 48 pages – circulation 12,000 copies weekly. It is the most up-to-date Russian language newspaper outside of Russia. It appears on the newsstands after 3:00 PM. It is free of charge. In addition, subscribers receive newspapers in their homes via second class mail.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container container-yp">\n        <div class="news-weekly"><img src="img/home-page/yellow-pages.png"/></div>\n      </div>\n      <div class="h-home">Russian-American<br/>Yellow Pages</div>\n      <p>The Russian Yellow Pages present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area. Free distribution in Chicago and its North and Northwestern suburbs.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container container-weekly">\n        <div class="news-weekly"><img src="img/home-page/news-weekly.png"/></div>\n      </div>\n      <div class="h-home">Saturday Plus<br/>Weekly Newspaper</div>\n      <p>Free Paper with over 48 pages weekly. It covers entertainment and other social news in Unites States and abroad. It packs the latest information on travel destinations and hot vacation spots.</p>\n    </div>\n    <div class="productsServises">\n      <div class="home-icon-container container-radio">\n        <div class="news-weekly"><img src="img/home-page/radio2.png"/></div>\n      </div>\n      <div class="h-home">Radio<br/>Program “OSA”</div>\n      <p>Sunday morning talk show with Alex Etman airs every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m. listen to Radio OSA programs.</p>\n    </div>\n  </article>\n</section>';});
 
 define('text!jade/aboutUsPage.html',[],function () { return '\n<section class="svet-services">\n  <aside class="sun-times">\n    <div class="chicago-news text-center"><img src="img/aboutUs/aboutus_1.jpg"/></div>\n  </aside>\n  <article class="about-content-top">\n    <div class="h-services text-center">SVET International publishing house</div>\n    <p>From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability.</p>\n    <p>The competitors consider SVET International Publishing House to be a typical "company with the future", with steady dynamic growth of all indicators which have to be taken into account willingly or not. Once in two years a completely new project is given birth, which is introducing radical changes into the ethnic publishing market in Chicagoland.</p>\n    <p>Our colleagues recognize with an imperceptible shade of envy that the SVET International Publishing house managed to combine incompatible things: the creative approach to technologies and technological approach to creativity.</p>\n  </article>\n</section>\n<section class="svet-services"><br/>\n  <article class="about-content-bottom">\n    <p>One more feature is even more intriguing. For some reason it is a current belief that poverty and dependence are inherent to the nature of every writing person. This formula is overturned by the very existence of SVET Publishing House where creativity in journalism is rated as high as commercial or administrative skills.</p>\n    <p>The fact of popularity of SVET\'s publications speaks for itself and do not need any further commends. Each paper is ranking highest among other press publications in its field. The total circulation of publishing house is leading well ahead all other Chicago-based Russian language press publications at large.</p>\n    <p>Over the past THIRTEEN years our publishing house has accumulated a considerable brainpower and intellectual potential. Journalists and designers regard invitation for work in SVET International Publishing House as a highest appreciation of their proficiency and skills.</p>\n    <p>What does it mean in the real life? Our partners can completely rely on immaculate professionalism of our managers. They have the best authors and designers at their command. SVET International Publishing House is associated not only with the most effective advertising media. It is a great source of new ideas!</p>\n  </article>\n  <aside class="sun-times">\n    <div class="chicago-news text-center"><img src="img/aboutUs/aboutus_2.jpg"/></div>\n  </aside>\n</section>';});
 
