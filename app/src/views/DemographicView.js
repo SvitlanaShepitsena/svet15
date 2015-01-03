@@ -8,9 +8,6 @@ define(function (require, exports, module) {
     var EventHandler = require('famous/core/EventHandler');
 
     var LanguagePieView = require('views/LanguagePieView');
-    var HouseholdView = require('views/HouseholdView');
-    var EducationView = require('views/EducationView');
-    var EmploymentView = require('views/EmploymentView');
 
 
     function DemographicView(genericSync) {
@@ -32,20 +29,14 @@ define(function (require, exports, module) {
             }
         });
         this.languagePieView = new LanguagePieView(genericSync);
-        this.householdView = new HouseholdView(genericSync);
-        this.educationView = new EducationView(genericSync);
-        this.employmentView = new EmploymentView(genericSync);
 
         var demographContent = [];
         demographContent.push(this.contentPart1);
         demographContent.push(this.languagePieView);
-        demographContent.push(this.householdView);
-        demographContent.push(this.educationView);
-        demographContent.push(this.employmentView);
 
         var grid = new GridLayout({
             direction: 1,
-            dimensions: [1, 5]
+            dimensions: [1, 2]
         });
         grid.sequenceFrom(demographContent);
 

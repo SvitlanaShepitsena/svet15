@@ -53,15 +53,14 @@ define(function (require, exports, module) {
 
         this.textHousehold = new Surface({
             size: [undefined, undefined],
-            content:
-            '<h3> Age average and Education</h3><ul>' +
+            content: '<h3> Age average and Education</h3><ul>' +
             "<li> 63% of the population hold a bachelor's degree or higher. </li>" +
             '<li> 82.3% have a High School Diplomas (compared to 67% for all foreign born population). </li>' +
             '</ul>' +
-            //'<p> The inclination of this second largest foreign-born market segment towards higher education and high-paying employment ultimately leads to higher readership. </p><h2> Age average and Education</h2><ul>' +
-            //"<li> 63% of the population hold a bachelor's degree or higher. </li>" +
-            //'<li> 82.3% have a High School Diplomas (compared to 67% for all foreign born population). </li>' +
-            //'</ul>' +
+                //'<p> The inclination of this second largest foreign-born market segment towards higher education and high-paying employment ultimately leads to higher readership. </p><h2> Age average and Education</h2><ul>' +
+                //"<li> 63% of the population hold a bachelor's degree or higher. </li>" +
+                //'<li> 82.3% have a High School Diplomas (compared to 67% for all foreign born population). </li>' +
+                //'</ul>' +
             '<p> The inclination of this second largest foreign-born market segment towards higher education and high-paying employment ultimately leads to higher readership. </p>',
             properties: {
                 zIndex: 10

@@ -46,7 +46,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: svgHousehold,
             properties: {
-                fontSize: '11px',
+                fontSize: 'l1px',
                 zIndex: 10
             }
         });
