@@ -20,7 +20,7 @@ define(function (require, exports, module) {
         EventHandler.setOutputHandler(this, this.eventOutput);
 
         var flex = new FlexibleLayout({
-            ratios: [2, 10]
+            ratios: [6, 6]
         });
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
@@ -83,8 +83,8 @@ define(function (require, exports, module) {
         var r = h / 2;
         var color = d3.scale.category20c();
         var data = [{"label": "Russian", "value": 20},
-            {"label": "Hispanic", "value": 50},
-            {"label": "Others", "value": 30}];
+            {"label": "Hispanic", "value": 65},
+            {"label": "Others", "value": 25}];
         var vis = d3.select(svgLanguage).data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
         var pie = d3.layout.pie().value(function (d) {
             return d.value;
