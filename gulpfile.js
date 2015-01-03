@@ -169,7 +169,7 @@ gulp.task('lib', function () {
 
 gulp.task('js', function () {
     var DEST = dev + 'js';
-    return gulp.src(['app/src/views/**/*.js', 'app/src/main.js'])
+    return gulp.src(['app/src/main.js','app/lib/requirejs/require.js'])
         .pipe(rjs(
             {
                 baseUrl: './app/src',
