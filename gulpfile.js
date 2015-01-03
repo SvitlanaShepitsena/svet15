@@ -43,19 +43,17 @@ var dev = 'app/build/',
     temp = '.tmp/',
     dist = 'app/dist/';
 
-
-
 var currentView = app;
 
 var onError = function (err) {
 
-        notify.onError({
-            title:    "Gulp",
-            subtitle: "Failure!",
-            message:  "Error: <%= error.message %>",
-            sound:    "Beep"
-        })(err);
-        this.emit('end');
+    notify.onError({
+        title: "Gulp",
+        subtitle: "Failure!",
+        message: "Error: <%= error.message %>",
+        sound: "Beep"
+    })(err);
+    this.emit('end');
 };
 
 function startExpress() {
@@ -113,12 +111,12 @@ gulp.task('stylus', function () {
             use: [nib(), jeet(), rupture()],
             compress: false
         }))
-        .pipe(gulp.dest(temp+'styles/'))
+        .pipe(gulp.dest(temp + 'styles/'))
         .pipe(reload({stream: true}));
 });
 
 gulp.task('autoprefix', ['stylus'], function () {
-    return gulp.src(temp+'/styles/*.css')
+    return gulp.src(temp + '/styles/*.css')
         .pipe(prefix())
         .pipe(gulp.dest(app + 'styles'))
         .pipe(reload({stream: true}));
@@ -142,6 +140,15 @@ gulp.task('jade', function () {
         .pipe(gulp.dest(app))
         .pipe(reload({stream: true}))
 });
+gulp.task('jade:d', function () {
+    return gulp.src('app/**/*.jade')
+        .pipe(plumber({errorHandler: onError}))
+        .pipe(jade({
+            pretty: false
+        }))
+        .pipe(gulp.dest(dev))
+        .pipe(reload({stream: true}))
+});
 
 gulp.task('jade:v', function () {
     return gulp.src('app/jade/*.jade')
@@ -160,9 +167,9 @@ gulp.task('lib', function () {
 
 });
 
-gulp.task('js', ['lib'], function () {
+gulp.task('js', function () {
     var DEST = dev + 'js';
-    return gulp.src(['app/src/*.js', 'app/src/views/**/*.js'])
+    return gulp.src(['app/src/views/**/*.js', 'app/src/main.js'])
         .pipe(rjs(
             {
                 baseUrl: './app/src',
@@ -171,6 +178,7 @@ gulp.task('js', ['lib'], function () {
                     famous: "../lib/famous/src",
                     requirejs: "../lib/requirejs/require",
                     views: "views",
+                    d3: '../lib/d3/',
                     jade: "../jade",
                     almond: "../lib/almond/almond"
                 },
@@ -185,11 +193,11 @@ gulp.task('js', ['lib'], function () {
 });
 
 gulp.task('assets:dist', function () {
-    gulp.src(['app/build/lib/*.js','app/build/js/*.js', '!app/build/lib/requirejs/**'])
+    gulp.src(['app/build/lib/*.js', 'app/build/js/*.js', '!app/build/lib/requirejs/**'])
         .pipe(uglify('app.js', {outSourceMap: false, mangle: false}))
         .pipe(gulp.dest(dist + 'js'));
 
-    gulp.src(dev + '/**/*.css')
+    gulp.src('app/styles/*.css')
         .pipe(concatCss("app.css"))
         .pipe(cssmin())
         .pipe(gulp.dest(dist + 'styles/'));
@@ -223,7 +231,7 @@ gulp.task('browser-sync', function () {
     //});
     browserSync({
         server: {
-            baseDir:'./app'
+            baseDir: './app'
         },
         notify: false
     });
@@ -249,7 +257,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('deploy', function () {
-    runSequence('clean', 'jade', ['js', 'img'], 'moveUp', 'copyAssets', 'delIndex', 'autoprefix', 'assets:dist', 'index:dist', 'add', 'commit');
+    runSequence('clean', 'jade:d', 'copyAssets', 'js',  'autoprefix', 'assets:dist', 'index:dist', 'add', 'commit');
 });
 
 
