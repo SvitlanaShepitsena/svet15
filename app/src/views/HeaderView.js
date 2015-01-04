@@ -19,7 +19,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             properties: {
                 // coloring pink, but background should not be visible anyway when viewed at device screen size
-                backgroundColor: '#FC6E51'
+                backgroundColor: '#FFB083'
                 //backgroundColor: '#C8645B'
             }
         });
