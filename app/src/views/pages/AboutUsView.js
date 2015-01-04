@@ -1,13 +1,15 @@
 define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
+    var Engine = require('famous/core/Engine');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var EventHandler = require('famous/core/EventHandler');
     var View = require('famous/core/View');
     var GridLayout = require("famous/views/GridLayout");
 
+    var Easing = require('famous/transitions/Easing');
 
-    function HomePageView(genericSync) {
+    function AboutUsView(genericSync) {
         this.genericSync = genericSync;
         View.apply(this, arguments);
 
@@ -33,11 +35,12 @@ define(function (require, exports, module) {
 
         this.rootNode = this.add(centerModifier);
         this.rootNode.add(this.bg);
+
         _addGrid.call(this);
     }
 
-    HomePageView.prototype = Object.create(View.prototype);
-    HomePageView.prototype.constructor = HomePageView;
+    AboutUsView.prototype = Object.create(View.prototype);
+    AboutUsView.prototype.constructor = AboutUsView;
 
     function _addGrid() {
 
@@ -46,35 +49,35 @@ define(function (require, exports, module) {
         var home12 = require('text!jade/home12.html');
         var home22 = require('text!jade/home22.html');
 
+        this.resDim = function () {
+            if (window.innerWidth < 480) {
+                return [2, 1];
+            }
+            return [2, 2];
+        }
         this.grid = new GridLayout({
-            dimensions: [2, 2],
-            gutterSize: [4, 4]
+            dimensions: window.innerWidth < 490?[2,1]:[2, 2],
+            transition: {curve: 'easeInOut',duration: 200}
         });
 
         this.homePages = [];
 
         this.p11 = new Surface({
             content: home11,
-            properties: {
-                //backgroundColor: '#E6FFEF'
-            }
+            properties: {}
         });
         this.p12 = new Surface({
             content: home12,
-            properties: {
-            }
+            properties: {}
         });
         this.p21 = new Surface({
             content: home21,
-            properties: {
-            }
+            properties: {}
         });
         this.p22 = new Surface({
             content: home22,
-            properties: {
-            }
+            properties: {}
         });
-
 
         this.homePages.push(this.p11);
         this.homePages.push(this.p12);
@@ -89,10 +92,13 @@ define(function (require, exports, module) {
         this.p22.pipe(this.genericSync);
 
         this.add(this.grid);
-
+        var that = this;
+        Engine.on('resize', function () {
+            that.grid.setOptions({dimensions: window.innerWidth < 490?[2,1]:[2, 2]});
+        })
     }
 
-    HomePageView.DEFAULT_OPTIONS = {};
+    AboutUsView.DEFAULT_OPTIONS = {};
 
-    module.exports = HomePageView;
+    module.exports = AboutUsView;
 });

@@ -6,8 +6,10 @@ define(function (require, exports, module) {
     var ScrollContainer = require('famous/views/ScrollContainer');
     var ViewSequence = require('famous/core/ViewSequence');
     var StateModifier = require('famous/modifiers/StateModifier');
-    var HomePageView = require('views/pages/HomePageView');
     var EventHandler = require('famous/core/EventHandler');
+
+    var HomePageView = require('views/pages/HomePageView');
+    var AboutUsView = require('views/pages/AboutUsView');
 
     var DemographicView = require('views/DemographicView');
 
@@ -47,8 +49,8 @@ define(function (require, exports, module) {
         var that = this;
         var genericSync = this.generalSync;
 
-        this.homePageView = new HomePageView(genericSync);
-        var aboutUsPage = require('text!jade/aboutUsPage.html');
+        this.aboutUsView = new AboutUsView(genericSync);
+        //this.homePageView = new HomePageView(genericSync);
         this.demographicsPage = new DemographicView(genericSync);
 
         var clientsPage = require('text!jade/clientsPage.html');
@@ -58,13 +60,6 @@ define(function (require, exports, module) {
 
         this.contents = [];
 
-        this.contentAbout = new Surface({
-            size: [undefined, undefined],
-            content: aboutUsPage,
-            properties: {
-                backgroundColor: '#E6FFEF'
-            }
-        });
 
 
         this.contentClients = new Surface({
@@ -89,7 +84,6 @@ define(function (require, exports, module) {
             }
         });
 
-        this.contentAbout.pipe(genericSync);
         this.demographicsPage.pipe(genericSync);
         this.contentClients.pipe(genericSync);
         this.contentRadio.pipe(genericSync);
@@ -112,12 +106,12 @@ define(function (require, exports, module) {
 
         });
 
-        this.contents.push(this.homePageView);
-        this.contents.push(this.contentAbout);
-        this.contents.push(this.demographicsPage);
-        this.contents.push(this.contentClients);
-        this.contents.push(this.contentRadio);
-        this.contents.push(this.contentContact);
+        this.contents.push(this.aboutUsView);
+        //this.contents.push(this.homePageView);
+        //this.contents.push(this.demographicsPage);
+        //this.contents.push(this.contentClients);
+        //this.contents.push(this.contentRadio);
+        //this.contents.push(this.contentContact);
         this.sequenceFrom(this.contents);
 
     };
