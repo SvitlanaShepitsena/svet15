@@ -57,7 +57,7 @@ define(function (require, exports, module) {
         }
         this.grid = new GridLayout({
             dimensions: window.innerWidth < 490?[2,1]:[2, 2],
-            transition: {curve: 'easeInOut',duration: 200}
+            transition: {curve: Easing.outBack,duration: 500}
         });
 
         this.homePages = [];
