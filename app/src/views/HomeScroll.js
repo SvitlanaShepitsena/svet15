@@ -6,9 +6,9 @@ define(function (require, exports, module) {
     var ScrollContainer = require('famous/views/ScrollContainer');
     var ViewSequence = require('famous/core/ViewSequence');
     var StateModifier = require('famous/modifiers/StateModifier');
+    var HomePageView = require('views/pages/HomePageView');
     var EventHandler = require('famous/core/EventHandler');
 
-    var d3 = require('d3/d3');
     var DemographicView = require('views/DemographicView');
 
 
@@ -47,7 +47,7 @@ define(function (require, exports, module) {
         var that = this;
         var genericSync = this.generalSync;
 
-        var homePage = require('text!jade/homePage.html');
+        this.homePageView = new HomePageView(genericSync);
         var aboutUsPage = require('text!jade/aboutUsPage.html');
         this.demographicsPage = new DemographicView(genericSync);
 
@@ -58,14 +58,6 @@ define(function (require, exports, module) {
 
         this.contents = [];
 
-        this.contentHome = new Surface({
-            size: [undefined, undefined],
-            content: homePage,
-            properties: {
-                fontSize: '16px',
-                backgroundColor: '#FFE1D0'
-            }
-        });
         this.contentAbout = new Surface({
             size: [undefined, undefined],
             content: aboutUsPage,
@@ -97,7 +89,6 @@ define(function (require, exports, module) {
             }
         });
 
-        this.contentHome.pipe(genericSync);
         this.contentAbout.pipe(genericSync);
         this.demographicsPage.pipe(genericSync);
         this.contentClients.pipe(genericSync);
@@ -121,7 +112,7 @@ define(function (require, exports, module) {
 
         });
 
-        this.contents.push(this.contentHome);
+        this.contents.push(this.homePageView);
         this.contents.push(this.contentAbout);
         this.contents.push(this.demographicsPage);
         this.contents.push(this.contentClients);

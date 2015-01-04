@@ -10,18 +10,12 @@ define(function (require, exports, module) {
     var GridLayout = require("famous/views/GridLayout");
 
     var HeaderView = require('views/HeaderView');
-    var homePage = require('text!jade/homePage.html');
-    var aboutUsPage = require('text!jade/aboutUsPage.html');
-    var demographicsPage = require('text!jade/demographicsPage.html');
-    var clientsPage = require('text!jade/clientsPage.html');
-    var radioPage = require('text!jade/radioPage.html');
 
     var GenericSync = require("famous/inputs/GenericSync");
     var MouseSync = require("famous/inputs/MouseSync");
     var TouchSync = require("famous/inputs/TouchSync");
     var ScrollSync = require("famous/inputs/ScrollSync");
 
-    var Transform = require('famous/core/Transform');
     var Transitionable = require('famous/transitions/Transitionable');
 
 

@@ -8,6 +8,8 @@ define(function (require, exports, module) {
     var Transitionable = require('famous/transitions/Transitionable');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
 
+    var GridLayout = require("famous/views/GridLayout");
+
     var EventHandler = require('famous/core/EventHandler');
     var MenuView = require('./MenuView');
     var PageView = require('./PageView');
