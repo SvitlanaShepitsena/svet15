@@ -438,6 +438,7 @@ article {
 }
 .productsServises p {
   line-height: 26px;
+  font-size: 14px;
   margin-bottom: 30px;
 }
 @media only screen and (max-width: 600px) {
@@ -464,6 +465,7 @@ article {
   margin: 0 auto;
   border-radius: 100px;
   margin-bottom: 20px;
+  padding: 15px;
 }
 @media only screen and (max-width: 800px) {
   .home-icon-container {
@@ -471,9 +473,6 @@ article {
     height: 100px;
     border-radius: 50px;
   }
-}
-.news-daily {
-  padding: 15px;
 }
 .container-weekly {
   padding-top: 30px;
@@ -484,16 +483,7 @@ article {
 .container-yp {
   padding-top: 50px;
 }
-.news-weekly {
-  width: 90px;
-  height: 90px;
-  display: block;
-  margin-top: 20px;
-  margin: 0px auto;
-}
-.news-weekly img {
-  width: 100%;
-}
+.news-weekly,
 .h-home {
   font-size: 25px;
   line-height: 28px;
@@ -502,6 +492,7 @@ article {
   margin-bottom: 15px;
 }
 @media only screen and (max-width: 800px) {
+  .news-weekly,
   .h-home {
     font-size: 100%;
   }
