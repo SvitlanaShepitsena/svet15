@@ -121,9 +121,9 @@ define(function (require, exports, module) {
 
         });
 
-        this.contents.push(this.demographicsPage);
         this.contents.push(this.contentHome);
         this.contents.push(this.contentAbout);
+        this.contents.push(this.demographicsPage);
         this.contents.push(this.contentClients);
         this.contents.push(this.contentRadio);
         this.contents.push(this.contentContact);

@@ -136,7 +136,7 @@ define(function (require, exports, module) {
         this.surface1 = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: 'purple'
+                backgroundColor: '#E5CABB'
             }
         });
 
@@ -149,7 +149,7 @@ define(function (require, exports, module) {
         this.surface2 = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: 'green'
+                backgroundColor: '#CFE5D7'
             }
         });
 
@@ -162,7 +162,7 @@ define(function (require, exports, module) {
         this.surface3 = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: 'red'
+                backgroundColor: '#E5E1CB'
             }
         });
 
@@ -175,7 +175,7 @@ define(function (require, exports, module) {
         this.surface4 = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: 'yellow'
+                backgroundColor: '#CFE5C5'
             }
         });
 
@@ -188,7 +188,7 @@ define(function (require, exports, module) {
         this.surface5 = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: 'brown'
+                backgroundColor: '#E5D9D2'
             }
         });
 
@@ -201,7 +201,7 @@ define(function (require, exports, module) {
         this.surface6 = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: 'blue'
+                backgroundColor: '#E5CABB'
             }
         });
         this.states = [];
