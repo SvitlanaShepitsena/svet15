@@ -1,1 +1,0 @@
-define(["require","famous/core/Engine","views/AppView"],function(e,n,r){var o=(e("famous/core/Transform"),n.createContext()),a=new r;o.add(a)});
