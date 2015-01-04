@@ -14,20 +14,22 @@ html
 
         meta(name='msapplication-tap-highlight', content='no')
 
-        // build:css styles/app.css
+        // build:css
         link(rel='stylesheet', type='text/css', href='lib/famous/src/core/famous.css')
         link(rel='stylesheet', href='lib/bootstrap/dist/css/bootstrap.min.css')
         link(rel='stylesheet', href='lib/bootstrap/dist/css/bootstrap-theme.min.css')
         link(rel='stylesheet', type='text/css', href='styles/app.css')
-        // /build
+        // endbuild
 
-        // build:remove r
+        // build:remove
         script(type='text/javascript', src='lib/famous-polyfills/functionPrototypeBind.js')
         script(type='text/javascript', src='lib/famous-polyfills/classList.js')
         script(type='text/javascript', src='lib/famous-polyfills/requestAnimationFrame.js')
-        // /build
-        script(type='text/javascript', src='lib/d3/d3.min.js')
+        // endbuild
+
+        // build:require
         script(type='text/javascript', src='lib/requirejs/require.js' data-main='src/requireConfig.js')
+        // endbuild
     body
 
 
