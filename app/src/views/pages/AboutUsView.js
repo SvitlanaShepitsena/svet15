@@ -73,6 +73,7 @@ define(function (require, exports, module) {
         this.p21 = new Surface({
             content: home21,
             properties: {}
+
         });
         this.p22 = new Surface({
             content: home22,
