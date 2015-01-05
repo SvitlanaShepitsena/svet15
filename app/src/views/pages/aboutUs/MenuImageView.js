@@ -9,8 +9,8 @@ define(function (require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
     var Modifier = require('famous/core/Modifier');
 
-
     var Transitionable = require("famous/transitions/Transitionable");
+    var about1 = require('jade/aboutText1');
 
     MenuImageView.prototype = Object.create(View.prototype);
     MenuImageView.prototype.constructor = MenuImageView;
@@ -87,7 +87,7 @@ define(function (require, exports, module) {
         })
         var contentSurface = new Surface({
             size: [undefined, undefined],
-            content: 'content'
+            content: about1
         });
 
         this.rootNode.add(this.contentModifier).add(contentSurface);
