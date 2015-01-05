@@ -6,8 +6,11 @@ define(function (require, exports, module) {
     var EventHandler = require('famous/core/EventHandler');
     var View = require('famous/core/View');
     var GridLayout = require("famous/views/GridLayout");
-
     var Easing = require('famous/transitions/Easing');
+
+    var ImageSurface = require('famous/surfaces/ImageSurface');
+
+    var MenuImageView = require('views/pages/aboutUs/MenuImageView');
 
     function AboutUsView(genericSync) {
         this.genericSync = genericSync;
@@ -43,60 +46,31 @@ define(function (require, exports, module) {
     AboutUsView.prototype.constructor = AboutUsView;
 
     function _addGrid() {
+        var that = this;
 
-        var home11 = require('text!jade/home11.html');
-        var home21 = require('text!jade/home21.html');
-        var home12 = require('text!jade/home12.html');
-        var home22 = require('text!jade/home22.html');
 
-        this.resDim = function () {
-            if (window.innerWidth < 480) {
-                return [2, 1];
-            }
-            return [2, 2];
-        }
         this.grid = new GridLayout({
-            dimensions: window.innerWidth < 490?[2,1]:[2, 2],
-            transition: {curve: Easing.outBack,duration: 500}
+            dimensions: [1, 2]
         });
 
-        this.homePages = [];
+        this.menus = [];
+        //this.leftMenu = new MenuImageView('../img/aboutUs/aboutus_1.jpg');
+        this.leftMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_1.jpg"/>')
+        this.rightMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_2.jpg"/>')
 
-        this.p11 = new Surface({
-            content: home11,
-            properties: {}
-        });
-        this.p12 = new Surface({
-            content: home12,
-            properties: {}
-        });
-        this.p21 = new Surface({
-            content: home21,
-            properties: {}
 
-        });
-        this.p22 = new Surface({
-            content: home22,
-            properties: {}
+        var image = new ImageSurface({
+            size: [200, 200]
         });
 
-        this.homePages.push(this.p11);
-        this.homePages.push(this.p12);
-        this.homePages.push(this.p21);
-        this.homePages.push(this.p22);
+        image.setContent("http://code.famo.us/assets/famous.jpg");
 
-        this.grid.sequenceFrom(this.homePages);
+        this.menus.push(this.leftMenu);
+        this.menus.push(this.rightMenu);
 
-        this.p11.pipe(this.genericSync);
-        this.p12.pipe(this.genericSync);
-        this.p21.pipe(this.genericSync);
-        this.p22.pipe(this.genericSync);
+        this.grid.sequenceFrom(this.menus);
 
         this.add(this.grid);
-        var that = this;
-        Engine.on('resize', function () {
-            that.grid.setOptions({dimensions: window.innerWidth < 490?[2,1]:[2, 2]});
-        })
     }
 
     AboutUsView.DEFAULT_OPTIONS = {};

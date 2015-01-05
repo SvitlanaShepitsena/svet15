@@ -4,8 +4,6 @@ define(['require', 'famous/core/Engine', 'views/AppView'], function (require, En
     var mainContext = Engine.createContext();
 
 
-
-
     var appView = new AppView();
 
 
