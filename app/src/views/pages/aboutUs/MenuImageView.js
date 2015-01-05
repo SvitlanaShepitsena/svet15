@@ -7,6 +7,8 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var RenderNode = require('famous/core/RenderNode');
     var StateModifier = require('famous/modifiers/StateModifier');
+    var Modifier = require('famous/core/Modifier');
+
 
     var Transitionable = require("famous/transitions/Transitionable");
 
@@ -15,19 +17,52 @@ define(function (require, exports, module) {
     MenuImageView.DEFAULT_OPTIONS = {};
 
     function MenuImageView(imagePath) {
+        var that = this;
         this.imagePath = imagePath;
 
+        this.TRANSITION = {duration: 700, curve: 'linear'};
+
+        this.state = new Transitionable(0);
+        var isText = false;
+
         View.apply(this, arguments);
+
+        // Modifier to center renderables
+        var centerModifier = new Modifier({
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5]
+        });
+
+
+        this.rootNode = this.add(centerModifier);
+
+
+        _createContent.call(this);
         _createImage.call(this);
-        //_createContent.call(this);
+        var dummySurface = new Surface({
+            properties: {
+                textAlign: 'center',
+                cursor: 'pointer',
+                zIndex: 1
+            }
+        })
+        this.rootNode.add(dummySurface);
+
+        dummySurface.on('click', function () {
+            var finalState = isText ? 1 : 0;
+            that.state.set(finalState, that.TRANSITION);
+            isText = !isText;
+        })
     }
 
     function _createImage() {
+        var that = this;
 
-        var imageTrans = new Transitionable(0.5);
-        var imageModifier = new StateModifier({
+        this.imageModifier = new Modifier({
             size: [window.innerWidth / 2, undefined],
-            opacity: imageTrans.get(),
+            opacity: function () {
+                return 1 - that.state.get()
+            },
             origin: [.5, .5],
             align: [.5, .5]
         })
@@ -35,21 +70,29 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: this.imagePath
         });
-        imageSurface.on('click', function () {
-            console.log('run');
-            imageTrans.set(0, {during: 500});
-        })
-        this.add(imageModifier).add(imageSurface);
+
+        this.rootNode.add(this.imageModifier).add(imageSurface);
     }
 
     function _createContent() {
+        var that = this;
 
-        var imageSurface = new Surface({
+        this.contentModifier = new Modifier({
+            size: [window.innerWidth / 2, undefined],
+            opacity: function () {
+                return that.state.get()
+            },
+            origin: [.5, .5],
+            align: [.5, .5]
+        })
+        var contentSurface = new Surface({
             size: [undefined, undefined],
-            content: 'About us content'
+            content: 'content'
         });
-        this.add(imageSurface);
+
+        this.rootNode.add(this.contentModifier).add(contentSurface);
     }
+
 
     module.exports = MenuImageView;
 });
