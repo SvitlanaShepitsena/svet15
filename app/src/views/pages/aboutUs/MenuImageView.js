@@ -19,32 +19,37 @@ define(function (require, exports, module) {
 
         View.apply(this, arguments);
         _createImage.call(this);
-        _createContent.call(this);
+        //_createContent.call(this);
     }
 
     function _createImage() {
 
         var imageTrans = new Transitionable(0.5);
         var imageModifier = new StateModifier({
-            opacity:imageTrans.get()
+            size: [window.innerWidth / 2, undefined],
+            opacity: imageTrans.get(),
+            origin: [.5, .5],
+            align: [.5, .5]
         })
         var imageSurface = new Surface({
-            size:[undefined,undefined],
+            size: [undefined, undefined],
             content: this.imagePath
         });
         imageSurface.on('click', function () {
             console.log('run');
-            imageTrans.set(0, {during:500});
+            imageTrans.set(0, {during: 500});
         })
         this.add(imageModifier).add(imageSurface);
     }
+
     function _createContent() {
 
         var imageSurface = new Surface({
-            size:[undefined,undefined],
+            size: [undefined, undefined],
             content: 'About us content'
         });
         this.add(imageSurface);
     }
+
     module.exports = MenuImageView;
 });
