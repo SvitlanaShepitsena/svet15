@@ -21,9 +21,8 @@ define(function (require, exports, module) {
         EventHandler.setInputHandler(this, this.eventInput);
         EventHandler.setOutputHandler(this, this.eventOutput);
 
-        var centerModifier = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5]
+        var bgModifier = new Modifier({
+            size: [undefined, undefined]
         });
 
         var transform = new Modifier({
@@ -36,7 +35,7 @@ define(function (require, exports, module) {
             }
         });
 
-        this.rootNode = this.add(centerModifier);
+        this.rootNode = this.add(bgModifier);
         this.rootNode.add(this.bg);
 
         _addGrid.call(this);
@@ -47,7 +46,12 @@ define(function (require, exports, module) {
 
     function _addGrid() {
         var that = this;
-
+        this.contentModifier = new Modifier({
+            size: [undefined, undefined],
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
+            transform: Transform.translate(0, window.innerHeight * .015, 0)
+        });
 
         this.grid = new GridLayout({
             dimensions: [1, 2]
@@ -58,19 +62,12 @@ define(function (require, exports, module) {
         this.leftMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_1.jpg"/>')
         this.rightMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_2.jpg"/>')
 
-
-        var image = new ImageSurface({
-            size: [200, 200]
-        });
-
-        image.setContent("http://code.famo.us/assets/famous.jpg");
-
         this.menus.push(this.leftMenu);
         this.menus.push(this.rightMenu);
 
         this.grid.sequenceFrom(this.menus);
 
-        this.add(this.grid);
+        this.add(this.contentModifier).add(this.grid);
     }
 
     AboutUsView.DEFAULT_OPTIONS = {};
