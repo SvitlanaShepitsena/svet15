@@ -54,6 +54,8 @@ define(function (require, exports, module) {
         this.demographicsPage = new DemographicView(genericSync);
 
         var clientsPage = require('text!jade/clientsPage.html');
+        var hash = require('text!jade/about1.html');
+        var has2 = require('text!jade/about2.html');
         var radioPage = require('text!jade/radioPage.html');
         var contactUsPage = require('text!jade/contactUsPage.html');
 

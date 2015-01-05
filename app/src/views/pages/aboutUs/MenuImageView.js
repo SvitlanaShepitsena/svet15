@@ -15,9 +15,14 @@ define(function (require, exports, module) {
     MenuImageView.prototype.constructor = MenuImageView;
     MenuImageView.DEFAULT_OPTIONS = {};
 
-    function MenuImageView(imagePath) {
+    function MenuImageView(imagePath,order) {
+
         var that = this;
+
+
         this.imagePath = imagePath;
+        var jadePath = 'text!jade/about'+order+'.html';
+        this.content = require(jadePath);
 
         this.TRANSITION = {duration: 700, curve: 'linear'};
 
@@ -38,6 +43,7 @@ define(function (require, exports, module) {
 
         _createContent.call(this);
         _createImage.call(this);
+
         var dummySurface = new Surface({
             properties: {
                 textAlign: 'center',
@@ -48,7 +54,7 @@ define(function (require, exports, module) {
         this.rootNode.add(dummySurface);
 
         dummySurface.on('click', function () {
-            var finalState = isText ? 1 : 0;
+            var finalState = isText ? 0:1;
             that.state.set(finalState, that.TRANSITION);
             isText = !isText;
         })
@@ -86,10 +92,7 @@ define(function (require, exports, module) {
         })
         var contentSurface = new Surface({
             size: [undefined, undefined],
-            properties: {
-                fontSize: '10px'
-            },
-            content: 'From the viewpoint of our partners SVET International Publishing House is a typical "company with the past", which basic philosophy is hinged upon well-taken conservatism, weighed approach and clear calculations. It was not for nothing that all previous outside convulsions and crises bypassed our publishing house. Our meticulous attitude towards entering into deals is completely justified by strict performance of undertaken liabilities and flawless financial stability. '
+            content: that.content
         });
 
         this.rootNode.add(this.contentModifier).add(contentSurface);
