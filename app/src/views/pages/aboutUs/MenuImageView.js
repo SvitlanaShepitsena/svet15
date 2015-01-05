@@ -17,6 +17,7 @@ define(function (require, exports, module) {
     MenuImageView.DEFAULT_OPTIONS = {};
 
     function MenuImageView(imagePath) {
+        var that = this;
         this.imagePath = imagePath;
 
         this.TRANSITION = {duration: 700, curve: 'linear'};
@@ -34,9 +35,6 @@ define(function (require, exports, module) {
 
 
         this.rootNode = this.add(centerModifier);
-        this.on('click', function () {
-            console.log('click');
-        })
 
 
         _createContent.call(this);
@@ -49,6 +47,12 @@ define(function (require, exports, module) {
             }
         })
         this.rootNode.add(dummySurface);
+
+        dummySurface.on('click', function () {
+            var finalState = isText ? 1 : 0;
+            that.state.set(finalState, that.TRANSITION);
+            isText = !isText;
+        })
     }
 
     function _createImage() {
