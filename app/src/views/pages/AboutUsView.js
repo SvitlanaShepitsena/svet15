@@ -25,10 +25,6 @@ define(function (require, exports, module) {
             size: [undefined, undefined]
         });
 
-        var transform = new Modifier({
-            transform: Transform.translate(0, 0, 0)
-        });
-
         this.bg = new Surface({
             properties: {
                 backgroundColor: '#FFE1D0'
