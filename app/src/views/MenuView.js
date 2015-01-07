@@ -58,7 +58,7 @@ define(function (require, exports, module) {
 
     MenuView.DEFAULT_OPTIONS = {
         navWidth: 191,
-        navHeight: 81,
+        navHeight: 51,
         topOffset: 10,
         navItemOffset: 90,
         duration: 400,
