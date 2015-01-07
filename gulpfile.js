@@ -39,6 +39,7 @@ var express = require('express'),
     htmlreplace = require('gulp-html-replace'),
     uncss = require('gulp-uncss'),
     glob = require('glob'),
+    shell = require('gulp-shell'),
     processhtml = require('gulp-processhtml');
 
 var dev = 'app/build/',
@@ -126,12 +127,12 @@ gulp.task('autoprefix', ['stylus'], function () {
 });
 
 gulp.task('add', function () {
-    return gulp.src('./app/*')
+    return gulp.src('app/*')
         .pipe(git.add());
 });
 gulp.task('commit', function () {
-    return gulp.src('./app/*')
-        .pipe(git.commit('Deploy to Heroku'));
+    return gulp.src('app/*')
+        .pipe(git.commit('Deploy to Heroku',{args:'-a'}));
 });
 
 gulp.task('jade', function () {
@@ -265,23 +266,27 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
+gulp.task('heroku', shell.task([
+    'git push heroku master',
+]))
+
 gulp.task('glob', function () {
     return gulp.src(dist + 'styles/app.css')
         .pipe(uncss({
             html: glob.sync('app/jade/*.html')
         }))
         .pipe(cssmin())
-        .pipe(gulp.dest(dist+'styles/'));
+        .pipe(gulp.dest(dist + 'styles/'));
 });
-gulp.task('famo:glob',['glob'], function () {
-    return gulp.src(['app/lib/famous/dist/*.css',dist + 'styles/app.css'])
+gulp.task('famo:glob', ['glob'], function () {
+    return gulp.src(['app/lib/famous/dist/*.css', dist + 'styles/app.css'])
         .pipe(concatCss("app.css"))
         .pipe(cssmin())
-        .pipe(gulp.dest(dist+'styles/'));
+        .pipe(gulp.dest(dist + 'styles/'));
 });
 
-gulp.task('deploy', function () {
-    runSequence('clean', 'jade:d', 'jade:v', 'copyAssets', 'img', 'js', 'autoprefix', 'copy:reset', 'assets:dist', 'index:dist', 'famo:glob','add', 'commit');
+gulp.task('her', function () {
+    runSequence('clean', 'jade:d', 'jade:v', 'copyAssets', 'img', 'js', 'autoprefix', 'copy:reset', 'assets:dist', 'index:dist', 'famo:glob', 'add', 'commit', 'heroku');
 });
 
 
