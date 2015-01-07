@@ -130,10 +130,11 @@ gulp.task('add', function () {
     return gulp.src('app/*')
         .pipe(git.add());
 });
-gulp.task('commit', function () {
-    return gulp.src('app/*')
-        .pipe(git.commit('Deploy to Heroku',{args:'-a'}));
-});
+
+
+gulp.task('commit', shell.task([
+    'git commit -m "Deploy tp Heroku"',
+]))
 
 gulp.task('jade', function () {
     return gulp.src('app/*.jade')
