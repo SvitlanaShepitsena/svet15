@@ -6,6 +6,7 @@ define(function (require, exports, module) {
 
 
 
+
     function BannerView() {
         View.apply(this, arguments);
         _init.call(this);
