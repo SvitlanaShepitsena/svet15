@@ -22,7 +22,7 @@ define(function (require, exports, module) {
         this.menuToggle = false;
         this.eventInput = new EventHandler();
         EventHandler.setInputHandler(this, this.eventInput);
-        this.menuView = new MenuView();
+        this.menuView = new MenuView({navWidth: this.options.maxOpenPos});
         this.menuView.pipe(this);
 
         this.pageView = new PageView();
@@ -30,6 +30,8 @@ define(function (require, exports, module) {
 
         this.eventInput.on('navigateTo', function (index) {
             that.pageView.navigateTo(index);
+            /*Close navigation menu*/
+            that.toggleMenu();
         })
         this.pageModifier = new Modifier();
 
@@ -55,7 +57,7 @@ define(function (require, exports, module) {
             duration: 300,
             curve: 'easeOut'
         },
-        maxOpenPos: 191
+        maxOpenPos: window.innerWidth / 2
     };
 
     function _handleTouch() {

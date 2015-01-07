@@ -15,13 +15,13 @@ define(function (require, exports, module) {
     MenuImageView.prototype.constructor = MenuImageView;
     MenuImageView.DEFAULT_OPTIONS = {};
 
-    function MenuImageView(imagePath,order) {
+    function MenuImageView(imagePath, order) {
 
         var that = this;
 
 
         this.imagePath = imagePath;
-        var jadePath = 'text!jade/about'+order+'.html';
+        var jadePath = 'text!jade/about' + order + '.html';
         this.content = require(jadePath);
 
         this.TRANSITION = {duration: 700, curve: 'linear'};
@@ -54,7 +54,7 @@ define(function (require, exports, module) {
         this.rootNode.add(dummySurface);
 
         dummySurface.on('click', function () {
-            var finalState = isText ? 0:1;
+            var finalState = isText ? 0 : 1;
             that.state.set(finalState, that.TRANSITION);
             isText = !isText;
         })
@@ -83,7 +83,7 @@ define(function (require, exports, module) {
         var that = this;
 
         this.contentModifier = new Modifier({
-            size: [window.innerWidth / 2, undefined],
+            size: [window.innerWidth *.9, undefined],
             opacity: function () {
                 return that.state.get()
             },
