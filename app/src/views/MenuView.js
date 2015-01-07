@@ -88,7 +88,6 @@ define(function (require, exports, module) {
         for (var i = 0; i < navData.length; i++) {
             var navView = new NavigationView({
                 width: this.options.navWidth,
-                height: this.options.navHeight,
                 iconUrl: navData[i].iconUrl,
                 index: i
             });
