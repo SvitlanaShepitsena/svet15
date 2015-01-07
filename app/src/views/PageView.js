@@ -1,6 +1,5 @@
 define(function (require, exports, module) {
 
-    var d3            = require('d3/d3');
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
