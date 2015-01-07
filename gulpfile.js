@@ -126,12 +126,11 @@ gulp.task('autoprefix', ['stylus'], function () {
         .pipe(reload({stream: true}));
 });
 
-gulp.task('add', function () {
-    return gulp.src('app/*')
-        .pipe(git.add());
-});
 
 
+gulp.task('add', shell.task([
+    'git add .',
+]))
 gulp.task('commit', shell.task([
     'git commit -m "Deploy tp Heroku"',
 ]))
