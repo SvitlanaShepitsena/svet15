@@ -12,7 +12,7 @@ define(['require', 'famous/core/Engine', 'views/AppView', 'views/desktop/Desktop
         if (newDevice !== initialDevice) {
             window.location.reload();
         }
-    })
+    });
 
 
     mainContext.add(appView);

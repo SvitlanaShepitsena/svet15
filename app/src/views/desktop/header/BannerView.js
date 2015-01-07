@@ -1,8 +1,8 @@
 define(function (require, exports, module) {
     var View = require('famous/core/View');
-    var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
+    var VideoView = require('dviews/header/VideoView');
 
 
 
@@ -17,15 +17,8 @@ define(function (require, exports, module) {
 
 
     function _addBanner() {
-        var primary = new Surface({
-            size: [undefined, 200],
-            content: "Primary Surface",
-            properties: {
-                textAlign: "center",
-                backgroundColor: 'red'
-            }
-        });
-        this.rootNode.add(primary);
+        var videoView = new VideoView();
+        this.rootNode.add(videoView);
     }
 
     function _init() {
