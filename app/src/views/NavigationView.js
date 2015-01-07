@@ -17,7 +17,7 @@ define(function (require, exports, module) {
     NavigationView.prototype.constructor = NavigationView;
 
     NavigationView.DEFAULT_OPTIONS = {
-        width: 1000,
+        width: window.innerWidth / 3,
         height: null,
         iconUrl: null,
         index: null
@@ -26,7 +26,7 @@ define(function (require, exports, module) {
     function _createIcon() {
         var that = this;
         var iconSurface = new Surface({
-            content: '<img width="191" src="' + this.options.iconUrl + '"/>'
+            content: '<img width="' + this.options.width + '" src="' + this.options.iconUrl + '"/>'
         });
         iconSurface.on('click', function () {
             that.eventOutput.emit('pageChange', that.options.index);

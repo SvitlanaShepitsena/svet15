@@ -19,7 +19,6 @@ define(function (require, exports, module) {
 
         this.eventInput.on('pageChange', function (index) {
             that.eventOutput.emit('navigateTo', index);
-
         })
         _createBacking.call(this);
         _createNavigationViews.call(this);
@@ -55,12 +54,10 @@ define(function (require, exports, module) {
             }.bind(this, i), i * this.options.staggerDelay);
         }
     };
-
+    /*options for nav icon*/
     MenuView.DEFAULT_OPTIONS = {
-        navWidth: 191,
-        navHeight: 51,
         topOffset: 10,
-        navItemOffset: 90,
+        navItemOffset: window.innerHeight / 6,
         duration: 400,
         staggerDelay: 35
     };
