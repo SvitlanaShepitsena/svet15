@@ -55,8 +55,8 @@ define(function (require, exports, module) {
 
         this.menus = [];
         //this.leftMenu = new MenuImageView('../img/aboutUs/aboutus_1.jpg');
-        this.leftMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_1.jpg"/>',1)
-        this.rightMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_2.jpg"/>',2)
+        this.leftMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_1.jpg"/>', 1)
+        this.rightMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_2.jpg"/>', 2)
 
         this.menus.push(this.leftMenu);
         this.menus.push(this.rightMenu);

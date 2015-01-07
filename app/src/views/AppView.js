@@ -9,12 +9,14 @@ define(function (require, exports, module) {
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
 
     var GridLayout = require("famous/views/GridLayout");
-
     var EventHandler = require('famous/core/EventHandler');
     var MenuView = require('./MenuView');
     var PageView = require('./PageView');
 
+
     function AppView() {
+
+
         var that = this;
         View.apply(this, arguments);
         this.menuToggle = false;
@@ -28,7 +30,7 @@ define(function (require, exports, module) {
 
         this.eventInput.on('navigateTo', function (index) {
             that.pageView.navigateTo(index);
-       })
+        })
         this.pageModifier = new Modifier();
 
         this.pageModifier.transformFrom(function () {
