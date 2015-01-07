@@ -41,7 +41,6 @@ define(function (require, exports, module) {
     AboutUsView.prototype.constructor = AboutUsView;
 
     function _addGrid() {
-        var that = this;
         this.contentModifier = new Modifier({
             size: [undefined, undefined],
             align: [0.5, 0.5],
@@ -54,9 +53,8 @@ define(function (require, exports, module) {
         });
 
         this.menus = [];
-        //this.leftMenu = new MenuImageView('../img/aboutUs/aboutus_1.jpg');
-        this.leftMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_1.jpg"/>',1)
-        this.rightMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_2.jpg"/>',2)
+        this.leftMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_1.jpg"/>', 1)
+        this.rightMenu = new MenuImageView('<img src="../img/aboutUs/aboutus_2.jpg"/>', 2)
 
         this.menus.push(this.leftMenu);
         this.menus.push(this.rightMenu);

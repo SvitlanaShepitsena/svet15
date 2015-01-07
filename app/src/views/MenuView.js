@@ -80,7 +80,7 @@ define(function (require, exports, module) {
         this.navModifiers = [];
 
         var navData = [
-            {iconUrl: 'img/nav-icons/home.png'},
+            //{iconUrl: 'img/nav-icons/home.png'},
             {iconUrl: 'img/nav-icons/about-us.png'},
             {iconUrl: 'img/nav-icons/demographics.png'},
             {iconUrl: 'img/nav-icons/clients.png'},

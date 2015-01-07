@@ -11,7 +11,7 @@ define(function (require, exports, module) {
     var HomePageView = require('views/pages/HomePageView');
     var AboutUsView = require('views/pages/AboutUsView');
 
-    var DemographicView = require('views/DemographicView');
+    var DemographicView = require('views/pages/demographics/DemographicsView');
 
 
     function HomeScroll(sync) {
@@ -108,9 +108,9 @@ define(function (require, exports, module) {
 
         });
 
-        this.contents.push(this.aboutUsView);
         //this.contents.push(this.homePageView);
-        //this.contents.push(this.demographicsPage);
+        this.contents.push(this.aboutUsView);
+        this.contents.push(this.demographicsPage);
         //this.contents.push(this.contentClients);
         //this.contents.push(this.contentRadio);
         //this.contents.push(this.contentContact);

@@ -47,8 +47,7 @@ define(function (require, exports, module) {
         var home22 = require('text!jade/home22.html');
 
         this.grid = new GridLayout({
-            dimensions: [2, 2],
-            gutterSize: [4, 4]
+            dimensions: [2, 2]
         });
 
         this.homePages = [];
@@ -56,7 +55,7 @@ define(function (require, exports, module) {
         this.p11 = new Surface({
             content: home11,
             properties: {
-                //backgroundColor: '#E6FFEF'
+                backgroundColor: '#E6FFEF'
             }
         });
         this.p12 = new Surface({
