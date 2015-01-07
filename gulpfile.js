@@ -180,7 +180,7 @@ gulp.task('js', function () {
                     famous: "../lib/famous/src",
                     requirejs: "../lib/requirejs/require",
                     views: "views",
-                    d3: '../lib/d3/',
+                    dviews: "views/desktop",
                     jade: "../jade",
                     almond: "../lib/almond/almond"
                 },

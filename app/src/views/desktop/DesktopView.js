@@ -2,13 +2,17 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
-    var StateModifier = require('famous/modifiers/StateModifier');
     var Modifier = require("famous/core/Modifier");
+
+    var BannerView = require('dviews/header/BannerView');
 
     function DesktopView() {
         View.apply(this, arguments);
 
         _init.call(this);
+        var bannerView = new BannerView();
+        this.rootNode.add(bannerView);
+
     }
 
     function _init() {
