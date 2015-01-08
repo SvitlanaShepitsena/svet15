@@ -56,6 +56,8 @@ define(function (require, exports, module) {
     };
     /*options for nav icon*/
     MenuView.DEFAULT_OPTIONS = {
+        navWidth: 191,
+        navHeight: 81,
         topOffset: 10,
         navItemOffset: window.innerHeight / 6,
         duration: 400,
@@ -77,7 +79,7 @@ define(function (require, exports, module) {
         this.navModifiers = [];
 
         var navData = [
-            //{iconUrl: 'img/nav-icons/home.png'},
+            {iconUrl: 'img/nav-icons/home.png'},
             {iconUrl: 'img/nav-icons/about-us.png'},
             {iconUrl: 'img/nav-icons/demographics.png'},
             {iconUrl: 'img/nav-icons/clients.png'},
@@ -88,6 +90,7 @@ define(function (require, exports, module) {
         for (var i = 0; i < navData.length; i++) {
             var navView = new NavigationView({
                 width: this.options.navWidth,
+                height: this.options.navHeight,
                 iconUrl: navData[i].iconUrl,
                 index: i
             });

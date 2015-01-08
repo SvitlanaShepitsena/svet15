@@ -1,4 +1,3 @@
-/*** SlideView.js ***/
 
 define(function(require, exports, module) {
     var View = require('famous/core/View');

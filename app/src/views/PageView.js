@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
-    var HomeScroll = require('views/HomeScroll');
+    var ContentScroll = require('views/ContentScroll');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var GridLayout = require("famous/views/GridLayout");
 
@@ -40,7 +40,7 @@ define(function (require, exports, module) {
         this.header.pipe(this);
 
         /*Content*/
-        this.content = new HomeScroll(genericSync);
+        this.content = new ContentScroll(genericSync);
         this.content.pipe(this);
 
         var currentIndex = 0;
