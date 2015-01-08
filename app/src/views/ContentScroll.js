@@ -11,8 +11,6 @@ define(function (require, exports, module) {
     var HomePageView = require('views/pages/home/HomeView');
     var AboutUsView = require('views/pages/aboutUs/AboutUsView');
 
-
-
     function ContentScroll(sync) {
         this.generalSync = sync;
         this.eventInput = new EventHandler();
@@ -23,15 +21,22 @@ define(function (require, exports, module) {
         _createContent.call(this);
 
         this.scrollview.setOptions({
-            pageSwitchSpeed: 0.9,
-            paginated: true,
-            friction: 0.05,
-            drag: 0.0001,
-            edgeGrip: 0.2,
-            edgePeriod: 700,
+            direction: 1,
+            rails: true,
+            friction: 0.0005,
+            drag: 0.0005,
+            edgeGrip: 0.3,
+            edgePeriod: 300,
             edgeDamp: 1,
+            margin: 16000,       // mostly safe
+            paginated: true,
+            pagePeriod: 500,
+            pageDamp: 0.8,
+            pageStopSpeed: 10,
+            pageSwitchSpeed: 0.5,
             speedLimit: 1,
-            margin: 5333
+            groupScroll: false,
+            syncScale: 0.5
         })
     }
 
@@ -51,9 +56,18 @@ define(function (require, exports, module) {
         this.contents.push(this.homePageView);
         this.contents.push(this.aboutUsView);
 
-
         this.scrollview.sequenceFrom(this.contents);
 
+        this.scrollview.pipe(this.generalSync);
+        var maxLength = this.contents.length * 750;
+        this.scrollview.sync.on('update', function (data) {
+
+            var absolutePos = this.scrollview.getAbsolutePosition();
+            if (absolutePos < 0) {
+                this.scrollview.setPosition(0);
+            }
+
+        }.bind(this))
     };
 
     module.exports = ContentScroll;
