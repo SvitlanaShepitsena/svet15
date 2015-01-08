@@ -40,12 +40,15 @@ define(function (require, exports, module) {
     AboutUsView.prototype = Object.create(View.prototype);
     AboutUsView.prototype.constructor = AboutUsView;
 
+    AboutUsView.DEFAULT_OPTIONS = {
+        topMargin: window.innerHeight * .015,
+        backgroundColor: '#FFE1D0'
+    };
+
     function _addGrid() {
+        var that = this;
         this.contentModifier = new Modifier({
-            size: [undefined, undefined],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            transform: Transform.translate(0, window.innerHeight * .015, 0)
+            transform: Transform.translate(0, that.options.topMargin, 0)
         });
 
         this.grid = new GridLayout({
@@ -64,7 +67,6 @@ define(function (require, exports, module) {
         this.add(this.contentModifier).add(this.grid);
     }
 
-    AboutUsView.DEFAULT_OPTIONS = {};
 
     module.exports = AboutUsView;
 });

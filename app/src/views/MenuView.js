@@ -56,6 +56,8 @@ define(function (require, exports, module) {
     };
     /*options for nav icon*/
     MenuView.DEFAULT_OPTIONS = {
+        navWidth: 191,
+        navHeight: 81,
         topOffset: 10,
         navItemOffset: window.innerHeight / 6,
         duration: 400,
@@ -88,6 +90,7 @@ define(function (require, exports, module) {
         for (var i = 0; i < navData.length; i++) {
             var navView = new NavigationView({
                 width: this.options.navWidth,
+                height: this.options.navHeight,
                 iconUrl: navData[i].iconUrl,
                 index: i
             });

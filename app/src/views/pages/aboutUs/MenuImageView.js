@@ -13,17 +13,13 @@ define(function (require, exports, module) {
 
     MenuImageView.prototype = Object.create(View.prototype);
     MenuImageView.prototype.constructor = MenuImageView;
-    MenuImageView.DEFAULT_OPTIONS = {};
 
     function MenuImageView(imagePath, order) {
 
         var that = this;
-
-
         this.imagePath = imagePath;
         var jadePath = 'text!jade/about' + order + '.html';
         this.content = require(jadePath);
-
         this.TRANSITION = {duration: 700, curve: 'linear'};
 
         this.state = new Transitionable(0);
@@ -32,15 +28,12 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         // Modifier to center renderables
-        var centerModifier = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5]
+        this.centerModifier = new Modifier({
+            size: [this.options.contentWidth, undefined],
+            align: this.options.align,
+            origin: this.options.origin
         });
-
-
-        this.rootNode = this.add(centerModifier);
-
-
+        this.rootNode = this.add(this.centerModifier);
         _createContent.call(this);
         _createImage.call(this);
 
@@ -60,19 +53,26 @@ define(function (require, exports, module) {
         })
     }
 
+    MenuImageView.DEFAULT_OPTIONS = {
+        contentWidth: window.innerWidth * .9,
+        width: window.innerWidth,
+        topMargin: window.innerHeight * .015,
+        origin: [.5, .5],
+        align: [.5, .5]
+    };
+
     function _createImage() {
         var that = this;
 
         this.imageModifier = new Modifier({
-            size: [window.innerWidth / 2, undefined],
+            size: [that.options.width / 1.55, undefined],
             opacity: function () {
                 return 1 - that.state.get()
             },
-            origin: [.5, .5],
-            align: [.5, .5]
+            origin: that.options.origin,
+            align: that.options.align
         })
         var imageSurface = new Surface({
-            size: [undefined, undefined],
             content: this.imagePath
         });
 
@@ -83,21 +83,18 @@ define(function (require, exports, module) {
         var that = this;
 
         this.contentModifier = new Modifier({
-            size: [window.innerWidth *.9, undefined],
+            size: [that.options.contentWidth, undefined],
             opacity: function () {
                 return that.state.get()
             },
-            origin: [.5, .5],
-            align: [.5, .5]
-        })
+            transform: Transform.translate(0, that.options.topMargin, 0)
+        });
         var contentSurface = new Surface({
-            size: [undefined, undefined],
             content: that.content
         });
 
         this.rootNode.add(this.contentModifier).add(contentSurface);
     }
-
 
     module.exports = MenuImageView;
 });
