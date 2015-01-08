@@ -17,7 +17,7 @@ define(function (require, exports, module) {
     NavigationView.prototype.constructor = NavigationView;
 
     NavigationView.DEFAULT_OPTIONS = {
-        width: window.innerWidth / 3,
+        width: 1000,
         height: null,
         iconUrl: null,
         index: null
