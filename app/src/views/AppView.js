@@ -21,6 +21,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
         this.menuToggle = false;
         this.eventInput = new EventHandler();
+
         EventHandler.setInputHandler(this, this.eventInput);
         this.menuView = new MenuView({navWidth: this.options.maxOpenPos});
         this.menuView.pipe(this);
@@ -33,6 +34,7 @@ define(function (require, exports, module) {
             /*Close navigation menu*/
             that.toggleMenu();
         })
+
         this.pageModifier = new Modifier();
 
         this.pageModifier.transformFrom(function () {
