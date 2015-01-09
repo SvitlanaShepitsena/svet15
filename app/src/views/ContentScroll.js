@@ -46,6 +46,7 @@ define(function (require, exports, module) {
     ContentScroll.DEFAULT_OPTIONS = {};
 
     function _createContent() {
+        var that = this;
         this.contents = [];
         this.homePageView = new HomePageView();
         this.aboutUsView = new AboutUsView();
@@ -62,10 +63,15 @@ define(function (require, exports, module) {
         var maxLength = this.contents.length * 750;
 
         this.scrollview.sync.on('update', function (data) {
+            var currentIndex =that.scrollview.getPosition();
+
 
             var absolutePos = this.scrollview.getAbsolutePosition();
-            if (absolutePos < 0) {
-                this.scrollview.setPosition(0);
+            if (absolutePos < -100) {
+                this.scrollview.setPosition(-100);
+            }
+            if (absolutePos > 650) {
+                this.scrollview.setPosition(650);
             }
         }.bind(this))
     };
