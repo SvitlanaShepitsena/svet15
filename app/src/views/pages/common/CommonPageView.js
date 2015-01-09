@@ -35,6 +35,7 @@ define(function (require, exports, module) {
     }
 
     function _handleSwipe() {
+        var that = this;
         var verticalShiftAbs, horisontalShiftAbs, isVertical;
         this.options.sync.on("end", function (data) {
             verticalShiftAbs = Math.abs(data.delta[1]);
@@ -43,10 +44,10 @@ define(function (require, exports, module) {
 
             if (!isVertical) {
                 if (data.delta[0] < 0) {
-                    this.nextView();
+                    this.nextView.call(that);
                 }
                 else {
-                    this.prevView();
+                    this.prevView.call(that);
                 }
             }
         }.bind(this));
@@ -109,7 +110,7 @@ define(function (require, exports, module) {
 
     CommonPageView.prototype.prevView = function () {
         var currentView = this.views[this.currentIndex];
-        var prevIndex = (this.currentIndex === 0) ? this.contents.length - 1 : this.currentIndex - 1;
+        var prevIndex = (this.currentIndex === 0) ? this.views.length - 1 : this.currentIndex - 1;
         var prevView = this.views[prevIndex];
 
         this.lightbox.setOptions({
