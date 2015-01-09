@@ -31,7 +31,7 @@ define(function (require, exports, module) {
         align: [0.5, 0.5],
         origin: [0.5, 0.5],
         bg: '#ffffff',
-        boxShadow: '0 10px 20px -5px rgba(0, 0, 0, 0.5)',
+        boxShadow: '0 2px 4px -2px rgba(0, 0, 0, 0.5)',
         width: window.innerWidth,
         height: window.innerHeight
     };
@@ -66,7 +66,6 @@ define(function (require, exports, module) {
         this.viewContent = new Surface({
             content: this.options.content,
             properties: {
-                zIndex: 2,
                 pointerEvents: 'none'
             }
         });
