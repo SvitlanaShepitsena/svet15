@@ -28,12 +28,10 @@ define(function (require, exports, module) {
 
     SlideView.DEFAULT_OPTIONS = {
         angle: -0.5,
-        align: [0.5, 0],
-        origin: [0.5, 0],
+        align: [0.5, 0.5],
+        origin: [0.5, 0.5],
         bg: '#ffffff',
         boxShadow: '0 10px 20px -5px rgba(0, 0, 0, 0.5)',
-        filmBorder: 15,
-        photoBorder: 3,
         width: window.innerWidth,
         height: window.innerHeight
     };
@@ -61,8 +59,8 @@ define(function (require, exports, module) {
         this.contentModifier = new StateModifier({
             align: this.options.align,
             origin: this.options.origin,
-            size: [this.options.width * .9, this.options.height * .9],
-            transform: Transform.translate(0, this.options.filmBorder + this.options.photoBorder, 0.1)
+            size: [this.options.width * .9, this.options.height * .8],
+            transform: Transform.translate(0, 0, 2)
         });
 
         this.viewContent = new Surface({
