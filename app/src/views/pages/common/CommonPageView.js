@@ -14,13 +14,19 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         var centerModifier = new Modifier({
-            size: [undefined, window.innerHeight-100],
+            size: [undefined, window.innerHeight - 100],
             align: [0.5, 0.5],
             origin: [0.5, 0.5]
         });
-
+        var underGround = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                backgroundColor: "grey"
+            }
+        });
 
         this.rootNode = this.add(centerModifier);
+        this.rootNode.add(underGround);
 
         _createSlides.call(this);
 
@@ -73,8 +79,10 @@ define(function (require, exports, module) {
         var nextIndex = (this.currentIndex === this.views.length - 1) ? 0 : this.currentIndex + 1;
         var nextView = this.views[nextIndex];
 
-        this.lightbox.hide(currentView);
-        this.lightbox.show(nextView);
+        this.lightbox.hide(currentView, function () {
+
+            this.lightbox.show(nextView);
+        }.bind(this))
 
         this.currentIndex = nextIndex;
     }
