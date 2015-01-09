@@ -60,6 +60,7 @@ define(function (require, exports, module) {
 
         this.scrollview.pipe(this.generalSync);
         var maxLength = this.contents.length * 750;
+
         this.scrollview.sync.on('update', function (data) {
 
             var absolutePos = this.scrollview.getAbsolutePosition();
