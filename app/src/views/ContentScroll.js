@@ -8,8 +8,7 @@ define(function (require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
     var EventHandler = require('famous/core/EventHandler');
 
-    var HomePageView = require('views/pages/home/HomeView');
-    var AboutUsView = require('views/pages/aboutUs/AboutUsView');
+    var CommonPageView = require('views/pages/common/CommonPageView');
 
     function ContentScroll(sync) {
         this.generalSync = sync;
@@ -28,7 +27,7 @@ define(function (require, exports, module) {
             edgeGrip: 0.3,
             edgePeriod: 300,
             edgeDamp: 1,
-            margin: 530,       // mostly safe
+            margin: 5900,       // mostly safe
             paginated: true,
             pagePeriod: 500,
             pageDamp: 0.8,
@@ -48,17 +47,16 @@ define(function (require, exports, module) {
     function _createContent() {
         var that = this;
         this.contents = [];
-        this.homePageView = new HomePageView();
-        this.aboutUsView = new AboutUsView();
+        this.homePageView = new CommonPageView({bgColor:'yellow', page:'Home'});
+        this.aboutUsView = new CommonPageView({bgColor:'orange', page:'About Us'});
 
-        this.homePageView.pipe(this.options.sync);
-        this.aboutUsView.pipe(this.options.sync);
+        this.homePageView.pipe(this.scrollview);
+        this.aboutUsView.pipe(this.scrollview);
 
         this.contents.push(this.homePageView);
         this.contents.push(this.aboutUsView);
 
         this.scrollview.sequenceFrom(this.contents);
-
 
         this.scrollview.sync.on('update', function (data) {
             var currentIndex = that.scrollview.getPosition();
@@ -68,9 +66,9 @@ define(function (require, exports, module) {
             if (absolutePos < -100) {
                 this.scrollview.setPosition(-100);
             }
-            if (absolutePos > 650) {
-                this.scrollview.setPosition(650);
-            }
+            console.log(absolutePos);
+
+
         }.bind(this))
     };
 

@@ -14,7 +14,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         var centerModifier = new Modifier({
-            size: [undefined, undefined],
+            size: [undefined, window.innerHeight],
             align: [0.5, 0.5],
             origin: [0.5, 0.5]
         });
