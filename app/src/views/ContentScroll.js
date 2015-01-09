@@ -51,8 +51,8 @@ define(function (require, exports, module) {
         this.homePageView = new HomePageView();
         this.aboutUsView = new AboutUsView();
 
-        this.homePageView.pipe(this.scrollview);
-        this.aboutUsView.pipe(this.scrollview);
+        this.homePageView.pipe(this.options.sync);
+        this.aboutUsView.pipe(this.options.sync);
 
         this.contents.push(this.homePageView);
         this.contents.push(this.aboutUsView);
