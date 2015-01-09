@@ -22,6 +22,7 @@ define(function (require, exports, module) {
         var that = this;
 
         GenericSync.register({
+            mouse: MouseSync,
             touch: TouchSync,
             scroll: ScrollSync
         });
@@ -40,47 +41,21 @@ define(function (require, exports, module) {
         this.header.pipe(this);
 
         /*Content*/
-        this.content = new ContentScroll(genericSync);
+        this.content = new ContentScroll({sync: genericSync});
         this.content.pipe(this);
 
+        var isVertical;
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,
+            verticalShiftAbs,horisontalShiftAbs,
             currentElement, currentElementTemp, direction;
+
+
         genericSync.on("update", function (data) {
-            delta = data.delta[1];
-            if (delta < 0) {
-                direction = -1;
-                currentIndex++;
-            } else {
-                currentIndex--;
-                direction = 1;
-            }
-
-            if (currentIndex > 5) {
-                currentIndex = 5;
-            }
-            if (currentIndex < 0) {
-                currentIndex = 0;
-            }
-
-            try {
-                prevElementTemp = that.states[currentIndex + direction];
-            } catch (e) {
-                prevElementTemp = null;
-            }
-            if (prevElementTemp !== null && prevElementTemp !== prevElement) {
-                prevElement = prevElementTemp;
-                prevElement.set(0, {duration: 100});
-            }
-
-            currentElementTemp = that.states[currentIndex];
-            if (currentElementTemp !== currentElement) {
-                currentElement = currentElementTemp;
-                currentElement.set(1, {duration: 200});
-
-            }
-
+        verticalShiftAbs = Math.abs(data.delta[1]);
+        horisontalShiftAbs = Math.abs(data.delta[0]);
+            isVertical = (horisontalShiftAbs)
         });
 
         /* =Footer*/
