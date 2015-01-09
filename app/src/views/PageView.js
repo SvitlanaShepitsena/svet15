@@ -50,13 +50,18 @@ define(function (require, exports, module) {
             currentElement, currentElementTemp, direction;
 
 
-        genericSync.on("update", function (data) {
+        genericSync.on("end", function (data) {
             verticalShiftAbs = Math.abs(data.delta[1]);
             horisontalShiftAbs = Math.abs(data.delta[0]);
             isVertical = verticalShiftAbs > horisontalShiftAbs;
 
             if (isVertical) {
-                this.content.nextPage();
+                if (data.delta[1] < 0) {
+                    this.content.nextPage();
+                }
+                else {
+                    this.content.prevPage();
+               }
             }
         }.bind(this));
 
