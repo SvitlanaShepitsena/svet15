@@ -20,7 +20,7 @@ define(function (require, exports, module) {
         this.mainNode = this.add(this.rootModifier);
 
         _createBackground.call(this);
-        _createView.call(this);
+        _createViewContent.call(this);
     }
 
     SlideView.prototype = Object.create(View.prototype);
@@ -34,7 +34,8 @@ define(function (require, exports, module) {
         boxShadow: '0 10px 20px -5px rgba(0, 0, 0, 0.5)',
         filmBorder: 15,
         photoBorder: 3,
-        size: [400, 550]
+        width: window.innerWidth,
+        height: window.innerHeight
     };
 
     function _createBackground() {
@@ -55,28 +56,27 @@ define(function (require, exports, module) {
     }
 
 
-    function _createView() {
+    function _createViewContent() {
 
-        this.photoModifier = new StateModifier({
+        this.contentModifier = new StateModifier({
             align: this.options.align,
             origin: this.options.origin,
+            size: [this.options.width * .9, this.options.height * .9],
             transform: Transform.translate(0, this.options.filmBorder + this.options.photoBorder, 0.1)
         });
 
-        this.commonView = new Surface({
-            size: this.options.size,
+        this.viewContent = new Surface({
             content: this.options.content,
-            backgroundColor: 'blue',
             properties: {
                 zIndex: 2,
                 pointerEvents: 'none'
             }
         });
-        this.mainNode.add(this.photoModifier).add(this.commonView);
+        this.mainNode.add(this.contentModifier).add(this.viewContent);
     }
 
     SlideView.prototype.fadeIn = function () {
-        this.photoModifier.setOpacity(1, {duration: 1500, curve: 'easeIn'});
+        this.contentModifier.setOpacity(1, {duration: 1500, curve: 'easeIn'});
         this.shake();
     };
 
