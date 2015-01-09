@@ -13,18 +13,14 @@ define(function (require, exports, module) {
     function HomeView() {
         View.apply(this, arguments);
 
-        var bgModifier = new Modifier({
-            size: [undefined, undefined]
+        var centerModifier = new Modifier({
+            size: [undefined, undefined],
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5]
         });
 
-        this.bg = new Surface({
-            properties: {
-                backgroundColor: '#FFE1D0'
-            }
-        });
 
-        this.rootNode = this.add(bgModifier);
-        this.rootNode.add(this.bg);
+        this.rootNode = this.add(centerModifier);
 
         _createSlides.call(this);
 
@@ -33,9 +29,8 @@ define(function (require, exports, module) {
 
     function _init() {
         this.currentIndex = 0;
-        var currentView = this.views[this.currentIndex];
-        this.lightbox.show(currentView);
-
+        this.currentView = this.views[this.currentIndex];
+        this.lightbox.show(this.currentView);
     }
 
     function _createSlides() {
@@ -45,8 +40,8 @@ define(function (require, exports, module) {
 
         for (var i = 1; i < 4; i++) {
             var view = new CommonView({
-                bg:'yellow',
-                content:'Home. View '+i
+                bg: 'yellow',
+                content: 'Home. View ' + i
             });
             view.pipe(this._eventOutput);
             view.on('click', function () {
@@ -56,7 +51,6 @@ define(function (require, exports, module) {
         }
 
         this.lightbox = new Lightbox(this.options.lightboxOpts);
-
         this.rootNode.add(this.lightbox);
     }
 
@@ -76,7 +70,7 @@ define(function (require, exports, module) {
 
     HomeView.prototype.nextView = function () {
         var currentView = this.views[this.currentIndex];
-        var nextIndex = (this.currentIndex === this.views.length-1)?0:this.currentIndex+1;
+        var nextIndex = (this.currentIndex === this.views.length - 1) ? 0 : this.currentIndex + 1;
         var nextView = this.views[nextIndex];
 
         this.lightbox.hide(currentView);
