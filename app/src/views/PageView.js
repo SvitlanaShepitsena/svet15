@@ -42,13 +42,7 @@ define(function (require, exports, module) {
         this.content = new ContentScroll({sync: genericSync});
         this.content.pipe(this);
 
-        var isVertical;
-        var currentIndex = 0;
-        var part = 1 / 6;
-        var prevElement, prevElementTemp,
-            verticalShiftAbs, horisontalShiftAbs,
-            currentElement, currentElementTemp, direction;
-
+        var isVertical, verticalShiftAbs, horisontalShiftAbs;
 
         genericSync.on("end", function (data) {
             verticalShiftAbs = Math.abs(data.delta[1]);
@@ -61,7 +55,7 @@ define(function (require, exports, module) {
                 }
                 else {
                     this.content.prevPage();
-               }
+                }
             }
         }.bind(this));
 
