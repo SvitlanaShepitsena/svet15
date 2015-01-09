@@ -29,9 +29,21 @@ define(function (require, exports, module) {
         this.rootNode.add(underGround);
 
         _createSlides.call(this);
-
         _init.call(this);
     }
+
+    CommonPageView.prototype = Object.create(View.prototype);
+    CommonPageView.prototype.constructor = CommonPageView;
+
+    CommonPageView.DEFAULT_OPTIONS = {
+        size: [undefined, undefined],
+        lightboxOpts: {
+            inTransform: Transform.translate(300, 0, 0),
+            outTransform: Transform.translate(-500, 0, 0),
+            inTransition: {duration: 500, curve: Easing.outBack},
+            outTransition: {duration: 350, curve: Easing.inQuad}
+        }
+    };
 
     function _init() {
         this.currentIndex = 0;
@@ -60,19 +72,6 @@ define(function (require, exports, module) {
         this.rootNode.add(this.lightbox);
     }
 
-
-    CommonPageView.prototype = Object.create(View.prototype);
-    CommonPageView.prototype.constructor = CommonPageView;
-
-    CommonPageView.DEFAULT_OPTIONS = {
-        size: [undefined, undefined],
-        lightboxOpts: {
-            inTransform: Transform.translate(300, 0, 0),
-            outTransform: Transform.translate(-500, 0, 0),
-            inTransition: {duration: 500, curve: Easing.outBack},
-            outTransition: {duration: 350, curve: Easing.inQuad}
-        }
-    };
 
     CommonPageView.prototype.nextView = function () {
         var currentView = this.views[this.currentIndex];
