@@ -20,6 +20,7 @@ define(function (require, exports, module) {
 
     function PageView() {
         var that = this;
+        View.apply(this, arguments);
 
         GenericSync.register({
             mouse: MouseSync,
@@ -28,12 +29,9 @@ define(function (require, exports, module) {
         });
 
         var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
-
-        View.apply(this, arguments);
-
         this.layout = new HeaderFooterLayout({
-            headerSize: 50,
-            footerSize: 50
+            headerSize: this.options.headerSize,
+            footerSize: this.options.footerSize
         });
 
         /*Header*/
@@ -195,6 +193,16 @@ define(function (require, exports, module) {
 
         this.add(this.layout);
     }
+
+    PageView.DEFAULT_OPTIONS = {
+        headerSize: 50,
+        footerSize: 50,
+        align: [0.5, 0.5],
+        origin: [0.5, 0.5],
+        bg: 'grey',
+        width: window.innerWidth,
+        height: window.innerHeight
+    };
 
     PageView.prototype = Object.create(View.prototype);
     PageView.prototype.constructor = PageView;
