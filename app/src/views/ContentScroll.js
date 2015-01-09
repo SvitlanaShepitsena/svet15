@@ -73,7 +73,6 @@ define(function (require, exports, module) {
             if (absolutePos > 650) {
                 this.scrollview.setPosition(650);
             }
-
         }.bind(this))
     };
 
