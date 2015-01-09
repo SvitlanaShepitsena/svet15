@@ -18,13 +18,11 @@ define(function (require, exports, module) {
             align: [0.5, 0.5],
             origin: [0.5, 0.5]
         });
-
-
         this.rootNode = this.add(centerModifier);
 
-        _createSlides.call(this);
-
+        _createViews.call(this);
         _init.call(this);
+
     }
 
     function _init() {
@@ -33,14 +31,13 @@ define(function (require, exports, module) {
         this.lightbox.show(this.currentView);
     }
 
-    function _createSlides() {
+    function _createViews() {
         var that = this;
         this.views = [];
-        var colors = ['green', 'yellow', 'blue'];
 
         for (var i = 1; i < 4; i++) {
             var view = new CommonView({
-                bg: 'yellow',
+                bg: '#f5f5f5',
                 content: 'Home. View ' + i
             });
             view.pipe(this._eventOutput);
@@ -54,15 +51,14 @@ define(function (require, exports, module) {
         this.rootNode.add(this.lightbox);
     }
 
-
     HomeView.prototype = Object.create(View.prototype);
     HomeView.prototype.constructor = HomeView;
 
     HomeView.DEFAULT_OPTIONS = {
-        size: [undefined, undefined],
+        size: [window.innerWidth, window.innerHeight],
         lightboxOpts: {
-            inTransform: Transform.translate(300, 0, 0),
-            outTransform: Transform.translate(-500, 0, 0),
+            inTransform: Transform.translate(window.innerWidth * .66, 0, 0),
+            outTransform: Transform.translate(-window.innerWidth * 1.1, 0, 0),
             inTransition: {duration: 500, curve: Easing.outBack},
             outTransition: {duration: 350, curve: Easing.inQuad}
         }
@@ -70,6 +66,7 @@ define(function (require, exports, module) {
 
     HomeView.prototype.nextView = function () {
         var currentView = this.views[this.currentIndex];
+
         var nextIndex = (this.currentIndex === this.views.length - 1) ? 0 : this.currentIndex + 1;
         var nextView = this.views[nextIndex];
 
