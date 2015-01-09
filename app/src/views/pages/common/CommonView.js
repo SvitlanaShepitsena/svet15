@@ -48,9 +48,7 @@ define(function (require, exports, module) {
         this.background.pipe(this._eventOutput);
         this.mainNode.add(this.background);
 
-        this.background.on('click', function () {
-            this._eventOutput.emit('click');
-        }.bind(this));
+
     }
 
 
