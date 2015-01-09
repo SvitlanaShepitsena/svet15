@@ -30,6 +30,26 @@ define(function (require, exports, module) {
 
         _createSlides.call(this);
         _init.call(this);
+
+        _handleSwipe.call(this);
+    }
+
+    function _handleSwipe() {
+        var verticalShiftAbs, horisontalShiftAbs, isVertical;
+        this.options.sync.on("end", function (data) {
+            verticalShiftAbs = Math.abs(data.delta[1]);
+            horisontalShiftAbs = Math.abs(data.delta[0]);
+            isVertical = verticalShiftAbs > horisontalShiftAbs;
+
+            if (!isVertical) {
+                if (data.delta[0] < 0) {
+                    this.nextView();
+                }
+                else {
+                    this.prevView();
+                }
+            }
+        }.bind(this));
     }
 
     CommonPageView.prototype = Object.create(View.prototype);
@@ -62,9 +82,6 @@ define(function (require, exports, module) {
                 content: this.options.page + '. View ' + i
             });
             view.pipe(this._eventOutput);
-            view.on('click', function () {
-                that.nextView.call(that);
-            })
             this.views.push(view);
         }
 
@@ -78,12 +95,33 @@ define(function (require, exports, module) {
         var nextIndex = (this.currentIndex === this.views.length - 1) ? 0 : this.currentIndex + 1;
         var nextView = this.views[nextIndex];
 
-        this.lightbox.hide(currentView, function () {
+        this.lightbox.setOptions({
+            inTransform: Transform.translate(300, 0, 0),
+            outTransform: Transform.translate(-500, 0, 0)
+        })
 
+        this.lightbox.hide(currentView, function () {
             this.lightbox.show(nextView);
         }.bind(this))
 
         this.currentIndex = nextIndex;
+    }
+
+    CommonPageView.prototype.prevView = function () {
+        var currentView = this.views[this.currentIndex];
+        var prevIndex = (this.currentIndex === 0) ? this.contents.length - 1 : this.currentIndex - 1;
+        var prevView = this.views[prevIndex];
+
+        this.lightbox.setOptions({
+            outTransform: Transform.translate(300, 0, 0),
+            inTransform: Transform.translate(-500, 0, 0)
+        })
+
+        this.lightbox.hide(currentView, function () {
+            this.lightbox.show(prevView);
+        }.bind(this));
+
+        this.currentIndex = prevIndex;
     }
 
     module.exports = CommonPageView;

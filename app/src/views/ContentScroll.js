@@ -46,9 +46,9 @@ define(function (require, exports, module) {
         var that = this;
         this.contents = [];
 
-        this.homePageView = new CommonPageView({bgColor:'yellow', page:'Home'});
-        this.aboutUsView = new CommonPageView({bgColor:'orange', page:'About Us'});
-        this.demographicsView = new CommonPageView({bgColor:'blue', page:'Demographics'});
+        this.homePageView = new CommonPageView({bgColor:'yellow', page:'Home',sync:this.options.sync});
+        this.aboutUsView = new CommonPageView({bgColor:'orange', page:'About Us',sync:this.options.sync});
+        this.demographicsView = new CommonPageView({bgColor:'blue', page:'Demographics',sync:this.options.sync});
 
         this.homePageView.pipe(this.options.sync);
         this.aboutUsView.pipe(this.options.sync);
