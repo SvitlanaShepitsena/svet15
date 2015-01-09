@@ -10,12 +10,10 @@ define(function (require, exports, module) {
 
 
     function SlideView() {
-
         View.apply(this, arguments);
-
         this.rootModifier = new StateModifier({
-            align: [0.5, 0.0],
-            origin: [0.5, 0.0],
+            align: this.options.align,
+            origin: this.options.origin,
             size: this.options.size
         });
 
@@ -29,25 +27,29 @@ define(function (require, exports, module) {
     SlideView.prototype.constructor = SlideView;
 
     SlideView.DEFAULT_OPTIONS = {
-        size: [400, 550],
+        angle: -0.5,
+        align: [0.5, 0],
+        origin: [0.5, 0],
+        bg: '#ffffff',
+        boxShadow: '0 10px 20px -5px rgba(0, 0, 0, 0.5)',
         filmBorder: 15,
         photoBorder: 3,
-        angle: -0.5
+        size: [400, 550]
     };
 
     function _createBackground() {
-        var background = new Surface({
+        this.background = new Surface({
             properties: {
                 backgroundColor: this.options.bg,
-                boxShadow: '0 10px 20px -5px rgba(0, 0, 0, 0.5)',
+                boxShadow: this.options.boxShadow,
                 cursor: 'pointer'
             }
         });
-        background.pipe(this._eventOutput);
 
-        this.mainNode.add(background);
+        this.background.pipe(this._eventOutput);
+        this.mainNode.add(this.background);
 
-        background.on('click', function () {
+        this.background.on('click', function () {
             this._eventOutput.emit('click');
         }.bind(this));
     }
@@ -55,23 +57,22 @@ define(function (require, exports, module) {
 
     function _createView() {
 
-        var view = new Surface({
+        this.photoModifier = new StateModifier({
+            align: this.options.align,
+            origin: this.options.origin,
+            transform: Transform.translate(0, this.options.filmBorder + this.options.photoBorder, 0.1)
+        });
+
+        this.commonView = new Surface({
             size: this.options.size,
             content: this.options.content,
+            backgroundColor: 'blue',
             properties: {
                 zIndex: 2,
                 pointerEvents: 'none'
-
             }
         });
-
-        this.photoModifier = new StateModifier({
-            origin: [0.5, 0],
-            align: [0.5, 0],
-            transform: Transform.translate(20, this.options.filmBorder + this.options.photoBorder, 0.1)
-        });
-
-        this.mainNode.add(this.photoModifier).add(view);
+        this.mainNode.add(this.photoModifier).add(this.commonView);
     }
 
     SlideView.prototype.fadeIn = function () {

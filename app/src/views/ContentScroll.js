@@ -67,7 +67,6 @@ define(function (require, exports, module) {
             if (absolutePos < 0) {
                 this.scrollview.setPosition(0);
             }
-
         }.bind(this))
     };
 
