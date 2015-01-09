@@ -48,9 +48,9 @@ define(function (require, exports, module) {
         var that = this;
         this.contents = [];
 
-        this.homePageView = new CommonPageView({bgColor:'yellow', page:'Home'});
-        this.aboutUsView = new CommonPageView({bgColor:'orange', page:'About Us'});
-        this.demographicsView = new CommonPageView({bgColor:'blue', page:'Demographics'});
+        this.homePageView = new CommonPageView({bgColor: 'yellow', page: 'Home'});
+        this.aboutUsView = new CommonPageView({bgColor: 'orange', page: 'About Us'});
+        this.demographicsView = new CommonPageView({bgColor: 'blue', page: 'Demographics'});
 
         this.homePageView.pipe(this.scrollview);
         this.aboutUsView.pipe(this.scrollview);
@@ -62,7 +62,7 @@ define(function (require, exports, module) {
 
         this.scrollview.sequenceFrom(this.contents);
 
-        var maxSize = (this.contents.length-1)*(window.innerHeight-100);
+        var maxSize = (this.contents.length - 1) * (window.innerHeight - 100);
         this.scrollview.sync.on('update', function (data) {
 
             var absolutePos = this.scrollview.getAbsolutePosition();
