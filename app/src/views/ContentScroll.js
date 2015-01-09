@@ -62,15 +62,17 @@ define(function (require, exports, module) {
 
         this.scrollview.sequenceFrom(this.contents);
 
+        var maxSize = (this.contents.length-1)*(window.innerHeight-100);
         this.scrollview.sync.on('update', function (data) {
-            var currentIndex = that.scrollview.getPosition();
-
 
             var absolutePos = this.scrollview.getAbsolutePosition();
-            if (absolutePos < -100) {
-                this.scrollview.setPosition(-100);
+            if (absolutePos < -50) {
+                this.scrollview.setPosition(-50);
             }
-            console.log(absolutePos);
+
+            if (absolutePos > maxSize) {
+                this.scrollview.setPosition(50);
+            }
 
 
         }.bind(this))
