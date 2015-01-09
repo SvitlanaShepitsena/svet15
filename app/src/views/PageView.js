@@ -48,15 +48,19 @@ define(function (require, exports, module) {
         var currentIndex = 0;
         var part = 1 / 6;
         var prevElement, prevElementTemp,
-            verticalShiftAbs,horisontalShiftAbs,
+            verticalShiftAbs, horisontalShiftAbs,
             currentElement, currentElementTemp, direction;
 
 
         genericSync.on("update", function (data) {
-        verticalShiftAbs = Math.abs(data.delta[1]);
-        horisontalShiftAbs = Math.abs(data.delta[0]);
-            isVertical = (horisontalShiftAbs)
-        });
+            verticalShiftAbs = Math.abs(data.delta[1]);
+            horisontalShiftAbs = Math.abs(data.delta[0]);
+            isVertical = verticalShiftAbs > horisontalShiftAbs;
+
+            if (isVertical) {
+                this.content.nextPage();
+            }
+        }.bind(this));
 
         /* =Footer*/
         this.footers = [];

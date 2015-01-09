@@ -28,7 +28,7 @@ define(function (require, exports, module) {
             edgeGrip: 0.3,
             edgePeriod: 300,
             edgeDamp: 1,
-            margin: 16000,       // mostly safe
+            margin: 530,       // mostly safe
             paginated: true,
             pagePeriod: 500,
             pageDamp: 0.8,
@@ -59,11 +59,9 @@ define(function (require, exports, module) {
 
         this.scrollview.sequenceFrom(this.contents);
 
-        this.scrollview.pipe(this.generalSync);
-        var maxLength = this.contents.length * 750;
 
         this.scrollview.sync.on('update', function (data) {
-            var currentIndex =that.scrollview.getPosition();
+            var currentIndex = that.scrollview.getPosition();
 
 
             var absolutePos = this.scrollview.getAbsolutePosition();
@@ -75,6 +73,10 @@ define(function (require, exports, module) {
             }
         }.bind(this))
     };
+
+    ContentScroll.prototype.nextPage = function () {
+        this.scrollview.goToNextPage();
+    }
 
     module.exports = ContentScroll;
 });
