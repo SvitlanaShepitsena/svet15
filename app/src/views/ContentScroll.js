@@ -10,10 +10,8 @@ define(function (require, exports, module) {
 
     var CommonPageView = require('views/pages/common/CommonPageView');
 
-    function ContentScroll(sync) {
-        this.generalSync = sync;
+    function ContentScroll() {
         this.eventInput = new EventHandler();
-        /*Assign an event handler to receive an object's input events.*/
         EventHandler.setInputHandler(this, this.eventInput);
 
         ScrollContainer.apply(this, arguments);
@@ -52,9 +50,9 @@ define(function (require, exports, module) {
         this.aboutUsView = new CommonPageView({bgColor:'orange', page:'About Us'});
         this.demographicsView = new CommonPageView({bgColor:'blue', page:'Demographics'});
 
-        this.homePageView.pipe(this.scrollview);
-        this.aboutUsView.pipe(this.scrollview);
-        this.demographicsView.pipe(this.scrollview);
+        this.homePageView.pipe(this.options.sync);
+        this.aboutUsView.pipe(this.options.sync);
+        this.demographicsView.pipe(this.options.sync);
 
         this.contents.push(this.homePageView);
         this.contents.push(this.aboutUsView);
@@ -62,7 +60,9 @@ define(function (require, exports, module) {
 
         this.scrollview.sequenceFrom(this.contents);
 
+
         var maxSize = (this.contents.length-1)*(window.innerHeight-100);
+
         this.scrollview.sync.on('update', function (data) {
 
             var absolutePos = this.scrollview.getAbsolutePosition();
@@ -74,12 +74,14 @@ define(function (require, exports, module) {
                 this.scrollview.setPosition(50);
             }
 
-
         }.bind(this))
     };
 
     ContentScroll.prototype.nextPage = function () {
         this.scrollview.goToNextPage();
+    }
+    ContentScroll.prototype.prevPage = function () {
+        this.scrollview.goToPreviousPage();
     }
 
     module.exports = ContentScroll;
