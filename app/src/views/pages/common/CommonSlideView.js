@@ -4,9 +4,6 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
     var Transitionable = require('famous/transitions/Transitionable');
-    var SpringTransition = require('famous/transitions/SpringTransition');
-
-    Transitionable.registerMethod('spring', SpringTransition);
 
 
     function SlideView() {
@@ -18,7 +15,6 @@ define(function (require, exports, module) {
         });
 
         this.mainNode = this.add(this.rootModifier);
-
         _createBackground.call(this);
         _createViewContent.call(this);
     }
@@ -29,7 +25,7 @@ define(function (require, exports, module) {
     SlideView.DEFAULT_OPTIONS = {
         align: [0.5, 0.5],
         origin: [0.5, 0.5],
-        bg: '#ffffff',
+        bg: 'grey',
         boxShadow: '0 2px 4px -2px rgba(0, 0, 0, 0.5)',
         width: window.innerWidth,
         height: window.innerHeight
@@ -43,12 +39,9 @@ define(function (require, exports, module) {
                 cursor: 'pointer'
             }
         });
-
         this.background.pipe(this._eventOutput);
         this.mainNode.add(this.background);
-
     }
-
 
     function _createViewContent() {
         this.contentModifier = new StateModifier({
