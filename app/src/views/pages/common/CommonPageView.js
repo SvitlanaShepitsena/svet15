@@ -77,12 +77,12 @@ define(function (require, exports, module) {
         var colors = ['green', 'yellow', 'blue'];
 
         for (var i = 1; i < 4; i++) {
-            var view = new CommonSlideView({
+            var commonSlideView = new CommonSlideView({
                 bg: this.options.bgColor,
                 content: this.options.page + '. View ' + i
             });
-            view.pipe(this._eventOutput);
-            this.views.push(view);
+            commonSlideView.pipe(this._eventOutput);
+            this.views.push(commonSlideView);
         }
 
         this.lightbox = new Lightbox(this.options.lightboxOpts);

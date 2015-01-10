@@ -2,25 +2,23 @@ define(function (require, exports, module) {
 
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
-    var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
-    var ContentScroll = require('views/ContentScroll');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
     var GridLayout = require("famous/views/GridLayout");
+    var Transitionable = require('famous/transitions/Transitionable');
+    var Transform = require('famous/core/Transform');
+    var ContentScroll = require('views/ContentScroll');
+    var GenericSync = require("famous/inputs/GenericSync");
 
     var HeaderView = require('views/HeaderView');
-
-    var GenericSync = require("famous/inputs/GenericSync");
     var MouseSync = require("famous/inputs/MouseSync");
     var TouchSync = require("famous/inputs/TouchSync");
     var ScrollSync = require("famous/inputs/ScrollSync");
 
-    var Transitionable = require('famous/transitions/Transitionable');
-
-
     function PageView() {
-        var that = this;
         View.apply(this, arguments);
+        var isVertical, verticalShiftAbs, horisontalShiftAbs;
+        var that = this;
 
         GenericSync.register({
             mouse: MouseSync,
@@ -29,6 +27,7 @@ define(function (require, exports, module) {
         });
 
         var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
+
         this.layout = new HeaderFooterLayout({
             headerSize: this.options.headerSize,
             footerSize: this.options.footerSize
@@ -42,7 +41,6 @@ define(function (require, exports, module) {
         this.content = new ContentScroll({sync: genericSync});
         this.content.pipe(this);
 
-        var isVertical, verticalShiftAbs, horisontalShiftAbs;
 
         genericSync.on("end", function (data) {
             verticalShiftAbs = Math.abs(data.delta[1]);
