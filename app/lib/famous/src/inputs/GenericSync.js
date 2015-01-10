@@ -6,7 +6,7 @@
  * @license MPL 2.0
  * @copyright Famous Industries, Inc. 2014
  */
-define(function(require, exports, module) {
+define(function (require, exports, module) {
 
     var EventHandler = require('../core/EventHandler');
 
@@ -54,8 +54,8 @@ define(function(require, exports, module) {
      * @param syncObject {Object} an object of {sync key : sync options} fields
      */
     GenericSync.register = function register(syncObject) {
-        for (var key in syncObject){
-            if (registry[key]){ // skip redundant registration
+        for (var key in syncObject) {
+            if (registry[key]) { // skip redundant registration
                 if (registry[key] !== syncObject[key]) // only if same registered class
                     throw new Error('Conflicting sync classes for key: ' + key);
             }
@@ -69,8 +69,8 @@ define(function(require, exports, module) {
      * @method setOptions
      * @param options {Object} options object
      */
-    GenericSync.prototype.setOptions = function(options) {
-        for (var key in this._syncs){
+    GenericSync.prototype.setOptions = function (options) {
+        for (var key in this._syncs) {
             this._syncs[key].setOptions(options);
         }
     };

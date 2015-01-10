@@ -20,33 +20,40 @@ define(function (require, exports, module) {
         var isVertical, verticalShiftAbs, horisontalShiftAbs;
         var that = this;
 
-        GenericSync.register({
-            mouse: MouseSync,
-            touch: TouchSync,
-            scroll: ScrollSync
-        });
-
-        var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
-
         this.layout = new HeaderFooterLayout({
             headerSize: this.options.headerSize,
             footerSize: this.options.footerSize
         });
 
-        /*Header*/
+        /*=Header*/
         this.header = new HeaderView();
         this.header.pipe(this);
 
-        /*Content*/
+        /**
+         * Register Events
+         */
+        GenericSync.register({
+            mouse: MouseSync,
+            touch: TouchSync,
+            scroll: ScrollSync
+        });
+        var genericSync = new GenericSync(['mouse', 'touch', 'scroll']);
+
+        /*=Content*/
+        /**
+         * Cteate content With GenericSync param sync
+         */
         this.content = new ContentScroll({sync: genericSync});
         this.content.pipe(this);
 
-
+        /**
+         * Define wheter this scroll vertical
+         * Then if it is vertical, define wheter it is scroll up or down
+         */
         genericSync.on("end", function (data) {
             verticalShiftAbs = Math.abs(data.delta[1]);
             horisontalShiftAbs = Math.abs(data.delta[0]);
             isVertical = verticalShiftAbs > horisontalShiftAbs;
-
             if (isVertical) {
                 if (data.delta[1] < 0) {
                     this.content.nextPage();
@@ -85,6 +92,7 @@ define(function (require, exports, module) {
                 backgroundSize: 'cover'
             }
         })
+
         this.footers.push(this.footerLeft);
 
         this.footers.push(this.footerCenter);

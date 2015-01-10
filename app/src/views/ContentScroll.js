@@ -11,11 +11,9 @@ define(function (require, exports, module) {
     var CommonPageView = require('views/pages/common/CommonPageView');
 
     function ContentScroll() {
+        ScrollContainer.apply(this, arguments);
         this.eventInput = new EventHandler();
         EventHandler.setInputHandler(this, this.eventInput);
-
-        ScrollContainer.apply(this, arguments);
-        _createContent.call(this);
 
         this.scrollview.setOptions({
             direction: 1,
@@ -25,7 +23,7 @@ define(function (require, exports, module) {
             edgeGrip: 0.3,
             edgePeriod: 300,
             edgeDamp: 1,
-            margin: 5900,       // mostly safe
+            margin: 5900, // mostly safe
             paginated: true,
             pagePeriod: 500,
             pageDamp: 0.8,
@@ -35,6 +33,7 @@ define(function (require, exports, module) {
             groupScroll: false,
             syncScale: 0.5
         })
+        _createContent.call(this);
     }
 
     ContentScroll.prototype = Object.create(ScrollContainer.prototype);
@@ -46,10 +45,10 @@ define(function (require, exports, module) {
         var that = this;
         this.contents = [];
 
-        this.homePageView = new CommonPageView({bgColor:'yellow', page:'Home',sync:this.options.sync});
-        this.aboutUsView = new CommonPageView({bgColor:'orange', page:'About Us',sync:this.options.sync});
-        this.demographicsView = new CommonPageView({bgColor:'green', page:'Demographics',sync:this.options.sync});
-        this.clients = new CommonPageView({bgColor:'brown', page:'clients',sync:this.options.sync});
+        this.homePageView = new CommonPageView({bgColor: 'yellow', page: 'Home', sync: this.options.sync});
+        this.aboutUsView = new CommonPageView({bgColor: 'orange', page: 'About Us', sync: this.options.sync});
+        this.demographicsView = new CommonPageView({bgColor: 'green', page: 'Demographics', sync: this.options.sync});
+        this.clients = new CommonPageView({bgColor: 'brown', page: 'clients', sync: this.options.sync});
 
         this.homePageView.pipe(this.options.sync);
         this.aboutUsView.pipe(this.options.sync);
@@ -64,7 +63,7 @@ define(function (require, exports, module) {
         this.scrollview.sequenceFrom(this.contents);
 
 
-        var maxSize = (this.contents.length-1)*(window.innerHeight-100);
+        var maxSize = (this.contents.length - 1) * (window.innerHeight - 100);
 
         this.scrollview.sync.on('update', function (data) {
 

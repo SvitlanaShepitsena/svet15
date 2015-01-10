@@ -6,7 +6,7 @@ define(function (require, exports, module) {
     var Transitionable = require('famous/transitions/Transitionable');
 
 
-    function SlideView() {
+    function CommonSlideView() {
         View.apply(this, arguments);
         this.rootModifier = new StateModifier({
             align: this.options.align,
@@ -19,10 +19,10 @@ define(function (require, exports, module) {
         _createViewContent.call(this);
     }
 
-    SlideView.prototype = Object.create(View.prototype);
-    SlideView.prototype.constructor = SlideView;
+    CommonSlideView.prototype = Object.create(View.prototype);
+    CommonSlideView.prototype.constructor = CommonSlideView;
 
-    SlideView.DEFAULT_OPTIONS = {
+    CommonSlideView.DEFAULT_OPTIONS = {
         align: [0.5, 0.5],
         origin: [0.5, 0.5],
         bg: 'grey',
@@ -50,7 +50,6 @@ define(function (require, exports, module) {
             size: [this.options.width * .9, this.options.height * .8],
             transform: Transform.translate(0, 0, 2)
         });
-
         this.viewContent = new Surface({
             content: this.options.content,
             properties: {
@@ -61,5 +60,5 @@ define(function (require, exports, module) {
         this.mainNode.add(this.contentModifier).add(this.viewContent);
     }
 
-    module.exports = SlideView;
+    module.exports = CommonSlideView;
 });

@@ -14,34 +14,27 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         var centerModifier = new Modifier({
-            size: [undefined, window.innerHeight - 100],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5]
-        });
-        var underGround = new Surface({
-            size: [undefined, undefined],
-            properties: {
-                backgroundColor: "grey"
-            }
+            size: [undefined, this.options.height - 100]
         });
 
         this.rootNode = this.add(centerModifier);
-        this.rootNode.add(underGround);
 
         _createSlides.call(this);
         _init.call(this);
-
         _handleSwipe.call(this);
     }
 
     function _handleSwipe() {
         var that = this;
         var verticalShiftAbs, horisontalShiftAbs, isVertical;
+        /**
+         * Define wheter this scroll horizontal
+         * Then if it is horizontal, define wheter it is scroll back or force
+         */
         this.options.sync.on("end", function (data) {
             verticalShiftAbs = Math.abs(data.delta[1]);
             horisontalShiftAbs = Math.abs(data.delta[0]);
             isVertical = verticalShiftAbs > horisontalShiftAbs;
-
             if (!isVertical) {
                 if (data.delta[0] < 0) {
                     this.nextView.call(that);
@@ -58,6 +51,9 @@ define(function (require, exports, module) {
 
     CommonPageView.DEFAULT_OPTIONS = {
         size: [undefined, undefined],
+        bg: null,
+        width: window.innerWidth,
+        height: window.innerHeight,
         lightboxOpts: {
             inTransform: Transform.translate(300, 0, 0),
             outTransform: Transform.translate(-500, 0, 0),
@@ -73,23 +69,18 @@ define(function (require, exports, module) {
     }
 
     function _createSlides() {
-        var that = this;
         this.views = [];
-        var colors = ['green', 'yellow', 'blue'];
-
         for (var i = 1; i < 4; i++) {
-            var commonSlideView = new CommonSlideView({
+            this.commonSlideView = new CommonSlideView({
                 bg: this.options.bgColor,
                 content: this.options.page + '. View ' + i
             });
-            commonSlideView.pipe(this._eventOutput);
-            this.views.push(commonSlideView);
+            this.commonSlideView.pipe(this._eventOutput);
+            this.views.push(this.commonSlideView);
         }
-
         this.lightbox = new Lightbox(this.options.lightboxOpts);
         this.rootNode.add(this.lightbox);
     }
-
 
     CommonPageView.prototype.nextView = function () {
         var currentView = this.views[this.currentIndex];
