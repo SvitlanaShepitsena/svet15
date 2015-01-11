@@ -14,7 +14,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         var centerModifier = new Modifier({
-            size: [undefined, this.options.height - 100]
+            size: [undefined, this.options.height - 0.2 * this.options.height]
         });
         this.rootNode = this.add(centerModifier);
 

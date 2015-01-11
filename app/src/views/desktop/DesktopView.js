@@ -38,6 +38,7 @@ define(function (require, exports, module) {
         this.layout.header = new HeaderView();
 
         this.layout.content = new DeskScroll();
+        this.layout.footer = new FooterView();
 
         this.rootNode.add(this.layout);
     }

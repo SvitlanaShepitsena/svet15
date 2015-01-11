@@ -66,19 +66,19 @@ define(function (require, exports, module) {
         this.contents.push(this.clients);
         this.scrollview.sequenceFrom(this.contents);
 
-        var maxSize = (this.contents.length - 1) * (window.innerHeight - 100);
+        //var maxSize = (this.contents.length - 1) * (window.innerHeight - 100);
         /**
          * Handle 'update' event With GenericSync
          */
-        this.scrollview.sync.on('update', function (data) {
-            var absolutePos = this.scrollview.getAbsolutePosition();
-            if (absolutePos < -50) {
-                this.scrollview.setPosition(-50);
-            }
-            if (absolutePos > maxSize) {
-                this.scrollview.setPosition(50);
-            }
-        }.bind(this))
+        //this.scrollview.sync.on('update', function (data) {
+        //    var absolutePos = this.scrollview.getAbsolutePosition();
+        //    if (absolutePos < -50) {
+        //        this.scrollview.setPosition(-50);
+        //    }
+        //    if (absolutePos > maxSize) {
+        //        this.scrollview.setPosition(50);
+        //    }
+        //}.bind(this))
     };
 
     ContentScroll.prototype.nextPage = function () {

@@ -200,8 +200,8 @@ define(function (require, exports, module) {
     }
 
     PageView.DEFAULT_OPTIONS = {
-        headerSize: 50,
-        footerSize: 50
+        headerSize: 0.1*window.innerHeight,
+        footerSize: 0.1*window.innerHeight
     };
 
     PageView.prototype = Object.create(View.prototype);
