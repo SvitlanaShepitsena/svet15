@@ -16,6 +16,8 @@ define(function (require, exports, module) {
 
     }
 
+    var bdr = '2px inset #F4B6AB';
+
     function _flex() {
         this.flexMod = new Modifier({
             align: [0.5, 0.5],
@@ -34,6 +36,7 @@ define(function (require, exports, module) {
             content: "Primary Surface",
             properties: {
                 backgroundColor: '#FFF2DF',
+                borderBottom: bdr,
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -44,7 +47,8 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: '#F78C73',
+                backgroundColor: '#FFF2DF',
+                borderBottom: bdr,
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -55,7 +59,8 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: '#FFC49B',
+                backgroundColor: '#FFF2DF',
+                borderBottom: bdr,
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -66,7 +71,8 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: '#E8E7B6',
+                backgroundColor: '#FFF2DF',
+                borderBottom: bdr,
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -77,7 +83,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: '#AEF2DF',
+                backgroundColor: '#FFF2DF',
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
