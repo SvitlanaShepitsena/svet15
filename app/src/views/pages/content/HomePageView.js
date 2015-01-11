@@ -41,7 +41,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: 'red',
+                backgroundColor: '#FFF2DF',
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -52,7 +52,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: 'green',
+                backgroundColor: '#F78C73',
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -63,7 +63,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: 'yellow',
+                backgroundColor: '#FFC49B',
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -74,7 +74,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: 'brown',
+                backgroundColor: '#E8E7B6',
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -85,7 +85,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: 'pink',
+                backgroundColor: '#AEF2DF',
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }

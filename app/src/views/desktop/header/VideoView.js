@@ -18,7 +18,7 @@ define(function (require, exports, module) {
 
         this.videoElement = target;
         setInterval(function () {
-            //this.play();
+            this.play();
         }.bind(this), 44000);
     }
 
