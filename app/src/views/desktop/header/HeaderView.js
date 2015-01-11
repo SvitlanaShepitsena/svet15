@@ -33,7 +33,7 @@ define(function (require, exports, module) {
         });
 
         this.rootNode = this.add(this.centerModifier);
-        this.opacityTransitionable.set(1, {duration:1000,  curve : 'easeInOut'});
+        this.opacityTransitionable.set(0.6, {duration:1000,  curve : 'easeInOut'});
     }
 
 
@@ -74,7 +74,7 @@ define(function (require, exports, module) {
 
         this.layout.sequenceFrom(this.contents);
 
-        this.add(this.layout);
+        this.rootNode.add(this.layout);
 
     }
 
