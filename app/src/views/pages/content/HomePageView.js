@@ -16,6 +16,8 @@ define(function (require, exports, module) {
 
     }
 
+    var bdr = '2px inset #F4B6AB';
+
     function _flex() {
         this.flexMod = new Modifier({
             align: [0.5, 0.5],
@@ -33,7 +35,8 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: 'red',
+                backgroundColor: '#FFF2DF',
+                borderBottom: bdr,
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -44,7 +47,8 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: 'green',
+                backgroundColor: '#FFF2DF',
+                borderBottom: bdr,
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -55,7 +59,8 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: 'yellow',
+                backgroundColor: '#FFF2DF',
+                borderBottom: bdr,
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -66,7 +71,8 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: 'brown',
+                backgroundColor: '#FFF2DF',
+                borderBottom: bdr,
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
@@ -77,7 +83,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "Primary Surface",
             properties: {
-                backgroundColor: 'pink',
+                backgroundColor: '#FFF2DF',
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }

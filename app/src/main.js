@@ -13,8 +13,6 @@ define(['require', 'famous/core/Engine', 'views/AppView', 'views/desktop/Desktop
             window.location.reload();
         }
     });
-
-
     mainContext.add(appView);
 });
 
