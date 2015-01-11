@@ -16,34 +16,11 @@ define(function (require, exports, module) {
         var centerModifier = new Modifier({
             size: [undefined, this.options.height - 100]
         });
-
         this.rootNode = this.add(centerModifier);
 
         _createSlides.call(this);
-        _init.call(this);
         _handleSwipe.call(this);
-    }
-
-    function _handleSwipe() {
-        var that = this;
-        var verticalShiftAbs, horisontalShiftAbs, isVertical;
-        /**
-         * Define wheter this scroll horizontal
-         * Then if it is horizontal, define wheter it is scroll back or force
-         */
-        this.options.sync.on("end", function (data) {
-            verticalShiftAbs = Math.abs(data.delta[1]);
-            horisontalShiftAbs = Math.abs(data.delta[0]);
-            isVertical = verticalShiftAbs > horisontalShiftAbs;
-            if (!isVertical) {
-                if (data.delta[0] < 0) {
-                    this.nextView.call(that);
-                }
-                else {
-                    this.prevView.call(that);
-                }
-            }
-        }.bind(this));
+        _init.call(this);
     }
 
     CommonPageView.prototype = Object.create(View.prototype);
@@ -62,12 +39,6 @@ define(function (require, exports, module) {
         }
     };
 
-    function _init() {
-        this.currentIndex = 0;
-        this.currentView = this.views[this.currentIndex];
-        this.lightbox.show(this.currentView);
-    }
-
     function _createSlides() {
         this.views = [];
         for (var i = 1; i < 4; i++) {
@@ -75,6 +46,9 @@ define(function (require, exports, module) {
                 bg: this.options.bgColor,
                 content: this.options.page + '. View ' + i
             });
+            /**
+             * Pipe events from surface to view
+             */
             this.commonSlideView.pipe(this._eventOutput);
             this.views.push(this.commonSlideView);
         }
@@ -88,8 +62,8 @@ define(function (require, exports, module) {
         var nextView = this.views[nextIndex];
 
         this.lightbox.setOptions({
-            inTransform: Transform.translate(300, 0, 0),
-            outTransform: Transform.translate(-500, 0, 0)
+            inTransform: this.options.lightboxOpts.inTransform,
+            outTransform: this.options.lightboxOpts.outTransform
         })
 
         this.lightbox.hide(currentView, function () {
@@ -105,8 +79,8 @@ define(function (require, exports, module) {
         var prevView = this.views[prevIndex];
 
         this.lightbox.setOptions({
-            outTransform: Transform.translate(300, 0, 0),
-            inTransform: Transform.translate(-500, 0, 0)
+            inTransform: this.options.lightboxOpts.outTransform,
+            outTransform: this.options.lightboxOpts.inTransform
         })
 
         this.lightbox.hide(currentView, function () {
@@ -114,6 +88,34 @@ define(function (require, exports, module) {
         }.bind(this));
 
         this.currentIndex = prevIndex;
+    }
+
+    function _init() {
+        this.currentIndex = 0;
+        this.currentView = this.views[this.currentIndex];
+        this.lightbox.show(this.currentView);
+    }
+
+    function _handleSwipe() {
+        var that = this;
+        var verticalShiftAbs, horisontalShiftAbs, isVertical;
+        /**
+         * Define wheter this scroll is horizontal
+         * Then if it is horizontal, define wheter it is scroll back or force
+         */
+        this.options.sync.on("end", function (data) {
+            verticalShiftAbs = Math.abs(data.delta[1]);
+            horisontalShiftAbs = Math.abs(data.delta[0]);
+            isVertical = verticalShiftAbs > horisontalShiftAbs;
+            if (!isVertical) {
+                if (data.delta[0] < 0) {
+                    this.nextView.call(that);
+                }
+                else {
+                    this.prevView.call(that);
+                }
+            }
+        }.bind(this));
     }
 
     module.exports = CommonPageView;

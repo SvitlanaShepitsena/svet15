@@ -5,16 +5,8 @@ define(function (require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
     var Transitionable = require('famous/transitions/Transitionable');
 
-
     function CommonSlideView() {
         View.apply(this, arguments);
-        this.rootModifier = new StateModifier({
-            align: this.options.align,
-            origin: this.options.origin,
-            size: this.options.size
-        });
-
-        this.mainNode = this.add(this.rootModifier);
         _createBackground.call(this);
         _createViewContent.call(this);
     }
@@ -32,6 +24,11 @@ define(function (require, exports, module) {
     };
 
     function _createBackground() {
+        this.rootModifier = new StateModifier({
+            align: this.options.align,
+            origin: this.options.origin,
+            size: [undefined, undefined]
+        });
         this.background = new Surface({
             properties: {
                 backgroundColor: this.options.bg,
@@ -39,8 +36,11 @@ define(function (require, exports, module) {
                 cursor: 'pointer'
             }
         });
+
         this.background.pipe(this._eventOutput);
-        this.mainNode.add(this.background);
+
+        this.rootNode = this.add(this.rootModifier);
+        this.rootNode.add(this.background);
     }
 
     function _createViewContent() {
@@ -57,7 +57,7 @@ define(function (require, exports, module) {
                 pointerEvents: 'none'
             }
         });
-        this.mainNode.add(this.contentModifier).add(this.viewContent);
+        this.rootNode.add(this.contentModifier).add(this.viewContent);
     }
 
     module.exports = CommonSlideView;

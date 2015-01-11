@@ -4,20 +4,20 @@ define(function (require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var View = require('famous/core/View');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
+    var HeaderView = require('views/HeaderView');
     var GridLayout = require("famous/views/GridLayout");
     var Transitionable = require('famous/transitions/Transitionable');
     var Transform = require('famous/core/Transform');
-    var ContentScroll = require('views/ContentScroll');
-    var GenericSync = require("famous/inputs/GenericSync");
 
-    var HeaderView = require('views/HeaderView');
+    var GenericSync = require("famous/inputs/GenericSync");
     var MouseSync = require("famous/inputs/MouseSync");
     var TouchSync = require("famous/inputs/TouchSync");
     var ScrollSync = require("famous/inputs/ScrollSync");
 
+    var ContentScroll = require('views/ContentScroll');
+
     function PageView() {
         View.apply(this, arguments);
-        var isVertical, verticalShiftAbs, horisontalShiftAbs;
         var that = this;
 
         this.layout = new HeaderFooterLayout({
@@ -30,7 +30,7 @@ define(function (require, exports, module) {
         this.header.pipe(this);
 
         /**
-         * Register Events
+         * Register a global sync classes with an identifying key
          */
         GenericSync.register({
             mouse: MouseSync,
@@ -50,6 +50,7 @@ define(function (require, exports, module) {
          * Define wheter this scroll vertical
          * Then if it is vertical, define wheter it is scroll up or down
          */
+        var isVertical, verticalShiftAbs, horisontalShiftAbs;
         genericSync.on("end", function (data) {
             verticalShiftAbs = Math.abs(data.delta[1]);
             horisontalShiftAbs = Math.abs(data.delta[0]);
@@ -195,7 +196,6 @@ define(function (require, exports, module) {
         this.layout.footer.add(this.modifier6).add(this.surface6).add(this.footer);
 
         this._eventInput.pipe(this._eventOutput);
-
         this.add(this.layout);
     }
 

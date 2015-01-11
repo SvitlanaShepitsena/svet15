@@ -1,17 +1,19 @@
 define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
-    var Modifier = require('famous/core/Modifier');
-    var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
-    var ScrollContainer = require('famous/views/ScrollContainer');
-    var ViewSequence = require('famous/core/ViewSequence');
+    var Modifier = require('famous/core/Modifier');
     var StateModifier = require('famous/modifiers/StateModifier');
+    var Transform = require('famous/core/Transform');
+    var ScrollContainer = require('famous/views/ScrollContainer');
     var EventHandler = require('famous/core/EventHandler');
 
     var CommonPageView = require('views/pages/common/CommonPageView');
 
     function ContentScroll() {
         ScrollContainer.apply(this, arguments);
+        /**
+         * Assign an event handler to receive an object's input events.
+         */
         this.eventInput = new EventHandler();
         EventHandler.setInputHandler(this, this.eventInput);
 
@@ -49,7 +51,9 @@ define(function (require, exports, module) {
         this.aboutUsView = new CommonPageView({bgColor: 'orange', page: 'About Us', sync: this.options.sync});
         this.demographicsView = new CommonPageView({bgColor: 'green', page: 'Demographics', sync: this.options.sync});
         this.clients = new CommonPageView({bgColor: 'brown', page: 'clients', sync: this.options.sync});
-
+        /**
+         * Eventually connect each page view to GenericSync
+         */
         this.homePageView.pipe(this.options.sync);
         this.aboutUsView.pipe(this.options.sync);
         this.demographicsView.pipe(this.options.sync);
@@ -64,18 +68,17 @@ define(function (require, exports, module) {
 
 
         var maxSize = (this.contents.length - 1) * (window.innerHeight - 100);
-
+        /**
+         * Handle 'update' event With GenericSync
+         */
         this.scrollview.sync.on('update', function (data) {
-
             var absolutePos = this.scrollview.getAbsolutePosition();
             if (absolutePos < -50) {
                 this.scrollview.setPosition(-50);
             }
-
             if (absolutePos > maxSize) {
                 this.scrollview.setPosition(50);
             }
-
         }.bind(this))
     };
 
