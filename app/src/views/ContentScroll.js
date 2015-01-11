@@ -4,10 +4,11 @@ define(function (require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var StateModifier = require('famous/modifiers/StateModifier');
     var Transform = require('famous/core/Transform');
-    var ScrollContainer = require('famous/views/ScrollContainer');
     var EventHandler = require('famous/core/EventHandler');
-
+    var ScrollContainer = require('famous/views/ScrollContainer');
     var CommonPageView = require('views/pages/common/CommonPageView');
+    var HomePageView = require('views/pages/content/HomePageView');
+
 
     function ContentScroll() {
         ScrollContainer.apply(this, arguments);
@@ -47,7 +48,7 @@ define(function (require, exports, module) {
         var that = this;
         this.contents = [];
 
-        this.homePageView = new CommonPageView({bgColor: 'yellow', page: 'Home', sync: this.options.sync});
+        this.homePageView = new HomePageView();
         this.aboutUsView = new CommonPageView({bgColor: 'orange', page: 'About Us', sync: this.options.sync});
         this.demographicsView = new CommonPageView({bgColor: 'green', page: 'Demographics', sync: this.options.sync});
         this.clients = new CommonPageView({bgColor: 'brown', page: 'clients', sync: this.options.sync});
@@ -63,9 +64,7 @@ define(function (require, exports, module) {
         this.contents.push(this.aboutUsView);
         this.contents.push(this.demographicsView);
         this.contents.push(this.clients);
-
         this.scrollview.sequenceFrom(this.contents);
-
 
         var maxSize = (this.contents.length - 1) * (window.innerHeight - 100);
         /**
