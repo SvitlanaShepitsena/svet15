@@ -47,7 +47,7 @@ define(function (require, exports, module) {
                 content: this.options.page + '. View ' + i
             });
             /**
-             * Pipe events from surface to view with __eventOutput obj from GenericSync)
+             * Pipe events from surface to view
              */
             this.commonSlideView.pipe(this._eventOutput);
             this.views.push(this.commonSlideView);

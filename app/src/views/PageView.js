@@ -195,6 +195,7 @@ define(function (require, exports, module) {
         this.layout.footer.add(this.modifier5).add(this.surface5).add(this.footer);
         this.layout.footer.add(this.modifier6).add(this.surface6).add(this.footer);
 
+        this._eventInput.pipe(this._eventOutput);
         this.add(this.layout);
     }
 
