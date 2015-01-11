@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
-
+    var DeskScroll = require('dviews/content/DeskScroll');
     var VideoSurface = require('famous/surfaces/VideoSurface');
 
     var VideoView = require('dviews/header/VideoView');
@@ -36,6 +36,9 @@ define(function (require, exports, module) {
     function _headerFooterLayout() {
         this.layout = new HeaderFooterLayout(this.options.layout);
         this.layout.header = new HeaderView();
+
+        this.layout.content = new DeskScroll();
+
         this.rootNode.add(this.layout);
     }
 

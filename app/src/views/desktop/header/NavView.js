@@ -11,12 +11,13 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
 
-        this.center = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            transform: Transform.translate(0, 0, 0)
+        this.centerModifier = new Modifier({
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            transform: Transform.translate(70, 40, 0)
         });
         this.rootNode = this.add(this.centerModifier);
+
         _grid.call(this);
 
     }
@@ -26,18 +27,20 @@ define(function (require, exports, module) {
             dimensions: [6, 1],
             direction:0
         });
-        this.rootNode.add(this.grid);
 
         this.navs = [];
         var icons = ['home', 'about-us', 'clients', 'demographics', 'radio', 'contact-us'];
 
         for (var i = 0; i < 6; i++) {
-            var imageSurface = new ImageSurface();
-            imageSurface.setContent('img/nav-icons/' + icons[i] + '.png');
+            var imageSurface = new ImageSurface({
+                size:[110,150]
+            });
+            imageSurface.setContent('img/d-nav/d-' + icons[i] + '.png');
             this.navs.push(imageSurface);
         }
 
         this.grid.sequenceFrom(this.navs);
+        this.rootNode.add(this.grid);
     }
 
     NavView.prototype = Object.create(View.prototype);
