@@ -19,7 +19,7 @@ define(['require', 'famous/core/Engine', 'views/AppView', 'views/desktop/Desktop
 });
 
 window.responsive = function responsive() {
-    var MOBILEWIDTH = 1490;
+    var MOBILEWIDTH = 490;
     var device;
     switch (true) {
         case window.innerWidth <= MOBILEWIDTH:
