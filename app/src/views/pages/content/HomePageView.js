@@ -51,47 +51,55 @@ define(function (require, exports, module) {
             "<h4>SVET Daily Newspaper</h4>" +
             "<p>Over 48 pages. It is the most up-to-date Russian language newspaper in USA.</p></li>" +
             "</ul>",
-            properties: {
-                paddingLeft: '10px',
-                paddingRight: '10px',
-                paddingTop: '5px',
-                backgroundColor: '#FFF2DF',
-                display: 'inline-block',
-                borderBottom: bdr,
-                textAlign: "center"
-            }
+            properties: this.options.sectionProp
         });
 
 
         this.fSurface3 = new Surface({
             size: [undefined, undefined],
-            content: "Primary Surface",
-            properties: {
-                backgroundColor: '#FFF2DF',
-                borderBottom: bdr,
-                textAlign: "center"
-            }
+            content: "<ul class='list-inline'>" +
+            "<li class='li-img'>" +
+            '<div class="img-responsive">' +
+            "<img class='img-responsive' src='img/home-page/icons-color/news-daily-or.png'>" +
+            '</div>' +
+            "</li>" +
+            "<li class='li-text'>" +
+            "<h4>Saturday Plus Weekly Newspaper</h4>" +
+            "<p>Free Paper with over 48 pages weekly. It covers entertainment and other social news in Unites States and abroad.</p></li>" +
+            "</ul>",
+            properties: this.options.sectionProp
         });
 
 
         this.fSurface4 = new Surface({
             size: [undefined, undefined],
-            content: "Primary Surface",
-            properties: {
-                backgroundColor: '#FFF2DF',
-                borderBottom: bdr,
-                textAlign: "center"
-            }
+            content: "<ul class='list-inline'>" +
+            "<li class='li-img'>" +
+            '<div class="img-responsive">' +
+            "<img class='img-responsive' src='img/home-page/icons-color/news-daily-or.png'>" +
+            '</div>' +
+            "</li>" +
+            "<li class='li-text'>" +
+            "<h4>Russian-American Yellow Pages</h4>" +
+            "<p>The Russian YP present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area.</p></li>" +
+            "</ul>",
+            properties: this.options.sectionProp
         });
 
 
         this.fSurface5 = new Surface({
             size: [undefined, undefined],
-            content: "Primary Surface",
-            properties: {
-                backgroundColor: '#FFF2DF',
-                textAlign: "center"
-            }
+            content: "<ul class='list-inline'>" +
+            "<li class='li-img'>" +
+            '<div class="img-responsive">' +
+            "<img class='img-responsive' src='img/home-page/icons-color/news-daily-or.png'>" +
+            '</div>' +
+            "</li>" +
+            "<li class='li-text'>" +
+            "<h4>Radio Program “OSA”</h4>" +
+            "<p>Every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m. listen to Radio OSA programs.</p></li>" +
+            "</ul>",
+            properties: this.options.sectionProp
         });
         this.fSurface1.pipe(this._eventOutput);
         this.fSurface2.pipe(this._eventOutput);
@@ -113,11 +121,11 @@ define(function (require, exports, module) {
     HomePageView.DEFAULT_OPTIONS = {
         height: window.innerHeight,
         width: window.innerWidth,
-        propTop: {
-            padding: '10px',
-            lineHeight: '26px',
+        sectionProp: {
             backgroundColor: '#FFF2DF',
-            fontSize: "16",
+            paddingLeft: '10px',
+            paddingRight: '10px',
+            paddingTop: '5px',
             borderBottom: bdr,
             textAlign: "center"
         }
