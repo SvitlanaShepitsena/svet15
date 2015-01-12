@@ -1,27 +1,36 @@
 /*Headers*/
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 500px) {
   h1 {
     font-size: 32px;
   }
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 500px) {
   h2 {
     font-size: 26px;
   }
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 500px) {
   h3 {
     font-size: 20px;
   }
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 500px) {
   h4 {
     font-size: 16px;
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
   }
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 400px) {
   p {
     font-size: 12px;
+    line-height: 16px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  p {
+    font-size: 11px;
+    line-height: 14px;
   }
 }
 hr {
@@ -40,12 +49,120 @@ body {
   color: #3e3a3b;
 }
 /**********************
+    =Header
+**********************/
+.img-hamb {
+  width: 100%;
+}
+@media only screen and (max-width: 500px) {
+  .img-hamb {
+    width: 15%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .img-hamb {
+    width: 15%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .img-hamb {
+    width: 14%;
+  }
+}
+.svet-h {
+  font-weight: bold;
+  margin: 0px;
+  line-height: 180%;
+}
+@media only screen and (max-width: 500px) {
+  .svet-h {
+    line-height: 240%;
+    font-size: 22px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .svet-h {
+    line-height: 200%;
+    font-size: 22px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .svet-h {
+    line-height: 210%;
+    font-size: 18px;
+  }
+}
+/**********************
     =Home
 **********************/
+@media only screen and (max-width: 500px) {
+  .img-logo-mob {
+    margin-bottom: 10px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .img-logo-mob {
+    width: 40%;
+    margin: 0 auto;
+    margin-bottom: 5px;
+  }
+}
 .em-svet {
   font-size: 18px;
   font-weight: 700;
 }
+@media only screen and (max-width: 350px) {
+  .em-svet {
+    font-size: 14px;
+  }
+}
 .p-svet {
   font-size: 14px;
+}
+@media only screen and (max-width: 350px) {
+  .p-svet {
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
+.li-img {
+  width: 30%;
+  display: inline-block;
+  float: left;
+}
+@media only screen and (max-width: 500px) {
+  .li-img {
+    width: 25%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .li-img {
+    width: 26%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .li-img {
+    width: 20%;
+  }
+}
+.li-text {
+  width: 70%;
+  display: inline-block;
+  float: left;
+  text-align: left;
+}
+@media only screen and (max-width: 500px) {
+  .li-text {
+    width: 70%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .li-text {
+    width: 74%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .li-text {
+    width: 80%;
+  }
 }

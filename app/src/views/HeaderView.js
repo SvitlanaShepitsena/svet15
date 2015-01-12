@@ -13,7 +13,6 @@ define(function (require, exports, module) {
 
     HeaderView.prototype = Object.create(View.prototype);
     HeaderView.prototype.constructor = HeaderView;
-
     function _createHeader() {
         var backgroundSurface = new Surface({
             size: [undefined, undefined],
@@ -26,8 +25,8 @@ define(function (require, exports, module) {
         });
 
         this.hamburgerSurface = new Surface({
-            size: [53, undefined],
-            content: '<img width="53" src="../../img/hamburger-template.png"/>',
+            size: [undefined, undefined],
+            content: '<img class="img-hamb" src="../../img/hamburger-template.png"/>',
             properties: {
                 zIndex: '10'
             }
@@ -36,7 +35,7 @@ define(function (require, exports, module) {
 
         this.titleSurface = new Surface({
             size: [undefined, undefined],
-            content: 'SVET Media Group',
+            content: '<h1 class="svet-h">SVET Media Group</h1>',
             properties: {
                 fontSize: '22px',
                 textAlign: 'center',

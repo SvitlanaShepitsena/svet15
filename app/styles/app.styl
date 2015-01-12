@@ -1,8 +1,8 @@
 @import 'jeet'
 
-size-xs = 400px
-size-s = 600px
-size-m = 800px
+size-xs = 350px
+size-s = 400px
+size-m = 500px
 size-l = 1050px
 size-xl = 1800px
 
@@ -24,10 +24,16 @@ h3
 h4
     +below(size-m)
         font-size 16px
+        margin-bottom 5px !important
+        margin-top 5px !important
 
 p
     +below(size-s)
         font-size 12px
+        line-height 16px
+    +below(size-xs)
+        font-size 11px
+        line-height 14px
 
 hr
     color lighten(color-main, 50%)
@@ -45,12 +51,72 @@ body
     color #3E3A3B
 
 /**********************
+    =Header
+**********************/
+.img-hamb
+    width 100%
+    +below(size-m)
+        width 15%
+    +below(size-s)
+        width 15%
+    +below(size-xs)
+        width 14%
+.svet-h
+    font-weight bold
+    margin 0px
+    line-height 180%
+    +below(size-m)
+        line-height 240%
+        font-size 22px
+    +below(size-s)
+        line-height 200%
+        font-size 22px
+    +below(size-xs)
+        line-height 210%
+        font-size 18px
+
+/**********************
     =Home
 **********************/
+.img-logo-mob
+    +below(size-m)
+        margin-bottom 10px
+    +below(size-xs)
+        width 40%
+        margin 0 auto
+        margin-bottom 5px
+
 .em-svet
     font-size 18px
     font-weight 700
+    +below(size-xs)
+        font-size 14px
 
 .p-svet
     font-size 14px
+    +below(size-xs)
+        font-size 11px
+        line-height 18px
 
+.li-img
+    width 30%
+    display inline-block
+    float left
+    +below(size-m)
+        width 25%
+    +below(size-s)
+        width 26%
+    +below(size-xs)
+        width 20%
+
+.li-text
+    width 70%
+    display inline-block
+    float left
+    text-align left
+    +below(size-m)
+        width 70%
+    +below(size-s)
+        width 74%
+    +below(size-xs)
+        width 80%

@@ -30,13 +30,11 @@ define(function (require, exports, module) {
         this.flexContent = [];
 
         this.fSurface1 = new Surface({
-            content: "<img src='img/home-page/svet-logo-mob.png'>" +
+            content: "<img class='img-logo-mob' src='img/home-page/svet-logo-mob.png'>" +
             " <p class='p-svet'><span class='em-svet'>SVET Media Group</span> is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>",
             properties: {
                 padding: '10px',
-                lineHeight: '26px',
                 backgroundColor: '#FFF2DF',
-                fontSize: "16",
                 borderBottom: bdr,
                 textAlign: "center"
             }
@@ -44,12 +42,19 @@ define(function (require, exports, module) {
         this.fSurface2 = new Surface({
             size: [undefined, undefined],
             content: "<ul class='list-inline'>" +
-            "<li>" +
-            "<img width='20' src='img/home-page/news-daily-150.png'>" +
+            "<li class='li-img'>" +
+            '<div class="img-responsive">' +
+            "<img class='img-responsive' src='img/home-page/icons-color/news-daily-or.png'>" +
+            '</div>' +
             "</li>" +
-            "<li><p>At vero eos et accusamus et iusto odio dignissimos ducimus</p></li>" +
+            "<li class='li-text'>" +
+            "<h4>SVET Daily Newspaper</h4>" +
+            "<p>Over 48 pages. It is the most up-to-date Russian language newspaper in USA.</p></li>" +
             "</ul>",
             properties: {
+                paddingLeft: '10px',
+                paddingRight: '10px',
+                paddingTop: '5px',
                 backgroundColor: '#FFF2DF',
                 display: 'inline-block',
                 borderBottom: bdr,
