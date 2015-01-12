@@ -16,7 +16,7 @@ define(function (require, exports, module) {
 
     }
 
-    var bdr = '2px inset #F4B6AB';
+    var bdr = '2px solid #F4B6AB';
 
     function _flex() {
         this.flexMod = new Modifier({
@@ -37,7 +37,6 @@ define(function (require, exports, module) {
             properties: {
                 backgroundColor: '#FFF2DF',
                 borderBottom: bdr,
-                lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
         });
@@ -49,7 +48,6 @@ define(function (require, exports, module) {
             properties: {
                 backgroundColor: '#FFF2DF',
                 borderBottom: bdr,
-                lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
         });
@@ -61,7 +59,6 @@ define(function (require, exports, module) {
             properties: {
                 backgroundColor: '#FFF2DF',
                 borderBottom: bdr,
-                lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
         });
@@ -73,7 +70,6 @@ define(function (require, exports, module) {
             properties: {
                 backgroundColor: '#FFF2DF',
                 borderBottom: bdr,
-                lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
         });
@@ -84,7 +80,6 @@ define(function (require, exports, module) {
             content: "Primary Surface",
             properties: {
                 backgroundColor: '#FFF2DF',
-                lineHeight: window.innerHeight + "px",
                 textAlign: "center"
             }
         });

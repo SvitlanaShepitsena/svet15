@@ -190,7 +190,7 @@ define(function (require, exports, module) {
 
         this.layout.footer.add(this.modifier1).add(this.surface1).add(this.footer);
         this.layout.footer.add(this.modifier2).add(this.surface2).add(this.footer);
-        this.layout.footer.add(this.modifier3).add(this.surface3).add(this.footer);
+        this.layout.footer.add(this.modifier3).add(this.surface3).add(this.foggoter);
         this.layout.footer.add(this.modifier4).add(this.surface4).add(this.footer);
         this.layout.footer.add(this.modifier5).add(this.surface5).add(this.footer);
         this.layout.footer.add(this.modifier6).add(this.surface6).add(this.footer);
@@ -200,8 +200,8 @@ define(function (require, exports, module) {
     }
 
     PageView.DEFAULT_OPTIONS = {
-        headerSize: 0.1*window.innerHeight,
-        footerSize: 0.1*window.innerHeight
+        headerSize: 0.07 * window.innerHeight,
+        footerSize: 0.07 * window.innerHeight
     };
 
     PageView.prototype = Object.create(View.prototype);
