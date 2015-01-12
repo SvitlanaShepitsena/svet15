@@ -7,7 +7,10 @@ define(function (require, exports, module) {
 
     var HomeDesk = require('dviews/content/dpages/HomeDesk');
     var AboutUsDesk = require('dviews/content/dpages/AboutUsDesk');
-
+    var ClientsDesk = require('dviews/content/dpages/ClientsDesk');
+    var DemographicsDesk = require('dviews/content/dpages/DemographicsDesk');
+    var RadioDesk = require('dviews/content/dpages/RadioDesk');
+    var ContactUsDesk = require('dviews/content/dpages/ContactUsDesk');
 
     function DeskScroll() {
         ScrollContainer.apply(this, arguments);
@@ -31,10 +34,18 @@ define(function (require, exports, module) {
     function _fillContent() {
         this.homeDesk = new HomeDesk();
         this.aboutUsDesk = new AboutUsDesk();
+        this.clientsDesk = new ClientsDesk();
+        this.demographicsDesk = new DemographicsDesk();
+        this.radioDesk = new RadioDesk();
+        this.contactUsDesk = new ContactUsDesk();
 
 
         this.scrollContent.push(this.homeDesk);
         this.scrollContent.push(this.aboutUsDesk);
+        this.scrollContent.push(this.clientsDesk);
+        this.scrollContent.push(this.demographicsDesk);
+        this.scrollContent.push(this.radioDesk);
+        this.scrollContent.push(this.contactUsDesk);
     }
 
 
