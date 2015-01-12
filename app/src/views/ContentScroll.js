@@ -50,19 +50,19 @@ define(function (require, exports, module) {
         this.contents = [];
 
         this.homePageView = new HomePageView();
-        this.aboutUsView = new CommonPageView({bgColor: 'orange', page: 'About Us', sync: this.options.sync});
+        this.aboutUsDesk = new CommonPageView({bgColor: 'orange', page: 'About Us', sync: this.options.sync});
         this.demographicsView = new CommonPageView({bgColor: 'green', page: 'Demographics', sync: this.options.sync});
         this.clients = new CommonPageView({bgColor: 'brown', page: 'clients', sync: this.options.sync});
         /**
          * Connect each page view to GenericSync
          */
         this.homePageView.pipe(this.options.sync);
-        this.aboutUsView.pipe(this.options.sync);
+        this.aboutUsDesk.pipe(this.options.sync);
         this.demographicsView.pipe(this.options.sync);
         this.clients.pipe(this.options.sync);
 
         this.contents.push(this.homePageView);
-        this.contents.push(this.aboutUsView);
+        this.contents.push(this.aboutUsDesk);
         this.contents.push(this.demographicsView);
         this.contents.push(this.clients);
         this.scrollview.sequenceFrom(this.contents);

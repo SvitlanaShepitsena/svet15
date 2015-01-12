@@ -10,7 +10,6 @@ define(function (require, exports, module) {
     var VideoView = require('dviews/header/VideoView');
 
     var HeaderView = require('dviews/header/HeaderView');
-    var ContentView = require('dviews/content/ContentView');
     var FooterView = require('dviews/footer/FooterView');
 
 
