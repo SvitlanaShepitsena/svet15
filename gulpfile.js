@@ -287,7 +287,8 @@ gulp.task('famo:glob', ['glob'], function () {
 });
 
 gulp.task('her', function () {
-    runSequence('clean', 'jade:d', 'jade:v', 'copyAssets', 'img', 'js', 'autoprefix', 'copy:reset', 'assets:dist', 'index:dist', 'famo:glob', 'add', 'commit', 'heroku');
+    //runSequence('clean', 'jade:d', 'jade:v', 'copyAssets', 'img', 'js', 'autoprefix', 'copy:reset', 'assets:dist', 'index:dist', 'famo:glob', 'add', 'commit', 'heroku');
+    runSequence('clean', 'jade:d', 'jade:v', 'copyAssets', 'img', 'js', 'autoprefix', 'copy:reset', 'assets:dist', 'index:dist',  'add', 'commit', 'heroku');
 });
 
 
