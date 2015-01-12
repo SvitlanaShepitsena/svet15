@@ -137,11 +137,23 @@ body {
   }
 }
 .p-svet {
-  font-size: 14px;
+  font-size: 14px !important;
+}
+@media only screen and (max-width: 500px) {
+  .p-svet {
+    font-size: 14px !important;
+    line-height: 26px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .p-svet {
+    font-size: 12px !important;
+    line-height: 24px;
+  }
 }
 @media only screen and (max-width: 350px) {
   .p-svet {
-    font-size: 11px;
+    font-size: 11px !important;
     line-height: 18px;
   }
 }
