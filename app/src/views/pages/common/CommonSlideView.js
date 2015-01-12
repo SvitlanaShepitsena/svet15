@@ -38,7 +38,6 @@ define(function (require, exports, module) {
         });
 
         this.background.pipe(this._eventOutput);
-
         this.rootNode = this.add(this.rootModifier);
         this.rootNode.add(this.background);
     }

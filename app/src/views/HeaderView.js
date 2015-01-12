@@ -18,8 +18,9 @@ define(function (require, exports, module) {
         var backgroundSurface = new Surface({
             size: [undefined, undefined],
             properties: {
-                // coloring pink, but background should not be visible anyway when viewed at device screen size
-                backgroundColor: '#FFB083'
+                backgroundColor: '#FC6E51'
+                //background: '#D24811'
+                //backgroundColor: '#FFB083'
                 //backgroundColor: '#C8645B'
             }
         });
@@ -27,7 +28,6 @@ define(function (require, exports, module) {
         this.hamburgerSurface = new Surface({
             size: [53, undefined],
             content: '<img width="53" src="../../img/hamburger-template.png"/>',
-
             properties: {
                 zIndex: '10'
             }
@@ -42,8 +42,7 @@ define(function (require, exports, module) {
                 textAlign: 'center',
                 color: "white",
                 lineHeight: "50px",
-                fontWeight: '700',
-                backgroundColor: '#FC6E51'
+                fontWeight: '700'
             }
         });
 

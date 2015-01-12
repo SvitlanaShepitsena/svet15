@@ -8,12 +8,10 @@ define(function (require, exports, module) {
 
 
     function HomePageView() {
+
         View.apply(this, arguments);
-
         _init.call(this);
-
         _flex.call(this);
-
     }
 
     var bdr = '2px solid #F4B6AB';
@@ -32,21 +30,28 @@ define(function (require, exports, module) {
         this.flexContent = [];
 
         this.fSurface1 = new Surface({
-            size: [undefined, undefined],
-            content: "Primary Surface",
+            content: "<img src='img/home-page/svet-logo-mob.png'>" +
+            " <p class='p-svet'><span class='em-svet'>SVET Media Group</span> is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>",
             properties: {
+                padding: '10px',
+                lineHeight: '26px',
                 backgroundColor: '#FFF2DF',
+                fontSize: "16",
                 borderBottom: bdr,
                 textAlign: "center"
             }
         });
-
-
         this.fSurface2 = new Surface({
             size: [undefined, undefined],
-            content: "Primary Surface",
+            content: "<ul class='list-inline'>" +
+            "<li>" +
+            "<img width='20' src='img/home-page/news-daily-150.png'>" +
+            "</li>" +
+            "<li><p>At vero eos et accusamus et iusto odio dignissimos ducimus</p></li>" +
+            "</ul>",
             properties: {
                 backgroundColor: '#FFF2DF',
+                display: 'inline-block',
                 borderBottom: bdr,
                 textAlign: "center"
             }
@@ -100,6 +105,19 @@ define(function (require, exports, module) {
         this.rootNode.add(this.flexMod).add(this.layout);
     }
 
+    HomePageView.DEFAULT_OPTIONS = {
+        height: window.innerHeight,
+        width: window.innerWidth,
+        propTop: {
+            padding: '10px',
+            lineHeight: '26px',
+            backgroundColor: '#FFF2DF',
+            fontSize: "16",
+            borderBottom: bdr,
+            textAlign: "center"
+        }
+    };
+
     function _init() {
         this.centerModifier = new Modifier({
             align: [0.5, 0.5],
@@ -112,7 +130,6 @@ define(function (require, exports, module) {
     HomePageView.prototype = Object.create(View.prototype);
     HomePageView.prototype.constructor = HomePageView;
 
-    HomePageView.DEFAULT_OPTIONS = {};
 
     module.exports = HomePageView;
 });

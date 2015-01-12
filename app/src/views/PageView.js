@@ -51,6 +51,7 @@ define(function (require, exports, module) {
          * Then if it is vertical, define wheter it is scroll up or down
          */
         var isVertical, verticalShiftAbs, horisontalShiftAbs;
+
         genericSync.on("end", function (data) {
             verticalShiftAbs = Math.abs(data.delta[1]);
             horisontalShiftAbs = Math.abs(data.delta[0]);
@@ -196,6 +197,7 @@ define(function (require, exports, module) {
         this.layout.footer.add(this.modifier6).add(this.surface6).add(this.footer);
 
         this._eventInput.pipe(this._eventOutput);
+
         this.add(this.layout);
     }
 

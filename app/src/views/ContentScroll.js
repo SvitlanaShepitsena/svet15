@@ -4,6 +4,7 @@ define(function (require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var StateModifier = require('famous/modifiers/StateModifier');
     var Transform = require('famous/core/Transform');
+
     var EventHandler = require('famous/core/EventHandler');
     var ScrollContainer = require('famous/views/ScrollContainer');
     var CommonPageView = require('views/pages/common/CommonPageView');
@@ -53,7 +54,7 @@ define(function (require, exports, module) {
         this.demographicsView = new CommonPageView({bgColor: 'green', page: 'Demographics', sync: this.options.sync});
         this.clients = new CommonPageView({bgColor: 'brown', page: 'clients', sync: this.options.sync});
         /**
-         * Eventually connect each page view to GenericSync
+         * Connect each page view to GenericSync
          */
         this.homePageView.pipe(this.options.sync);
         this.aboutUsView.pipe(this.options.sync);
