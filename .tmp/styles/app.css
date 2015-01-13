@@ -177,6 +177,9 @@ body {
     width: 20%;
   }
 }
+.li-img img {
+  vertical-align: middle;
+}
 .li-text {
   width: 70%;
   display: inline-block;

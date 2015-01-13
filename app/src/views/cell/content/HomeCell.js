@@ -43,9 +43,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "<ul class='list-inline'>" +
             "<li class='li-img'>" +
-            '<div class="img-responsive">' +
             "<img class='img-responsive' src='img/home-page/icons-color/news-daily-or.png'>" +
-            '</div>' +
             "</li>" +
             "<li class='li-text'>" +
             "<h4>SVET Daily Newspaper</h4>" +
@@ -59,8 +57,8 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "<ul class='list-inline'>" +
             "<li class='li-img'>" +
-            '<div class="img-responsive">' +
-            "<img class='img-responsive' src='img/home-page/icons-color/news-daily-or.png'>" +
+            '<div class="img-frame">' +
+            "<img class='img-responsive' src='img/home-page/icons-color/news-weekly-or.png'>" +
             '</div>' +
             "</li>" +
             "<li class='li-text'>" +
@@ -75,8 +73,8 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "<ul class='list-inline'>" +
             "<li class='li-img'>" +
-            '<div class="img-responsive">' +
-            "<img class='img-responsive' src='img/home-page/icons-color/news-daily-or.png'>" +
+            '<div class="img-frame">' +
+            "<img class='img-responsive' src='img/home-page/icons-color/yp-or.png'>" +
             '</div>' +
             "</li>" +
             "<li class='li-text'>" +
@@ -91,8 +89,8 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "<ul class='list-inline'>" +
             "<li class='li-img'>" +
-            '<div class="img-responsive">' +
-            "<img class='img-responsive' src='img/home-page/icons-color/news-daily-or.png'>" +
+            '<div class="img-frame">' +
+            "<img class='img-responsive' src='img/home-page/icons-color/radio-or.png'>" +
             '</div>' +
             "</li>" +
             "<li class='li-text'>" +
