@@ -17,7 +17,7 @@ define(function (require, exports, module) {
     var HeaderCell = require('views/cell/header/HeaderCell');
     var ContentScroll = require('views/cell/content/ContentScrollCell');
 
-    function PageView() {
+    function PageViewCell() {
         View.apply(this, arguments);
         var that = this;
 
@@ -202,15 +202,15 @@ define(function (require, exports, module) {
         this.add(this.layout);
     }
 
-    PageView.DEFAULT_OPTIONS = {
+    PageViewCell.DEFAULT_OPTIONS = {
         headerSize: 0.07 * window.innerHeight,
         footerSize: 0.07 * window.innerHeight
     };
 
-    PageView.prototype = Object.create(View.prototype);
-    PageView.prototype.constructor = PageView;
+    PageViewCell.prototype = Object.create(View.prototype);
+    PageViewCell.prototype.constructor = PageViewCell;
 
-    PageView.prototype.navigateTo = function (index) {
+    PageViewCell.prototype.navigateTo = function (index) {
         for (var i = 0; i < this.states.length; i++) {
             var state = this.states[i];
             state.set(0);
@@ -220,7 +220,7 @@ define(function (require, exports, module) {
         this.content.scrollview.goToPage(index);
     }
 
-    module.exports = PageView;
+    module.exports = PageViewCell;
 
 })
 ;

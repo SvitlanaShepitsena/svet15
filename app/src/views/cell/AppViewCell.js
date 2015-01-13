@@ -13,10 +13,20 @@ define(function (require, exports, module) {
 
     var MenuViewCell = require('./MenuViewCell');
     var PageViewCell = require('./content/PageViewCell');
+    var ImageSurface = require('famous/surfaces/ImageSurface');
 
 
     function AppViewCell() {
 
+        this.surface = new ImageSurface({
+            size: [undefined, undefined],
+            properties: {
+                lineHeight: window.innerHeight + "px",
+                textAlign: "center",
+                backgroundColor: 'red'
+            }
+        });
+        this.surface.setContent('img/bg/maksik.jpg');
 
         var that = this;
         View.apply(this, arguments);
@@ -27,11 +37,11 @@ define(function (require, exports, module) {
         this.menuView = new MenuViewCell({navWidth: this.options.maxOpenPos});
         this.menuView.pipe(this);
 
-        this.pageView = new PageViewCell();
-        this.pageViewPos = new Transitionable(0);
+        this.pageViewCell = new PageViewCell();
+        this.pageViewCellPos = new Transitionable(0);
 
         this.eventInput.on('navigateTo', function (index) {
-            that.pageView.navigateTo(index);
+            that.pageViewCell.navigateTo(index);
             /*Close navigation menu*/
             that.toggleMenu();
         })
@@ -39,13 +49,15 @@ define(function (require, exports, module) {
         this.pageModifier = new Modifier();
 
         this.pageModifier.transformFrom(function () {
-            return Transform.translate(this.pageViewPos.get(), 0, 0);
+            return Transform.translate(this.pageViewCellPos.get(), 0, 0);
         }.bind(this));
 
-        this.pageView.on('menuToggle', this.toggleMenu.bind(this));
+        this.pageViewCell.on('menuToggle', this.toggleMenu.bind(this));
+
+        this.add(this.surface);
 
         this.add(this.menuView);
-        this.add(this.pageModifier).add(this.pageView);
+        this.add(this.pageModifier).add(this.pageViewCell);
 
         _handleTouch.call(this);
     }
@@ -66,24 +78,24 @@ define(function (require, exports, module) {
     function _handleTouch() {
         GenericSync.register(MouseSync);
         this.sync = new GenericSync(function () {
-            return this.pageViewPos.get(0);
+            return this.pageViewCellPos.get(0);
         }.bind(this), {direction: GenericSync.DIRECTION_X});
 
-        this.pageView.pipe(this.sync);
+        this.pageViewCell.pipe(this.sync);
 
         this.sync.on('update', function (data) {
-            if (this.pageViewPos.get() === 0 && data.position > 0) {
+            if (this.pageViewCellPos.get() === 0 && data.position > 0) {
                 this.menuView.animateNavItems();
             }
 
-            this.pageViewPos.set(Math.min(Math.max(0, data.position), this.options.maxOpenPos));
+            this.pageViewCellPos.set(Math.min(Math.max(0, data.position), this.options.maxOpenPos));
         }.bind(this));
 
         this.sync.on('end', (function (data) {
             var velocity = data.velocity;
-            var position = this.pageViewPos.get();
+            var position = this.pageViewCellPos.get();
 
-            if (this.pageViewPos.get() > this.options.posThreshold) {
+            if (this.pageViewCellPos.get() > this.options.posThreshold) {
                 if (velocity < -this.options.velThreshold) {
                     this.slideLeft();
                 } else {
@@ -101,6 +113,7 @@ define(function (require, exports, module) {
 
     AppViewCell.prototype.toggleMenu = function () {
         if (this.menuToggle) {
+            this.menuView.tranparentBg();
             this.slideLeft();
         } else {
             this.slideRight();
@@ -110,13 +123,13 @@ define(function (require, exports, module) {
     };
 
     AppViewCell.prototype.slideLeft = function () {
-        this.pageViewPos.set(0, this.options.transition, function () {
+        this.pageViewCellPos.set(0, this.options.transition, function () {
             this.menuToggle = false;
         }.bind(this));
     };
 
     AppViewCell.prototype.slideRight = function () {
-        this.pageViewPos.set(this.options.maxOpenPos, this.options.transition, function () {
+        this.pageViewCellPos.set(this.options.maxOpenPos, this.options.transition, function () {
             this.menuToggle = true;
         }.bind(this));
     };

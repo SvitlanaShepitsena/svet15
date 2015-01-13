@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
+    var StateModifier = require('famous/modifiers/StateModifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var Timer = require('famous/utilities/Timer');
@@ -20,8 +21,16 @@ define(function (require, exports, module) {
         this.eventInput.on('pageChange', function (index) {
             that.eventOutput.emit('navigateTo', index);
         })
+        _init.call(this);
         _createBacking.call(this);
         _createNavigationViews.call(this);
+    }
+
+    function _init() {
+        this.backModifier = new StateModifier({
+            opacity: 0
+        });
+        this.rootNode = this.add(this.backModifier);
     }
 
     MenuViewCell.prototype = Object.create(View.prototype);
@@ -35,6 +44,11 @@ define(function (require, exports, module) {
             this.navModifiers[i].setOpacity(0.0);
             this.navModifiers[i].setTransform(Transform.translate(initX, initY, 0));
         }
+        this.backModifier.setOpacity(0);
+    };
+
+    MenuViewCell.prototype.tranparentBg = function () {
+        this.backModifier.setOpacity(0, {duration:1500});
     };
 
     MenuViewCell.prototype.animateNavItems = function () {
@@ -53,6 +67,8 @@ define(function (require, exports, module) {
                     {duration: this.options.duration, curve: 'easeOut'});
             }.bind(this, i), i * this.options.staggerDelay);
         }
+
+        this.backModifier.setOpacity(1);
     };
     /*options for nav icon*/
     MenuViewCell.DEFAULT_OPTIONS = {
@@ -65,14 +81,16 @@ define(function (require, exports, module) {
     };
 
     function _createBacking() {
+
+
         var backSurface = new Surface({
-            size: [window.innerWidth/ 2, this.options.height],
+            size: [window.innerWidth / 2, this.options.height],
             properties: {
                 backgroundColor: '#595153'
             }
         });
 
-        this._add(backSurface);
+        this.rootNode.add(backSurface);
     }
 
     function _createNavigationViews() {
@@ -103,7 +121,7 @@ define(function (require, exports, module) {
             });
 
             this.navModifiers.push(navModifier);
-            this._add(navModifier).add(navView);
+            this.rootNode.add(navModifier).add(navView);
         }
     }
 
