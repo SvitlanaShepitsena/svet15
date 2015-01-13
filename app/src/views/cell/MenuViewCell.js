@@ -6,9 +6,9 @@ define(function (require, exports, module) {
     var Timer = require('famous/utilities/Timer');
 
     var EventHandler = require('famous/core/EventHandler');
-    var NavigationView = require('./NavigationView');
+    var NavigationViewCell = require('./NavigationViewCell');
 
-    function MenuView() {
+    function MenuViewCell() {
         var that = this;
         View.apply(this, arguments);
 
@@ -24,10 +24,10 @@ define(function (require, exports, module) {
         _createNavigationViews.call(this);
     }
 
-    MenuView.prototype = Object.create(View.prototype);
-    MenuView.prototype.constructor = MenuView;
+    MenuViewCell.prototype = Object.create(View.prototype);
+    MenuViewCell.prototype.constructor = MenuViewCell;
 
-    MenuView.prototype.resetNavItems = function () {
+    MenuViewCell.prototype.resetNavItems = function () {
         for (var i = 0; i < this.navModifiers.length; i++) {
             var initX = -this.options.navWidth / 4;
             var initY = this.options.topOffset + this.options.navItemOffset * i + this.options.navHeight * 2;
@@ -37,7 +37,7 @@ define(function (require, exports, module) {
         }
     };
 
-    MenuView.prototype.animateNavItems = function () {
+    MenuViewCell.prototype.animateNavItems = function () {
         this.resetNavItems();
 
         for (var i = 0; i < this.navModifiers.length; i++) {
@@ -55,7 +55,7 @@ define(function (require, exports, module) {
         }
     };
     /*options for nav icon*/
-    MenuView.DEFAULT_OPTIONS = {
+    MenuViewCell.DEFAULT_OPTIONS = {
         navWidth: 191,
         navHeight: 81,
         topOffset: 10,
@@ -88,7 +88,7 @@ define(function (require, exports, module) {
         ];
 
         for (var i = 0; i < navData.length; i++) {
-            var navView = new NavigationView({
+            var navView = new NavigationViewCell({
                 width: this.options.navWidth,
                 height: this.options.navHeight,
                 iconUrl: navData[i].iconUrl,
@@ -107,5 +107,5 @@ define(function (require, exports, module) {
         }
     }
 
-    module.exports = MenuView;
+    module.exports = MenuViewCell;
 });

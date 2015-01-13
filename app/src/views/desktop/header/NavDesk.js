@@ -6,7 +6,7 @@ define(function (require, exports, module) {
     var GridLayout = require("famous/views/GridLayout");
     var ImageSurface = require('famous/surfaces/ImageSurface');
 
-    function NavView() {
+    function NavDesk() {
 
         View.apply(this, arguments);
 
@@ -43,10 +43,10 @@ define(function (require, exports, module) {
         this.rootNode.add(this.grid);
     }
 
-    NavView.prototype = Object.create(View.prototype);
-    NavView.prototype.constructor = NavView;
+    NavDesk.prototype = Object.create(View.prototype);
+    NavDesk.prototype.constructor = NavDesk;
 
-    NavView.DEFAULT_OPTIONS = {};
+    NavDesk.DEFAULT_OPTIONS = {};
 
-    module.exports = NavView;
+    module.exports = NavDesk;
 });

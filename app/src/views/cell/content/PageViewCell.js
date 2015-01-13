@@ -14,8 +14,8 @@ define(function (require, exports, module) {
     var TouchSync = require("famous/inputs/TouchSync");
     var ScrollSync = require("famous/inputs/ScrollSync");
 
-    var HeaderView = require('views/cell/header/HeaderView');
-    var ContentScroll = require('views/cell/content/ContentScroll');
+    var HeaderCell = require('views/cell/header/HeaderCell');
+    var ContentScroll = require('views/cell/content/ContentScrollCell');
 
     function PageView() {
         View.apply(this, arguments);
@@ -27,7 +27,7 @@ define(function (require, exports, module) {
         });
 
         /*=Header*/
-        this.header = new HeaderView();
+        this.header = new HeaderCell();
         this.header.pipe(this);
 
         /**

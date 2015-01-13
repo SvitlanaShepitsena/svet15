@@ -1,11 +1,11 @@
-define(['require', 'famous/core/Engine', 'views/cell/AppView', 'views/desktop/DesktopView'], function (require, Engine, AppView, DesktopView) {
+define(['require', 'famous/core/Engine', 'views/cell/AppViewCell', 'views/desktop/AppViewDesk'], function (require, Engine, AppViewCell, AppViewDesk) {
     var MOBILEWIDTH = 490;
 
     var Transform = require('famous/core/Transform');
     var mainContext = Engine.createContext();
 
     var initialDevice = window.responsive();
-    var appView = initialDevice === 'cell' ? new AppView() : new DesktopView();
+    var appView = initialDevice === 'cell' ? new AppViewCell() : new AppViewDesk();
 
     mainContext.on('resize', function () {
         var newDevice = window.responsive();

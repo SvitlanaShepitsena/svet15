@@ -2,17 +2,17 @@ define(function (require, exports, module) {
     var VideoSurface = require('famous/surfaces/VideoSurface');
 
 
-    function VideoView(options) {
+    function VideoDesk(options) {
         VideoSurface.apply(this, arguments);
 
         this.options.controls = options && options.controls ? options.controls : false;
         this._superDeploy = VideoSurface.prototype.deploy;
     }
 
-    VideoView.prototype = Object.create(VideoSurface.prototype);
-    VideoView.prototype.constructor = VideoView;
+    VideoDesk.prototype = Object.create(VideoSurface.prototype);
+    VideoDesk.prototype.constructor = VideoDesk;
 
-    VideoView.prototype.deploy = function deploy(target) {
+    VideoDesk.prototype.deploy = function deploy(target) {
         this._superDeploy(target);
         target.controls = this.options.controls;
 
@@ -22,11 +22,11 @@ define(function (require, exports, module) {
         }.bind(this), 44000);
     }
 
-    VideoView.prototype.play = function play() {
+    VideoDesk.prototype.play = function play() {
         this.videoElement.play();
     }
 
-    VideoView.DEFAULT_OPTIONS = {};
+    VideoDesk.DEFAULT_OPTIONS = {};
 
-    module.exports = VideoView;
+    module.exports = VideoDesk;
 });

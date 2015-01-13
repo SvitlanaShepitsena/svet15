@@ -6,7 +6,7 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
 
 
-    function LogoView() {
+    function LogoDesk() {
         View.apply(this, arguments);
         this.centerModifier = new Modifier({
             align: [0.5, 0.5],
@@ -25,10 +25,10 @@ define(function (require, exports, module) {
         this.rootNode.add(imageSurface);
     }
 
-    LogoView.prototype = Object.create(View.prototype);
-    LogoView.prototype.constructor = LogoView;
+    LogoDesk.prototype = Object.create(View.prototype);
+    LogoDesk.prototype.constructor = LogoDesk;
 
-    LogoView.DEFAULT_OPTIONS = {};
+    LogoDesk.DEFAULT_OPTIONS = {};
 
-    module.exports = LogoView;
+    module.exports = LogoDesk;
 });

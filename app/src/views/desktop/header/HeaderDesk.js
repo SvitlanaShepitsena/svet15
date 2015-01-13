@@ -7,17 +7,18 @@ define(function (require, exports, module) {
     var ImageSurface = require('famous/surfaces/ImageSurface');
     var Modifier = require("famous/core/Modifier");
     var Transitionable = require('famous/transitions/Transitionable');
-    var LogoView = require('dviews/header/LogoView');
-    var NavView = require('dviews/header/NavView');
+    var LogoDesk = require('dviews/header/LogoDesk');
+    var NavDesk = require('dviews/header/NavDesk');
 
-    HeaderView.DEFAULT_OPTIONS = {};
 
-    function HeaderView() {
+    function HeaderDesk() {
         View.apply(this, arguments);
         _init.call(this);
         _backGround.call(this);
         _flex.call(this);
     }
+
+    HeaderDesk.DEFAULT_OPTIONS = {};
 
     function _init() {
 
@@ -33,7 +34,7 @@ define(function (require, exports, module) {
         });
 
         this.rootNode = this.add(this.centerModifier);
-        this.opacityTransitionable.set(0.6, {duration:1000,  curve : 'easeInOut'});
+        this.opacityTransitionable.set(0.6, {duration: 1000, curve: 'easeInOut'});
     }
 
 
@@ -66,11 +67,11 @@ define(function (require, exports, module) {
         this.contents = [];
 
 
-        var logoView = new LogoView();
-        var navView = new NavView();
+        var logoDesk = new LogoDesk();
+        var navDesk = new NavDesk();
 
-        this.contents.push(logoView);
-        this.contents.push(navView);
+        this.contents.push(logoDesk);
+        this.contents.push(navDesk);
 
         this.layout.sequenceFrom(this.contents);
 
@@ -78,9 +79,9 @@ define(function (require, exports, module) {
 
     }
 
-    HeaderView.prototype = Object.create(View.prototype);
-    HeaderView.prototype.constructor = HeaderView;
+    HeaderDesk.prototype = Object.create(View.prototype);
+    HeaderDesk.prototype.constructor = HeaderDesk;
 
 
-    module.exports = HeaderView;
+    module.exports = HeaderDesk;
 });

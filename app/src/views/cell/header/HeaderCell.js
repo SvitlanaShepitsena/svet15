@@ -4,15 +4,15 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
 
-    function HeaderView() {
+    function HeaderCell() {
         View.apply(this, arguments);
 
         _createHeader.call(this);
         _setListeners.call(this);
     }
 
-    HeaderView.prototype = Object.create(View.prototype);
-    HeaderView.prototype.constructor = HeaderView;
+    HeaderCell.prototype = Object.create(View.prototype);
+    HeaderCell.prototype.constructor = HeaderCell;
     function _createHeader() {
         var backgroundSurface = new Surface({
             size: [undefined, undefined],
@@ -80,5 +80,5 @@ define(function (require, exports, module) {
         }.bind(this));
     }
 
-    module.exports = HeaderView;
+    module.exports = HeaderCell;
 });

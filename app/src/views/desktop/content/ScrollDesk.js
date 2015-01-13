@@ -12,7 +12,7 @@ define(function (require, exports, module) {
     var RadioDesk = require('dviews/content/dpages/RadioDesk');
     var ContactUsDesk = require('dviews/content/dpages/ContactUsDesk');
 
-    function DeskScroll() {
+    function ScrollDesk() {
         ScrollContainer.apply(this, arguments);
         this.scrollContent = [];
         _fillContent.call(this);
@@ -49,10 +49,10 @@ define(function (require, exports, module) {
     }
 
 
-    DeskScroll.prototype = Object.create(ScrollContainer.prototype);
-    DeskScroll.prototype.constructor = ScrollContainer;
+    ScrollDesk.prototype = Object.create(ScrollContainer.prototype);
+    ScrollDesk.prototype.constructor = ScrollContainer;
 
-    DeskScroll.DEFAULT_OPTIONS = {};
+    ScrollDesk.DEFAULT_OPTIONS = {};
 
-    module.exports = DeskScroll;
+    module.exports = ScrollDesk;
 });

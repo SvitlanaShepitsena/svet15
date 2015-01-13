@@ -11,11 +11,11 @@ define(function (require, exports, module) {
     var GridLayout = require("famous/views/GridLayout");
     var EventHandler = require('famous/core/EventHandler');
 
-    var MenuView = require('./MenuView');
-    var PageView = require('./content/PageView');
+    var MenuViewCell = require('./MenuViewCell');
+    var PageViewCell = require('./content/PageViewCell');
 
 
-    function AppView() {
+    function AppViewCell() {
 
 
         var that = this;
@@ -24,10 +24,10 @@ define(function (require, exports, module) {
         this.eventInput = new EventHandler();
 
         EventHandler.setInputHandler(this, this.eventInput);
-        this.menuView = new MenuView({navWidth: this.options.maxOpenPos});
+        this.menuView = new MenuViewCell({navWidth: this.options.maxOpenPos});
         this.menuView.pipe(this);
 
-        this.pageView = new PageView();
+        this.pageView = new PageViewCell();
         this.pageViewPos = new Transitionable(0);
 
         this.eventInput.on('navigateTo', function (index) {
@@ -50,10 +50,10 @@ define(function (require, exports, module) {
         _handleTouch.call(this);
     }
 
-    AppView.prototype = Object.create(View.prototype);
-    AppView.prototype.constructor = AppView;
+    AppViewCell.prototype = Object.create(View.prototype);
+    AppViewCell.prototype.constructor = AppViewCell;
 
-    AppView.DEFAULT_OPTIONS = {
+    AppViewCell.DEFAULT_OPTIONS = {
         posThreshold: 95.5,
         velThreshold: 0.75,
         transition: {
@@ -99,7 +99,7 @@ define(function (require, exports, module) {
         }).bind(this));
     }
 
-    AppView.prototype.toggleMenu = function () {
+    AppViewCell.prototype.toggleMenu = function () {
         if (this.menuToggle) {
             this.slideLeft();
         } else {
@@ -109,17 +109,17 @@ define(function (require, exports, module) {
         this.menuToggle = !this.menuToggle;
     };
 
-    AppView.prototype.slideLeft = function () {
+    AppViewCell.prototype.slideLeft = function () {
         this.pageViewPos.set(0, this.options.transition, function () {
             this.menuToggle = false;
         }.bind(this));
     };
 
-    AppView.prototype.slideRight = function () {
+    AppViewCell.prototype.slideRight = function () {
         this.pageViewPos.set(this.options.maxOpenPos, this.options.transition, function () {
             this.menuToggle = true;
         }.bind(this));
     };
 
-    module.exports = AppView;
+    module.exports = AppViewCell;
 });

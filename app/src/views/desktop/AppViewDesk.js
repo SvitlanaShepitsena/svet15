@@ -4,16 +4,16 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
-    var DeskScroll = require('dviews/content/DeskScroll');
+    var DeskScroll = require('dviews/content/ScrollDesk');
     var VideoSurface = require('famous/surfaces/VideoSurface');
 
-    var VideoView = require('dviews/header/VideoView');
+    var VideoDesk = require('dviews/header/VideoDesk');
 
-    var HeaderView = require('dviews/header/HeaderView');
-    var FooterView = require('dviews/footer/FooterView');
+    var HeaderDesk = require('dviews/header/HeaderDesk');
+    var FooterDesk = require('dviews/footer/FooterDesk');
 
 
-    DesktopView.DEFAULT_OPTIONS = {
+    AppViewDesk.DEFAULT_OPTIONS = {
         centerModifier: [0.5, 0],
         videoUrl: 'https://d2vj41uy1yy43g.cloudfront.net/empire_state.webm',
         layout: {
@@ -22,7 +22,7 @@ define(function (require, exports, module) {
         }
     };
 
-    function DesktopView() {
+    function AppViewDesk() {
         View.apply(this, arguments);
 
         _init.call(this);
@@ -34,16 +34,16 @@ define(function (require, exports, module) {
 
     function _headerFooterLayout() {
         this.layout = new HeaderFooterLayout(this.options.layout);
-        this.layout.header = new HeaderView();
+        this.layout.header = new HeaderDesk();
 
         this.layout.content = new DeskScroll();
-        this.layout.footer = new FooterView();
+        this.layout.footer = new FooterDesk();
 
         this.rootNode.add(this.layout);
     }
 
     function _videoBackground() {
-        this.videoSurface = new VideoView({
+        this.videoSurface = new VideoDesk({
             size: [window.innerWidth, window.innerWidth * .56],
             autoplay: false,
             controls: false
@@ -62,9 +62,9 @@ define(function (require, exports, module) {
         this.rootNode = this.add(centerModifier);
     }
 
-    DesktopView.prototype = Object.create(View.prototype);
-    DesktopView.prototype.constructor = DesktopView;
+    AppViewDesk.prototype = Object.create(View.prototype);
+    AppViewDesk.prototype.constructor = AppViewDesk;
 
 
-    module.exports = DesktopView;
+    module.exports = AppViewDesk;
 });

@@ -5,22 +5,23 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
 
 
-    function FooterView() {
+    function FooterDesk() {
         View.apply(this, arguments);
         _init.call(this);
         _footer.call(this);
     }
-        function _footer() {
-            this.surface = new Surface({
-                size: [undefined, undefined],
-                content: "Footer Surface",
-                properties: {
-                    backgroundColor: 'MediumSlateBlue',
-                    textAlign: "center"
-                }
-            });
-            this.rootNode.add(this.surface);
-        }
+
+    function _footer() {
+        this.surface = new Surface({
+            size: [undefined, undefined],
+            content: "Footer Surface",
+            properties: {
+                backgroundColor: 'MediumSlateBlue',
+                textAlign: "center"
+            }
+        });
+        this.rootNode.add(this.surface);
+    }
 
     function _init() {
         this.centerModifier = new Modifier({
@@ -31,10 +32,10 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.centerModifier);
     }
 
-    FooterView.prototype = Object.create(View.prototype);
-    FooterView.prototype.constructor = FooterView;
+    FooterDesk.prototype = Object.create(View.prototype);
+    FooterDesk.prototype.constructor = FooterDesk;
 
-    FooterView.DEFAULT_OPTIONS = {};
+    FooterDesk.DEFAULT_OPTIONS = {};
 
-    module.exports = FooterView;
+    module.exports = FooterDesk;
 });
