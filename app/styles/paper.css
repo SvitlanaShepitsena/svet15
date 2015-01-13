@@ -6,10 +6,10 @@
   font-family: 'FontAwesome', sans-serif;
 }
 
-section {
-  background: #e6e6d8 url('https://dl.dropboxusercontent.com/s/t0gu051d08sei65/bg-retro-noise.png');
-  color: #121212;
-}
+/*section {*/
+  /*background: #e6e6d8 url('https://dl.dropboxusercontent.com/s/t0gu051d08sei65/bg-retro-noise.png');*/
+  /*color: #121212;*/
+/*}*/
 
 section.text {
   position: absolute;
@@ -20,11 +20,6 @@ section.text {
   margin-top: -55px;
 }
 
-h1, h3 {
-  transform: matrix(1, -0.20, 0, 1, 0, 0);
-  -ms-transform: matrix(1, -0.20, 0, 1, 0, 0);
-  -webkit-transform: matrix(1, -0.20, 0, 1, 0, 0);
-}
 
 h1 {
   font-family: "Oswald", Sans-serif;

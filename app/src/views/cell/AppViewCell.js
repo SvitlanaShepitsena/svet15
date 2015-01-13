@@ -23,10 +23,10 @@ define(function (require, exports, module) {
             properties: {
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center",
-                backgroundColor: 'red'
+                backgroundRepeat: "repeat",
+                background: "#e6e6d8 url('https://dl.dropboxusercontent.com/s/t0gu051d08sei65/bg-retro-noise.png')"
             }
         });
-        this.surface.setContent('img/bg/maksik.jpg');
 
         var that = this;
         View.apply(this, arguments);

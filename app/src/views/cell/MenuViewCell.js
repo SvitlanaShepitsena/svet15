@@ -48,7 +48,7 @@ define(function (require, exports, module) {
     };
 
     MenuViewCell.prototype.tranparentBg = function () {
-        this.backModifier.setOpacity(0, {duration:1500});
+        this.backModifier.setOpacity(0, {duration: 2000});
     };
 
     MenuViewCell.prototype.animateNavItems = function () {
