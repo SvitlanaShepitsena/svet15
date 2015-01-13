@@ -3,18 +3,19 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
     var View = require('famous/core/View');
-    var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
-    var HeaderView = require('views/HeaderView');
-    var GridLayout = require("famous/views/GridLayout");
-    var Transitionable = require('famous/transitions/Transitionable');
     var Transform = require('famous/core/Transform');
 
+    var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
+    var GridLayout = require("famous/views/GridLayout");
+
+    var Transitionable = require('famous/transitions/Transitionable');
     var GenericSync = require("famous/inputs/GenericSync");
     var MouseSync = require("famous/inputs/MouseSync");
     var TouchSync = require("famous/inputs/TouchSync");
     var ScrollSync = require("famous/inputs/ScrollSync");
 
-    var ContentScroll = require('views/ContentScroll');
+    var HeaderView = require('views/cell/header/HeaderView');
+    var ContentScroll = require('views/cell/content/ContentScroll');
 
     function PageView() {
         View.apply(this, arguments);

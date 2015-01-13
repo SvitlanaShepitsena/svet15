@@ -10,8 +10,9 @@ define(function (require, exports, module) {
 
     var GridLayout = require("famous/views/GridLayout");
     var EventHandler = require('famous/core/EventHandler');
+
     var MenuView = require('./MenuView');
-    var PageView = require('./PageView');
+    var PageView = require('./content/PageView');
 
 
     function AppView() {

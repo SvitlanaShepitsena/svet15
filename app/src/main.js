@@ -1,4 +1,4 @@
-define(['require', 'famous/core/Engine', 'views/AppView', 'views/desktop/DesktopView'], function (require, Engine, AppView, DesktopView) {
+define(['require', 'famous/core/Engine', 'views/cell/AppView', 'views/desktop/DesktopView'], function (require, Engine, AppView, DesktopView) {
     var MOBILEWIDTH = 490;
 
     var Transform = require('famous/core/Transform');

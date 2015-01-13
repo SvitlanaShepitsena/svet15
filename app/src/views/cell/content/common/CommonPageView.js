@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var Easing = require('famous/transitions/Easing');
     var Modifier = require("famous/core/Modifier");
 
-    var CommonSlideView = require('views/pages/common/CommonSlideView');
+    var CommonSlideView = require('views/cell/content/common/CommonSlideView');
 
     function CommonPageView() {
         View.apply(this, arguments);

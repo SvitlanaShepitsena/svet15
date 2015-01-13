@@ -7,8 +7,8 @@ define(function (require, exports, module) {
 
     var EventHandler = require('famous/core/EventHandler');
     var ScrollContainer = require('famous/views/ScrollContainer');
-    var CommonPageView = require('views/pages/common/CommonPageView');
-    var HomePageView = require('views/pages/content/HomePageView');
+    var CommonPageView = require('views/cell/content/common/CommonPageView');
+    var HomePageView = require('views/cell/content/HomePageView');
 
 
     function ContentScroll() {

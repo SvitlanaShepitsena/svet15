@@ -26,7 +26,7 @@ define(function (require, exports, module) {
 
         this.hamburgerSurface = new Surface({
             size: [undefined, undefined],
-            content: '<img class="img-hamb" src="../../img/hamburger-template.png"/>',
+            content: '<img class="img-hamb" src="../../../../img/hamburger-template.png"/>',
             properties: {
                 zIndex: '10'
             }
