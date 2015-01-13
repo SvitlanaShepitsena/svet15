@@ -10,6 +10,9 @@ define(function (require, exports, module) {
     var ImageSurface = require('famous/surfaces/ImageSurface');
 
     var CommonSlideCell = require('views/cell/content/common/CommonSlideCell');
+    var about1 = require('text!jade/about1.html');
+    var about2 = require('text!jade/about2.html');
+    var about3 = require('text!jade/about3.html');
 
     function CommonPageCell() {
         View.apply(this, arguments);
@@ -60,10 +63,10 @@ define(function (require, exports, module) {
 
     function _createSlides() {
         this.views = [];
-        for (var i = 1; i < 4; i++) {
+        for (var i = 0; i < this.options.pages.length; i++) {
             this.commonSlideCell = new CommonSlideCell({
                 bg: this.options.bgColor,
-                content: this.options.page + '. View ' + i
+                content: this.options.pages[i]
             });
             /**
              * Pipe events from surface to view

@@ -19,7 +19,7 @@ define(function (require, exports, module) {
 
     function AppViewCell() {
         this.imgModifier = new StateModifier({
-            opacity: 0.5
+            opacity: 1
         });
 
         this.imgSurface = new ImageSurface({
@@ -28,7 +28,7 @@ define(function (require, exports, module) {
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center",
                 backgroundRepeat: "repeat",
-                background: "#595153 url('img/bg/pattern2.jpg')"
+                background: "#595153 url('img/bg/pattern-sepia1.jpg')"
             }
         });
 

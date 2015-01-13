@@ -51,21 +51,21 @@ define(function (require, exports, module) {
         this.contents = [];
 
         this.homeCell = new HomeCell();
-        this.aboutUsCell = new CommonPageCell({bgColor: 'orange', page: 'About Us', sync: this.options.sync});
-        this.demographicsCell = new CommonPageCell({bgColor: 'green', page: 'Demographics', sync: this.options.sync});
-        this.clientsCell = new CommonPageCell({bgColor: 'brown', page: 'clientsCell', sync: this.options.sync});
+        this.aboutUsCell = new CommonPageCell({bgColor: 'orange', pages: ['about1','about2','about3'], sync: this.options.sync});
+        //this.demographicsCell = new CommonPageCell({bgColor: 'green', page: 'Demographics', sync: this.options.sync});
+        //this.clientsCell = new CommonPageCell({bgColor: 'brown', page: 'clientsCell', sync: this.options.sync});
         /**
          * Connect each page view to GenericSync
          */
         this.homeCell.pipe(this.options.sync);
         this.aboutUsCell.pipe(this.options.sync);
-        this.demographicsCell.pipe(this.options.sync);
-        this.clientsCell.pipe(this.options.sync);
+        //this.demographicsCell.pipe(this.options.sync);
+        //this.clientsCell.pipe(this.options.sync);
 
         this.contents.push(this.homeCell);
         this.contents.push(this.aboutUsCell);
-        this.contents.push(this.demographicsCell);
-        this.contents.push(this.clientsCell);
+        //this.contents.push(this.demographicsCell);
+        //this.contents.push(this.clientsCell);
         this.scrollview.sequenceFrom(this.contents);
 
     };

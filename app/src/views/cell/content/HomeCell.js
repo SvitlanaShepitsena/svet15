@@ -30,7 +30,7 @@ define(function (require, exports, module) {
         this.flexContent = [];
 
         this.fSurface1 = new Surface({
-            content: "<img class='img-logo-mob' src='img/home-page/svet-logo-mob.png'>" +
+            content: "<img class='img-logo-mob' src='../../../../img/home-page/svet-logo-mob.png'>" +
             " <p class='p-svet'><span class='em-svet'>SVET Media Group</span> is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>",
             properties: {
                 padding: '10px',
@@ -43,7 +43,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "<ul class='list-inline'>" +
             "<li class='li-img'>" +
-            "<img class='img-responsive' src='img/home-page/icons-color/news-daily-or.png'>" +
+            "<img class='img-responsive' src='../../../../img/home-page/icons-color/news-daily-or.png'>" +
             "</li>" +
             "<li class='li-text'>" +
             "<h4>SVET Daily Newspaper</h4>" +
@@ -58,7 +58,7 @@ define(function (require, exports, module) {
             content: "<ul class='list-inline'>" +
             "<li class='li-img'>" +
             '<div class="img-frame">' +
-            "<img class='img-responsive' src='img/home-page/icons-color/news-weekly-or.png'>" +
+            "<img class='img-responsive' src='../../../../img/home-page/icons-color/news-weekly-or.png'>" +
             '</div>' +
             "</li>" +
             "<li class='li-text'>" +
@@ -74,7 +74,7 @@ define(function (require, exports, module) {
             content: "<ul class='list-inline'>" +
             "<li class='li-img'>" +
             '<div class="img-frame">' +
-            "<img class='img-responsive' src='img/home-page/icons-color/yp-or.png'>" +
+            "<img class='img-responsive' src='../../../../img/home-page/icons-color/yp-or.png'>" +
             '</div>' +
             "</li>" +
             "<li class='li-text'>" +
@@ -90,7 +90,7 @@ define(function (require, exports, module) {
             content: "<ul class='list-inline'>" +
             "<li class='li-img'>" +
             '<div class="img-frame">' +
-            "<img class='img-responsive' src='img/home-page/icons-color/radio-or.png'>" +
+            "<img class='img-responsive' src='../../../../img/home-page/icons-color/radio-or.png'>" +
             '</div>' +
             "</li>" +
             "<li class='li-text'>" +
