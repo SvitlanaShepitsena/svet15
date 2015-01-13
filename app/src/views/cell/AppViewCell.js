@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require('famous/core/Modifier');
+    var StateModifier = require('famous/modifiers/StateModifier');
     var Transform = require('famous/core/Transform');
     var View = require('famous/core/View');
     var MouseSync = require('famous/inputs/MouseSync');
@@ -17,14 +18,17 @@ define(function (require, exports, module) {
 
 
     function AppViewCell() {
+        this.imgModifier = new StateModifier({
+            opacity: 0.5
+        });
 
-        this.surface = new ImageSurface({
+        this.imgSurface = new ImageSurface({
             size: [undefined, undefined],
             properties: {
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center",
                 backgroundRepeat: "repeat",
-                background: "#e6e6d8 url('https://dl.dropboxusercontent.com/s/t0gu051d08sei65/bg-retro-noise.png')"
+                background: "#595153 url('img/bg/pattern2.jpg')"
             }
         });
 
@@ -54,7 +58,7 @@ define(function (require, exports, module) {
 
         this.pageViewCell.on('menuToggle', this.toggleMenu.bind(this));
 
-        this.add(this.surface);
+        this.add(this.imgModifier).add(this.imgSurface);
 
         this.add(this.menuView);
         this.add(this.pageModifier).add(this.pageViewCell);
