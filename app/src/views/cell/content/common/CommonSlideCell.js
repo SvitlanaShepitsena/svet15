@@ -5,16 +5,16 @@ define(function (require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
     var Transitionable = require('famous/transitions/Transitionable');
 
-    function CommonSlideView() {
+    function CommonSlideCell() {
         View.apply(this, arguments);
         _createBackground.call(this);
         _createViewContent.call(this);
     }
 
-    CommonSlideView.prototype = Object.create(View.prototype);
-    CommonSlideView.prototype.constructor = CommonSlideView;
+    CommonSlideCell.prototype = Object.create(View.prototype);
+    CommonSlideCell.prototype.constructor = CommonSlideCell;
 
-    CommonSlideView.DEFAULT_OPTIONS = {
+    CommonSlideCell.DEFAULT_OPTIONS = {
         align: [0.5, 0.5],
         origin: [0.5, 0.5],
         bg: 'grey',
@@ -59,5 +59,5 @@ define(function (require, exports, module) {
         this.rootNode.add(this.contentModifier).add(this.viewContent);
     }
 
-    module.exports = CommonSlideView;
+    module.exports = CommonSlideCell;
 });

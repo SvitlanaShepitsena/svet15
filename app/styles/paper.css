@@ -1,0 +1,71 @@
+@import url(http://fonts.googleapis.com/css?family=Oswald:400|Open+Sans:700);
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+/* fontawesome */
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+section {
+  background: #e6e6d8 url('https://dl.dropboxusercontent.com/s/t0gu051d08sei65/bg-retro-noise.png');
+  color: #121212;
+}
+
+section.text {
+  position: absolute;
+  width: 100%;
+  min-width: 800px;
+  text-align: center;
+  top: 50%;
+  margin-top: -55px;
+}
+
+h1, h3 {
+  transform: matrix(1, -0.20, 0, 1, 0, 0);
+  -ms-transform: matrix(1, -0.20, 0, 1, 0, 0);
+  -webkit-transform: matrix(1, -0.20, 0, 1, 0, 0);
+}
+
+h1 {
+  font-family: "Oswald", Sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 70px;
+  text-shadow: 4px 5px #e6e6d8, 6px 7px #c6a39a;
+}
+
+h1 span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+span.star {
+  font-size: 20px;
+}
+
+h3 {
+  font-family: "Open Sans", Sans-serif;
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+h3:before, h3:after {
+  content: " ";
+  position: absolute;
+  width: 100px;
+  height: 4px;
+  border-top: 2px solid #121212;
+  border-bottom: 2px solid #121212;
+}
+
+h3:before {
+  margin: 5px 0 0 -110px;
+}
+
+h3:after {
+  margin: 5px 0 0 10px;
+}

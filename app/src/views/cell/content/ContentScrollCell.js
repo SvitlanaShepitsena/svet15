@@ -8,11 +8,11 @@ define(function (require, exports, module) {
     var EventHandler = require('famous/core/EventHandler');
     var ScrollContainer = require('famous/views/ScrollContainer');
 
-    var CommonPageView = require('views/cell/content/common/CommonPageView');
-    var HomePageView = require('views/cell/content/HomeCell');
+    var CommonPageCell = require('views/cell/content/common/CommonPageCell');
+    var HomeCell = require('views/cell/content/HomeCell');
 
 
-    function ContentScroll() {
+    function ContentScrollCell() {
         ScrollContainer.apply(this, arguments);
         /**
          * Assign an event handler to receive an object's input events.
@@ -41,41 +41,41 @@ define(function (require, exports, module) {
         _createContent.call(this);
     }
 
-    ContentScroll.prototype = Object.create(ScrollContainer.prototype);
-    ContentScroll.prototype.constructor = ContentScroll;
+    ContentScrollCell.prototype = Object.create(ScrollContainer.prototype);
+    ContentScrollCell.prototype.constructor = ContentScrollCell;
 
-    ContentScroll.DEFAULT_OPTIONS = {};
+    ContentScrollCell.DEFAULT_OPTIONS = {};
 
     function _createContent() {
         var that = this;
         this.contents = [];
 
-        this.homePageView = new HomePageView();
-        this.aboutUsDesk = new CommonPageView({bgColor: 'orange', page: 'About Us', sync: this.options.sync});
-        this.demographicsView = new CommonPageView({bgColor: 'green', page: 'Demographics', sync: this.options.sync});
-        this.clients = new CommonPageView({bgColor: 'brown', page: 'clients', sync: this.options.sync});
+        this.homeCell = new HomeCell();
+        this.aboutUsCell = new CommonPageCell({bgColor: 'orange', page: 'About Us', sync: this.options.sync});
+        this.demographicsCell = new CommonPageCell({bgColor: 'green', page: 'Demographics', sync: this.options.sync});
+        this.clientsCell = new CommonPageCell({bgColor: 'brown', page: 'clientsCell', sync: this.options.sync});
         /**
          * Connect each page view to GenericSync
          */
-        this.homePageView.pipe(this.options.sync);
-        this.aboutUsDesk.pipe(this.options.sync);
-        this.demographicsView.pipe(this.options.sync);
-        this.clients.pipe(this.options.sync);
+        this.homeCell.pipe(this.options.sync);
+        this.aboutUsCell.pipe(this.options.sync);
+        this.demographicsCell.pipe(this.options.sync);
+        this.clientsCell.pipe(this.options.sync);
 
-        this.contents.push(this.homePageView);
-        this.contents.push(this.aboutUsDesk);
-        this.contents.push(this.demographicsView);
-        this.contents.push(this.clients);
+        this.contents.push(this.homeCell);
+        this.contents.push(this.aboutUsCell);
+        this.contents.push(this.demographicsCell);
+        this.contents.push(this.clientsCell);
         this.scrollview.sequenceFrom(this.contents);
 
     };
 
-    ContentScroll.prototype.nextPage = function () {
+    ContentScrollCell.prototype.nextPage = function () {
         this.scrollview.goToNextPage();
     }
-    ContentScroll.prototype.prevPage = function () {
+    ContentScrollCell.prototype.prevPage = function () {
         this.scrollview.goToPreviousPage();
     }
 
-    module.exports = ContentScroll;
+    module.exports = ContentScrollCell;
 });

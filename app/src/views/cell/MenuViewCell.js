@@ -66,7 +66,7 @@ define(function (require, exports, module) {
 
     function _createBacking() {
         var backSurface = new Surface({
-            size: [this.options.width, this.options.height],
+            size: [window.innerWidth/ 2, this.options.height],
             properties: {
                 backgroundColor: '#595153'
             }

@@ -7,26 +7,45 @@ define(function (require, exports, module) {
     var Lightbox = require('famous/views/Lightbox');
     var Easing = require('famous/transitions/Easing');
     var Modifier = require("famous/core/Modifier");
+    var ImageSurface = require('famous/surfaces/ImageSurface');
 
-    var CommonSlideView = require('views/cell/content/common/CommonSlideView');
+    var CommonSlideCell = require('views/cell/content/common/CommonSlideCell');
 
-    function CommonPageView() {
+    function CommonPageCell() {
         View.apply(this, arguments);
 
         var centerModifier = new Modifier({
             size: [undefined, window.innerHeight * .93]
         });
         this.rootNode = this.add(centerModifier);
-
+        //_backGround.call(this);
         _createSlides.call(this);
+
         _handleSwipe.call(this);
         _init.call(this);
     }
+        function _backGround() {
+            this.opacityModifier = new StateModifier({
+                align: [0.5, 0.5],
+                origin: [0.5, 0.5],
+                opacity:1
+            });
 
-    CommonPageView.prototype = Object.create(View.prototype);
-    CommonPageView.prototype.constructor = CommonPageView;
+            this.backGround = new ImageSurface({
+                size: [undefined, undefined],
+                properties: {
+                    lineHeight: window.innerHeight + "px",
+                    textAlign: "center"
+                }
+            });
+            this.backGround.setContent('https://dl.dropboxusercontent.com/s/t0gu051d08sei65/bg-retro-noise.png');
+            this.rootNode.add(this.opacityModifier).add(this.backGround);
+        }
 
-    CommonPageView.DEFAULT_OPTIONS = {
+    CommonPageCell.prototype = Object.create(View.prototype);
+    CommonPageCell.prototype.constructor = CommonPageCell;
+
+    CommonPageCell.DEFAULT_OPTIONS = {
         size: [undefined, undefined],
         bg: null,
         width: window.innerWidth,
@@ -42,21 +61,22 @@ define(function (require, exports, module) {
     function _createSlides() {
         this.views = [];
         for (var i = 1; i < 4; i++) {
-            this.commonSlideView = new CommonSlideView({
+            this.commonSlideCell = new CommonSlideCell({
                 bg: this.options.bgColor,
                 content: this.options.page + '. View ' + i
             });
             /**
              * Pipe events from surface to view
              */
-            this.commonSlideView.pipe(this._eventOutput);
-            this.views.push(this.commonSlideView);
+
+            this.commonSlideCell.pipe(this._eventOutput);
+            this.views.push(this.commonSlideCell);
         }
         this.lightbox = new Lightbox(this.options.lightboxOpts);
         this.rootNode.add(this.lightbox);
     }
 
-    CommonPageView.prototype.nextView = function () {
+    CommonPageCell.prototype.nextView = function () {
         var currentView = this.views[this.currentIndex];
         var nextIndex = (this.currentIndex === this.views.length - 1) ? 0 : this.currentIndex + 1;
         var nextView = this.views[nextIndex];
@@ -73,7 +93,7 @@ define(function (require, exports, module) {
         this.currentIndex = nextIndex;
     }
 
-    CommonPageView.prototype.prevView = function () {
+    CommonPageCell.prototype.prevView = function () {
         var currentView = this.views[this.currentIndex];
         var prevIndex = (this.currentIndex === 0) ? this.views.length - 1 : this.currentIndex - 1;
         var prevView = this.views[prevIndex];
@@ -118,5 +138,5 @@ define(function (require, exports, module) {
         }.bind(this));
     }
 
-    module.exports = CommonPageView;
+    module.exports = CommonPageCell;
 });
