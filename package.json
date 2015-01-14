@@ -132,6 +132,6 @@
     "tar-stream": "^1.1.1",
     "through2": "^0.6.3",
     "uglifyjs": "^2.3.6",
-    "underscore": "^1.7.0",
+    "underscore": "^1.7.0"
   }
 }
