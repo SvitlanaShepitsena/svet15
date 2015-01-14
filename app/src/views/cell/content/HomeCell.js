@@ -98,7 +98,7 @@ define(function (require, exports, module) {
             transform: Transform.translate(-this.options.slidePosition, 0, 0)
         });
         this.stateMod4.setTransform(Transform.translate(0, 0, 0),
-            {duration: 300, curve: 'linear'}
+            {duration: 500, curve: 'linear'}
         );
         this.renderNode4.add(this.stateMod4).add(this.fSurface4);
 
