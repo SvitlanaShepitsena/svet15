@@ -25,7 +25,7 @@ define(function (require, exports, module) {
         for (var i = 0; i < this.elements.length; i++) {
             var surf = new Surface({
                 size: [undefined, undefined],
-                content: "<img class='ravinia-img' src='../img/footer-ad/ravinia-ad.png'>",
+                content: "<img class='ravinia-img' src='../img/footer-ad/ravinia--ad.png'>",
                 properties: {
                     color: 'white',
                     fontSize: '22px',
