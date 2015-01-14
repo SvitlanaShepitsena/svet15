@@ -69,6 +69,7 @@ define(function (require, exports, module) {
 
         var logoDesk = new LogoDesk();
         var navDesk = new NavDesk();
+        navDesk.pipe(this);
 
         this.contents.push(logoDesk);
         this.contents.push(navDesk);
