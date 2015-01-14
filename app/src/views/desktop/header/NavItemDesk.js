@@ -27,7 +27,7 @@ define(function (require, exports, module) {
 
     function _navItem() {
         this.itemSurface = new ImageSurface({
-            size: [100, 110],
+            size:[true,100],
             properties: {
                 cursor: 'pointer'
             }

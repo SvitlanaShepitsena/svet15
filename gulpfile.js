@@ -165,6 +165,16 @@ gulp.task('jade:v', function () {
         .pipe(reload({stream: true}))
 });
 
+gulp.task('jade:parts', function () {
+    return gulp.src('app/src/views/**/*.jade')
+        .pipe(plumber({errorHandler: onError}))
+        .pipe(jade({
+            pretty: true
+        }))
+        .pipe(gulp.dest('app/src/views/'))
+        .pipe(reload({stream: true}))
+});
+
 gulp.task('copy:reset', function () {
     return gulp.src(['app/styles/reset.css'], {base: 'app'})
         .pipe(newer(dev))
@@ -245,12 +255,13 @@ gulp.task('browser-sync', function () {
     });
 });
 
-gulp.task('default', ['jade:v', 'jade', 'autoprefix'], function () {
+gulp.task('default', ['jade:v', 'jade', 'autoprefix','jade:parts'], function () {
     //runSequence('js', 'add');
 
     gulp.watch(['app/src/*.js', 'app/src/views/**/*.js'], ['reload']);
     gulp.watch('app/img/**/*', ['img']);
     gulp.watch('app/*.jade', ['jade']);
+    gulp.watch('app/src/views/**/*.jade', ['jade:parts']);
     gulp.watch('app/jade/*.jade', ['jade:v']);
     gulp.watch('app/styles/**/*.styl', ['autoprefix']);
 

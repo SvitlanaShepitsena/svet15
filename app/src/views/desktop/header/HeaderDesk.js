@@ -7,6 +7,7 @@ define(function (require, exports, module) {
     var ImageSurface = require('famous/surfaces/ImageSurface');
     var Modifier = require("famous/core/Modifier");
     var Transitionable = require('famous/transitions/Transitionable');
+
     var LogoDesk = require('dviews/header/LogoDesk');
     var NavDesk = require('dviews/header/NavDesk');
 
@@ -25,8 +26,9 @@ define(function (require, exports, module) {
         this.opacityTransitionable = new Transitionable(0);
 
         this.centerModifier = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
+            align: [0, 0],
+            origin: [0, 0],
+            size:[undefined,100],
             opacity: function () {
                 return this.opacityTransitionable.get();
             }.bind(this),
@@ -34,8 +36,7 @@ define(function (require, exports, module) {
         });
 
         this.rootNode = this.add(this.centerModifier);
-        this.opacityTransitionable.set(0.6, {duration: 1000, curve: 'easeInOut'});
-
+        this.opacityTransitionable.set(1, {duration: 1000, curve: 'easeInOut'});
 
     }
 

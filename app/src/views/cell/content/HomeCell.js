@@ -9,6 +9,7 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
     var StateModifier = require('famous/modifiers/StateModifier');
     var Transitionable = require('famous/transitions/Transitionable');
+    var HomePart = require('views/cell/content/home/HomePart');
 
     function HomeCell() {
         View.apply(this, arguments);
@@ -35,80 +36,37 @@ define(function (require, exports, module) {
                 textAlign: "center"
             }
         });
-
-        this.fSurface2 = new Surface({
-            size: [undefined, undefined],
-            content: '<div class="section-frame">' +
-            "<h4>SVET Daily <br/> Newspaper</h4>" +
-            '<div class="img-frame">' +
-            "<img class='img-responsive' src='../../../../img/home-page/icons-color/news-daily-or.png'></div" +
-            '</div>' +
-            '</div>',
-            properties: this.options.sectionProp
-        });
-
-        this.slidePosition = window.innerWidth / 2;
-        this.renderNode2 = new RenderNode();
-        this.stateMod2 = new StateModifier({
-            align: [0, 0],
-            origin: [0, 0],
-            transform: Transform.translate(-this.slidePosition, 0, 0)
-        });
-        this.renderNode2.add(this.stateMod2).add(this.fSurface2);
-
-        this.stateMod2.setTransform(Transform.translate(0, 0, 0),
-            {duration: 300, curve: 'linear'}
-        );
-
-        this.fSurface3 = new Surface({
-            size: [undefined, undefined],
-            content: '<div class="section-frame">' +
-            "<h4>Saturday Plus <br/>Newspaper</h4>" +
-            '<div class="img-frame">' +
-            "<img class='img-responsive' src='../../../../img/home-page/icons-color/news-weekly-or.png'>" +
-            '</div>' +
-            '</div>',
-            properties: this.options.sectionProp
-        });
-
-
-        this.fSurface4 = new Surface({
-            size: [undefined, undefined],
-            content: '<div class="section-frame">' +
-            "<h4>Russian-American <br/> Yellow Pages</h4>" +
-            '<div class="img-frame">' +
-            "<img class='img-responsive' src='../../../../img/home-page/icons-color/yp-or.png'>" +
-            '</div>' +
-            '</div>',
-            properties: this.options.sectionProp
-        });
-
-
-        this.fSurface5 = new Surface({
-            size: [undefined, undefined],
-            content: '<div class="section-frame">' +
-            "<h4>Radio Program <br/> “OSA”</h4>" +
-            '<div class="img-frame">' +
-            "<img class='img-responsive' src='../../../../img/home-page/icons-color/radio-or.png'>" +
-            '</div>' +
-            '</div>',
-            properties: this.options.sectionProp
-        });
-        this.fSurface1.pipe(this._eventOutput);
-        this.fSurface2.pipe(this._eventOutput);
-        this.fSurface3.pipe(this._eventOutput);
-        this.fSurface4.pipe(this._eventOutput);
-        this.fSurface5.pipe(this._eventOutput);
+    this.fSurface1.pipe(this._eventOutput);
+        this.renderNode2 = new HomePart({
+            sign: -1,
+            content: 'part 11'
+        })
+        this.renderNode3 = new HomePart({
+            sign: 1,
+            content: 'part 12'
+        })
+        this.renderNode4 = new HomePart({
+            sign: -1,
+            content: 'part 21'
+        })
+        this.renderNode5 = new HomePart({
+            sign: 1,
+            content: 'part 22'
+        })
+        this.renderNode2.pipe(this._eventOutput);
+        this.renderNode3.pipe(this._eventOutput);
+        this.renderNode4.pipe(this._eventOutput);
+        this.renderNode5.pipe(this._eventOutput);
 
         this.contentTop = [];
         this.contentTop.push(this.renderNode2);
-        this.contentTop.push(this.fSurface3);
+        this.contentTop.push(this.renderNode3);
         this.gridContentTop = new GridLayout({dimensions: [2, 1]});
         this.gridContentTop.sequenceFrom(this.contentTop);
 
         this.contentBottom = [];
-        this.contentBottom.push(this.fSurface4);
-        this.contentBottom.push(this.fSurface5);
+        this.contentBottom.push(this.renderNode4);
+        this.contentBottom.push(this.renderNode5);
         this.gridContentBottom = new GridLayout({dimensions: [2, 1]});
         this.gridContentBottom.sequenceFrom(this.contentBottom);
 

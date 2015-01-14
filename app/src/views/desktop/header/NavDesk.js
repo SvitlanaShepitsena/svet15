@@ -16,7 +16,7 @@ define(function (require, exports, module) {
         this.centerModifier = new Modifier({
             align: [0.5, 0],
             origin: [0.5, 0],
-            transform: Transform.translate(30, 40, 0)
+            transform: Transform.translate(0, 0, 0)
         });
         this.rootNode = this.add(this.centerModifier);
 

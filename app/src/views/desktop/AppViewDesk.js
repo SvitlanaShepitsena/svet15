@@ -3,65 +3,41 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
-    var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
+
     var ScrollDesk = require('dviews/content/ScrollDesk');
-    var VideoSurface = require('famous/surfaces/VideoSurface');
-
-    var VideoDesk = require('dviews/header/VideoDesk');
-
     var HeaderDesk = require('dviews/header/HeaderDesk');
-    var FooterDesk = require('dviews/footer/FooterDesk');
 
 
-    AppViewDesk.DEFAULT_OPTIONS = {
-        centerModifier: [0.5, 0],
-        videoUrl: 'https://d2vj41uy1yy43g.cloudfront.net/empire_state.webm',
-        layout: {
-            headerSize: 200,
-            footerSize: 50
-        }
-    };
+    AppViewDesk.DEFAULT_OPTIONS = {};
 
     function AppViewDesk() {
         View.apply(this, arguments);
-
+        console.log('here');
         _init.call(this);
 
-        _videoBackground.call(this);
 
-        _headerFooterLayout.call(this);
         _navigation.call(this);
+        _content.call(this);
+        _header.call(this);
+    }
+
+    function _header() {
+        this.headerDesk = new HeaderDesk();
+        this.rootNode.add(this.headerDesk);
+
+    }
+
+    function _content() {
+        this.scrolldesk = new ScrollDesk();
+        this.rootNode.add(this.scrolldesk);
     }
 
     function _navigation() {
         this.on('navigateTo', function (index) {
             this.layout.content.scrollview.goToPage(index);
         })
-
     }
 
-    function _headerFooterLayout() {
-        this.layout = new HeaderFooterLayout(this.options.layout);
-        this.layout.header = new HeaderDesk();
-        this.layout.header.pipe(this._eventOutput);
-
-
-        this.layout.content = new ScrollDesk();
-        this.layout.footer = new FooterDesk();
-
-        this.rootNode.add(this.layout);
-    }
-
-    function _videoBackground() {
-        this.videoSurface = new VideoDesk({
-            size: [window.innerWidth, window.innerWidth * .56],
-            autoplay: false,
-            controls: false
-        });
-        this.videoSurface.setContent(this.options.videoUrl);
-
-        this.rootNode.add(this.videoSurface);
-    }
 
     function _init() {
         var centerModifier = new Modifier({
