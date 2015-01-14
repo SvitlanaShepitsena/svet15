@@ -6,27 +6,25 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var FlexibleLayout = require('famous/views/FlexibleLayout');
     var GridLayout = require("famous/views/GridLayout");
+    var RenderNode = require('famous/core/RenderNode');
+    var StateModifier = require('famous/modifiers/StateModifier');
+    var Transitionable = require('famous/transitions/Transitionable');
 
-    function HomePageView() {
-
+    function HomeCell() {
         View.apply(this, arguments);
         _init.call(this);
         _flex.call(this);
     }
 
-    var bdr = '2px solid #F4B6AB';
-
     function _flex() {
         this.flexMod = new Modifier({
             align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            transform: Transform.translate(0, 0, 0)
+            origin: [0.5, 0.5]
         });
         this.layout = new FlexibleLayout({
             ratios: [2, 2, 2],
             direction: 1
         });
-
         this.flexContent = [];
 
         this.fSurface1 = new Surface({
@@ -34,11 +32,10 @@ define(function (require, exports, module) {
             " <h3> REACHING UNTAPPED MARKETS</h3>",
             properties: {
                 padding: '10px',
-                backgroundColor: '#FFF2DF',
-                borderBottom: bdr,
                 textAlign: "center"
             }
         });
+
         this.fSurface2 = new Surface({
             size: [undefined, undefined],
             content: '<div class="section-frame">' +
@@ -50,6 +47,18 @@ define(function (require, exports, module) {
             properties: this.options.sectionProp
         });
 
+        this.slidePosition = window.innerWidth / 2;
+        this.renderNode2 = new RenderNode();
+        this.stateMod2 = new StateModifier({
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(-this.slidePosition, 0, 0)
+        });
+        this.renderNode2.add(this.stateMod2).add(this.fSurface2);
+
+        this.stateMod2.setTransform(Transform.translate(0, 0, 0),
+            {duration: 300, curve: 'linear'}
+        );
 
         this.fSurface3 = new Surface({
             size: [undefined, undefined],
@@ -92,7 +101,7 @@ define(function (require, exports, module) {
         this.fSurface5.pipe(this._eventOutput);
 
         this.contentTop = [];
-        this.contentTop.push(this.fSurface2);
+        this.contentTop.push(this.renderNode2);
         this.contentTop.push(this.fSurface3);
         this.gridContentTop = new GridLayout({dimensions: [2, 1]});
         this.gridContentTop.sequenceFrom(this.contentTop);
@@ -113,15 +122,16 @@ define(function (require, exports, module) {
         this.rootNode.add(this.flexMod).add(this.layout);
     }
 
-    HomePageView.DEFAULT_OPTIONS = {
+    HomeCell.DEFAULT_OPTIONS = {
         height: window.innerHeight,
         width: window.innerWidth,
+        contProp: {
+            backgroundColor: '#FFF2DF'
+        },
         sectionProp: {
-            backgroundColor: '#FFF2DF',
             paddingLeft: '10px',
             paddingRight: '10px',
             paddingTop: '5px',
-            borderBottom: bdr,
             textAlign: "center"
         }
     };
@@ -129,15 +139,23 @@ define(function (require, exports, module) {
     function _init() {
         this.centerModifier = new Modifier({
             align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            transform: Transform.translate(0, 0, 0)
+            origin: [0.5, 0.5]
+        });
+        this.contentBacking = new Surface({
+            size: [undefined, undefined],
+            properties: {
+                color: 'white',
+                textAlign: 'center',
+                backgroundColor: this.options.contProp.backgroundColor
+            }
         });
         this.rootNode = this.add(this.centerModifier);
+        this.rootNode.add(this.contentBacking);
     }
 
-    HomePageView.prototype = Object.create(View.prototype);
-    HomePageView.prototype.constructor = HomePageView;
+    HomeCell.prototype = Object.create(View.prototype);
+    HomeCell.prototype.constructor = HomeCell;
 
 
-    module.exports = HomePageView;
+    module.exports = HomeCell;
 });

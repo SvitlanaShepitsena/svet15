@@ -30,7 +30,7 @@ define(function (require, exports, module) {
                     color: 'white',
                     fontSize: '22px',
                     textAlign: 'center',
-                    backgroundColor: "black"
+                    backgroundColor: "#3E3A3B"
                 }
             });
 
