@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
-    var DeskScroll = require('dviews/content/ScrollDesk');
+    var ScrollDesk = require('dviews/content/ScrollDesk');
     var VideoSurface = require('famous/surfaces/VideoSurface');
 
     var VideoDesk = require('dviews/header/VideoDesk');
@@ -30,13 +30,23 @@ define(function (require, exports, module) {
         _videoBackground.call(this);
 
         _headerFooterLayout.call(this);
+        _navigation.call(this);
+    }
+
+    function _navigation() {
+        this.on('navigateTo', function (index) {
+            this.layout.content.scrollview.goToPage(index);
+        })
+
     }
 
     function _headerFooterLayout() {
         this.layout = new HeaderFooterLayout(this.options.layout);
         this.layout.header = new HeaderDesk();
+        this.layout.header.pipe(this._eventOutput);
 
-        this.layout.content = new DeskScroll();
+
+        this.layout.content = new ScrollDesk();
         this.layout.footer = new FooterDesk();
 
         this.rootNode.add(this.layout);
