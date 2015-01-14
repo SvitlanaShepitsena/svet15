@@ -16,6 +16,21 @@ define(function (require, exports, module) {
         _flex.call(this);
     }
 
+    HomeCell.DEFAULT_OPTIONS = {
+        height: window.innerHeight,
+        width: window.innerWidth,
+        slidePosition: window.innerWidth / 2,
+        contProp: {
+            backgroundColor: '#FFF2DF'
+        },
+        sectionProp: {
+            paddingLeft: '10px',
+            paddingRight: '10px',
+            paddingTop: '5px',
+            textAlign: "center"
+        }
+    };
+
     function _flex() {
         this.flexMod = new Modifier({
             align: [0.5, 0.5],
@@ -30,10 +45,7 @@ define(function (require, exports, module) {
         this.fSurface1 = new Surface({
             content: "<img class='img-logo-mob' src='../../../../img/home-page/svet-logo-mob.png'>" +
             " <h3> REACHING UNTAPPED MARKETS</h3>",
-            properties: {
-                padding: '10px',
-                textAlign: "center"
-            }
+            properties: this.options.sectionProp
         });
 
         this.fSurface2 = new Surface({
@@ -47,18 +59,16 @@ define(function (require, exports, module) {
             properties: this.options.sectionProp
         });
 
-        this.slidePosition = window.innerWidth / 2;
         this.renderNode2 = new RenderNode();
+
         this.stateMod2 = new StateModifier({
-            align: [0, 0],
-            origin: [0, 0],
-            transform: Transform.translate(-this.slidePosition, 0, 0)
+            transform: Transform.translate(-this.options.slidePosition, 0, 0)
         });
-        this.renderNode2.add(this.stateMod2).add(this.fSurface2);
 
         this.stateMod2.setTransform(Transform.translate(0, 0, 0),
             {duration: 300, curve: 'linear'}
         );
+        this.renderNode2.add(this.stateMod2).add(this.fSurface2);
 
         this.fSurface3 = new Surface({
             size: [undefined, undefined],
@@ -82,6 +92,15 @@ define(function (require, exports, module) {
             '</div>',
             properties: this.options.sectionProp
         });
+        this.renderNode4 = new RenderNode();
+
+        this.stateMod4 = new StateModifier({
+            transform: Transform.translate(-this.options.slidePosition, 0, 0)
+        });
+        this.stateMod4.setTransform(Transform.translate(0, 0, 0),
+            {duration: 300, curve: 'linear'}
+        );
+        this.renderNode4.add(this.stateMod4).add(this.fSurface4);
 
 
         this.fSurface5 = new Surface({
@@ -107,7 +126,7 @@ define(function (require, exports, module) {
         this.gridContentTop.sequenceFrom(this.contentTop);
 
         this.contentBottom = [];
-        this.contentBottom.push(this.fSurface4);
+        this.contentBottom.push(this.renderNode4);
         this.contentBottom.push(this.fSurface5);
         this.gridContentBottom = new GridLayout({dimensions: [2, 1]});
         this.gridContentBottom.sequenceFrom(this.contentBottom);
@@ -122,19 +141,6 @@ define(function (require, exports, module) {
         this.rootNode.add(this.flexMod).add(this.layout);
     }
 
-    HomeCell.DEFAULT_OPTIONS = {
-        height: window.innerHeight,
-        width: window.innerWidth,
-        contProp: {
-            backgroundColor: '#FFF2DF'
-        },
-        sectionProp: {
-            paddingLeft: '10px',
-            paddingRight: '10px',
-            paddingTop: '5px',
-            textAlign: "center"
-        }
-    };
 
     function _init() {
         this.centerModifier = new Modifier({
