@@ -157,27 +157,27 @@ body {
     line-height: 18px;
   }
 }
-.li-img {
-  width: 30%;
+.img-frame {
+  width: 80%;
   display: inline-block;
-  float: left;
+  text-align: center;
 }
 @media only screen and (max-width: 500px) {
-  .li-img {
-    width: 25%;
+  .img-frame {
+    width: 65%;
   }
 }
 @media only screen and (max-width: 400px) {
-  .li-img {
-    width: 26%;
+  .img-frame {
+    width: 60%;
   }
 }
 @media only screen and (max-width: 350px) {
-  .li-img {
-    width: 20%;
+  .img-frame {
+    width: 50%;
   }
 }
-.li-img img {
+.img-frame img {
   vertical-align: middle;
 }
 .li-text {
@@ -205,6 +205,6 @@ body {
   =Footer
 ***********************/
 .ravinia-img {
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 90%;
+  max-height: 90%;
 }
