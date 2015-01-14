@@ -10,42 +10,43 @@ define(function (require, exports, module) {
         _init.call(this);
         _ad.call(this);
     }
-        function _ad() {
-            /**
-             *  EdgeSwapper
-             */
-            this.elements = ['1', '2', '3', '4'];
 
-            this.adSwapper = new EdgeSwapper();
+    function _ad() {
+        /**
+         *  EdgeSwapper
+         */
+        this.elements = ['1', '2', '3', '4'];
 
-            this.surfaces = [];
-            this.counter = 0;
+        this.adSwapper = new EdgeSwapper();
 
-            for (var i = 0; i < this.elements.length; i++) {
-                var surf = new Surface({
-                    size: [undefined, undefined],
-                    content: 'Company '+(i+1)+ ' is the best',
-                    properties: {
-                        color: 'white',
-                        fontSize: '22px',
-                        textAlign: 'center',
-                        backgroundColor: "hsl(" + (i * 360 / this.elements.length) + ", 100%, 50%)"
-                    }
-                });
+        this.surfaces = [];
+        this.counter = 0;
 
-                surf.on('click', function () {
-                    this.counter = this.counter == this.surfaces.length - 1 ? 0 : this.counter + 1;
-                    this.adSwapper.show(this.surfaces[this.counter]);
-                }.bind(this));
+        for (var i = 0; i < this.elements.length; i++) {
+            var surf = new Surface({
+                size: [undefined, undefined],
+                content: "<img class='ravinia-img' src='../img/footer-ad/ravinia-ad.png'>",
+                properties: {
+                    color: 'white',
+                    fontSize: '22px',
+                    textAlign: 'center',
+                    backgroundColor: "black"
+                }
+            });
 
-                this.surfaces.push(surf);
-            }
+            surf.on('click', function () {
+                this.counter = this.counter == this.surfaces.length - 1 ? 0 : this.counter + 1;
+                this.adSwapper.show(this.surfaces[this.counter]);
+            }.bind(this));
 
-            this.rootNode.add(this.adSwapper);
-
-            this.adSwapper.show(this.surfaces[this.counter]);
-
+            this.surfaces.push(surf);
         }
+
+        this.rootNode.add(this.adSwapper);
+
+        this.adSwapper.show(this.surfaces[this.counter]);
+
+    }
 
     function _init() {
         this.centerModifier = new Modifier({
