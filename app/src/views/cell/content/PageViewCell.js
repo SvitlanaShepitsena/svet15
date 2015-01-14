@@ -83,7 +83,7 @@ define(function (require, exports, module) {
 
     PageViewCell.DEFAULT_OPTIONS = {
         headerSize: 0.1 * window.innerHeight,
-        footerSize: 0.1 * window.innerHeight
+        footerSize: 0.15 * window.innerHeight
     };
 
     PageViewCell.prototype = Object.create(View.prototype);
