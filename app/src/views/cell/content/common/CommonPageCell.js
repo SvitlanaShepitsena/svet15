@@ -27,23 +27,7 @@ define(function (require, exports, module) {
         _handleSwipe.call(this);
         _init.call(this);
     }
-        function _backGround() {
-            this.opacityModifier = new StateModifier({
-                align: [0.5, 0.5],
-                origin: [0.5, 0.5],
-                opacity:1
-            });
 
-            this.backGround = new ImageSurface({
-                size: [undefined, undefined],
-                properties: {
-                    lineHeight: window.innerHeight + "px",
-                    textAlign: "center"
-                }
-            });
-            this.backGround.setContent('https://dl.dropboxusercontent.com/s/t0gu051d08sei65/bg-retro-noise.png');
-            this.rootNode.add(this.opacityModifier).add(this.backGround);
-        }
 
     CommonPageCell.prototype = Object.create(View.prototype);
     CommonPageCell.prototype.constructor = CommonPageCell;

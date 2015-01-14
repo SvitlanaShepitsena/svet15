@@ -51,7 +51,11 @@ define(function (require, exports, module) {
         this.contents = [];
 
         this.homeCell = new HomeCell();
-        this.aboutUsCell = new CommonPageCell({bgColor: 'orange', pages: ['about1','about2','about3'], sync: this.options.sync});
+        this.aboutUsCell = new CommonPageCell({
+            bgColor: 'orange',
+            pages: ['about1', 'about2', 'about3'],
+            sync: this.options.sync
+        });
         //this.demographicsCell = new CommonPageCell({bgColor: 'green', page: 'Demographics', sync: this.options.sync});
         //this.clientsCell = new CommonPageCell({bgColor: 'brown', page: 'clientsCell', sync: this.options.sync});
         /**
