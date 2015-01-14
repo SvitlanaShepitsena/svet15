@@ -35,6 +35,8 @@ define(function (require, exports, module) {
 
         this.rootNode = this.add(this.centerModifier);
         this.opacityTransitionable.set(0.6, {duration: 1000, curve: 'easeInOut'});
+
+
     }
 
 
@@ -69,7 +71,7 @@ define(function (require, exports, module) {
 
         var logoDesk = new LogoDesk();
         var navDesk = new NavDesk();
-        navDesk.pipe(this);
+        navDesk.pipe(this._eventOutput);
 
         this.contents.push(logoDesk);
         this.contents.push(navDesk);

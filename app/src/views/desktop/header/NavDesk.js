@@ -19,10 +19,8 @@ define(function (require, exports, module) {
             transform: Transform.translate(30, 40, 0)
         });
         this.rootNode = this.add(this.centerModifier);
-        this._eventInput.pipe(this._eventOutput);
-        
-        _grid.call(this);
 
+        _grid.call(this);
     }
 
     function _grid() {
@@ -47,9 +45,7 @@ define(function (require, exports, module) {
         this.grid.sequenceFrom(this.navs);
         this.rootNode.add(this.grid);
 
-        this.on('navigateTo', function (index) {
-            console.log(index);
-        })
+
     }
 
     NavDesk.prototype = Object.create(View.prototype);
