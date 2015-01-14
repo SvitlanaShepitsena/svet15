@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
     var FlexibleLayout = require('famous/views/FlexibleLayout');
-
+    var GridLayout = require("famous/views/GridLayout");
 
     function HomePageView() {
 
@@ -23,7 +23,7 @@ define(function (require, exports, module) {
             transform: Transform.translate(0, 0, 0)
         });
         this.layout = new FlexibleLayout({
-            ratios: [2, 1, 1, 1, 1],
+            ratios: [2, 2, 2],
             direction: 1
         });
 
@@ -31,7 +31,7 @@ define(function (require, exports, module) {
 
         this.fSurface1 = new Surface({
             content: "<img class='img-logo-mob' src='../../../../img/home-page/svet-logo-mob.png'>" +
-            " <p class='p-svet'><span class='em-svet'>SVET Media Group</span> is the Midwest’s first and oldest publishing and advertising company serving the Russian, Ukrainian and Lithuanian communities since 1990.</p>",
+            " <h3> REACHING UNTAPPED MARKETS</h3>",
             properties: {
                 padding: '10px',
                 backgroundColor: '#FFF2DF',
@@ -41,62 +41,48 @@ define(function (require, exports, module) {
         });
         this.fSurface2 = new Surface({
             size: [undefined, undefined],
-            content: "<ul class='list-inline'>" +
-            "<li class='li-img'>" +
-            "<img class='img-responsive' src='../../../../img/home-page/icons-color/news-daily-or.png'>" +
-            "</li>" +
-            "<li class='li-text'>" +
-            "<h4>SVET Daily Newspaper</h4>" +
-            "<p>Over 48 pages. It is the most up-to-date Russian language newspaper in USA.</p></li>" +
-            "</ul>",
+            content: '<div class="section-frame">' +
+            "<h4>SVET Daily <br/> Newspaper</h4>" +
+            '<div class="img-frame">' +
+            "<img class='img-responsive' src='../../../../img/home-page/icons-color/news-daily-or.png'></div" +
+            '</div>' +
+            '</div>',
             properties: this.options.sectionProp
         });
 
 
         this.fSurface3 = new Surface({
             size: [undefined, undefined],
-            content: "<ul class='list-inline'>" +
-            "<li class='li-img'>" +
+            content: '<div class="section-frame">' +
+            "<h4>Saturday Plus <br/>Newspaper</h4>" +
             '<div class="img-frame">' +
             "<img class='img-responsive' src='../../../../img/home-page/icons-color/news-weekly-or.png'>" +
             '</div>' +
-            "</li>" +
-            "<li class='li-text'>" +
-            "<h4>Saturday Plus Weekly Newspaper</h4>" +
-            "<p>Free Paper with over 48 pages weekly. It covers entertainment and other social news in Unites States and abroad.</p></li>" +
-            "</ul>",
+            '</div>',
             properties: this.options.sectionProp
         });
 
 
         this.fSurface4 = new Surface({
             size: [undefined, undefined],
-            content: "<ul class='list-inline'>" +
-            "<li class='li-img'>" +
+            content: '<div class="section-frame">' +
+            "<h4>Russian-American <br/> Yellow Pages</h4>" +
             '<div class="img-frame">' +
             "<img class='img-responsive' src='../../../../img/home-page/icons-color/yp-or.png'>" +
             '</div>' +
-            "</li>" +
-            "<li class='li-text'>" +
-            "<h4>Russian-American Yellow Pages</h4>" +
-            "<p>The Russian YP present over 650 full color pages of services and products to the Russian-speaking community in the Chicagoland area.</p></li>" +
-            "</ul>",
+            '</div>',
             properties: this.options.sectionProp
         });
 
 
         this.fSurface5 = new Surface({
             size: [undefined, undefined],
-            content: "<ul class='list-inline'>" +
-            "<li class='li-img'>" +
+            content: '<div class="section-frame">' +
+            "<h4>Radio Program <br/> “OSA”</h4>" +
             '<div class="img-frame">' +
             "<img class='img-responsive' src='../../../../img/home-page/icons-color/radio-or.png'>" +
             '</div>' +
-            "</li>" +
-            "<li class='li-text'>" +
-            "<h4>Radio Program “OSA”</h4>" +
-            "<p>Every Sunday on 1240 AM radio from 11:00 a.m. to 1:00 p.m. listen to Radio OSA programs.</p></li>" +
-            "</ul>",
+            '</div>',
             properties: this.options.sectionProp
         });
         this.fSurface1.pipe(this._eventOutput);
@@ -105,11 +91,22 @@ define(function (require, exports, module) {
         this.fSurface4.pipe(this._eventOutput);
         this.fSurface5.pipe(this._eventOutput);
 
+        this.contentTop = [];
+        this.contentTop.push(this.fSurface2);
+        this.contentTop.push(this.fSurface3);
+        this.gridContentTop = new GridLayout({dimensions: [2, 1]});
+        this.gridContentTop.sequenceFrom(this.contentTop);
+
+        this.contentBottom = [];
+        this.contentBottom.push(this.fSurface4);
+        this.contentBottom.push(this.fSurface5);
+        this.gridContentBottom = new GridLayout({dimensions: [2, 1]});
+        this.gridContentBottom.sequenceFrom(this.contentBottom);
+
+
         this.flexContent.push(this.fSurface1);
-        this.flexContent.push(this.fSurface2);
-        this.flexContent.push(this.fSurface3);
-        this.flexContent.push(this.fSurface4);
-        this.flexContent.push(this.fSurface5);
+        this.flexContent.push(this.gridContentTop);
+        this.flexContent.push(this.gridContentBottom);
 
         this.layout.sequenceFrom(this.flexContent);
 
