@@ -9,12 +9,59 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
     var StateModifier = require('famous/modifiers/StateModifier');
     var Transitionable = require('famous/transitions/Transitionable');
+
     var HomePart = require('views/cell/content/home/HomePart');
 
     function HomeCell() {
         View.apply(this, arguments);
         _init.call(this);
         _flex.call(this);
+        _gridParts.call(this);
+    }
+
+    function _gridParts() {
+        this.homePart = new HomePart();
+
+        this.renderNode2 = new HomePart({
+            sign: -1,
+            duration: 300,
+            content: 'part 11'
+        })
+        this.renderNode3 = new HomePart({
+            sign: 1,
+            duration: 300,
+            content: 'part 12'
+        })
+        this.renderNode4 = new HomePart({
+            sign: -1,
+
+            content: 'part 21'
+        })
+        this.renderNode5 = new HomePart({
+            sign: 1,
+            content: 'part 22'
+        })
+        this.renderNode2.pipe(this._eventOutput);
+        this.renderNode3.pipe(this._eventOutput);
+        this.renderNode4.pipe(this._eventOutput);
+        this.renderNode5.pipe(this._eventOutput);
+
+
+        this.contentTop = [];
+        this.contentTop.push(this.renderNode2);
+        this.contentTop.push(this.renderNode3);
+        this.gridContentTop = new GridLayout({dimensions: [2, 1]});
+        this.gridContentTop.sequenceFrom(this.contentTop);
+
+        this.contentBottom = [];
+        this.contentBottom.push(this.renderNode4);
+        this.contentBottom.push(this.renderNode5);
+        this.gridContentBottom = new GridLayout({dimensions: [2, 1]});
+        this.gridContentBottom.sequenceFrom(this.contentBottom);
+
+
+        this.flexContent.push(this.gridContentTop);
+        this.flexContent.push(this.gridContentBottom);
     }
 
     function _flex() {
@@ -36,44 +83,10 @@ define(function (require, exports, module) {
                 textAlign: "center"
             }
         });
-    this.fSurface1.pipe(this._eventOutput);
-        this.renderNode2 = new HomePart({
-            sign: -1,
-            content: 'part 11'
-        })
-        this.renderNode3 = new HomePart({
-            sign: 1,
-            content: 'part 12'
-        })
-        this.renderNode4 = new HomePart({
-            sign: -1,
-            content: 'part 21'
-        })
-        this.renderNode5 = new HomePart({
-            sign: 1,
-            content: 'part 22'
-        })
-        this.renderNode2.pipe(this._eventOutput);
-        this.renderNode3.pipe(this._eventOutput);
-        this.renderNode4.pipe(this._eventOutput);
-        this.renderNode5.pipe(this._eventOutput);
-
-        this.contentTop = [];
-        this.contentTop.push(this.renderNode2);
-        this.contentTop.push(this.renderNode3);
-        this.gridContentTop = new GridLayout({dimensions: [2, 1]});
-        this.gridContentTop.sequenceFrom(this.contentTop);
-
-        this.contentBottom = [];
-        this.contentBottom.push(this.renderNode4);
-        this.contentBottom.push(this.renderNode5);
-        this.gridContentBottom = new GridLayout({dimensions: [2, 1]});
-        this.gridContentBottom.sequenceFrom(this.contentBottom);
-
-
+        this.fSurface1.pipe(this._eventOutput);
         this.flexContent.push(this.fSurface1);
-        this.flexContent.push(this.gridContentTop);
-        this.flexContent.push(this.gridContentBottom);
+
+
 
         this.layout.sequenceFrom(this.flexContent);
 
