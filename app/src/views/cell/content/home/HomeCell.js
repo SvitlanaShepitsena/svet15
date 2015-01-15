@@ -36,13 +36,8 @@ define(function (require, exports, module) {
         curve: "easeOutBounce",
         fromleft: -1,
         fromright: 1,
-        sectionProp: {
-            color: 'white',
-            backgroundColor: '#FFF2DF',
-            paddingLeft: '10px',
-            paddingRight: '10px',
-            paddingTop: '5px',
-            textAlign: "center"
+        backingProp: {
+            backgroundColor: '#FFF2DF'
         }
     };
 
@@ -124,7 +119,7 @@ define(function (require, exports, module) {
         });
         this.contentBacking = new Surface({
             size: this.options.size,
-            properties: this.options.sectionProp
+            properties: this.options.backingProp
         });
         this.rootNode = this.add(this.centerModifier);
         this.rootNode.add(this.contentBacking);
