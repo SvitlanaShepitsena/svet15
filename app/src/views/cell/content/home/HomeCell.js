@@ -31,7 +31,9 @@ define(function (require, exports, module) {
         width: window.innerWidth,
         color: 'white',
         contProp: {
-            backgroundColor: '#FFF2DF'
+            backgroundColor: '#FFF2DF',
+            padding: '10px',
+            textAlign: "center"
         },
         sectionProp: {
             paddingLeft: '10px',
@@ -103,17 +105,13 @@ define(function (require, exports, module) {
         this.fSurface1 = new Surface({
             content: "<img class='img-logo-mob' src='../../../../../img/home-page/svet-logo-mob.png'>" +
             " <h3> REACHING UNTAPPED MARKETS</h3>",
-            properties: {
-                padding: '10px',
-                textAlign: "center"
-            }
+            properties: this.options.contProp
         });
+
         this.fSurface1.pipe(this._eventOutput);
         this.flexContent.push(this.fSurface1);
 
-
         this.layout.sequenceFrom(this.flexContent);
-
         this.rootNode.add(this.flexMod).add(this.layout);
     }
 
