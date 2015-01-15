@@ -15,6 +15,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
         _init.call(this);
         _flex.call(this);
+
     }
 
     function _flex() {
@@ -36,20 +37,24 @@ define(function (require, exports, module) {
                 textAlign: "center"
             }
         });
-    this.fSurface1.pipe(this._eventOutput);
+        this.fSurface1.pipe(this._eventOutput);
         this.renderNode2 = new HomePart({
             sign: -1,
+            duration: 300,
             content: 'part 11'
         })
         this.renderNode3 = new HomePart({
             sign: 1,
+            duration: 400,
             content: 'part 12'
         })
         this.renderNode4 = new HomePart({
+            duration: 500,
             sign: -1,
             content: 'part 21'
         })
         this.renderNode5 = new HomePart({
+            duration: 350,
             sign: 1,
             content: 'part 22'
         })
@@ -69,7 +74,6 @@ define(function (require, exports, module) {
         this.contentBottom.push(this.renderNode5);
         this.gridContentBottom = new GridLayout({dimensions: [2, 1]});
         this.gridContentBottom.sequenceFrom(this.contentBottom);
-
 
         this.flexContent.push(this.fSurface1);
         this.flexContent.push(this.gridContentTop);

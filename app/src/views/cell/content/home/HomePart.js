@@ -34,7 +34,7 @@ define(function (require, exports, module) {
         });
 
         this.rootNode = this.add(this.centerModifier);
-        this.centerModifier.setTransform(Transform.translate(0, 0, 0), {duration: 400})
+        this.centerModifier.setTransform(Transform.translate(0, 0, 0), {duration: this.options.duration})
     }
 
     HomePart.prototype = Object.create(View.prototype);
