@@ -7,11 +7,14 @@ define(function (require, exports, module) {
 
     function HomePart() {
         View.apply(this, arguments);
-        _init.call(this);
-        _content.call(this);
+
+        _initTransform.call(this);
+
+        _contentParts.call(this);
     }
 
-    function _content() {
+    function _contentParts() {
+
         this.surface = new Surface({
             size: [undefined, undefined],
             content: this.options.content,
@@ -26,7 +29,9 @@ define(function (require, exports, module) {
         this.rootNode.add(this.surface);
     }
 
-    function _init() {
+    function _initTransform() {
+
+
         this.centerModifier = new StateModifier({
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
@@ -34,7 +39,7 @@ define(function (require, exports, module) {
         });
 
         this.rootNode = this.add(this.centerModifier);
-        this.centerModifier.setTransform(Transform.translate(0, 0, 0), {duration: 400})
+        this.centerModifier.setTransform(Transform.translate(0, 0, 0), {duration: this.options.duration})
     }
 
     HomePart.prototype = Object.create(View.prototype);

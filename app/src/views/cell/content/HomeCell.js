@@ -10,36 +10,42 @@ define(function (require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
     var Transitionable = require('famous/transitions/Transitionable');
 
-    var HomePart = require('views/cell/content/home/HomePart');
+    var HomePart = require('cviews/content/home/HomePart');
+
+    var grid11 = require('text!cviews/content/home/grid11.html');
+    var grid12 = require('text!cviews/content/home/grid12.html');
+    var grid21 = require('text!cviews/content/home/grid21.html');
+    var grid22 = require('text!cviews/content/home/grid22.html');
 
     function HomeCell() {
         View.apply(this, arguments);
         _init.call(this);
         _flex.call(this);
+
         _gridParts.call(this);
     }
 
     function _gridParts() {
-        this.homePart = new HomePart();
 
         this.renderNode2 = new HomePart({
             sign: -1,
             duration: 300,
-            content: 'part 11'
+            content: grid11
         })
         this.renderNode3 = new HomePart({
             sign: 1,
             duration: 300,
-            content: 'part 12'
+            content: grid12
         })
         this.renderNode4 = new HomePart({
             sign: -1,
-
-            content: 'part 21'
+            duration: 500,
+            content: grid21
         })
         this.renderNode5 = new HomePart({
             sign: 1,
-            content: 'part 22'
+            duration: 500,
+            content: grid22
         })
         this.renderNode2.pipe(this._eventOutput);
         this.renderNode3.pipe(this._eventOutput);
