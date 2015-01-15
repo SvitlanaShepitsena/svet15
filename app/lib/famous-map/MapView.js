@@ -234,6 +234,7 @@ define(function(require, exports, module) {
                 position = new google.maps.LatLng(MapUtility.lat(position), MapUtility.lng(position), true);
             }
             var worldPoint = this.map.getProjection().fromLatLngToPoint(position);
+            //var worldPoint = position;
             return {
                 x: (worldPoint.x - this._cache.bottomLeft.x) * this._cache.scale,
                 y: (worldPoint.y - this._cache.topRight.y) * this._cache.scale
