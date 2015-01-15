@@ -9,48 +9,46 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         _initTransform.call(this);
-
         _contentParts.call(this);
-    }
-
-    function _contentParts() {
-
-        this.surface = new Surface({
-            size: [undefined, undefined],
-            content: this.options.content,
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: '#FA5C4F'
-            }
-        });
-        this.surface.pipe(this._eventOutput);
-        this.rootNode.add(this.surface);
-    }
-
-    function _initTransform() {
-
-
-        this.centerModifier = new StateModifier({
-            align: this.options.alorigin,
-            origin:this.options.alorigin,
-            transform: Transform.translate(this.options.sign * (window.innerWidth / 2), 0, 0)
-        });
-
-        this.rootNode = this.add(this.centerModifier);
-        this.centerModifier.setTransform(Transform.translate(0, 0, 0), {duration: this.options.duration})
     }
 
     HomePart.prototype = Object.create(View.prototype);
     HomePart.prototype.constructor = HomePart;
 
     HomePart.DEFAULT_OPTIONS = {
-        sign:0,
-        duration:0,
-        content:null,
-        alorigin:[0.5,0,5]
+        alorigin: [0.5, 0, 5],
+        content: null,
+        duration: 0,
+        sign: 0,
+        size: [undefined, undefined],
+        width: window.innerWidth,
+        sectionPop: {
+            color: 'white',
+            textAlign: 'center',
+            backgroundColor: '#FA5C4F'
+        }
     };
+
+    function _contentParts() {
+        this.surface = new Surface({
+            size: this.options.size,
+            content: this.options.content,
+            properties: this.options.sectionPop
+        });
+        this.surface.pipe(this._eventOutput);
+        this.rootNode.add(this.surface);
+    }
+
+    function _initTransform() {
+        this.centerModifier = new StateModifier({
+            align: this.options.alorigin,
+            origin: this.options.alorigin,
+            transform: Transform.translate(this.options.sign * (this.options.width / 2), 0, 0)
+        });
+
+        this.rootNode = this.add(this.centerModifier);
+        this.centerModifier.setTransform(Transform.translate(0, 0, 0), {duration: this.options.duration})
+    }
 
     module.exports = HomePart;
 });

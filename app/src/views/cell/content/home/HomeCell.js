@@ -20,11 +20,30 @@ define(function (require, exports, module) {
 
     function HomeCell() {
         View.apply(this, arguments);
+
         _init.call(this);
         _flex.call(this);
-
         _gridParts.call(this);
     }
+
+    HomeCell.DEFAULT_OPTIONS = {
+        alorigin: [0.5, 0, 5],
+        height: window.innerHeight,
+        width: window.innerWidth,
+        color: 'white',
+        contProp: {
+            backgroundColor: '#FFF2DF'
+        },
+        sectionProp: {
+            paddingLeft: '10px',
+            paddingRight: '10px',
+            paddingTop: '5px',
+            textAlign: "center"
+        }
+    };
+
+    HomeCell.prototype = Object.create(View.prototype);
+    HomeCell.prototype.constructor = HomeCell;
 
     function _gridParts() {
 
@@ -93,40 +112,22 @@ define(function (require, exports, module) {
         this.rootNode.add(this.flexMod).add(this.layout);
     }
 
-    HomeCell.DEFAULT_OPTIONS = {
-        height: window.innerHeight,
-        width: window.innerWidth,
-        contProp: {
-            backgroundColor: '#FFF2DF'
-        },
-        sectionProp: {
-            paddingLeft: '10px',
-            paddingRight: '10px',
-            paddingTop: '5px',
-            textAlign: "center"
-        }
-    };
-
     function _init() {
         this.centerModifier = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5]
+            align: this.options.alorigin,
+            origin: this.options.alorigin
         });
         this.contentBacking = new Surface({
             size: [undefined, undefined],
             properties: {
-                color: 'white',
-                textAlign: 'center',
+                color: this.options.color,
+                textAlign: this.options.textAlign,
                 backgroundColor: this.options.contProp.backgroundColor
             }
         });
         this.rootNode = this.add(this.centerModifier);
         this.rootNode.add(this.contentBacking);
     }
-
-    HomeCell.prototype = Object.create(View.prototype);
-    HomeCell.prototype.constructor = HomeCell;
-
 
     module.exports = HomeCell;
 });
