@@ -1,6 +1,7 @@
 require.config({
     paths: {
         famous: "../lib/famous/src",
+        fmaps: "../lib/famous-map/",
         requirejs: "../lib/requirejs/require",
         views: "views",
         dviews: "views/desktop",

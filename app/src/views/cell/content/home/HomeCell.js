@@ -11,6 +11,7 @@ define(function (require, exports, module) {
     var Transitionable = require('famous/transitions/Transitionable');
 
     var HomePart = require('cviews/content/home/HomePart');
+    var MapsCell = require('cviews/content/home/MapsCell');
 
     var grid11 = require('text!cviews/content/home/jade/grid11.html');
     var grid12 = require('text!cviews/content/home/jade/grid12.html');
@@ -81,16 +82,10 @@ define(function (require, exports, module) {
         });
         this.flexContent = [];
 
-        this.fSurface1 = new Surface({
-            content: "<img class='img-logo-mob' src='../../../../../img/home-page/svet-logo-mob.png'>" +
-            " <h3> REACHING UNTAPPED MARKETS</h3>",
-            properties: {
-                padding: '10px',
-                textAlign: "center"
-            }
-        });
-        this.fSurface1.pipe(this._eventOutput);
-        this.flexContent.push(this.fSurface1);
+        this.maps = new MapsCell();
+
+        this.maps.pipe(this._eventOutput);
+        this.flexContent.push(this.maps);
 
 
         this.layout.sequenceFrom(this.flexContent);

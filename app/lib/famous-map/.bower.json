@@ -1,0 +1,48 @@
+{
+  "name": "famous-map",
+  "version": "0.0.9",
+  "homepage": "https://github.com/IjzerenHein/famous-map",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/IjzerenHein/famous-map.git"
+  },
+  "authors": [
+    "Hein Rutjes <hrutjes@gmail.com>"
+  ],
+  "description": "Map integration for Famo.us (google-maps & leaflet)",
+  "keywords": [
+    "famo.us",
+    "famous",
+    "famousmap",
+    "google.maps",
+    "map",
+    "maps",
+    "leaflet",
+    "leafletjs",
+    "openstreetmap",
+    "mapbox"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "examples",
+    "docs",
+    "dist",
+    "Gruntfile.js",
+    "CONTRIBUTORS.md",
+    "package.json"
+  ],
+  "_release": "0.0.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.9",
+    "commit": "3b3fdbd13c0df0ee8abf0c814e2dee453d70f2aa"
+  },
+  "_source": "git://github.com/IjzerenHein/famous-map.git",
+  "_target": "~0.0.9",
+  "_originalSource": "famous-map",
+  "_direct": true
+}
