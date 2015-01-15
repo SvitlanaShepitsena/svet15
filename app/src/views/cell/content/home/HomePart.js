@@ -18,6 +18,7 @@ define(function (require, exports, module) {
     HomePart.DEFAULT_OPTIONS = {
         center: [0.5, 0, 5],
         content: null,
+        curve: null,
         duration: 0,
         sign: 0,
         size: [undefined, undefined],
@@ -47,7 +48,10 @@ define(function (require, exports, module) {
         });
 
         this.rootNode = this.add(this.centerModifier);
-        this.centerModifier.setTransform(Transform.translate(0, 0, 0), {duration: this.options.duration})
+        this.centerModifier.setTransform(Transform.translate(0, 0, 0), {
+            duration: this.options.duration,
+            curve: this.options.curve
+        })
     }
 
     module.exports = HomePart;
