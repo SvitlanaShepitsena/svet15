@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var MapView = require('fmaps/MapView');
     var Transitionable = require('famous/transitions/Transitionable');
-    var MapModifier = require('famous-map/MapModifier');
+    var MapModifier = require('fmaps/MapModifier');
     var Easing = require('famous/transitions/Easing');
 
 
@@ -32,7 +32,7 @@ define(function (require, exports, module) {
             mapView: this.mapView,
             position: {lat: 51.4484855, lng: 5.451478}
         });
-        this.add(mapModifier).add(modifier).add(surface);
+        //this.add(mapModifier).add(modifier).add(surface);
     }
 
     function _map() {
