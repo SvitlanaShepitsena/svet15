@@ -2,13 +2,12 @@
 define(function (require, exports, module) {
     var View = require('famous/core/View');
     var Surface = require('famous/core/Surface');
-    var Modifier = require("famous/core/Modifier");
-    var StateModifier = require('famous/modifiers/StateModifier');
-    var GridLayout = require("famous/views/GridLayout");
-    var FlexibleLayout = require('famous/views/FlexibleLayout');
-    var RenderNode = require('famous/core/RenderNode');
-
     var Transform = require('famous/core/Transform');
+    var Modifier = require("famous/core/Modifier");
+    var FlexibleLayout = require('famous/views/FlexibleLayout');
+    var GridLayout = require("famous/views/GridLayout");
+    var RenderNode = require('famous/core/RenderNode');
+    var StateModifier = require('famous/modifiers/StateModifier');
     var Transitionable = require('famous/transitions/Transitionable');
 
     var HomePart = require('cviews/content/home/HomePart');
@@ -28,17 +27,14 @@ define(function (require, exports, module) {
     }
 
     HomeCell.DEFAULT_OPTIONS = {
-        color: 'white',
-        size: [undefined, undefined],
+        center: [0.5, 0.5],
         height: window.innerHeight,
         width: window.innerWidth,
-        center: [0.5, 0.5],
-        curve: "easeOutBounce",
-        fromleft: -1,
-        fromright: 1,
+        color: 'white',
+        contProp: {
+            backgroundColor: '#FFF2DF'
+        },
         sectionProp: {
-            color: 'white',
-            backgroundColor: '#FFF2DF',
             paddingLeft: '10px',
             paddingRight: '10px',
             paddingTop: '5px',
@@ -52,27 +48,23 @@ define(function (require, exports, module) {
     function _gridParts() {
 
         this.renderNode2 = new HomePart({
-            sign: this.options.fromleft,
-            duration: 400,
-            curve: this.options.curve,
+            sign: -1,
+            duration: 300,
             content: grid11
         })
         this.renderNode3 = new HomePart({
-            sign: this.options.fromright,
-            duration: 600,
-            curve: this.options.curve,
+            sign: 1,
+            duration: 300,
             content: grid12
         })
         this.renderNode4 = new HomePart({
-            sign: this.options.fromleft,
-            duration: 800,
-            curve: this.options.curve,
+            sign: -1,
+            duration: 500,
             content: grid21
         })
         this.renderNode5 = new HomePart({
-            sign: this.options.fromright,
-            duration: 300,
-            curve: this.options.curve,
+            sign: 1,
+            duration: 500,
             content: grid22
         })
         this.renderNode2.pipe(this._eventOutput);
@@ -107,11 +99,23 @@ define(function (require, exports, module) {
             ratios: [2, 2, 2],
             direction: 1
         });
-
         this.flexContent = [];
+
         this.maps = new MapsCell();
-        this.maps.pipe(this._eventOutput);
-        this.flexContent.push(this.maps);
+        this.surface = new Surface({
+            size: [undefined, undefined],
+            content: '',
+            classes: [],
+            properties: {
+                color: 'white',
+                textAlign: 'center',
+                backgroundColor: '#FA5C4F'
+            }
+        });
+        //this.maps.pipe(this._eventOutput);
+        this.flexContent.push(this.surface);
+
+
         this.layout.sequenceFrom(this.flexContent);
 
         this.rootNode.add(this.flexMod).add(this.layout);
@@ -123,8 +127,12 @@ define(function (require, exports, module) {
             origin: this.options.center
         });
         this.contentBacking = new Surface({
-            size: this.options.size,
-            properties: this.options.sectionProp
+            size: [undefined, undefined],
+            properties: {
+                color: this.options.color,
+                textAlign: this.options.textAlign,
+                backgroundColor: this.options.contProp.backgroundColor
+            }
         });
         this.rootNode = this.add(this.centerModifier);
         this.rootNode.add(this.contentBacking);
