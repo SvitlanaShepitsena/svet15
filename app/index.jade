@@ -1,9 +1,16 @@
 doctype html
 html
     head
-        script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
         meta(http-equiv='content-type', content='text/html; charset=utf-8')
         title Russian Media Group
+
+        meta(name='viewport', content='width=device-width, maximum-scale=1, initial-scale=1, user-scalable=no')
+
+        meta(name='mobile-web-app-capable', content='yes')
+
+        meta(name='apple-mobile-web-app-capable', content='yes')
+
+        meta(name='apple-mobile-web-app-status-bar-style', content='black')
 
         meta(name='msapplication-tap-highlight', content='no')
 
@@ -20,6 +27,7 @@ html
         script(type='text/javascript', src='lib/famous-polyfills/classList.js')
         script(type='text/javascript', src='lib/famous-polyfills/requestAnimationFrame.js')
         // endbuild
+        script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
 
         // build:require
         script(type='text/javascript', src='lib/requirejs/require.js' data-main='src/requireConfig.js')

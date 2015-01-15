@@ -75,7 +75,6 @@ define(function (require, exports, module) {
     };
 
     ContentScrollCell.prototype.nextPage = function () {
-        console.log('go');
         this.scrollview.goToNextPage();
     }
     ContentScrollCell.prototype.prevPage = function () {

@@ -13,6 +13,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
         _init.call(this);
         _map.call(this);
+        _modifier.call(this);
     }
 
     function _modifier() {
@@ -31,25 +32,25 @@ define(function (require, exports, module) {
             mapView: this.mapView,
             position: {lat: 51.4484855, lng: 5.451478}
         });
-        this.rootNode.add(this.mapModifier).add(this.surface);
+        //this.add(mapModifier).add(modifier).add(surface);
     }
 
     function _map() {
-        this.northChicagoStart = {lat: 41.850033, lng: -87.6500523};
-        this.northChicagoEnd = {lat: 41.95, lng: -87.6500523};
-        this.mapView = new MapView({
+        var northChicagoStart = {lat: 41.850033, lng: -87.6500523};
+        var northChicagoEnd = {lat: 41.95, lng: -87.6500523};
+        var mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
             mapOptions: {
                 zoom: 9,
-                center: this.northChicagoStart,
-                mapTypeId: google.maps.MapTypeId.TERRAIN
+                center: northChicagoStart,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             }
         });
-        this.rootNode.add(this.mapView);
+        this.rootNode.add(mapView);
 
-        this.mapView.on('load', function () {
-            this.mapView.setPosition(
-                this.northChicagoEnd,
+        mapView.on('load', function () {
+            mapView.setPosition(
+                northChicagoEnd,
                 {duration: 5000, curve: Easing.outBack}
             );
         }.bind(this));
