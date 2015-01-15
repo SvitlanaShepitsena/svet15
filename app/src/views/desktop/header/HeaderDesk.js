@@ -22,7 +22,6 @@ define(function (require, exports, module) {
     HeaderDesk.DEFAULT_OPTIONS = {};
 
     function _init() {
-
         this.opacityTransitionable = new Transitionable(0);
 
         this.centerModifier = new Modifier({
@@ -37,7 +36,6 @@ define(function (require, exports, module) {
 
         this.rootNode = this.add(this.centerModifier);
         this.opacityTransitionable.set(1, {duration: 1000, curve: 'easeInOut'});
-
     }
 
 
