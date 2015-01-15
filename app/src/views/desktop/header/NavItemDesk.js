@@ -28,11 +28,11 @@ define(function (require, exports, module) {
     function _navItem() {
         this.itemSurface = new ImageSurface({
             size:[true,100],
+            content: this.options.itemUrl,
             properties: {
                 cursor: 'pointer'
             }
         });
-        this.itemSurface.setContent(this.options.itemUrl);
         this.itemSurface.on('click', function () {
             this.eventOutput.emit('navigateTo', this.options.index);
         }.bind(this));

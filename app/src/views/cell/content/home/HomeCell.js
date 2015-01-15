@@ -12,10 +12,10 @@ define(function (require, exports, module) {
 
     var HomePart = require('cviews/content/home/HomePart');
 
-    var grid11 = require('text!cviews/content/home/grid11.html');
-    var grid12 = require('text!cviews/content/home/grid12.html');
-    var grid21 = require('text!cviews/content/home/grid21.html');
-    var grid22 = require('text!cviews/content/home/grid22.html');
+    var grid11 = require('text!cviews/content/home/jade/grid11.html');
+    var grid12 = require('text!cviews/content/home/jade/grid12.html');
+    var grid21 = require('text!cviews/content/home/jade/grid21.html');
+    var grid22 = require('text!cviews/content/home/jade/grid22.html');
 
     function HomeCell() {
         View.apply(this, arguments);
@@ -82,7 +82,7 @@ define(function (require, exports, module) {
         this.flexContent = [];
 
         this.fSurface1 = new Surface({
-            content: "<img class='img-logo-mob' src='../../../../img/home-page/svet-logo-mob.png'>" +
+            content: "<img class='img-logo-mob' src='../../../../../img/home-page/svet-logo-mob.png'>" +
             " <h3> REACHING UNTAPPED MARKETS</h3>",
             properties: {
                 padding: '10px',
@@ -91,7 +91,6 @@ define(function (require, exports, module) {
         });
         this.fSurface1.pipe(this._eventOutput);
         this.flexContent.push(this.fSurface1);
-
 
 
         this.layout.sequenceFrom(this.flexContent);

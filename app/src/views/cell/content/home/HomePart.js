@@ -33,8 +33,8 @@ define(function (require, exports, module) {
 
 
         this.centerModifier = new StateModifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
+            align: this.options.alorigin,
+            origin:this.options.alorigin,
             transform: Transform.translate(this.options.sign * (window.innerWidth / 2), 0, 0)
         });
 
@@ -45,7 +45,12 @@ define(function (require, exports, module) {
     HomePart.prototype = Object.create(View.prototype);
     HomePart.prototype.constructor = HomePart;
 
-    HomePart.DEFAULT_OPTIONS = {};
+    HomePart.DEFAULT_OPTIONS = {
+        sign:0,
+        duration:0,
+        content:null,
+        alorigin:[0.5,0,5]
+    };
 
     module.exports = HomePart;
 });

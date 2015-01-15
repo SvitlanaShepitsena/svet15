@@ -9,7 +9,7 @@ define(function (require, exports, module) {
     var ScrollContainer = require('famous/views/ScrollContainer');
 
     var CommonPageCell = require('views/cell/content/common/CommonPageCell');
-    var HomeCell = require('views/cell/content/HomeCell');
+    var HomeCell = require('views/cell/content/home/HomeCell');
 
 
     function ContentScrollCell() {
