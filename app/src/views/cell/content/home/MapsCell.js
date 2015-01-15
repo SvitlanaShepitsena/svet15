@@ -6,6 +6,7 @@ define(function (require, exports, module) {
     var MapView = require('fmaps/MapView');
     var Transitionable = require('famous/transitions/Transitionable');
     var MapModifier = require('fmaps/MapModifier');
+    var MapStateModifier = require('fmaps/MapStateModifier');
     var Easing = require('famous/transitions/Easing');
 
 
@@ -13,46 +14,59 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
         _init.call(this);
         _map.call(this);
-        _modifier.call(this);
     }
 
     function _modifier() {
+        this.opacityOurRegion = new Transitionable(0);
 
         this.surface = new Surface({
-            size: [50, 50],
+            size: [100, 100],
             properties: {
-                backgroundColor: 'white'
+                backgroundColor: 'grey'
             }
         });
+        this.surface.pipe(this.mapView);
         this.modifier = new Modifier({
             align: [0, 0],
-            origin: [0.5, 0.5]
+            origin: [0.5, 0.5],
+            opacity: function () {
+            return this.opacityOurRegion.get();
+            }.bind(this)
+
         });
+        setTimeout(function () {
+       this.opacityOurRegion.set(.5, {duration: 2000, curve: 'easeInOut'});
+        }.bind(this),1000);
+
         this.mapModifier = new MapModifier({
             mapView: this.mapView,
-            position: {lat: 51.4484855, lng: 5.451478}
+            position: this.northChicagoEnd,
+            zoomBase: 9,
+            zoomScale: 0.3
         });
-        //this.add(mapModifier).add(modifier).add(surface);
+        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
     }
 
     function _map() {
-        var northChicagoStart = {lat: 41.850033, lng: -87.6500523};
-        var northChicagoEnd = {lat: 41.95, lng: -87.6500523};
-        var mapView = new MapView({
+        this.northChicagoStart = {lat: 41.850033, lng: -87.6500523};
+        this.northChicagoEnd = {lat: 41.95, lng: -87.6500523};
+        this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
             mapOptions: {
                 zoom: 9,
-                center: northChicagoStart,
+                center: this.northChicagoStart,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
         });
-        this.rootNode.add(mapView);
+        this.rootNode.add(this.mapView);
 
-        mapView.on('load', function () {
-            mapView.setPosition(
-                northChicagoEnd,
+        this.mapView.on('load', function () {
+            this.mapView.setPosition(
+                this.northChicagoEnd,
                 {duration: 5000, curve: Easing.outBack}
             );
+
+            _modifier.call(this);
         }.bind(this));
 
     }

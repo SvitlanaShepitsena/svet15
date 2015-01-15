@@ -280,6 +280,7 @@ define(function(require, exports, module) {
 
             // Calculate translation transform
             var point = this.mapView.pointFromPosition(position);
+            //var point = position;
             if (!this._cache.point || (point.x !== this._cache.point.x) || (point.y !== this._cache.point.y)) {
                 this._cache.point = point;
                 this._cache.translate = Transform.translate(point.x, point.y, 0);
