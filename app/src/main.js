@@ -18,7 +18,7 @@ define(['require', 'famous/core/Engine', 'views/cell/AppViewCell', 'views/deskto
 });
 
 window.responsive = function responsive() {
-    var MOBILEWIDTH = 490;
+    var MOBILEWIDTH = 1490;
     var device;
     switch (true) {
         case window.innerWidth <= MOBILEWIDTH:
