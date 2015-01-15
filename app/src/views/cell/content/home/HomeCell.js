@@ -27,7 +27,7 @@ define(function (require, exports, module) {
     }
 
     HomeCell.DEFAULT_OPTIONS = {
-        alorigin: [0.5, 0, 5],
+        center: [0.5, 0.5],
         height: window.innerHeight,
         width: window.innerWidth,
         color: 'white',
@@ -92,8 +92,8 @@ define(function (require, exports, module) {
 
     function _flex() {
         this.flexMod = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5]
+            align: this.options.center,
+            origin: this.options.center
         });
         this.layout = new FlexibleLayout({
             ratios: [2, 2, 2],
@@ -114,8 +114,8 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            align: this.options.alorigin,
-            origin: this.options.alorigin
+            align: this.options.center,
+            origin: this.options.center
         });
         this.contentBacking = new Surface({
             size: [undefined, undefined],

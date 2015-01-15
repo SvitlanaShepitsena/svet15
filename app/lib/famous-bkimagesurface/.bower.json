@@ -1,0 +1,47 @@
+{
+  "name": "famous-bkimagesurface",
+  "version": "1.0.2",
+  "homepage": "https://github.com/IjzerenHein/famous-bkimagesurface",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/IjzerenHein/famous-bkimagesurface.git"
+  },
+  "authors": [
+    "Hein Rutjes <hrutjes@gmail.com>"
+  ],
+  "description": "Displays an image in famo.us using a div and background-image rather than a img-tag",
+  "keywords": [
+    "famo.us",
+    "famous",
+    "image",
+    "imagesurface",
+    "bkimagesurface"
+  ],
+  "license": "MIT",
+  "main": "BkImageSurface.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "examples",
+    "docs",
+    "Gruntfile.js",
+    "CONTRIBUTORS.md",
+    "package.json"
+  ],
+  "devDependencies": {
+    "requirejs": "~2.1.11",
+    "famous": "~0.2.0"
+  },
+  "_release": "1.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.2",
+    "commit": "595c653c7fa84a72db487e7f9148eca5ef11f27f"
+  },
+  "_source": "git://github.com/IjzerenHein/famous-bkimagesurface.git",
+  "_target": "~1.0.2",
+  "_originalSource": "famous-bkimagesurface",
+  "_direct": true
+}

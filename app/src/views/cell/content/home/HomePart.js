@@ -16,7 +16,7 @@ define(function (require, exports, module) {
     HomePart.prototype.constructor = HomePart;
 
     HomePart.DEFAULT_OPTIONS = {
-        alorigin: [0.5, 0, 5],
+        center: [0.5, 0, 5],
         content: null,
         duration: 0,
         sign: 0,
@@ -41,8 +41,8 @@ define(function (require, exports, module) {
 
     function _initTransform() {
         this.centerModifier = new StateModifier({
-            align: this.options.alorigin,
-            origin: this.options.alorigin,
+            align: this.options.center,
+            origin: this.options.center,
             transform: Transform.translate(this.options.sign * (this.options.width / 2), 0, 0)
         });
 
