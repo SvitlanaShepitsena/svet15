@@ -15,6 +15,7 @@ define(function (require, exports, module) {
         _init.call(this);
     }
 
+
     function _init() {
         this.centerModifier = new Modifier({
             align: [0.5, 0.5],

@@ -15,13 +15,11 @@ define(function (require, exports, module) {
     function ScrollDesk() {
         ScrollContainer.apply(this, arguments);
         this.scrollContent = [];
-        _fillContent.call(this);
-
         this.scrollview.sequenceFrom(this.scrollContent);
 
-        _pipe.call(this);
-
         _init.call(this);
+        _fillContent.call(this);
+        _pipe.call(this);
     }
 
     function _init() {
@@ -46,15 +44,6 @@ define(function (require, exports, module) {
         })
     }
 
-    function _pipe() {
-        for (var i = 0; i < this.scrollContent.length; i++) {
-            var surface = this.scrollContent[i];
-            surface.pipe(this.scrollview);
-        }
-
-    }
-
-
     function _fillContent() {
         this.homeDesk = new HomeDesk();
         this.aboutUsDesk = new AboutUsDesk();
@@ -72,6 +61,12 @@ define(function (require, exports, module) {
         this.scrollContent.push(this.contactUsDesk);
     }
 
+    function _pipe() {
+        for (var i = 0; i < this.scrollContent.length; i++) {
+            var surface = this.scrollContent[i];
+            surface.pipe(this.scrollview);
+        }
+    }
 
     ScrollDesk.prototype = Object.create(ScrollContainer.prototype);
     ScrollDesk.prototype.constructor = ScrollContainer;

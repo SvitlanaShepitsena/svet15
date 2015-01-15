@@ -13,9 +13,8 @@ define(function (require, exports, module) {
     function AppViewDesk() {
         View.apply(this, arguments);
         console.log('here');
+
         _init.call(this);
-
-
         _navigation.call(this);
         _content.call(this);
         _header.call(this);
@@ -24,7 +23,6 @@ define(function (require, exports, module) {
     function _header() {
         this.headerDesk = new HeaderDesk();
         this.rootNode.add(this.headerDesk);
-
     }
 
     function _content() {
@@ -50,7 +48,6 @@ define(function (require, exports, module) {
 
     AppViewDesk.prototype = Object.create(View.prototype);
     AppViewDesk.prototype.constructor = AppViewDesk;
-
 
     module.exports = AppViewDesk;
 });
