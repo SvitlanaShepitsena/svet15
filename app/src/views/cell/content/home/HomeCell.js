@@ -102,9 +102,18 @@ define(function (require, exports, module) {
         this.flexContent = [];
 
         this.maps = new MapsCell();
-
-        this.maps.pipe(this._eventOutput);
-        this.flexContent.push(this.maps);
+        this.surface = new Surface({
+            size: [undefined, undefined],
+            content: '',
+            classes: [],
+            properties: {
+                color: 'white',
+                textAlign: 'center',
+                backgroundColor: '#FA5C4F'
+            }
+        });
+        //this.maps.pipe(this._eventOutput);
+        this.flexContent.push(this.surface);
 
 
         this.layout.sequenceFrom(this.flexContent);

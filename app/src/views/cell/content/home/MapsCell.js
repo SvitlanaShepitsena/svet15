@@ -13,7 +13,6 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
         _init.call(this);
         _map.call(this);
-        //_modifier.call(this);
     }
 
     function _modifier() {
@@ -32,7 +31,7 @@ define(function (require, exports, module) {
             mapView: this.mapView,
             position: {lat: 51.4484855, lng: 5.451478}
         });
-        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
+        this.rootNode.add(this.mapModifier).add(this.surface);
     }
 
     function _map() {
@@ -43,7 +42,7 @@ define(function (require, exports, module) {
             mapOptions: {
                 zoom: 9,
                 center: this.northChicagoStart,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.TERRAIN
             }
         });
         this.rootNode.add(this.mapView);
