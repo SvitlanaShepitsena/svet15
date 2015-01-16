@@ -5,9 +5,10 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
 
 
-
     function AboutUsDesk() {
         View.apply(this, arguments);
+
+        _init.call(this);
 
         this.surface = new Surface({
             size: [undefined, undefined],
@@ -19,11 +20,8 @@ define(function (require, exports, module) {
                 backgroundColor: '#FA5C4F'
             }
         });
-        _init.call(this);
         this.surface.pipe(this._eventOutput);
         this.rootNode.add(this.surface);
-
-
     }
 
     function _init() {

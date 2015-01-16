@@ -6,8 +6,8 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var FlexibleLayout = require('famous/views/FlexibleLayout');
     var GridLayout = require("famous/views/GridLayout");
-    var RenderNode = require('famous/core/RenderNode');
     var Transitionable = require('famous/transitions/Transitionable');
+    var SpringTransition = require('famous/transitions/SpringTransition');
 
     var HomePart = require('cviews/content/home/HomePart');
     var MapsCell = require('cviews/content/home/MapsCell');
@@ -25,6 +25,9 @@ define(function (require, exports, module) {
         _gridParts.call(this);
     }
 
+    HomeCell.prototype = Object.create(View.prototype);
+    HomeCell.prototype.constructor = HomeCell;
+
     HomeCell.DEFAULT_OPTIONS = {
         center: [0.5, 0.5],
         height: window.innerHeight,
@@ -41,54 +44,6 @@ define(function (require, exports, module) {
         }
     };
 
-    HomeCell.prototype = Object.create(View.prototype);
-    HomeCell.prototype.constructor = HomeCell;
-
-    function _gridParts() {
-
-        this.renderNode2 = new HomePart({
-            sign: -1,
-            duration: 300,
-            content: grid11
-        })
-        this.renderNode3 = new HomePart({
-            sign: 1,
-            duration: 300,
-            content: grid12
-        })
-        this.renderNode4 = new HomePart({
-            sign: -1,
-            duration: 500,
-            content: grid21
-        })
-        this.renderNode5 = new HomePart({
-            sign: 1,
-            duration: 500,
-            content: grid22
-        })
-        this.renderNode2.pipe(this._eventOutput);
-        this.renderNode3.pipe(this._eventOutput);
-        this.renderNode4.pipe(this._eventOutput);
-        this.renderNode5.pipe(this._eventOutput);
-
-
-        this.contentTop = [];
-        this.contentTop.push(this.renderNode2);
-        this.contentTop.push(this.renderNode3);
-        this.gridContentTop = new GridLayout({dimensions: [2, 1]});
-        this.gridContentTop.sequenceFrom(this.contentTop);
-
-        this.contentBottom = [];
-        this.contentBottom.push(this.renderNode4);
-        this.contentBottom.push(this.renderNode5);
-        this.gridContentBottom = new GridLayout({dimensions: [2, 1]});
-        this.gridContentBottom.sequenceFrom(this.contentBottom);
-
-
-        this.flexContent.push(this.gridContentTop);
-        this.flexContent.push(this.gridContentBottom);
-    }
-
     function _flex() {
         this.flexMod = new Modifier({
             align: this.options.center,
@@ -98,17 +53,60 @@ define(function (require, exports, module) {
             ratios: [2, 2, 2],
             direction: 1
         });
-        this.flexContent = [];
-
         this.maps = new MapsCell();
-
         //this.maps.pipe(this._eventOutput);
+
+        this.flexContent = [];
         this.flexContent.push(this.maps);
-
-
         this.layout.sequenceFrom(this.flexContent);
-
         this.rootNode.add(this.flexMod).add(this.layout);
+    }
+
+    function _gridParts() {
+        this.topLeftSection = new HomePart({
+            sign: -1,
+            period: '900',
+            dampingRatio: 0.3,
+            content: grid11
+        })
+        this.topRightSection = new HomePart({
+            sign: 1,
+            period: '1000',
+            dampingRatio: 0.3,
+            content: grid12
+        })
+        this.bottomLeftSection = new HomePart({
+            sign: -1,
+            period: '1100',
+            dampingRatio: 0.3,
+            content: grid21
+        })
+        this.bottomRightSection = new HomePart({
+            sign: 1,
+            period: '800',
+            dampingRatio: 0.3,
+            content: grid22
+        })
+
+        this.topLeftSection.pipe(this._eventOutput);
+        this.topRightSection.pipe(this._eventOutput);
+        this.bottomLeftSection.pipe(this._eventOutput);
+        this.bottomRightSection.pipe(this._eventOutput);
+
+        this.contentTop = [];
+        this.contentTop.push(this.topLeftSection);
+        this.contentTop.push(this.topRightSection);
+        this.gridContentTop = new GridLayout({dimensions: [2, 1]});
+        this.gridContentTop.sequenceFrom(this.contentTop);
+
+        this.contentBottom = [];
+        this.contentBottom.push(this.bottomLeftSection);
+        this.contentBottom.push(this.bottomRightSection);
+        this.gridContentBottom = new GridLayout({dimensions: [2, 1]});
+        this.gridContentBottom.sequenceFrom(this.contentBottom);
+
+        this.flexContent.push(this.gridContentTop);
+        this.flexContent.push(this.gridContentBottom);
     }
 
     function _init() {
@@ -116,16 +114,7 @@ define(function (require, exports, module) {
             align: this.options.center,
             origin: this.options.center
         });
-        this.contentBacking = new Surface({
-            size: [undefined, undefined],
-            properties: {
-                color: this.options.color,
-                textAlign: this.options.textAlign,
-                backgroundColor: this.options.contProp.backgroundColor
-            }
-        });
         this.rootNode = this.add(this.centerModifier);
-        //this.rootNode.add(this.contentBacking);
     }
 
     module.exports = HomeCell;

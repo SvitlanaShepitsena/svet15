@@ -53,12 +53,12 @@ define(function (require, exports, module) {
         this.gMap;
 
         this.northChicagoStart = {lat: 41.850033, lng: -87.6500523};
-        this.northChicagoEnd = {lat: 41.95, lng: -87.6500523};
+        this.northChicagoEnd = {lat:41.936994, lng:-87.882339};
 
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
             mapOptions: {
-                zoom: 9,
+                zoom: 12,
                 center: this.northChicagoStart,
                 disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -84,7 +84,6 @@ define(function (require, exports, module) {
 
             //_modifier.call(this);
         }.bind(this));
-
     }
 
     function _init() {

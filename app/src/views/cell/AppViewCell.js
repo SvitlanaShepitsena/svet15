@@ -6,7 +6,6 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var MouseSync = require('famous/inputs/MouseSync');
     var GenericSync = require('famous/inputs/GenericSync');
-    var Transitionable = require('famous/transitions/Transitionable');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
 
     var GridLayout = require("famous/views/GridLayout");
@@ -16,8 +15,13 @@ define(function (require, exports, module) {
     var PageViewCell = require('./content/PageViewCell');
     var ImageSurface = require('famous/surfaces/ImageSurface');
 
+    var Transitionable = require('famous/transitions/Transitionable');
+    var SpringTransition = require('famous/transitions/SpringTransition');
+    var WallTransition = require('famous/transitions/WallTransition');
+
 
     function AppViewCell() {
+        Transitionable.registerMethod('spring', SpringTransition);
         this.imgModifier = new StateModifier({
             opacity: 1
         });
