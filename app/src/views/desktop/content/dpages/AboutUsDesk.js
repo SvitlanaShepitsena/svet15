@@ -19,10 +19,11 @@ define(function (require, exports, module) {
                 backgroundColor: '#FA5C4F'
             }
         });
+        _init.call(this);
         this.surface.pipe(this._eventOutput);
         this.rootNode.add(this.surface);
 
-        _init.call(this);
+
     }
 
     function _init() {

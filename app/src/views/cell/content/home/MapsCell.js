@@ -32,13 +32,13 @@ define(function (require, exports, module) {
             align: [0, 0],
             origin: [0.5, 0.5],
             opacity: function () {
-            return this.opacityOurRegion.get();
+                return this.opacityOurRegion.get();
             }.bind(this)
 
         });
         setTimeout(function () {
-       this.opacityOurRegion.set(.5, {duration: 2000, curve: 'easeInOut'});
-        }.bind(this),1000);
+            this.opacityOurRegion.set(.5, {duration: 2000, curve: 'easeInOut'});
+        }.bind(this), 1000);
 
         this.mapModifier = new MapModifier({
             mapView: this.mapView,
@@ -50,6 +50,8 @@ define(function (require, exports, module) {
     }
 
     function _map() {
+        this.gMap;
+
         this.northChicagoStart = {lat: 41.850033, lng: -87.6500523};
         this.northChicagoEnd = {lat: 41.95, lng: -87.6500523};
 
@@ -58,18 +60,29 @@ define(function (require, exports, module) {
             mapOptions: {
                 zoom: 9,
                 center: this.northChicagoStart,
+                disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
         });
+
+
         this.rootNode.add(this.mapView);
 
         this.mapView.on('load', function () {
+
             this.mapView.setPosition(
                 this.northChicagoEnd,
                 {duration: 5000, curve: Easing.outBack}
             );
+            this.gMap = this.mapView.getMap();
 
-            _modifier.call(this);
+            var url = 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer';
+            var dynamap = new gmaps.ags.MapOverlay(url);
+            dynamap.setMap(this.gMap);
+
+            this.gMap.data.loadGeoJson('https://storage.googleapis.com/maps-devrel/google.json');
+
+            //_modifier.call(this);
         }.bind(this));
 
     }
