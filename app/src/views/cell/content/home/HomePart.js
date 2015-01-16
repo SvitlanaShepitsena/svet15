@@ -5,6 +5,8 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var StateModifier = require('famous/modifiers/StateModifier');
 
+    var Transitionable = require('famous/transitions/Transitionable');
+    var SpringTransition = require('famous/transitions/SpringTransition');
 
     function HomePart() {
         View.apply(this, arguments);
@@ -13,13 +15,16 @@ define(function (require, exports, module) {
         _contentParts.call(this);
     }
 
+
     HomePart.prototype = Object.create(View.prototype);
     HomePart.prototype.constructor = HomePart;
 
     HomePart.DEFAULT_OPTIONS = {
         center: [0.5, 0, 5],
         content: null,
-        duration: 0,
+        spring: null,
+        period: 0,
+        dampingRatio: 0,
         sign: 0,
         size: [undefined, undefined],
         width: window.innerWidth,
@@ -41,6 +46,12 @@ define(function (require, exports, module) {
     }
 
     function _initTransform() {
+        Transitionable.registerMethod('spring', SpringTransition);
+        this.spring = {
+            method: 'spring',
+            period: this.options.period,
+            dampingRatio: this.options.dampingRatio
+        }
         this.centerModifier = new StateModifier({
             align: this.options.center,
             origin: this.options.center,
@@ -48,7 +59,8 @@ define(function (require, exports, module) {
         });
 
         this.rootNode = this.add(this.centerModifier);
-        this.centerModifier.setTransform(Transform.translate(0, 0, 0), {duration: this.options.duration})
+        this.centerModifier.setTransform(Transform.translate(0, 0, 0), this.spring);
+
     }
 
     module.exports = HomePart;

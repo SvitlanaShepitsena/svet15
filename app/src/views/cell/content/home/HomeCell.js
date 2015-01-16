@@ -9,6 +9,9 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
     var StateModifier = require('famous/modifiers/StateModifier');
     var Transitionable = require('famous/transitions/Transitionable');
+    var Easing = require('famous/transitions/Easing');
+    var SpringTransition = require('famous/transitions/SpringTransition');
+
 
     var HomePart = require('cviews/content/home/HomePart');
     var MapsCell = require('cviews/content/home/MapsCell');
@@ -26,6 +29,9 @@ define(function (require, exports, module) {
         _gridParts.call(this);
     }
 
+    HomeCell.prototype = Object.create(View.prototype);
+    HomeCell.prototype.constructor = HomeCell;
+
     HomeCell.DEFAULT_OPTIONS = {
         center: [0.5, 0.5],
         height: window.innerHeight,
@@ -42,29 +48,30 @@ define(function (require, exports, module) {
         }
     };
 
-    HomeCell.prototype = Object.create(View.prototype);
-    HomeCell.prototype.constructor = HomeCell;
 
     function _gridParts() {
-
         this.renderNode2 = new HomePart({
             sign: -1,
-            duration: 300,
+            period: '900',
+            dampingRatio: 0.3,
             content: grid11
         })
         this.renderNode3 = new HomePart({
             sign: 1,
-            duration: 300,
+            period: '1000',
+            dampingRatio: 0.3,
             content: grid12
         })
         this.renderNode4 = new HomePart({
             sign: -1,
-            duration: 500,
+            period: '1100',
+            dampingRatio: 0.3,
             content: grid21
         })
         this.renderNode5 = new HomePart({
             sign: 1,
-            duration: 500,
+            period: '800',
+            dampingRatio: 0.3,
             content: grid22
         })
         this.renderNode2.pipe(this._eventOutput);
