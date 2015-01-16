@@ -7,7 +7,6 @@ define(function (require, exports, module) {
     var FlexibleLayout = require('famous/views/FlexibleLayout');
     var GridLayout = require("famous/views/GridLayout");
     var RenderNode = require('famous/core/RenderNode');
-    var StateModifier = require('famous/modifiers/StateModifier');
     var Transitionable = require('famous/transitions/Transitionable');
 
     var HomePart = require('cviews/content/home/HomePart');

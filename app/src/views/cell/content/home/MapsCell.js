@@ -3,16 +3,18 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
-    var MapView = require('fmaps/MapView');
     var Transitionable = require('famous/transitions/Transitionable');
+    var Easing = require('famous/transitions/Easing');
+
+    var MapView = require('fmaps/MapView');
     var MapModifier = require('fmaps/MapModifier');
     var MapStateModifier = require('fmaps/MapStateModifier');
-    var Easing = require('famous/transitions/Easing');
 
 
     function MapsCell() {
         View.apply(this, arguments);
         _init.call(this);
+
         _map.call(this);
     }
 
@@ -50,6 +52,7 @@ define(function (require, exports, module) {
     function _map() {
         this.northChicagoStart = {lat: 41.850033, lng: -87.6500523};
         this.northChicagoEnd = {lat: 41.95, lng: -87.6500523};
+
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
             mapOptions: {
