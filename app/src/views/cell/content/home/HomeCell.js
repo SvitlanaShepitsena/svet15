@@ -44,6 +44,23 @@ define(function (require, exports, module) {
         }
     };
 
+    function _flex() {
+        this.flexMod = new Modifier({
+            align: this.options.center,
+            origin: this.options.center
+        });
+        this.layout = new FlexibleLayout({
+            ratios: [2, 2, 2],
+            direction: 1
+        });
+        this.maps = new MapsCell();
+        //this.maps.pipe(this._eventOutput);
+
+        this.flexContent = [];
+        this.flexContent.push(this.maps);
+        this.layout.sequenceFrom(this.flexContent);
+        this.rootNode.add(this.flexMod).add(this.layout);
+    }
 
     function _gridParts() {
         this.topLeftSection = new HomePart({
@@ -93,27 +110,6 @@ define(function (require, exports, module) {
         this.flexContent.push(this.gridContentBottom);
     }
 
-    function _flex() {
-        this.flexMod = new Modifier({
-            align: this.options.center,
-            origin: this.options.center
-        });
-        this.layout = new FlexibleLayout({
-            ratios: [2, 2, 2],
-            direction: 1
-        });
-        this.flexContent = [];
-
-        this.maps = new MapsCell();
-
-        //this.maps.pipe(this._eventOutput);
-        this.flexContent.push(this.maps);
-
-
-        this.layout.sequenceFrom(this.flexContent);
-
-        this.rootNode.add(this.flexMod).add(this.layout);
-    }
 
     function _init() {
         this.centerModifier = new Modifier({
