@@ -72,7 +72,6 @@ define(function (require, exports, module) {
 
             _modifier.call(this);
         }.bind(this));
-
     }
 
     function _init() {

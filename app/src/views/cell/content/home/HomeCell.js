@@ -105,27 +105,16 @@ define(function (require, exports, module) {
         this.gridContentBottom = new GridLayout({dimensions: [2, 1]});
         this.gridContentBottom.sequenceFrom(this.contentBottom);
 
-
         this.flexContent.push(this.gridContentTop);
         this.flexContent.push(this.gridContentBottom);
     }
-
 
     function _init() {
         this.centerModifier = new Modifier({
             align: this.options.center,
             origin: this.options.center
         });
-        this.contentBacking = new Surface({
-            size: [undefined, undefined],
-            properties: {
-                color: this.options.color,
-                textAlign: this.options.textAlign,
-                backgroundColor: this.options.contProp.backgroundColor
-            }
-        });
         this.rootNode = this.add(this.centerModifier);
-        //this.rootNode.add(this.contentBacking);
     }
 
     module.exports = HomeCell;
