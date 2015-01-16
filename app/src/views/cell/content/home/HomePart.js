@@ -2,7 +2,6 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
-    var Modifier = require("famous/core/Modifier");
     var StateModifier = require('famous/modifiers/StateModifier');
 
     var Transitionable = require('famous/transitions/Transitionable');
@@ -14,7 +13,6 @@ define(function (require, exports, module) {
         _initTransform.call(this);
         _contentParts.call(this);
     }
-
 
     HomePart.prototype = Object.create(View.prototype);
     HomePart.prototype.constructor = HomePart;
@@ -46,7 +44,6 @@ define(function (require, exports, module) {
     }
 
     function _initTransform() {
-        Transitionable.registerMethod('spring', SpringTransition);
         this.spring = {
             method: 'spring',
             period: this.options.period,
@@ -60,7 +57,6 @@ define(function (require, exports, module) {
 
         this.rootNode = this.add(this.centerModifier);
         this.centerModifier.setTransform(Transform.translate(0, 0, 0), this.spring);
-
     }
 
     module.exports = HomePart;
