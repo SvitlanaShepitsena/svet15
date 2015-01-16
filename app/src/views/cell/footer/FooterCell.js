@@ -11,6 +11,18 @@ define(function (require, exports, module) {
         _ad.call(this);
     }
 
+    FooterCell.prototype = Object.create(View.prototype);
+    FooterCell.prototype.constructor = FooterCell;
+
+    FooterCell.DEFAULT_OPTIONS = {
+        footerOpts: {
+            color: null,
+            fontSize: null,
+            textAlign: 'center',
+            backgroundColor: null
+        }
+    };
+
     function _ad() {
         /**
          *  EdgeSwapper
@@ -23,29 +35,23 @@ define(function (require, exports, module) {
         this.counter = 0;
 
         for (var i = 0; i < this.elements.length; i++) {
-            var surf = new Surface({
+            this.surf = new Surface({
                 size: [undefined, undefined],
-                content: "<img class='ravinia-img' src='../img/footer-ad/ravinia--ad.png'>",
+                //content: "<img class='ravinia-img' src='../img/footer-ad/ravinia--ad.png'>",
                 properties: {
-                    color: 'white',
-                    fontSize: '22px',
-                    textAlign: 'center',
-                    backgroundColor: "#3E3A3B"
+                    backgroundColor: window.sv.scheme.footerColor
                 }
             });
 
-            surf.on('click', function () {
+            this.surf.on('click', function () {
                 this.counter = this.counter == this.surfaces.length - 1 ? 0 : this.counter + 1;
                 this.adSwapper.show(this.surfaces[this.counter]);
             }.bind(this));
-
-            this.surfaces.push(surf);
+            this.surfaces.push(this.surf);
         }
 
         this.rootNode.add(this.adSwapper);
-
         this.adSwapper.show(this.surfaces[this.counter]);
-
     }
 
     function _init() {
@@ -56,11 +62,6 @@ define(function (require, exports, module) {
         });
         this.rootNode = this.add(this.centerModifier);
     }
-
-    FooterCell.prototype = Object.create(View.prototype);
-    FooterCell.prototype.constructor = FooterCell;
-
-    FooterCell.DEFAULT_OPTIONS = {};
 
     module.exports = FooterCell;
 });

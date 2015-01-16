@@ -10,7 +10,6 @@ define(function (require, exports, module) {
     var NavigationViewCell = require('./NavigationViewCell');
 
     function MenuViewCell() {
-        var that = this;
         View.apply(this, arguments);
 
         this.eventInput = new EventHandler();
@@ -19,22 +18,28 @@ define(function (require, exports, module) {
         EventHandler.setOutputHandler(this, this.eventOutput);
 
         this.eventInput.on('pageChange', function (index) {
-            that.eventOutput.emit('navigateTo', index);
-        })
+            this.eventOutput.emit('navigateTo', index);
+        }.bind(this));
+
         _init.call(this);
         _createBacking.call(this);
         _createNavigationViews.call(this);
     }
 
-    function _init() {
-        this.backModifier = new StateModifier({
-            opacity: 0
-        });
-        this.rootNode = this.add(this.backModifier);
-    }
-
     MenuViewCell.prototype = Object.create(View.prototype);
     MenuViewCell.prototype.constructor = MenuViewCell;
+
+    /*options for nav icon*/
+    MenuViewCell.DEFAULT_OPTIONS = {
+        navWidth: 191,
+        backgroundColor: '#0D0D0D',
+        navHeight: 81,
+        topOffset: 10,
+        navItemOffset: window.innerHeight / 6,
+        duration: 400,
+        staggerDelay: 35
+    };
+
 
     MenuViewCell.prototype.resetNavItems = function () {
         for (var i = 0; i < this.navModifiers.length; i++) {
@@ -70,27 +75,17 @@ define(function (require, exports, module) {
 
         this.backModifier.setOpacity(1);
     };
-    /*options for nav icon*/
-    MenuViewCell.DEFAULT_OPTIONS = {
-        navWidth: 191,
-        navHeight: 81,
-        topOffset: 10,
-        navItemOffset: window.innerHeight / 6,
-        duration: 400,
-        staggerDelay: 35
-    };
 
     function _createBacking() {
-
-
-        var backSurface = new Surface({
+        var that = this;
+        this.backSurface = new Surface({
             size: [window.innerWidth / 2, this.options.height],
             properties: {
-                backgroundColor: '#595153'
+                //backgroundColor: '#595153'
+                backgroundColor: this.options.backgroundColor
             }
         });
-
-        this.rootNode.add(backSurface);
+        this.rootNode.add(this.backSurface);
     }
 
     function _createNavigationViews() {
@@ -106,13 +101,13 @@ define(function (require, exports, module) {
         ];
 
         for (var i = 0; i < navData.length; i++) {
-            var navView = new NavigationViewCell({
+            this.navView = new NavigationViewCell({
                 width: this.options.navWidth,
                 height: this.options.navHeight,
                 iconUrl: navData[i].iconUrl,
                 index: i
             });
-            navView.pipe(this);
+            this.navView.pipe(this);
 
             var yOffset = this.options.topOffset + this.options.navItemOffset * i;
 
@@ -121,8 +116,15 @@ define(function (require, exports, module) {
             });
 
             this.navModifiers.push(navModifier);
-            this.rootNode.add(navModifier).add(navView);
+            this.rootNode.add(navModifier).add(this.navView);
         }
+    }
+
+    function _init() {
+        this.backModifier = new StateModifier({
+            opacity: 0
+        });
+        this.rootNode = this.add(this.backModifier);
     }
 
     module.exports = MenuViewCell;

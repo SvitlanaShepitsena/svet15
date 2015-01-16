@@ -21,8 +21,6 @@ define(function (require, exports, module) {
 
     function PageViewCell() {
         View.apply(this, arguments);
-        var that = this;
-
         this.layout = new HeaderFooterLayout({
             headerSize: this.options.headerSize,
             footerSize: this.options.footerSize
@@ -70,20 +68,21 @@ define(function (require, exports, module) {
         }.bind(this));
 
         /* =Footer*/
-        this.layout.footer = new FooterCell();
+        this.layout.footer = new FooterCell({
+                backgroundColor: "black"
+            }
+        );
 
         this.layout.content.add(this.content);
         this.layout.header.add(this.header);
-
-
         this._eventInput.pipe(this._eventOutput);
 
         this.add(this.layout);
     }
 
     PageViewCell.DEFAULT_OPTIONS = {
-        headerSize: 0.1 * window.innerHeight,
-        footerSize: 0.15 * window.innerHeight
+        headerSize: 0.08 * window.innerHeight,
+        footerSize: 0.07 * window.innerHeight
     };
 
     PageViewCell.prototype = Object.create(View.prototype);

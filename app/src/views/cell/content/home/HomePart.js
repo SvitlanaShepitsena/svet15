@@ -28,8 +28,9 @@ define(function (require, exports, module) {
         width: window.innerWidth,
         sectionPop: {
             color: 'white',
+            paddingTop: '15px',
             textAlign: 'center',
-            backgroundColor: '#FA5C4F'
+            backgroundColor: window.sv.scheme.sectionColor
         }
     };
 

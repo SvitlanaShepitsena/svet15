@@ -13,8 +13,8 @@ define(function (require, exports, module) {
 
     function MapsCell() {
         View.apply(this, arguments);
-        _init.call(this);
 
+        _init.call(this);
         _map.call(this);
     }
 
@@ -53,34 +53,32 @@ define(function (require, exports, module) {
         this.gMap;
 
         this.northChicagoStart = {lat: 41.850033, lng: -87.6500523};
-        this.northChicagoEnd = {lat:41.936994, lng:-87.882339};
+        this.northChicagoEnd = {lat: 41.936994, lng: -87.882339};
 
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
             mapOptions: {
-                zoom: 12,
+                zoom: 9 ,
                 center: this.northChicagoStart,
-                disableDefaultUI: true,
+                //disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
         });
-
 
         this.rootNode.add(this.mapView);
 
         this.mapView.on('load', function () {
 
             this.mapView.setPosition(
-                this.northChicagoEnd,
-                {duration: 5000, curve: Easing.outBack}
+                this.northChicagoEnd, {duration: 5000, curve: Easing.outBack}
             );
             this.gMap = this.mapView.getMap();
 
-            var url = 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer';
-            var dynamap = new gmaps.ags.MapOverlay(url);
-            dynamap.setMap(this.gMap);
+            //var url = 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer';
+            //var dynamap = new gmaps.ags.MapOverlay(url);
+            //dynamap.setMap(this.gMap);
 
-            this.gMap.data.loadGeoJson('https://storage.googleapis.com/maps-devrel/google.json');
+            //this.gMap.data.loadGeoJson('https://storage.googleapis.com/maps-devrel/google.json');
 
             //_modifier.call(this);
         }.bind(this));
