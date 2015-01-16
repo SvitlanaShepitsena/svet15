@@ -5,6 +5,7 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
 
 
+
     function AboutUsDesk() {
         View.apply(this, arguments);
 

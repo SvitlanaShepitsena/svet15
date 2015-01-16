@@ -8,6 +8,7 @@ define(function (require, exports, module) {
     var HeaderDesk = require('dviews/header/HeaderDesk');
 
 
+
     AppViewDesk.DEFAULT_OPTIONS = {};
 
     function AppViewDesk() {

@@ -166,6 +166,7 @@ define(function(require, exports, module) {
             this._initComplete = true;
             this._eventOutput.emit('load', this);
             break;
+
         }
     };
 
