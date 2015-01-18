@@ -12,7 +12,9 @@ define(function (require, exports, module) {
 
         _initTransform.call(this);
         _contentParts.call(this);
+        _sectionIcon.call(this);
     }
+
 
     HomePart.prototype = Object.create(View.prototype);
     HomePart.prototype.constructor = HomePart;
@@ -21,14 +23,16 @@ define(function (require, exports, module) {
         center: [0.5, 0, 5],
         content: null,
         spring: null,
+        icon: null,
         period: 0,
         dampingRatio: 0,
         sign: 0,
         size: [undefined, undefined],
         width: window.innerWidth,
         sectionPop: {
-            color: 'white',
-            paddingTop: '15px',
+            fontSize: '18px',
+            color: window.sv.scheme.textWhite,
+            paddingTop: window.innerWidth / 3 + 'px',
             textAlign: 'center',
             backgroundColor: window.sv.scheme.sectionColor
         }
@@ -42,6 +46,27 @@ define(function (require, exports, module) {
         });
         this.surface.pipe(this._eventOutput);
         this.rootNode.add(this.surface);
+    }
+
+    function _sectionIcon() {
+        this.sectionIconMod = new StateModifier({
+            size: [100, 100],
+            align: [0.5, 0.1],
+            origin: [0.5, 0],
+            transform: Transform.translate(0, 0, 0)
+        });
+        this.sectionIconSurface = new Surface({
+            size: [undefined, undefined],
+            content: "<img class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
+            properties: {
+                textAlign: 'center',
+                borderRadius: '100px',
+                color: 'red',
+                backgroundColor: window.sv.scheme.homeIconColor
+            }
+        });
+
+        this.rootNode.add(this.sectionIconMod).add(this.sectionIconSurface);
     }
 
     function _initTransform() {
