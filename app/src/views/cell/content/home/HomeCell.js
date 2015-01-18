@@ -67,24 +67,28 @@ define(function (require, exports, module) {
             sign: -1,
             period: '900',
             dampingRatio: 0.3,
-            content: grid11
+            icon:'news-daily',
+            content: '<h4 class="icon-text">Svet</br>Daily Newspaper</h4>'
         })
         this.topRightSection = new HomePart({
             sign: 1,
             period: '1000',
             dampingRatio: 0.3,
+            icon:'weekly',
             content: grid12
         })
         this.bottomLeftSection = new HomePart({
             sign: -1,
             period: '1100',
             dampingRatio: 0.3,
+            icon:'yp',
             content: grid21
         })
         this.bottomRightSection = new HomePart({
             sign: 1,
             period: '800',
             dampingRatio: 0.3,
+            icon:'radio',
             content: grid22
         })
 

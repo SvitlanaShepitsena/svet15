@@ -31,3 +31,29 @@ window.responsive = function responsive() {
     }
     return device;
 }
+
+window.sv = {
+    options: {
+        lightScheme: {
+            svYellow: {
+                headerColor: '#A65005',
+                navColor: '#A65005',
+                footerColor: '#FFDE9C'
+            }
+        },
+        darkScheme: {
+            svYellow: {
+                textYellow: '#fafad2',
+                textWhite: 'floralwhite',
+                textShadow: '1px 1px #BD8D46',
+                homeIconColor: '#fffaf0',
+                headerColor: '#000000',
+                navColor: '#0B0B0B',
+                sectionColor: '#FF7F50',
+                footerColor: '#000000'
+            }
+        }
+    }
+
+}
+window.sv.scheme = window.sv.options.darkScheme.svYellow;

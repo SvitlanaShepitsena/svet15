@@ -7,6 +7,7 @@ define(function (require, exports, module) {
 
     function NavigationView() {
         View.apply(this, arguments);
+
         this.eventOutput = new EventHandler();
         EventHandler.setOutputHandler(this, this.eventOutput);
 

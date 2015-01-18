@@ -17,7 +17,9 @@ define(function (require, exports, module) {
         var backgroundSurface = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: '#FC6E51'
+                backgroundColor: window.sv.scheme.headerColor
+                //backgroundColor: '#FC6E51'
+
                 //background: '#D24811'
                 //backgroundColor: '#FFB083'
                 //backgroundColor: '#C8645B'
@@ -39,7 +41,7 @@ define(function (require, exports, module) {
             properties: {
                 fontSize: '22px',
                 textAlign: 'center',
-                color: "white",
+                color: window.sv.scheme.textYellow,
                 lineHeight: "50px",
                 fontWeight: '700'
             }
@@ -47,10 +49,6 @@ define(function (require, exports, module) {
 
         this.hamburgerModifier = new Modifier({
             transform: Transform.translate(0, 0, 2)
-        });
-
-        this.bgModifier = new Modifier({
-            transform: Transform.translate(0, 0, 1)
         });
 
         this.titleModifier = new Modifier({

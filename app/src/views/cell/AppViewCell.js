@@ -22,6 +22,7 @@ define(function (require, exports, module) {
 
     function AppViewCell() {
         Transitionable.registerMethod('spring', SpringTransition);
+
         this.imgModifier = new StateModifier({
             opacity: 1
         });
