@@ -43,11 +43,12 @@ window.sv = {
         },
         darkScheme: {
             svYellow: {
-                textYellow: '#FFEC9D',
+                textYellow: '#fafad2',
+                textWhite: 'floralwhite',
                 textShadow: '1px 1px #BD8D46',
                 headerColor: '#000000',
                 navColor: '#0B0B0B',
-                sectionColor: '#F0650E',
+                sectionColor: '#FF7F50',
                 footerColor: '#000000'
             }
         }
