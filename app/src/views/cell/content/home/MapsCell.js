@@ -53,12 +53,12 @@ define(function (require, exports, module) {
         this.gMap;
 
         this.northChicagoStart = {lat: 41.850033, lng: -87.6500523};
-        this.northChicagoEnd = {lat:41.936994, lng:-87.882339};
+        this.northChicagoEnd = {lat: 41.936994, lng: -87.882339};
 
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
             mapOptions: {
-                zoom: 12,
+                zoom: 9,
                 center: this.northChicagoStart,
                 disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -76,12 +76,24 @@ define(function (require, exports, module) {
             );
             this.gMap = this.mapView.getMap();
 
-            var url = 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer';
-            var dynamap = new gmaps.ags.MapOverlay(url);
-            dynamap.setMap(this.gMap);
+            var triangleCoords = [
+                new google.maps.LatLng(25.774252, -80.190262),
+                new google.maps.LatLng(18.466465, -66.118292),
+                new google.maps.LatLng(32.321384, -64.75737),
+                new google.maps.LatLng(25.774252, -80.190262)
+            ];
 
-            this.gMap.data.loadGeoJson('https://storage.googleapis.com/maps-devrel/google.json');
+            // Construct the polygon.
+           var  bermudaTriangle = new google.maps.Polygon({
+                paths: triangleCoords,
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35
+            });
 
+            bermudaTriangle.setMap(this.gMap);
             //_modifier.call(this);
         }.bind(this));
     }

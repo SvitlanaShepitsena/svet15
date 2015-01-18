@@ -1697,11 +1697,13 @@
         var layers = [];
         var tables = [];
         var layer, i, c, info;
+        var visible = [0,  3];
         for (i = 0, c = json2.layers.length; i < c; i++) {
             info = json2.layers[i];
             layer = new Layer(this.url + '/' + info.id);
             augmentObject(info, layer);
             layer.visible = layer.defaultVisibility;
+            //layer.visible = visible.indexOf(i) > -1 ? true : false;
             layers.push(layer);
         }
         if (json2.tables) {
