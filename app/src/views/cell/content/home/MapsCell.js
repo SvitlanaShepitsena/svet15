@@ -53,12 +53,12 @@ define(function (require, exports, module) {
         this.gMap;
 
         this.northChicagoStart = {lat: 41.850033, lng: -87.6500523};
-        this.northChicagoEnd = {lat: 41.936994, lng: -87.882339};
+        this.northChicagoEnd = {lat: 42.012571, lng: -87.710238};
 
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
             mapOptions: {
-                zoom: 9,
+                zoom: 11,
                 center: this.northChicagoStart,
                 disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -76,24 +76,24 @@ define(function (require, exports, module) {
             );
             this.gMap = this.mapView.getMap();
 
-            var triangleCoords = [
-                new google.maps.LatLng(25.774252, -80.190262),
-                new google.maps.LatLng(18.466465, -66.118292),
-                new google.maps.LatLng(32.321384, -64.75737),
-                new google.maps.LatLng(25.774252, -80.190262)
+            var skokieCoordinates = [
+                new google.maps.LatLng(42.063568,-87.771006),
+                new google.maps.LatLng(42.052479,-87.709551),
+                new google.maps.LatLng(42.012571,-87.710238),
+                new google.maps.LatLng(42.008361,-87.767401),
+                new google.maps.LatLng(42.040760, -87.764376),
+                new google.maps.LatLng(42.063568,-87.771006)
             ];
 
-            // Construct the polygon.
-           var  bermudaTriangle = new google.maps.Polygon({
-                paths: triangleCoords,
+            var skokieLayer = new google.maps.Polygon({
+                paths: skokieCoordinates,
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
                 fillColor: '#FF0000',
                 fillOpacity: 0.35
             });
-
-            bermudaTriangle.setMap(this.gMap);
+            skokieLayer.setMap(this.gMap);
             //_modifier.call(this);
         }.bind(this));
     }
