@@ -16,7 +16,7 @@ define(function (require, exports, module) {
         _init.call(this);
 
         _map.call(this);
-
+        this.opacityLegend = new Transitionable(0);
 
     }
 
