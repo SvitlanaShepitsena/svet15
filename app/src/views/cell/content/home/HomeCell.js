@@ -99,21 +99,21 @@ define(function (require, exports, module) {
             period: '1000',
             dampingRatio: 0.3,
             icon: 'weekly',
-            content: grid12
+            content: '<h4 class="icon-text">Saturday Plus</br>Weekly Newspaper</h4>'
         })
         this.bottomLeftSection = new HomePart({
             sign: -1,
             period: '1100',
             dampingRatio: 0.3,
             icon: 'yp',
-            content: grid21
+            content: '<h4 class="icon-text">Russian-American</br>Yellow Pages</h4>'
         })
         this.bottomRightSection = new HomePart({
             sign: 1,
             period: '800',
             dampingRatio: 0.3,
             icon: 'radio',
-            content: grid22
+            content: '<h4 class="icon-text">Radio-Program</br>"OSA"</h4>'
         })
 
         this.topLeftSection.pipe(this._eventOutput);
