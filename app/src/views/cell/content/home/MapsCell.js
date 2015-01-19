@@ -425,6 +425,15 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             evanstonLayer.setMap(this.gMap);
+            google.maps.event.addListener(evanstonLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.evanstonInfo = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.evanstonInfo);
+                this.evanstonInfo.setContent('<p class="map-info" >7.2% of Russian speaking customers</p>');
+                this.evanstonInfo.setPosition(e.latLng);
+                this.evanstonInfo.open(this.gMap);
+
+            }.bind(this));
 
 
             /*Wilmette*/
@@ -779,6 +788,15 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             nilesLayer.setMap(this.gMap);
+            google.maps.event.addListener(nilesLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.nilesInfo = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.nilesInfo);
+                this.nilesInfo.setContent('<p class="map-info" >7.2% of Russian speaking customers</p>');
+                this.nilesInfo.setPosition(e.latLng);
+                this.nilesInfo.open(this.gMap);
+
+            }.bind(this));
 
 
             //_modifier.call(this);
@@ -832,7 +850,7 @@ define(function (require, exports, module) {
 
             google.maps.event.addListener(this.svetMarker, 'click', function (e) {
                 this.geocoder.geocode({'latLng': latLng}, function (res) {
-                    this.markerInfo.setContent('<p class="map-marker-info">'+res[0].formatted_address+'</p>');
+                    this.markerInfo.setContent('<p class="map-marker-info">' + res[0].formatted_address + '</p>');
                     this.markerInfo.setPosition(e.latLng);
                     this.markerInfo.open(this.gMap);
                 }.bind(this));
