@@ -38,7 +38,7 @@ define(function (require, exports, module) {
             fontSize: '18px',
             cursor:'pointer',
             color: window.sv.scheme.textWhite,
-            paddingTop: window.innerWidth / 3 + 'px',
+            paddingTop: window.innerWidth / 4 + 'px',
             textAlign: 'center',
             backgroundColor: window.sv.scheme.sectionColor
         }
@@ -58,14 +58,15 @@ define(function (require, exports, module) {
 
     function _sectionIcon() {
         this.sectionIconMod = new StateModifier({
-            size: [100, 100],
+            size: [(window.innerWidth / 2) * .4, (window.innerWidth / 2) * .4],
             align: [0.5, 0.1],
             origin: [0.5, 0],
             transform: Transform.translate(0, 0, 0)
         });
+        var imgDivider = 8;
         this.sectionIconSurface = new Surface({
             size: [undefined, undefined],
-            content: "<img class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
+            content: "<a target='_blank' href='" + this.options.url + "'><img style='width:" + (window.innerWidth / imgDivider) + "px; height: " + (window.innerWidth / imgDivider) + "px' class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/></a>",
             properties: {
                 cursor:'pointer',
                 textAlign: 'center',
