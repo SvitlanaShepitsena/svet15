@@ -115,6 +115,14 @@ body {
 /**********************
     =Home
 **********************/
+.home-icon-img {
+  width: 70px;
+  height: 70px;
+  margin-top: 15px;
+}
+.icon-text {
+  margin-top: 100px;
+}
 @media only screen and (max-width: 500px) {
   .img-logo-mob {
     margin-bottom: 10px;
@@ -200,6 +208,11 @@ body {
   .li-text {
     width: 80%;
   }
+}
+.img-section {
+  width: 100px;
+  height: 100px;
+  z-index: 999;
 }
 /**********************
   =Footer
