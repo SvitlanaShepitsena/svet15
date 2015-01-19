@@ -89,9 +89,9 @@ define(function (require, exports, module) {
                 {duration: 500, curve: Easing.outBack}
             );
             this.gMap = this.mapView.getMap();
-            //
-            /**/
-            /*Highland Park*/
+
+
+            /*Highland Park starts*/
 
             var highlandParkCoordinates = [
                 /*Border with Deerfield*/
@@ -130,8 +130,20 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             highlandParkLayer.setMap(this.gMap);
+
+            google.maps.event.addListener(highlandParkLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.infoHighlandPark = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.infoHighlandPark);
+                this.infoHighlandPark.setContent('<p class="map-info" >18.2% of Russian speaking customers</p>');
+                this.infoHighlandPark.setPosition(e.latLng);
+                this.infoHighlandPark.open(this.gMap);
+
+            }.bind(this));
+
+            /*Highland Park end*/
             //
-            /*Deerfield*/
+            /*Deerfield starts*/
 
             var deerfieldCoordinates = [
                 /*Border with Highland Park*/
@@ -167,6 +179,16 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             deerfieldLayer.setMap(this.gMap);
+
+            google.maps.event.addListener(deerfieldLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.infoDeerfield = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.infoDeerfield);
+                this.infoDeerfield.setContent('<p class="map-info" >16.1% of Russian speaking customers</p>');
+                this.infoDeerfield.setPosition(e.latLng);
+                this.infoDeerfield.open(this.gMap);
+
+            }.bind(this));
 
             //
             /*Northbrook*/
@@ -205,6 +227,17 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             northbrookLayer.setMap(this.gMap);
+
+            google.maps.event.addListener(northbrookLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.infoNorthbrook = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.infoNorthbrook);
+                this.infoNorthbrook.setContent('<p class="map-info" >14.3% of Russian speaking customers</p>');
+                this.infoNorthbrook.setPosition(e.latLng);
+                this.infoNorthbrook.open(this.gMap);
+
+            }.bind(this));
+
             //
             /*Glencoe*/
 
@@ -229,6 +262,16 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             glencoeLayer.setMap(this.gMap);
+
+            google.maps.event.addListener(glencoeLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.infoGlencoe = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.infoGlencoe);
+                this.infoGlencoe.setContent('<p class="map-info" >14.4% of Russian speaking customers</p>');
+                this.infoGlencoe.setPosition(e.latLng);
+                this.infoGlencoe.open(this.gMap);
+
+            }.bind(this));
 
             //
             /*Vernon Hills*/
@@ -277,6 +320,17 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             vernonHillsLayer.setMap(this.gMap);
+
+            google.maps.event.addListener(vernonHillsLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.vernonHillsInfo = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.vernonHillsInfo);
+                this.vernonHillsInfo.setContent('<p class="map-info" >9.1% of Russian speaking customers</p>');
+                this.vernonHillsInfo.setPosition(e.latLng);
+                this.vernonHillsInfo.open(this.gMap);
+
+            }.bind(this));
+
 
             /*Skokie*/
             var skokieCoordinates = [
@@ -439,6 +493,17 @@ define(function (require, exports, module) {
             });
             wilmetteLayer.setMap(this.gMap);
 
+            google.maps.event.addListener(wilmetteLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.wilmetteInfo = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.wilmetteInfo);
+                this.wilmetteInfo.setContent('<p class="map-info" >7.2% of Russian speaking customers</p>');
+                this.wilmetteInfo.setPosition(e.latLng);
+                this.wilmetteInfo.open(this.gMap);
+
+            }.bind(this));
+
+
             /*Glenview*/
             var glenviewCoordinates = [
                 new google.maps.LatLng(42.084618, -87.775059),
@@ -491,6 +556,17 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             glenviewLayer.setMap(this.gMap);
+
+            google.maps.event.addListener(glenviewLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.glenviewInfo = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.glenviewInfo);
+                this.glenviewInfo.setContent('<p class="map-info" >13.8% of Russian speaking customers</p>');
+                this.glenviewInfo.setPosition(e.latLng);
+                this.glenviewInfo.open(this.gMap);
+
+            }.bind(this));
+
 
             /*Buffalo Grove*/
             var buffaloGroveCoordinates = [
@@ -560,9 +636,9 @@ define(function (require, exports, module) {
                 new google.maps.LatLng(42.204670, -87.957773),
                 new google.maps.LatLng(42.204670, -87.974081),
                 new google.maps.LatLng(42.206196, -87.974253),
-
                 new google.maps.LatLng(42.205179, -87.979918)
             ];
+
             var buffaloGroveLayer = new google.maps.Polygon({
                 paths: buffaloGroveCoordinates,
                 strokeColor: 'red',
@@ -572,6 +648,16 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             buffaloGroveLayer.setMap(this.gMap);
+
+            google.maps.event.addListener(buffaloGroveLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.buffaloGroveInfo = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.buffaloGroveInfo);
+                this.buffaloGroveInfo.setContent('<p class="map-info" >18.7% of Russian speaking customers</p>');
+                this.buffaloGroveInfo.setPosition(e.latLng);
+                this.buffaloGroveInfo.open(this.gMap);
+
+            }.bind(this));
 
 
             /*Wheeling*/
@@ -618,6 +704,16 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             wheelingLayer.setMap(this.gMap);
+
+            google.maps.event.addListener(wheelingLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.wheelingInfo = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.wheelingInfo);
+                this.wheelingInfo.setContent('<p class="map-info" >8.9% of Russian speaking customers</p>');
+                this.wheelingInfo.setPosition(e.latLng);
+                this.wheelingInfo.open(this.gMap);
+
+            }.bind(this));
 
 
             /*Niles*/
