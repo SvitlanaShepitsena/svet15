@@ -48,21 +48,20 @@ define(function (require, exports, module) {
             properties: this.options.sectionPop
         });
         this.surface.pipe(this._eventOutput);
-
-
         this.rootNode.add(this.surface);
     }
 
     function _sectionIcon() {
         this.sectionIconMod = new StateModifier({
-            size: [100, 100],
+            size: [(window.innerWidth / 2) * .4, (window.innerWidth / 2) * .4],
             align: [0.5, 0.1],
             origin: [0.5, 0],
             transform: Transform.translate(0, 0, 0)
         });
+        var imgDivider = 8;
         this.sectionIconSurface = new Surface({
             size: [undefined, undefined],
-            content: "<a target='_blank' href='" + this.options.url + "'><img class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/></a>",
+            content: "<a target='_blank' href='" + this.options.url + "'><img style='width:" + (window.innerWidth / imgDivider) + "px; height: " + (window.innerWidth / imgDivider) + "px' class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/></a>",
             properties: {
                 cursor: 'pointer',
                 textAlign: 'center',

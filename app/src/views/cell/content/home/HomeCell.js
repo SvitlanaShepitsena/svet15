@@ -73,7 +73,7 @@ define(function (require, exports, module) {
             origin: this.options.center
         });
         this.layout = new FlexibleLayout({
-            ratios: [2, 2, 2],
+            ratios: [4, 2, 2],
             direction: 1
         });
         this.maps = new MapsCell();
