@@ -102,7 +102,6 @@ define(function (require, exports, module) {
                 new google.maps.LatLng(42.062583, -87.769963),
                 new google.maps.LatLng(42.063730, -87.770821),
                 new google.maps.LatLng(42.063730, -87.765964),
-
                 new google.maps.LatLng(42.065100, -87.765800)
             ];
 
@@ -115,6 +114,81 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             skokieLayer.setMap(this.gMap);
+            var skokieCoordinates = [
+                new google.maps.LatLng(42.065100, -87.765800),
+                new google.maps.LatLng(42.065100, -87.727563),
+                new google.maps.LatLng(42.055828, -87.727563),
+                new google.maps.LatLng(42.055828, -87.715718),
+                new google.maps.LatLng(42.052131, -87.708852),
+                new google.maps.LatLng(42.012095, -87.709367),
+                new google.maps.LatLng(42.012095, -87.723614),
+                new google.maps.LatLng(42.015156, -87.724129),
+                new google.maps.LatLng(42.015156, -87.750565),
+                new google.maps.LatLng(42.004569, -87.750909),
+                new google.maps.LatLng(42.004952, -87.762238),
+                new google.maps.LatLng(42.008396, -87.767560),
+                new google.maps.LatLng(42.019237, -87.767216),
+                new google.maps.LatLng(42.019237, -87.777173),
+                new google.maps.LatLng(42.026506, -87.780949),
+                new google.maps.LatLng(42.026506, -87.767216),
+                new google.maps.LatLng(42.023063, -87.767388),
+                new google.maps.LatLng(42.022808, -87.762582),
+                new google.maps.LatLng(42.033264, -87.762067),
+                new google.maps.LatLng(42.037089, -87.766873),
+                new google.maps.LatLng(42.039129, -87.764298),
+                new google.maps.LatLng(42.062583, -87.763955),
+                new google.maps.LatLng(42.062583, -87.769963),
+                new google.maps.LatLng(42.063730, -87.770821),
+                new google.maps.LatLng(42.063730, -87.765964),
+                new google.maps.LatLng(42.065100, -87.765800)
+            ];
+
+            var skokieLayer = new google.maps.Polygon({
+                paths: skokieCoordinates,
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35
+            });
+            skokieLayer.setMap(this.gMap);
+           /*Evanston*/
+            var evanstonCoordinates = [
+                new google.maps.LatLng(42.065100, -87.727563),
+                new google.maps.LatLng(42.055828, -87.727563),
+                new google.maps.LatLng(42.055828, -87.715718),
+                new google.maps.LatLng(42.052131, -87.708852),
+                new google.maps.LatLng(42.012095, -87.709367),
+                new google.maps.LatLng(42.019246, -87.673272),
+                new google.maps.LatLng(42.023071, -87.678165),
+                new google.maps.LatLng(42.023071, -87.678165),
+                new google.maps.LatLng(42.028937, -87.668809),
+                new google.maps.LatLng(42.028937, -87.668809),
+                new google.maps.LatLng(42.041305, -87.669581),
+                new google.maps.LatLng(42.041241, -87.669753),
+                new google.maps.LatLng(42.048061, -87.673358),
+                new google.maps.LatLng(42.052204, -87.669667),
+                new google.maps.LatLng(42.059596, -87.669839),
+                new google.maps.LatLng(42.060042, -87.671041),
+                new google.maps.LatLng(42.071767, -87.679624),
+                new google.maps.LatLng(42.071767, -87.682799),
+                new google.maps.LatLng(42.068708, -87.682799),
+                new google.maps.LatLng(42.069282, -87.729234),
+                new google.maps.LatLng(42.069664, -87.729405),
+                new google.maps.LatLng(42.068708, -87.732410),
+                new google.maps.LatLng(42.065100, -87.732581),
+                new google.maps.LatLng(42.065100, -87.727563),
+            ];
+
+            var evanstonLayer = new google.maps.Polygon({
+                paths: evanstonCoordinates,
+                strokeColor: 'green',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'yellow',
+                fillOpacity: 0.35
+            });
+            evanstonLayer.setMap(this.gMap);
             //_modifier.call(this);
         }.bind(this));
     }
