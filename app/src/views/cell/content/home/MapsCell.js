@@ -19,12 +19,13 @@ define(function (require, exports, module) {
 
 
     }
-        function _closeAllInfoWindows() {
-            this.infoWindows.forEach(function (info) {
-               info.close(this.gMap) ;
-            })
 
-        }
+    function _closeAllInfoWindows() {
+        this.infoWindows.forEach(function (info) {
+            info.close(this.gMap);
+        })
+
+    }
 
     function _modifier() {
         this.opacityOurRegion = new Transitionable(0);
@@ -125,11 +126,10 @@ define(function (require, exports, module) {
             });
             skokieLayer.setMap(this.gMap);
 
-
+            /*Info Window*/
             google.maps.event.addListener(skokieLayer, 'click', function (e) {
                 _closeAllInfoWindows.call(this);
-                this.infoSkokie = new google.maps.InfoWindow({
-                });
+                this.infoSkokie = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoSkokie);
                 this.infoSkokie.setContent('<p class="map-info" >20% of Russian speaking customers</p>');
                 this.infoSkokie.setPosition(e.latLng);
@@ -268,10 +268,12 @@ define(function (require, exports, module) {
                 new google.maps.LatLng(42.054905, -87.815638),
                 new google.maps.LatLng(42.060513, -87.822505),
                 new google.maps.LatLng(42.059493, -87.835723),
+                new google.maps.LatLng(42.059302, -87.840272),
                 new google.maps.LatLng(42.056562, -87.840358),
                 new google.maps.LatLng(42.058219, -87.844821),
                 new google.maps.LatLng(42.060895, -87.845164),
                 new google.maps.LatLng(42.060895, -87.845164),
+
                 new google.maps.LatLng(42.072619, -87.843963),
                 new google.maps.LatLng(42.067140, -87.850486),
                 new google.maps.LatLng(42.066375, -87.867995),
@@ -383,9 +385,6 @@ define(function (require, exports, module) {
 
             /*Wheeling*/
             var wheelingCoordinates = [
-                new google.maps.LatLng(42.129220, -87.980433),
-                new google.maps.LatLng(42.135204, -87.970476),
-                new google.maps.LatLng(42.135204, -87.961035),
                 new google.maps.LatLng(42.131767, -87.961035),
                 new google.maps.LatLng(42.131767, -87.951422),
                 new google.maps.LatLng(42.134949, -87.951250),
@@ -402,32 +401,22 @@ define(function (require, exports, module) {
                 //Potawatomi Woods
                 new google.maps.LatLng(42.140231, -87.903634),
                 new google.maps.LatLng(42.138703, -87.888185),
-                //new google.maps.LatLng(42.159767, -87.938204),
-                //new google.maps.LatLng(42.167275, -87.940951),
-                //new google.maps.LatLng(42.167275, -87.922068),
-                //new google.maps.LatLng(42.171600, -87.923441),
-                //new google.maps.LatLng(42.173382, -87.920523),
-                //Ryerson Conservation Area
-                //new google.maps.LatLng(42.174654, -87.921553),
-                //new google.maps.LatLng(42.174145, -87.928419),
-                //new google.maps.LatLng(42.181396, -87.932882),
-                //new google.maps.LatLng(42.182541, -87.940436),
-                //new google.maps.LatLng(42.177198, -87.940951),
-                //new google.maps.LatLng(42.176308, -87.944899),
-                //new google.maps.LatLng(42.189791, -87.951250),
-                //new google.maps.LatLng(42.189791, -87.942839),
-                //new google.maps.LatLng(42.196532, -87.943869),
-                //new google.maps.LatLng(42.196150, -87.951765),
-                //new google.maps.LatLng(42.197549, -87.954683),
-                //new google.maps.LatLng(42.207976, -87.955198),
-                //new google.maps.LatLng(42.208103, -87.951250),
-                //new google.maps.LatLng(42.210265, -87.952795),
-                //new google.maps.LatLng(42.208866, -87.958117),
-                //new google.maps.LatLng(42.204670, -87.957773),
-                //new google.maps.LatLng(42.204670, -87.974081),
-                //new google.maps.LatLng(42.206196, -87.974253),
-
-                new google.maps.LatLng(42.129220, -87.980433)
+                new google.maps.LatLng(42.115023, -87.894021),
+                new google.maps.LatLng(42.115023, -87.894021),
+                new google.maps.LatLng(42.114768, -87.907754),
+                new google.maps.LatLng(42.094773, -87.907926),
+                //E Camp MCdonald Rd
+                new google.maps.LatLng(42.095282, -87.912904),
+                new google.maps.LatLng(42.113367, -87.936593),
+                new google.maps.LatLng(42.120498, -87.936937),
+                new google.maps.LatLng(42.120753, -87.941743),
+                new google.maps.LatLng(42.124190, -87.941743),
+                new google.maps.LatLng(42.123936, -87.951185),
+                new google.maps.LatLng(42.118206, -87.951185),
+                new google.maps.LatLng(42.118333, -87.956334),
+                new google.maps.LatLng(42.124190, -87.955991),
+                new google.maps.LatLng(42.124572, -87.960798),
+                new google.maps.LatLng(42.131767, -87.961035)
             ];
             var wheelingLayer = new google.maps.Polygon({
                 paths: wheelingCoordinates,
@@ -438,8 +427,6 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             wheelingLayer.setMap(this.gMap);
-
-
 
 
             /*Niles*/
