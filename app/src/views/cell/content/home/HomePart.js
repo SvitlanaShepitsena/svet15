@@ -33,6 +33,7 @@ define(function (require, exports, module) {
         width: window.innerWidth,
         sectionPop: {
             fontSize: '18px',
+            cursor:'pointer',
             color: window.sv.scheme.textWhite,
             paddingTop: window.innerWidth / 3 + 'px',
             textAlign: 'center',
@@ -63,6 +64,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: "<img class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
             properties: {
+                cursor:'pointer',
                 textAlign: 'center',
                 borderRadius: '100px',
                 color: 'red',

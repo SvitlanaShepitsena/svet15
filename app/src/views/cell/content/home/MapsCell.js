@@ -18,20 +18,55 @@ define(function (require, exports, module) {
         _map.call(this);
 
 
+        this.opacityLegend = new Transitionable(0);
     }
-        function _closeAllOverlays() {
-            this.infoWindows.forEach(function (info) {
-               info.close(this.gMap) ;
-            })
 
-        }
+    function _closeAllOverlays() {
+        this.infoWindows.forEach(function (info) {
+            info.close(this.gMap);
+        });
+        this.markers.forEach(function (marker) {
+            marker.setMap(null);
+        });
 
+        this.opacityLegend.set(0, {duration: 500, curve: 'easeInOut'});
+
+    }
+
+    function legend() {
+
+        this.surface = new Surface({
+            size: [170, 50],
+            content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
+            properties: {
+                color: 'grey'
+            }
+        });
+        this.surface.pipe(this.mapView);
+        this.modifier = new Modifier({
+            align: [0, 0],
+            origin: [0.5, 0.5],
+            opacity: function () {
+                return this.opacityLegend.get();
+            }.bind(this)
+
+        });
+        this.opacityLegend.set(1, {duration: 500, curve: 'easeInOut'});
+
+        this.mapModifier = new MapModifier({
+            mapView: this.mapView,
+            position: this.legendPlace,
+            zoomBase: 9,
+            zoomScale: 0.3
+        });
+        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
+    }
 
     function _map() {
         this.gMap;
 
         this.northChicagoStart = {lat: 41.011949, lng: -87.709012};
-
+        this.legendPlace = {lat: 42.131767, lng: -87.579624};
         this.northChicagoEnd = {lat: 42.082571, lng: -87.710238};
 
         this.mapView = new MapView({
@@ -99,8 +134,7 @@ define(function (require, exports, module) {
 
             google.maps.event.addListener(skokieLayer, 'click', function (e) {
                 _closeAllOverlays.call(this);
-                this.infoSkokie = new google.maps.InfoWindow({
-                });
+                this.infoSkokie = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoSkokie);
                 this.infoSkokie.setContent('<p class="map-info" >20% of Russian speaking customers</p>');
                 this.infoSkokie.setPosition(e.latLng);
@@ -415,7 +449,7 @@ define(function (require, exports, module) {
             nilesLayer.setMap(this.gMap);
 
 
-            //_modifier.call(this);
+            //legend.call(this);
         }.bind(this));
     }
 
@@ -434,15 +468,43 @@ define(function (require, exports, module) {
     MapsCell.DEFAULT_OPTIONS = {};
 
     MapsCell.prototype.showSvetPoints = function () {
-       _closeAllOverlays.call(this);
-        var svet1 = new google.maps.Marker({
-            position: new google.maps.LatLng(41.917352,-87.659912),
-            map: this.gMap,
-            title: 'Hello World!'
-        });
+        var baseLat = 42.04,
+            baseLong = -87.85;
 
+        _closeAllOverlays.call(this);
 
+        var maxRandom = .1;
 
+        function getRandomShift(n) {
+            var random = seed(n) * .1 + 0.01;
+            return random;
+        }
+
+        function seed(x) {
+            x = (x << 13) ^ x;
+            return ( 1.0 - ( (x * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
+        }
+
+        var counter = 0;
+
+        function dropSvetPoints() {
+            counter++;
+            this.svet = new google.maps.Marker({
+                position: new google.maps.LatLng(baseLat + getRandomShift(counter), baseLong + getRandomShift(counter + 2)),
+                icon: 'img/svet-icon.png',
+                animation: google.maps.Animation.DROP
+            });
+            this.markers.push(this.svet);
+            this.svet.setMap(this.gMap);
+        }
+
+        for (var i = 1; i < 20; i++) {
+            setTimeout(function () {
+
+                dropSvetPoints.call(this);
+            }.bind(this), i * 100);
+        }
+        legend.call(this);
 
     }
     module.exports = MapsCell;
