@@ -53,7 +53,7 @@ define(function (require, exports, module) {
         this.surface.pipe(this._eventOutput);
 
 
-        this.rootNode.add(this.surface);
+        this.renderNode.add(this.surface);
     }
 
     function _sectionIcon() {
@@ -65,7 +65,7 @@ define(function (require, exports, module) {
         });
         this.sectionIconSurface = new Surface({
             size: [undefined, undefined],
-            content: "<a target='_blank' href='" + this.options.url + "'><img class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/></a>",
+            content: "<img class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
             properties: {
                 cursor:'pointer',
                 textAlign: 'center',
@@ -80,6 +80,11 @@ define(function (require, exports, module) {
     }
 
     function _initTransform() {
+
+            // mainContext.setPerspective(500);
+
+
+        // this.flipper.flip(); to flip!
         this.spring = {
             method: 'spring',
             period: this.options.period,
