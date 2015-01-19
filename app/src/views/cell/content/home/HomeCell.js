@@ -9,6 +9,7 @@ define(function (require, exports, module) {
     var Transitionable = require('famous/transitions/Transitionable');
     var SpringTransition = require('famous/transitions/SpringTransition');
 
+
     var HomePart = require('cviews/content/home/HomePart');
     var MapsCell = require('cviews/content/home/MapsCell');
 
@@ -28,11 +29,9 @@ define(function (require, exports, module) {
             switch (data.icon) {
 
                 case 'news-daily':
-                    this.maps.showSvetPoints();
-                    break;
 
                 case 'weekly':
-
+                    this.maps.showSvetPoints();
                     break;
 
                 case 'yp':
@@ -86,6 +85,7 @@ define(function (require, exports, module) {
     }
 
     function _gridParts() {
+
         this.topLeftSection = new HomePart({
             sign: -1,
             period: '900',

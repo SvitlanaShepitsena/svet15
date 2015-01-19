@@ -3,14 +3,17 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
-
+    var RenderNode = require('famous/core/RenderNode');
     var Transitionable = require('famous/transitions/Transitionable');
     var SpringTransition = require('famous/transitions/SpringTransition');
+
+    var Flipper = require('famous/views/Flipper');
 
     function HomePart() {
         View.apply(this, arguments);
         this.on('click', function () {
             this._eventOutput.emit('parts:info',{icon:this.options.icon});
+            this.flipper.flip();
         })
         _initTransform.call(this);
         _contentParts.call(this);
@@ -50,7 +53,7 @@ define(function (require, exports, module) {
         this.surface.pipe(this._eventOutput);
 
 
-        this.rootNode.add(this.surface);
+        this.renderNode.add(this.surface);
     }
 
     function _sectionIcon() {
@@ -73,10 +76,15 @@ define(function (require, exports, module) {
         });
         this.sectionIconSurface.pipe(this._eventOutput);
 
-        this.rootNode.add(this.sectionIconMod).add(this.sectionIconSurface);
+        this.renderNode.add(this.sectionIconMod).add(this.sectionIconSurface);
     }
 
     function _initTransform() {
+
+            // mainContext.setPerspective(500);
+
+
+        // this.flipper.flip(); to flip!
         this.spring = {
             method: 'spring',
             period: this.options.period,
@@ -90,6 +98,25 @@ define(function (require, exports, module) {
 
         this.rootNode = this.add(this.centerModifier);
         this.centerModifier.setTransform(Transform.translate(0, 0, 0), this.spring);
+
+        this.renderNode = new RenderNode();
+        this.flipper = new Flipper();
+        this.backInfo = new Surface({
+            size: [undefined, undefined],
+            content: 'More Info',
+            classes: [],
+            properties: {
+                cursor:'pointer',
+                color: 'white',
+                textAlign: 'center',
+                backgroundColor: '#FA5C4F'
+            }
+        });
+        this.backInfo.pipe(this._eventOutput);
+        this.flipper.setFront(this.renderNode);
+        this.flipper.setBack(this.backInfo);
+
+        this.rootNode.add(this.flipper);
     }
 
     module.exports = HomePart;
