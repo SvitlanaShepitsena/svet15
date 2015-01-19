@@ -282,15 +282,27 @@ define(function (require, exports, module) {
 
             /*Buffalo Grove*/
             var buffaloGroveCoordinates = [
-                new google.maps.LatLng(42.084618, -87.775059),
-                new google.maps.LatLng(42.084618, -87.775059)
+                new google.maps.LatLng(42.205179, -87.979918),
+                new google.maps.LatLng(42.197167, -87.979574),
+                new google.maps.LatLng(42.197167, -87.972880),
+                new google.maps.LatLng(42.190681, -87.972708),
+                new google.maps.LatLng(42.190427, -87.978029),
+                new google.maps.LatLng(42.179742, -87.977514),
+                new google.maps.LatLng(42.179488, -87.985068),
+                new google.maps.LatLng(42.175671, -87.984896),
+                //Long Grove
+                new google.maps.LatLng(42.175671, -87.991934),
+                new google.maps.LatLng(42.167911, -87.993651),
+
+
+                new google.maps.LatLng(42.205179, -87.979918)
             ];
             var buffaloGroveLayer = new google.maps.Polygon({
                 paths: buffaloGroveCoordinates,
                 strokeColor: 'red',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: 'green',
+                fillColor: 'coral',
                 fillOpacity: 0.35
             });
             buffaloGroveLayer.setMap(this.gMap);
