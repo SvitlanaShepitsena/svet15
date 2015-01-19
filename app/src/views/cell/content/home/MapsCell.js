@@ -16,7 +16,15 @@ define(function (require, exports, module) {
         _init.call(this);
 
         _map.call(this);
+
+
     }
+        function _closeAllInfoWindows() {
+            this.infoWindows.forEach(function (info) {
+               info.close(this.gMap) ;
+            })
+
+        }
 
     function _modifier() {
         this.opacityOurRegion = new Transitionable(0);
@@ -65,7 +73,7 @@ define(function (require, exports, module) {
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
         });
-
+        this.infoWindows = [];
 
         this.rootNode.add(this.mapView);
 
@@ -73,7 +81,7 @@ define(function (require, exports, module) {
 
             this.mapView.setPosition(
                 this.northChicagoEnd,
-                {duration: 5000, curve: Easing.outBack}
+                {duration: 500, curve: Easing.outBack}
             );
             this.gMap = this.mapView.getMap();
 
@@ -108,6 +116,7 @@ define(function (require, exports, module) {
 
             var skokieLayer = new google.maps.Polygon({
                 paths: skokieCoordinates,
+                title: 'Skokie',
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
@@ -115,6 +124,19 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             skokieLayer.setMap(this.gMap);
+
+
+            google.maps.event.addListener(skokieLayer, 'click', function (e) {
+                _closeAllInfoWindows.call(this);
+                this.infoSkokie = new google.maps.InfoWindow({
+                });
+                this.infoWindows.push(this.infoSkokie);
+                this.infoSkokie.setContent('<p class="map-info" >20% of Russian speaking customers</p>');
+                this.infoSkokie.setPosition(e.latLng);
+                this.infoSkokie.open(this.gMap);
+
+            }.bind(this));
+
 
             /*Evanston*/
             var evanstonCoordinates = [
