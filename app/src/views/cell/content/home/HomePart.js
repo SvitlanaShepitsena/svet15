@@ -3,14 +3,17 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
-
+    var RenderNode = require('famous/core/RenderNode');
     var Transitionable = require('famous/transitions/Transitionable');
     var SpringTransition = require('famous/transitions/SpringTransition');
+
+    var Flipper = require('famous/views/Flipper');
 
     function HomePart() {
         View.apply(this, arguments);
         this.on('click', function () {
-            this._eventOutput.emit('parts:info', {icon: this.options.icon});
+            this._eventOutput.emit('parts:info',{icon:this.options.icon});
+            this.flipper.flip();
         })
         _initTransform.call(this);
         _contentParts.call(this);
@@ -33,7 +36,7 @@ define(function (require, exports, module) {
         width: window.innerWidth,
         sectionPop: {
             fontSize: '18px',
-            cursor: 'pointer',
+            cursor:'pointer',
             color: window.sv.scheme.textWhite,
             paddingTop: window.innerWidth / 3 + 'px',
             textAlign: 'center',
@@ -48,22 +51,23 @@ define(function (require, exports, module) {
             properties: this.options.sectionPop
         });
         this.surface.pipe(this._eventOutput);
-        this.rootNode.add(this.surface);
+
+
+        this.renderNode.add(this.surface);
     }
 
     function _sectionIcon() {
         this.sectionIconMod = new StateModifier({
-            size: [(window.innerWidth / 2) * .4, (window.innerWidth / 2) * .4],
+            size: [100, 100],
             align: [0.5, 0.1],
             origin: [0.5, 0],
             transform: Transform.translate(0, 0, 0)
         });
-        var imgDivider = 8;
         this.sectionIconSurface = new Surface({
             size: [undefined, undefined],
-            content: "<a target='_blank' href='" + this.options.url + "'><img style='width:" + (window.innerWidth / imgDivider) + "px; height: " + (window.innerWidth / imgDivider) + "px' class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/></a>",
+            content: "<img class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
             properties: {
-                cursor: 'pointer',
+                cursor:'pointer',
                 textAlign: 'center',
                 borderRadius: '100px',
                 color: 'red',
@@ -72,10 +76,15 @@ define(function (require, exports, module) {
         });
         this.sectionIconSurface.pipe(this._eventOutput);
 
-        this.rootNode.add(this.sectionIconMod).add(this.sectionIconSurface);
+        this.renderNode.add(this.sectionIconMod).add(this.sectionIconSurface);
     }
 
     function _initTransform() {
+
+            // mainContext.setPerspective(500);
+
+
+        // this.flipper.flip(); to flip!
         this.spring = {
             method: 'spring',
             period: this.options.period,
@@ -89,6 +98,25 @@ define(function (require, exports, module) {
 
         this.rootNode = this.add(this.centerModifier);
         this.centerModifier.setTransform(Transform.translate(0, 0, 0), this.spring);
+
+        this.renderNode = new RenderNode();
+        this.flipper = new Flipper();
+        this.backInfo = new Surface({
+            size: [undefined, undefined],
+            content: 'More Info',
+            classes: [],
+            properties: {
+                cursor:'pointer',
+                color: 'white',
+                textAlign: 'center',
+                backgroundColor: '#FA5C4F'
+            }
+        });
+        this.backInfo.pipe(this._eventOutput);
+        this.flipper.setFront(this.renderNode);
+        this.flipper.setBack(this.backInfo);
+
+        this.rootNode.add(this.flipper);
     }
 
     module.exports = HomePart;
