@@ -4,7 +4,7 @@ define(['require', 'famous/core/Engine', 'views/cell/AppViewCell', 'views/deskto
     var Transform = require('famous/core/Transform');
 
     var mainContext = Engine.createContext();
-    mainContext.setPerspective(1000);
+    mainContext.setPerspective(500);
 
     var initialDevice = window.responsive();
     var appView = initialDevice === 'cell' ? new AppViewCell() : new AppViewDesk();
