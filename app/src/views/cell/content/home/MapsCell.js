@@ -52,13 +52,14 @@ define(function (require, exports, module) {
     function _map() {
         this.gMap;
 
-        this.northChicagoStart = {lat: 41.850033, lng: -87.6500523};
+        this.northChicagoStart = {lat: 41.011949, lng: -87.709012};
+
         this.northChicagoEnd = {lat: 42.012571, lng: -87.710238};
 
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
             mapOptions: {
-                zoom: 11,
+                zoom: 10,
                 center: this.northChicagoStart,
                 disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -78,7 +79,10 @@ define(function (require, exports, module) {
 
             var skokieCoordinates = [
                 new google.maps.LatLng(42.065100, -87.765800),
-                new google.maps.LatLng(42.065100, -87.727563),
+                new google.maps.LatLng(42.064723, -87.732705),
+                new google.maps.LatLng(42.062429, -87.732190),
+                new google.maps.LatLng(42.062429, -87.727555),
+
                 new google.maps.LatLng(42.055828, -87.727563),
                 new google.maps.LatLng(42.055828, -87.715718),
                 new google.maps.LatLng(42.052131, -87.708852),
@@ -93,9 +97,9 @@ define(function (require, exports, module) {
                 new google.maps.LatLng(42.019237, -87.777173),
                 new google.maps.LatLng(42.026506, -87.780949),
                 new google.maps.LatLng(42.026506, -87.767216),
-                new google.maps.LatLng(42.023063, -87.767388),
-                new google.maps.LatLng(42.022808, -87.762582),
-                new google.maps.LatLng(42.033264, -87.762067),
+                //new google.maps.LatLng(42.023063, -87.767388),
+                //new google.maps.LatLng(42.022808, -87.762582),
+                //new google.maps.LatLng(42.033264, -87.762067),
                 new google.maps.LatLng(42.037089, -87.766873),
                 new google.maps.LatLng(42.039129, -87.764298),
                 new google.maps.LatLng(42.062583, -87.763955),
@@ -114,47 +118,11 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             skokieLayer.setMap(this.gMap);
-            var skokieCoordinates = [
-                new google.maps.LatLng(42.065100, -87.765800),
-                new google.maps.LatLng(42.065100, -87.727563),
-                new google.maps.LatLng(42.055828, -87.727563),
-                new google.maps.LatLng(42.055828, -87.715718),
-                new google.maps.LatLng(42.052131, -87.708852),
-                new google.maps.LatLng(42.012095, -87.709367),
-                new google.maps.LatLng(42.012095, -87.723614),
-                new google.maps.LatLng(42.015156, -87.724129),
-                new google.maps.LatLng(42.015156, -87.750565),
-                new google.maps.LatLng(42.004569, -87.750909),
-                new google.maps.LatLng(42.004952, -87.762238),
-                new google.maps.LatLng(42.008396, -87.767560),
-                new google.maps.LatLng(42.019237, -87.767216),
-                new google.maps.LatLng(42.019237, -87.777173),
-                new google.maps.LatLng(42.026506, -87.780949),
-                new google.maps.LatLng(42.026506, -87.767216),
-                new google.maps.LatLng(42.023063, -87.767388),
-                new google.maps.LatLng(42.022808, -87.762582),
-                new google.maps.LatLng(42.033264, -87.762067),
-                new google.maps.LatLng(42.037089, -87.766873),
-                new google.maps.LatLng(42.039129, -87.764298),
-                new google.maps.LatLng(42.062583, -87.763955),
-                new google.maps.LatLng(42.062583, -87.769963),
-                new google.maps.LatLng(42.063730, -87.770821),
-                new google.maps.LatLng(42.063730, -87.765964),
-                new google.maps.LatLng(42.065100, -87.765800)
-            ];
 
-            var skokieLayer = new google.maps.Polygon({
-                paths: skokieCoordinates,
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35
-            });
-            skokieLayer.setMap(this.gMap);
-           /*Evanston*/
+            /*Evanston*/
             var evanstonCoordinates = [
-                new google.maps.LatLng(42.065100, -87.727563),
+                new google.maps.LatLng(42.062429, -87.732190),
+                new google.maps.LatLng(42.062429, -87.727555),
                 new google.maps.LatLng(42.055828, -87.727563),
                 new google.maps.LatLng(42.055828, -87.715718),
                 new google.maps.LatLng(42.052131, -87.708852),
@@ -173,13 +141,14 @@ define(function (require, exports, module) {
                 new google.maps.LatLng(42.071767, -87.679624),
                 new google.maps.LatLng(42.071767, -87.682799),
                 new google.maps.LatLng(42.068708, -87.682799),
+
                 new google.maps.LatLng(42.069282, -87.729234),
                 new google.maps.LatLng(42.069664, -87.729405),
                 new google.maps.LatLng(42.068708, -87.732410),
                 new google.maps.LatLng(42.065100, -87.732581),
-                new google.maps.LatLng(42.065100, -87.727563),
-            ];
 
+                new google.maps.LatLng(42.062429, -87.732190),
+            ];
             var evanstonLayer = new google.maps.Polygon({
                 paths: evanstonCoordinates,
                 strokeColor: 'green',
@@ -189,6 +158,192 @@ define(function (require, exports, module) {
                 fillOpacity: 0.35
             });
             evanstonLayer.setMap(this.gMap);
+
+
+            /*Wilmette*/
+            var wilmetteCoordinates = [
+                new google.maps.LatLng(42.065100, -87.765800),
+                new google.maps.LatLng(42.064723, -87.732705),
+                new google.maps.LatLng(42.068914, -87.732401),
+                new google.maps.LatLng(42.069647, -87.729311),
+                new google.maps.LatLng(42.069583, -87.729225),
+                new google.maps.LatLng(42.069073, -87.729139),
+                new google.maps.LatLng(42.068708, -87.682799),
+                new google.maps.LatLng(42.071767, -87.682799),
+                new google.maps.LatLng(42.071767, -87.679624),
+
+                new google.maps.LatLng(42.076559, -87.682404),
+                new google.maps.LatLng(42.078471, -87.681374),
+                new google.maps.LatLng(42.089873, -87.703090),
+                new google.maps.LatLng(42.086051, -87.703090),
+                new google.maps.LatLng(42.085988, -87.713218),
+                new google.maps.LatLng(42.085988, -87.713218),
+                new google.maps.LatLng(42.082548, -87.718024),
+                new google.maps.LatLng(42.082611, -87.722659),
+
+                new google.maps.LatLng(42.087898, -87.724547),
+                new google.maps.LatLng(42.088249, -87.726393),
+                new google.maps.LatLng(42.088663, -87.726822),
+                new google.maps.LatLng(42.087962, -87.727251),
+                new google.maps.LatLng(42.087962, -87.732143),
+                new google.maps.LatLng(42.087325, -87.732100),
+                new google.maps.LatLng(42.087325, -87.737079),
+                new google.maps.LatLng(42.087166, -87.737079),
+                new google.maps.LatLng(42.087166, -87.741885),
+                new google.maps.LatLng(42.085128, -87.742057),
+                new google.maps.LatLng(42.084873, -87.750554),
+                new google.maps.LatLng(42.087102, -87.752099),
+
+                new google.maps.LatLng(42.084809, -87.751927),
+                new google.maps.LatLng(42.085000, -87.760081),
+                new google.maps.LatLng(42.084936, -87.760038),
+                new google.maps.LatLng(42.086784, -87.760038),
+                new google.maps.LatLng(42.086784, -87.764072),
+                new google.maps.LatLng(42.085892, -87.765617),
+
+                new google.maps.LatLng(42.085892, -87.765617),
+                new google.maps.LatLng(42.087039, -87.766304),
+                new google.maps.LatLng(42.087039, -87.773085),
+                //Border with Glenview
+                new google.maps.LatLng(42.084618, -87.775059),
+                new google.maps.LatLng(42.084108, -87.777376),
+                new google.maps.LatLng(42.082070, -87.778234),
+                new google.maps.LatLng(42.079713, -87.777634),
+                new google.maps.LatLng(42.079586, -87.764501),
+                new google.maps.LatLng(42.079586, -87.764501),
+
+                new google.maps.LatLng(42.079586, -87.764501),
+                new google.maps.LatLng(42.070857, -87.758665),
+                new google.maps.LatLng(42.065100, -87.758751),
+                new google.maps.LatLng(42.065100, -87.765800)
+            ];
+            var wilmetteLayer = new google.maps.Polygon({
+                paths: wilmetteCoordinates,
+                strokeColor: 'purple',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'pink',
+                fillOpacity: 0.35
+            });
+            wilmetteLayer.setMap(this.gMap);
+
+            /*Glenview*/
+            var glenviewCoordinates = [
+                new google.maps.LatLng(42.084618, -87.775059),
+                //Border with Wilmette
+                new google.maps.LatLng(42.084108, -87.777376),
+                new google.maps.LatLng(42.082070, -87.778234),
+                new google.maps.LatLng(42.079713, -87.777634),
+                new google.maps.LatLng(42.079586, -87.764501),
+                new google.maps.LatLng(42.079586, -87.764501),
+                new google.maps.LatLng(42.079586, -87.764501),
+                new google.maps.LatLng(42.070857, -87.758665),
+                new google.maps.LatLng(42.065100, -87.758751),
+                new google.maps.LatLng(42.065100, -87.765800),
+                new google.maps.LatLng(42.065356, -87.780448),
+                new google.maps.LatLng(42.062807, -87.780104),
+                new google.maps.LatLng(42.062425, -87.789374),
+                new google.maps.LatLng(42.058983, -87.789203),
+                new google.maps.LatLng(42.058729, -87.797786),
+                new google.maps.LatLng(42.055415, -87.795897),
+                new google.maps.LatLng(42.054905, -87.815638),
+                new google.maps.LatLng(42.060513, -87.822505),
+                new google.maps.LatLng(42.059493, -87.835723),
+                new google.maps.LatLng(42.056562, -87.840358),
+                new google.maps.LatLng(42.058219, -87.844821),
+                new google.maps.LatLng(42.060895, -87.845164),
+                new google.maps.LatLng(42.060895, -87.845164),
+                new google.maps.LatLng(42.072619, -87.843963),
+                new google.maps.LatLng(42.067140, -87.850486),
+                new google.maps.LatLng(42.066375, -87.867995),
+                new google.maps.LatLng(42.082812, -87.866622),
+                new google.maps.LatLng(42.083449, -87.870742),
+                new google.maps.LatLng(42.080137, -87.870742),
+                new google.maps.LatLng(42.080137, -87.878638),
+                new google.maps.LatLng(42.094787, -87.878123),
+                new google.maps.LatLng(42.093641, -87.868338),
+                //top left corner with Northbrook
+                new google.maps.LatLng(42.105995, -87.868853),
+                new google.maps.LatLng(42.105613, -87.799331),
+                new google.maps.LatLng(42.094532, -87.798472),
+                new google.maps.LatLng(42.094150, -87.779418),
+                new google.maps.LatLng(42.087271, -87.773238),
+                new google.maps.LatLng(42.084618, -87.775059)
+            ];
+            var glenviewLayer = new google.maps.Polygon({
+                paths: glenviewCoordinates,
+                strokeColor: 'blue',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'grey',
+                fillOpacity: 0.35
+            });
+            glenviewLayer.setMap(this.gMap);
+
+            /*Niles*/
+            var nilesCoordinates = [
+                new google.maps.LatLng(42.058624, -87.855539),
+                new google.maps.LatLng(42.058624, -87.849702),
+                new google.maps.LatLng(42.054609, -87.849702),
+                new google.maps.LatLng(42.054609, -87.840433),
+                new google.maps.LatLng(42.059452, -87.840433),
+                new google.maps.LatLng(42.059452, -87.835798),
+                new google.maps.LatLng(42.059452, -87.835798),
+                new google.maps.LatLng(42.059452, -87.835798),
+                new google.maps.LatLng(42.059452, -87.835798),
+                new google.maps.LatLng(42.059452, -87.835798),
+                new google.maps.LatLng(42.059452, -87.835798),
+                new google.maps.LatLng(42.059452, -87.835798),
+                new google.maps.LatLng(42.044156, -87.820091),
+                new google.maps.LatLng(42.044156, -87.820091),
+                new google.maps.LatLng(42.044156, -87.800865),
+                new google.maps.LatLng(42.033383, -87.796058),
+                new google.maps.LatLng(42.033383, -87.796058),
+                new google.maps.LatLng(42.033383, -87.796058),
+                new google.maps.LatLng(42.026506, -87.780949),
+                new google.maps.LatLng(42.019237, -87.777173),
+                new google.maps.LatLng(42.019237, -87.767216),
+                new google.maps.LatLng(42.004434, -87.768077),
+                //Touhu/Lehigh
+                new google.maps.LatLng(42.011832, -87.773571),
+                new google.maps.LatLng(42.012023, -87.789020),
+                new google.maps.LatLng(42.004498, -87.782154),
+                new google.maps.LatLng(42.000416, -87.790823),
+                //Devon/Harlem
+                new google.maps.LatLng(42.000734, -87.806787),
+                //Howard/Harlem
+                new google.maps.LatLng(42.018846, -87.806701),
+                new google.maps.LatLng(42.018846, -87.816743),
+                new google.maps.LatLng(42.025924, -87.816400),
+                new google.maps.LatLng(42.025924, -87.816400),
+                new google.maps.LatLng(42.028283, -87.836055),
+                new google.maps.LatLng(42.029048, -87.841119),
+                new google.maps.LatLng(42.029048, -87.841119),
+                new google.maps.LatLng(42.029048, -87.841119),
+                new google.maps.LatLng(42.036443, -87.840690),
+                new google.maps.LatLng(42.039886, -87.840776),
+                //Golf Mill Center
+                new google.maps.LatLng(42.049829, -87.840862),
+                new google.maps.LatLng(42.049765, -87.845583),
+                new google.maps.LatLng(42.051359, -87.846183),
+                new google.maps.LatLng(42.051295, -87.850561),
+                new google.maps.LatLng(42.054163, -87.850732),
+                new google.maps.LatLng(42.054163, -87.850732),
+                new google.maps.LatLng(42.058560, -87.855281),
+                //
+                new google.maps.LatLng(42.058624, -87.855539)
+            ];
+            var nilesLayer = new google.maps.Polygon({
+                paths: nilesCoordinates,
+                strokeColor: 'green',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'blue',
+                fillOpacity: 0.35
+            });
+            nilesLayer.setMap(this.gMap);
+
+
             //_modifier.call(this);
         }.bind(this));
     }
