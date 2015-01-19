@@ -54,7 +54,7 @@ define(function (require, exports, module) {
 
         this.northChicagoStart = {lat: 41.011949, lng: -87.709012};
 
-        this.northChicagoEnd = {lat: 42.012571, lng: -87.710238};
+        this.northChicagoEnd = {lat: 42.082571, lng: -87.710238};
 
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
@@ -97,9 +97,6 @@ define(function (require, exports, module) {
                 new google.maps.LatLng(42.019237, -87.777173),
                 new google.maps.LatLng(42.026506, -87.780949),
                 new google.maps.LatLng(42.026506, -87.767216),
-                //new google.maps.LatLng(42.023063, -87.767388),
-                //new google.maps.LatLng(42.022808, -87.762582),
-                //new google.maps.LatLng(42.033264, -87.762067),
                 new google.maps.LatLng(42.037089, -87.766873),
                 new google.maps.LatLng(42.039129, -87.764298),
                 new google.maps.LatLng(42.062583, -87.763955),
