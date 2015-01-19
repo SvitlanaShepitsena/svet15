@@ -19,43 +19,13 @@ define(function (require, exports, module) {
 
 
     }
-        function _closeAllInfoWindows() {
+        function _closeAllOverlays() {
             this.infoWindows.forEach(function (info) {
                info.close(this.gMap) ;
             })
 
         }
 
-    function _modifier() {
-        this.opacityOurRegion = new Transitionable(0);
-
-        this.surface = new Surface({
-            size: [100, 100],
-            properties: {
-                backgroundColor: 'grey'
-            }
-        });
-        this.surface.pipe(this.mapView);
-        this.modifier = new Modifier({
-            align: [0, 0],
-            origin: [0.5, 0.5],
-            opacity: function () {
-                return this.opacityOurRegion.get();
-            }.bind(this)
-
-        });
-        setTimeout(function () {
-            this.opacityOurRegion.set(.5, {duration: 2000, curve: 'easeInOut'});
-        }.bind(this), 1000);
-
-        this.mapModifier = new MapModifier({
-            mapView: this.mapView,
-            position: this.northChicagoEnd,
-            zoomBase: 9,
-            zoomScale: 0.3
-        });
-        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
-    }
 
     function _map() {
         this.gMap;
@@ -74,6 +44,7 @@ define(function (require, exports, module) {
             }
         });
         this.infoWindows = [];
+        this.markers = [];
 
         this.rootNode.add(this.mapView);
 
@@ -127,7 +98,7 @@ define(function (require, exports, module) {
 
 
             google.maps.event.addListener(skokieLayer, 'click', function (e) {
-                _closeAllInfoWindows.call(this);
+                _closeAllOverlays.call(this);
                 this.infoSkokie = new google.maps.InfoWindow({
                 });
                 this.infoWindows.push(this.infoSkokie);
@@ -462,5 +433,17 @@ define(function (require, exports, module) {
 
     MapsCell.DEFAULT_OPTIONS = {};
 
+    MapsCell.prototype.showSvetPoints = function () {
+       _closeAllOverlays.call(this);
+        var svet1 = new google.maps.Marker({
+            position: new google.maps.LatLng(41.917352,-87.659912),
+            map: this.gMap,
+            title: 'Hello World!'
+        });
+
+
+
+
+    }
     module.exports = MapsCell;
 });

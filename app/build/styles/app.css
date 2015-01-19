@@ -115,6 +115,9 @@ body {
 /**********************
     =Home
 **********************/
+.map-info {
+  width: 200px !important;
+}
 .home-icon-img {
   width: 70px;
   height: 70px;

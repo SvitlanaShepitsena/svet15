@@ -23,6 +23,29 @@ define(function (require, exports, module) {
         _init.call(this);
         _flex.call(this);
         _gridParts.call(this);
+
+        this.on('parts:info', function (data) {
+            switch (data.icon) {
+
+                case 'news-daily':
+                    this.maps.showSvetPoints();
+                    break;
+
+                case 'weekly':
+
+                    break;
+
+                case 'yp':
+
+                    break;
+
+                case 'radio':
+
+                    break;
+
+            }
+        })
+
     }
 
     HomeCell.prototype = Object.create(View.prototype);
@@ -67,28 +90,29 @@ define(function (require, exports, module) {
             sign: -1,
             period: '900',
             dampingRatio: 0.3,
-            icon:'news-daily',
+            icon: 'news-daily',
             content: '<h4 class="icon-text">Svet</br>Daily Newspaper</h4>'
-        })
+        });
+
         this.topRightSection = new HomePart({
             sign: 1,
             period: '1000',
             dampingRatio: 0.3,
-            icon:'weekly',
+            icon: 'weekly',
             content: grid12
         })
         this.bottomLeftSection = new HomePart({
             sign: -1,
             period: '1100',
             dampingRatio: 0.3,
-            icon:'yp',
+            icon: 'yp',
             content: grid21
         })
         this.bottomRightSection = new HomePart({
             sign: 1,
             period: '800',
             dampingRatio: 0.3,
-            icon:'radio',
+            icon: 'radio',
             content: grid22
         })
 

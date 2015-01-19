@@ -9,7 +9,9 @@ define(function (require, exports, module) {
 
     function HomePart() {
         View.apply(this, arguments);
-
+        this.on('click', function () {
+            this._eventOutput.emit('parts:info',{icon:this.options.icon});
+        })
         _initTransform.call(this);
         _contentParts.call(this);
         _sectionIcon.call(this);
@@ -45,6 +47,8 @@ define(function (require, exports, module) {
             properties: this.options.sectionPop
         });
         this.surface.pipe(this._eventOutput);
+
+
         this.rootNode.add(this.surface);
     }
 
@@ -65,6 +69,7 @@ define(function (require, exports, module) {
                 backgroundColor: window.sv.scheme.homeIconColor
             }
         });
+        this.sectionIconSurface.pipe(this._eventOutput);
 
         this.rootNode.add(this.sectionIconMod).add(this.sectionIconSurface);
     }
