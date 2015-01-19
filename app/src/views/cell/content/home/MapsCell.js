@@ -293,6 +293,28 @@ define(function (require, exports, module) {
                 //Long Grove
                 new google.maps.LatLng(42.175671, -87.991934),
                 new google.maps.LatLng(42.167911, -87.993651),
+                new google.maps.LatLng(42.167784, -87.985239),
+                new google.maps.LatLng(42.146914, -87.985754),
+                new google.maps.LatLng(42.146532, -87.995196),
+                new google.maps.LatLng(42.146660, -87.994852),
+                new google.maps.LatLng(42.144114, -87.994681),
+                new google.maps.LatLng(42.144114, -87.985583),
+                new google.maps.LatLng(42.141950, -87.985583),
+                new google.maps.LatLng(42.141950, -87.990217),
+                new google.maps.LatLng(42.134695, -87.990217),
+                new google.maps.LatLng(42.135204, -87.985068),
+                new google.maps.LatLng(42.139023, -87.985068),
+                new google.maps.LatLng(42.139023, -87.980261),
+                //E Burr Oak Dr
+                new google.maps.LatLng(42.129220, -87.980433),
+                new google.maps.LatLng(42.129220, -87.980433),
+                new google.maps.LatLng(42.135204, -87.970476),
+                new google.maps.LatLng(42.135204, -87.961035),
+                new google.maps.LatLng(42.131767, -87.961035),
+                new google.maps.LatLng(42.131767, -87.951422),
+                new google.maps.LatLng(42.134949, -87.951250),
+                new google.maps.LatLng(42.135204, -87.949534),
+                new google.maps.LatLng(42.139277, -87.949190),
 
 
                 new google.maps.LatLng(42.205179, -87.979918)
