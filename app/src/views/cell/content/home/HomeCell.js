@@ -106,14 +106,20 @@ define(function (require, exports, module) {
             period: '1100',
             dampingRatio: 0.3,
             icon: 'yp',
-            content: '<h4 class="icon-text">Russian-American</br>Yellow Pages</h4>'
+            url: "http://www.spasibous.com/yp",
+            content: '<h4>' +
+            '<a class="icon-text" href="http://www.spasibous.com/yp" target="_blank">Russian-American</br>Yellow Pages</a>' +
+            '</h4>'
         })
         this.bottomRightSection = new HomePart({
             sign: 1,
             period: '800',
             dampingRatio: 0.3,
             icon: 'radio',
-            content: '<h4 class="icon-text">Radio-Program</br>"OSA"</h4>'
+            url: "http://media.imcpro.com/OSA/",
+            content: '<h4>' +
+            '<a class="icon-text" href="http://media.imcpro.com/OSA/" target="_blank">Radio-Program</br>"OSA"</a>' +
+            '</h4>'
         })
 
         this.topLeftSection.pipe(this._eventOutput);

@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     function HomePart() {
         View.apply(this, arguments);
         this.on('click', function () {
-            this._eventOutput.emit('parts:info',{icon:this.options.icon});
+            this._eventOutput.emit('parts:info', {icon: this.options.icon});
         })
         _initTransform.call(this);
         _contentParts.call(this);
@@ -33,7 +33,7 @@ define(function (require, exports, module) {
         width: window.innerWidth,
         sectionPop: {
             fontSize: '18px',
-            cursor:'pointer',
+            cursor: 'pointer',
             color: window.sv.scheme.textWhite,
             paddingTop: window.innerWidth / 3 + 'px',
             textAlign: 'center',
@@ -62,9 +62,9 @@ define(function (require, exports, module) {
         });
         this.sectionIconSurface = new Surface({
             size: [undefined, undefined],
-            content: "<img class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
+            content: "<a target='_blank' href='" + this.options.url + "'><img class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/></a>",
             properties: {
-                cursor:'pointer',
+                cursor: 'pointer',
                 textAlign: 'center',
                 borderRadius: '100px',
                 color: 'red',

@@ -129,6 +129,13 @@ body {
 }
 .icon-text {
   margin-top: 100px;
+  color: #fffaf0;
+}
+.icon-text:hover,
+.icon-text:active,
+.icon-text:focus {
+  text-decoration: none;
+  color: #ffdead;
 }
 @media only screen and (max-width: 500px) {
   .img-logo-mob {
