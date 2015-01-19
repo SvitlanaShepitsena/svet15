@@ -18,7 +18,6 @@ define(function (require, exports, module) {
         _map.call(this);
 
 
-        this.opacityLegend = new Transitionable(0);
     }
 
     function _closeAllOverlays() {
@@ -90,7 +89,196 @@ define(function (require, exports, module) {
                 {duration: 500, curve: Easing.outBack}
             );
             this.gMap = this.mapView.getMap();
+            //
+            /**/
+            /*Highland Park*/
 
+            var highlandParkCoordinates = [
+                /*Border with Deerfield*/
+                new google.maps.LatLng(42.189924, -87.852160),
+                new google.maps.LatLng(42.189797, -87.847353),
+                new google.maps.LatLng(42.183692, -87.847353),
+                new google.maps.LatLng(42.167408, -87.828127),
+                new google.maps.LatLng(42.168808, -87.823321),
+                new google.maps.LatLng(42.158628, -87.823664),
+                new google.maps.LatLng(42.152902, -87.821261),
+                /*End// Border with Deerfield*/
+
+                new google.maps.LatLng(42.152520, -87.759291),
+                new google.maps.LatLng(42.211415, -87.802378),
+                new google.maps.LatLng(42.196665, -87.808214),
+                new google.maps.LatLng(42.196665, -87.808214),
+                new google.maps.LatLng(42.210652, -87.817999),
+                new google.maps.LatLng(42.211034, -87.816111),
+                new google.maps.LatLng(42.213577, -87.818343),
+                new google.maps.LatLng(42.217899, -87.804953),
+                new google.maps.LatLng(42.223493, -87.807528),
+                new google.maps.LatLng(42.218026, -87.821776),
+                new google.maps.LatLng(42.218154, -87.842032),
+                new google.maps.LatLng(42.212687, -87.842547),
+                new google.maps.LatLng(42.210907, -87.847010),
+                new google.maps.LatLng(42.203786, -87.847010),
+                new google.maps.LatLng(42.203786, -87.851816),
+                new google.maps.LatLng(42.189924, -87.852160)
+            ];
+            var highlandParkLayer = new google.maps.Polygon({
+                paths: highlandParkCoordinates,
+                strokeColor: 'green',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'greenyellow',
+                fillOpacity: 0.35
+            });
+            highlandParkLayer.setMap(this.gMap);
+            //
+            /*Deerfield*/
+
+            var deerfieldCoordinates = [
+                /*Border with Highland Park*/
+                new google.maps.LatLng(42.189924, -87.852160),
+                new google.maps.LatLng(42.189797, -87.847353),
+                new google.maps.LatLng(42.183692, -87.847353),
+                new google.maps.LatLng(42.167408, -87.828127),
+                new google.maps.LatLng(42.168808, -87.823321),
+                new google.maps.LatLng(42.158628, -87.823664),
+                new google.maps.LatLng(42.152902, -87.821261),
+                /*End// Border with Highland Park*/
+
+                /*Bottom Border with Northbrook*/
+                new google.maps.LatLng(42.152887, -87.833732),
+                new google.maps.LatLng(42.146269, -87.830985),
+                new google.maps.LatLng(42.146015, -87.833389),
+                new google.maps.LatLng(42.150088, -87.843002),
+                new google.maps.LatLng(42.150342, -87.872012),
+                new google.maps.LatLng(42.153269, -87.883857),
+                new google.maps.LatLng(42.167394, -87.882827),
+                new google.maps.LatLng(42.167648, -87.874244),
+                new google.maps.LatLng(42.178335, -87.874587),
+                new google.maps.LatLng(42.182151, -87.854503),
+                new google.maps.LatLng(42.189846, -87.858194),
+                new google.maps.LatLng(42.189924, -87.852160)
+            ];
+            var deerfieldLayer = new google.maps.Polygon({
+                paths: deerfieldCoordinates,
+                strokeColor: 'purple',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'pink',
+                fillOpacity: 0.35
+            });
+            deerfieldLayer.setMap(this.gMap);
+
+            //
+            /*Northbrook*/
+
+            var northbrookCoordinates = [
+                /*Top Border with Northbrook*/
+                new google.maps.LatLng(42.152516, -87.795999),
+                new google.maps.LatLng(42.152887, -87.833732),
+                new google.maps.LatLng(42.146269, -87.830985),
+                new google.maps.LatLng(42.146015, -87.833389),
+                new google.maps.LatLng(42.150088, -87.843002),
+                new google.maps.LatLng(42.150342, -87.872012),
+                new google.maps.LatLng(42.153269, -87.883857),
+                /*Bottom Border wiht Glenview*/
+                new google.maps.LatLng(42.153152, -87.892301),
+                new google.maps.LatLng(42.145516, -87.892129),
+                new google.maps.LatLng(42.145516, -87.881829),
+                new google.maps.LatLng(42.142970, -87.885263),
+                new google.maps.LatLng(42.138515, -87.887838),
+                new google.maps.LatLng(42.129477, -87.887323),
+                new google.maps.LatLng(42.123875, -87.885434),
+                new google.maps.LatLng(42.105793, -87.866208),
+                new google.maps.LatLng(42.105284, -87.799089),
+                new google.maps.LatLng(42.110887, -87.802350),
+                new google.maps.LatLng(42.118018, -87.800290),
+                new google.maps.LatLng(42.117509, -87.785356),
+                new google.maps.LatLng(42.119928, -87.780034),
+                new google.maps.LatLng(42.152516, -87.795999)
+            ];
+            var northbrookLayer = new google.maps.Polygon({
+                paths: northbrookCoordinates,
+                strokeColor: 'red',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'orange',
+                fillOpacity: 0.35
+            });
+            northbrookLayer.setMap(this.gMap);
+            //
+            /*Glencoe*/
+
+            var glencoeCoordinates = [
+                /*Top Border with Northbrook*/
+                new google.maps.LatLng(42.152516, -87.795999),
+                new google.maps.LatLng(42.119928, -87.780034),
+                new google.maps.LatLng(42.116280, -87.775601),
+                new google.maps.LatLng(42.119973, -87.775601),
+                new google.maps.LatLng(42.119591, -87.741268),
+                new google.maps.LatLng(42.128503, -87.741612),
+                new google.maps.LatLng(42.152433, -87.759293),
+
+                new google.maps.LatLng(42.152516, -87.795999)
+            ];
+            var glencoeLayer = new google.maps.Polygon({
+                paths: glencoeCoordinates,
+                strokeColor: 'blue',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'coral',
+                fillOpacity: 0.35
+            });
+            glencoeLayer.setMap(this.gMap);
+
+            //
+            /*Vernon Hills*/
+
+            var vernonHillsCoordinates = [
+                /*Top Border with Northbrook*/
+                new google.maps.LatLng(42.269452, -87.968805),
+                new google.maps.LatLng(42.267038, -87.968290),
+                new google.maps.LatLng(42.266911, -87.963655),
+                new google.maps.LatLng(42.266911, -87.963655),
+                new google.maps.LatLng(42.263100, -87.949407),
+                new google.maps.LatLng(42.245693, -87.945459),
+                new google.maps.LatLng(42.245439, -87.940824),
+                new google.maps.LatLng(42.231459, -87.935675),
+                new google.maps.LatLng(42.224595, -87.937391),
+                new google.maps.LatLng(42.226756, -87.938593),
+                new google.maps.LatLng(42.218747, -87.932241),
+                new google.maps.LatLng(42.218620, -87.937048),
+                new google.maps.LatLng(42.201582, -87.933100),
+                new google.maps.LatLng(42.201201, -87.933615),
+                new google.maps.LatLng(42.201455, -87.939108),
+                new google.maps.LatLng(42.205779, -87.948206),
+                new google.maps.LatLng(42.210531, -87.951789),
+                new google.maps.LatLng(42.209577, -87.958141),
+                new google.maps.LatLng(42.211516, -87.965265),
+                new google.maps.LatLng(42.211696, -87.974918),
+                new google.maps.LatLng(42.218943, -87.974746),
+                new google.maps.LatLng(42.219070, -87.994144),
+                new google.maps.LatLng(42.233434, -87.993801),
+                new google.maps.LatLng(42.233561, -87.990196),
+                new google.maps.LatLng(42.236865, -87.988994),
+                new google.maps.LatLng(42.236865, -87.984188),
+                new google.maps.LatLng(42.247032, -87.984359),
+                new google.maps.LatLng(42.266852, -87.974060),
+                new google.maps.LatLng(42.269393, -87.974575),
+
+                new google.maps.LatLng(42.269452, -87.968805)
+
+            ];
+            var vernonHillsLayer = new google.maps.Polygon({
+                paths: vernonHillsCoordinates,
+                strokeColor: 'brown',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'white',
+                fillOpacity: 0.35
+            });
+            vernonHillsLayer.setMap(this.gMap);
+
+            /*Skokie*/
             var skokieCoordinates = [
                 new google.maps.LatLng(42.065100, -87.765800),
                 new google.maps.LatLng(42.064723, -87.732705),
@@ -385,6 +573,53 @@ define(function (require, exports, module) {
             });
             buffaloGroveLayer.setMap(this.gMap);
 
+
+            /*Wheeling*/
+            var wheelingCoordinates = [
+                new google.maps.LatLng(42.131767, -87.961035),
+                new google.maps.LatLng(42.131767, -87.951422),
+                new google.maps.LatLng(42.134949, -87.951250),
+                new google.maps.LatLng(42.135204, -87.949534),
+                //Wheeling
+                new google.maps.LatLng(42.139277, -87.949190),
+                new google.maps.LatLng(42.139277, -87.956228),
+                new google.maps.LatLng(42.152005, -87.957087),
+                new google.maps.LatLng(42.155441, -87.954683),
+                new google.maps.LatLng(42.155314, -87.948847),
+                new google.maps.LatLng(42.153405, -87.949019),
+                //E Lake Cook Road
+                new google.maps.LatLng(42.153277, -87.910566),
+                //Potawatomi Woods
+                new google.maps.LatLng(42.140231, -87.903634),
+                new google.maps.LatLng(42.138703, -87.888185),
+                new google.maps.LatLng(42.115023, -87.894021),
+                new google.maps.LatLng(42.115023, -87.894021),
+                new google.maps.LatLng(42.114768, -87.907754),
+                new google.maps.LatLng(42.094773, -87.907926),
+                //E Camp MCdonald Rd
+                new google.maps.LatLng(42.095282, -87.912904),
+                new google.maps.LatLng(42.113367, -87.936593),
+                new google.maps.LatLng(42.120498, -87.936937),
+                new google.maps.LatLng(42.120753, -87.941743),
+                new google.maps.LatLng(42.124190, -87.941743),
+                new google.maps.LatLng(42.123936, -87.951185),
+                new google.maps.LatLng(42.118206, -87.951185),
+                new google.maps.LatLng(42.118333, -87.956334),
+                new google.maps.LatLng(42.124190, -87.955991),
+                new google.maps.LatLng(42.124572, -87.960798),
+                new google.maps.LatLng(42.131767, -87.961035)
+            ];
+            var wheelingLayer = new google.maps.Polygon({
+                paths: wheelingCoordinates,
+                strokeColor: 'green',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'greenyellow',
+                fillOpacity: 0.35
+            });
+            wheelingLayer.setMap(this.gMap);
+
+
             /*Niles*/
             var nilesCoordinates = [
                 new google.maps.LatLng(42.058624, -87.855539),
@@ -449,7 +684,7 @@ define(function (require, exports, module) {
             nilesLayer.setMap(this.gMap);
 
 
-            //legend.call(this);
+            //_modifier.call(this);
         }.bind(this));
     }
 
