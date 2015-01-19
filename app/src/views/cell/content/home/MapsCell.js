@@ -280,6 +280,21 @@ define(function (require, exports, module) {
             });
             glenviewLayer.setMap(this.gMap);
 
+            /*Buffalo Grove*/
+            var buffaloGroveCoordinates = [
+                new google.maps.LatLng(42.084618, -87.775059),
+                new google.maps.LatLng(42.084618, -87.775059)
+            ];
+            var buffaloGroveLayer = new google.maps.Polygon({
+                paths: buffaloGroveCoordinates,
+                strokeColor: 'red',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'green',
+                fillOpacity: 0.35
+            });
+            buffaloGroveLayer.setMap(this.gMap);
+
             /*Niles*/
             var nilesCoordinates = [
                 new google.maps.LatLng(42.058624, -87.855539),
