@@ -85,7 +85,87 @@ define(function (require, exports, module) {
                 {duration: 500, curve: Easing.outBack}
             );
             this.gMap = this.mapView.getMap();
+            //
+            /**/
+            /*Highland Park*/
 
+            var highlandParkCoordinates = [
+                /*Border with Deerfield*/
+                new google.maps.LatLng(42.189924, -87.852160),
+                new google.maps.LatLng(42.189797, -87.847353),
+                new google.maps.LatLng(42.183692, -87.847353),
+                new google.maps.LatLng(42.167408, -87.828127),
+                new google.maps.LatLng(42.168808, -87.823321),
+                new google.maps.LatLng(42.158628, -87.823664),
+                new google.maps.LatLng(42.152902, -87.821261),
+                /*End// Border with Deerfield*/
+
+                new google.maps.LatLng(42.152520, -87.759291),
+                new google.maps.LatLng(42.211415, -87.802378),
+                new google.maps.LatLng(42.196665, -87.808214),
+                new google.maps.LatLng(42.196665, -87.808214),
+                new google.maps.LatLng(42.210652, -87.817999),
+                new google.maps.LatLng(42.211034, -87.816111),
+                new google.maps.LatLng(42.213577, -87.818343),
+                new google.maps.LatLng(42.217899, -87.804953),
+                new google.maps.LatLng(42.223493, -87.807528),
+                new google.maps.LatLng(42.218026, -87.821776),
+                new google.maps.LatLng(42.218154, -87.842032),
+                new google.maps.LatLng(42.212687, -87.842547),
+                new google.maps.LatLng(42.210907, -87.847010),
+                new google.maps.LatLng(42.203786, -87.847010),
+                new google.maps.LatLng(42.203786, -87.851816),
+                new google.maps.LatLng(42.189924, -87.852160)
+            ];
+            var highlandParkLayer = new google.maps.Polygon({
+                paths: highlandParkCoordinates,
+                strokeColor: 'green',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'greenyellow',
+                fillOpacity: 0.35
+            });
+            highlandParkLayer.setMap(this.gMap);
+            //
+            /*Deerfield*/
+
+            var deerfieldCoordinates = [
+                /*Border with Highland Park*/
+                new google.maps.LatLng(42.189924, -87.852160),
+                new google.maps.LatLng(42.189797, -87.847353),
+                new google.maps.LatLng(42.183692, -87.847353),
+                new google.maps.LatLng(42.167408, -87.828127),
+                new google.maps.LatLng(42.168808, -87.823321),
+                new google.maps.LatLng(42.158628, -87.823664),
+                new google.maps.LatLng(42.152902, -87.821261),
+                /*End// Border with Highland Park*/
+
+                /*Bottom Border with Northbrook*/
+                new google.maps.LatLng(42.152887, -87.833732),
+                new google.maps.LatLng(42.146269, -87.830985),
+                new google.maps.LatLng(42.146015, -87.833389),
+                new google.maps.LatLng(42.150088, -87.843002),
+                new google.maps.LatLng(42.150342, -87.872012),
+                new google.maps.LatLng(42.153269, -87.883857),
+                new google.maps.LatLng(42.167394, -87.882827),
+                new google.maps.LatLng(42.167648, -87.874244),
+                new google.maps.LatLng(42.178335, -87.874587),
+                new google.maps.LatLng(42.182151, -87.854503),
+                new google.maps.LatLng(42.189846, -87.858194),
+                new google.maps.LatLng(42.189924, -87.852160)
+            ];
+            var deerfieldLayer = new google.maps.Polygon({
+                paths: deerfieldCoordinates,
+                strokeColor: 'purple',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: 'pink',
+                fillOpacity: 0.35
+            });
+            deerfieldLayer.setMap(this.gMap);
+
+
+            /*Skokie*/
             var skokieCoordinates = [
                 new google.maps.LatLng(42.065100, -87.765800),
                 new google.maps.LatLng(42.064723, -87.732705),
