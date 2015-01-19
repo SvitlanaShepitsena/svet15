@@ -17,6 +17,7 @@ define(function (require, exports, module) {
 
         _map.call(this);
         this.opacityLegend = new Transitionable(0);
+        this.geocoder = new google.maps.Geocoder();
 
     }
 
@@ -724,13 +725,27 @@ define(function (require, exports, module) {
 
         function dropSvetPoints() {
             counter++;
-            this.svet = new google.maps.Marker({
-                position: new google.maps.LatLng(baseLat + getRandomShift(counter), baseLong + getRandomShift(counter + 2)),
+            var latLng = new google.maps.LatLng(baseLat + getRandomShift(counter), baseLong + getRandomShift(counter + 2));
+            this.svetMarker = new google.maps.Marker({
+                position: latLng,
                 icon: 'img/svet-icon.png',
                 animation: google.maps.Animation.DROP
             });
-            this.markers.push(this.svet);
-            this.svet.setMap(this.gMap);
+            this.markerInfo = new google.maps.InfoWindow();
+            this.infoWindows.push(this.markerInfo);
+
+            google.maps.event.addListener(this.svetMarker, 'click', function (e) {
+                this.geocoder.geocode({'latLng': latLng}, function (res) {
+                    this.markerInfo.setContent('<p class="map-marker-info">'+res[0].formatted_address+'</p>');
+                    this.markerInfo.setPosition(e.latLng);
+                    this.markerInfo.open(this.gMap);
+                }.bind(this));
+
+
+            }.bind(this));
+
+            this.markers.push(this.svetMarker);
+            this.svetMarker.setMap(this.gMap);
         }
 
         for (var i = 1; i < 20; i++) {
