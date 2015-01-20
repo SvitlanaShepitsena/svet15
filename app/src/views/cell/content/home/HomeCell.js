@@ -106,7 +106,6 @@ define(function (require, exports, module) {
             period: '1100',
             dampingRatio: 0.3,
             icon: 'yp',
-            url: "http://www.spasibous.com/yp",
             content: '<h4>' +
             '<a class="icon-text" href="http://www.spasibous.com/yp" target="_blank">Russian-American</br>Yellow Pages</a>' +
             '</h4>'
@@ -116,7 +115,6 @@ define(function (require, exports, module) {
             period: '800',
             dampingRatio: 0.3,
             icon: 'radio',
-            url: "http://media.imcpro.com/OSA/",
             content: '<h4>' +
             '<a class="icon-text" href="http://media.imcpro.com/OSA/" target="_blank">Radio-Program</br>"OSA"</a>' +
             '</h4>'

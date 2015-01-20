@@ -66,7 +66,7 @@ define(function (require, exports, module) {
         var imgDivider = 8;
         this.sectionIconSurface = new Surface({
             size: [undefined, undefined],
-            content: "<a target='_blank' href='" + this.options.url + "'><img style='width:" + (window.innerWidth / imgDivider) + "px; height: " + (window.innerWidth / imgDivider) + "px' class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/></a>",
+            content: "<img style='width:" + (window.innerWidth / imgDivider) + "px; height: " + (window.innerWidth / imgDivider) + "px' class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
             properties: {
                 cursor:'pointer',
                 textAlign: 'center',
