@@ -28,6 +28,7 @@ define(function (require, exports, module) {
             switch (data.icon) {
 
                 case 'hideAll':
+
                     this.maps.hideEverything();
 
                     break;
@@ -36,12 +37,13 @@ define(function (require, exports, module) {
                     this.maps.showSvetPoints();
                     break;
                 case 'yp':
+                    this.maps.showYpCompanies();
 
                     break;
                 case 'radio':
                     break;
             }
-        })
+        }.bind(this))
     }
 
     HomeCell.prototype = Object.create(View.prototype);
