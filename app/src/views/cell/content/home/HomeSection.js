@@ -100,6 +100,7 @@ define(function (require, exports, module) {
             classes: [],
             properties: {
                 cursor: 'pointer',
+                padding: '5px',
                 color: window.sv.scheme.textDark,
                 textAlign: 'center',
                 backgroundColor: window.sv.scheme.textWhite

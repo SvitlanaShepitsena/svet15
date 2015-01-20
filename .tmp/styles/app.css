@@ -178,6 +178,52 @@ body {
     font-weight: normal;
   }
 }
+.flip-text {
+  line-height: 130%;
+  font-size: 120%;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+@media only screen and (max-width: 500px) {
+  .flip-text {
+    line-height: 110%;
+    padding-top: 0px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .flip-text {
+    font-size: 100%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .flip-text {
+    font-size: 90%;
+    font-weight: normal;
+  }
+}
+.flip-text-sm {
+  line-height: 140%;
+  font-size: 110%;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+@media only screen and (max-width: 500px) {
+  .flip-text-sm {
+    line-height: 110%;
+    padding-top: 0px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .flip-text-sm {
+    font-size: 90%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .flip-text-sm {
+    font-size: 80%;
+    font-weight: normal;
+  }
+}
 @media only screen and (max-width: 500px) {
   .img-logo-mob {
     margin-bottom: 10px;
