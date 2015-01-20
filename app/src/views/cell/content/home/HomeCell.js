@@ -20,17 +20,14 @@ define(function (require, exports, module) {
     function HomeCell() {
         View.apply(this, arguments);
 
-            _init.call(this);
+        _init.call(this);
         _flex.call(this);
         _gridParts.call(this);
 
         this.on('parts:info', function (data) {
             switch (data.icon) {
-
                 case 'hideAll':
-
                     this.maps.hideEverything();
-
                     break;
                 case 'news-daily':
                 case 'weekly':
@@ -38,7 +35,6 @@ define(function (require, exports, module) {
                     break;
                 case 'yp':
                     this.maps.showYpCompanies();
-
                     break;
                 case 'radio':
                     break;
@@ -118,9 +114,7 @@ define(function (require, exports, module) {
             period: '800',
             dampingRatio: 0.3,
             icon: 'radio',
-            content: '<h4 class="icon-text"> Radio-Program</br>"OSA"' +
-                //'<a class="icon-text" href="http://media.imcpro.com/OSA/" target="_blank">Radio-Program</br>"OSA"</a>' +
-            '</h4>',
+            content: '<h4 class="icon-text"> Radio-Program</br>"OSA"</h4>',
             flipInfo: flipRadioProgram
         })
 
