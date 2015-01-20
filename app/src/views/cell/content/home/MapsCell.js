@@ -195,6 +195,7 @@ define(function (require, exports, module) {
                 fillColor: this.options.colors.buffaloGrove,
                 fillOpacity: 0.35
             });
+
             buffaloGroveLayer.setMap(this.gMap);
 
             google.maps.event.addListener(buffaloGroveLayer, 'click', function (e) {
@@ -254,7 +255,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoHighlandPark = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoHighlandPark);
-                this.infoHighlandPark.setContent('<p class="map-info" >18.2% of Russian speaking customers</p>');
+                this.infoHighlandPark.setContent('<p class="map-info"><span class="town-name">Highland Park.</span> <span class = "text-info">18.2% </span> of Russian speaking customers</p>');
                 this.infoHighlandPark.setPosition(e.latLng);
                 this.infoHighlandPark.open(this.gMap);
 
@@ -307,7 +308,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoDeerfield = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoDeerfield);
-                this.infoDeerfield.setContent('<p class="map-info" >16.1% of Russian speaking customers</p>');
+                this.infoDeerfield.setContent('<p class="map-info"><span class="town-name">Derrfield.</span> <span class = "text-info">16.1%</span>  of Russian speaking customers</p>');
                 this.infoDeerfield.setPosition(e.latLng);
                 this.infoDeerfield.open(this.gMap);
 
@@ -396,7 +397,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoNorthbrook = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoNorthbrook);
-                this.infoNorthbrook.setContent('<p class="map-info" >14.3% of Russian speaking customers</p>');
+                this.infoNorthbrook.setContent('<p class="map-info" > <span class="town-name">Northbrook.</span> <span class = "text-info">14.3%</span> of Russian speaking customers</p>');
                 this.infoNorthbrook.setPosition(e.latLng);
                 this.infoNorthbrook.open(this.gMap);
 
@@ -412,7 +413,6 @@ define(function (require, exports, module) {
                 new google.maps.LatLng(42.119928, -87.780034),
                 new google.maps.LatLng(42.116280, -87.775601),
                 new google.maps.LatLng(42.119973, -87.775601),
-                new google.maps.LatLng(42.119591, -87.741268),
                 new google.maps.LatLng(42.128503, -87.741612),
                 new google.maps.LatLng(42.152433, -87.759293),
 
@@ -432,7 +432,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoGlencoe = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoGlencoe);
-                this.infoGlencoe.setContent('<p class="map-info" >14.4% of Russian speaking customers</p>');
+                this.infoGlencoe.setContent('<p class="map-info"><span class="town-name">Glencoe.</span> <span class = "text-info">14.4%</span>  of Russian speaking customers</p>');
                 this.infoGlencoe.setPosition(e.latLng);
                 this.infoGlencoe.open(this.gMap);
 
@@ -490,7 +490,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.vernonHillsInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.vernonHillsInfo);
-                this.vernonHillsInfo.setContent('<p class="map-info" >9.1% of Russian speaking customers</p>');
+                this.vernonHillsInfo.setContent('<p class="map-info"><span class="town-name">Vernon Hills.</span> <span class = "text-info">9.1% </span> of Russian speaking customers</p>');
                 this.vernonHillsInfo.setPosition(e.latLng);
                 this.vernonHillsInfo.open(this.gMap);
 
@@ -516,7 +516,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoSkokie = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoSkokie);
-                this.infoSkokie.setContent('<p class="map-info" >20% of Russian speaking customers</p>');
+                this.infoSkokie.setContent('<p class="map-info"><span class="town-name">Skokie.</span> <span class = "text-info">20%</span>  of Russian speaking customers</p>');
                 this.infoSkokie.setPosition(e.latLng);
                 this.infoSkokie.open(this.gMap);
 
@@ -567,7 +567,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.evanstonInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.evanstonInfo);
-                this.evanstonInfo.setContent('<p class="map-info" >7.2% of Russian speaking customers</p>');
+                this.evanstonInfo.setContent('<p class="map-info"><span class="town-name">Evantson.</span> <span class = "text-info">7.2%</span> of Russian speaking customers</p>');
                 this.evanstonInfo.setPosition(e.latLng);
                 this.evanstonInfo.open(this.gMap);
 
@@ -645,7 +645,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.wilmetteInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.wilmetteInfo);
-                this.wilmetteInfo.setContent('<p class="map-info" >7.2% of Russian speaking customers</p>');
+                this.wilmetteInfo.setContent('<p class="map-info"><span class="town-name">Wilmette.</span> <span class = "text-info">7.2%</span>  of Russian speaking customers</p>');
                 this.wilmetteInfo.setPosition(e.latLng);
                 this.wilmetteInfo.open(this.gMap);
 
@@ -709,7 +709,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.glenviewInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.glenviewInfo);
-                this.glenviewInfo.setContent('<p class="map-info" >13.8% of Russian speaking customers</p>');
+                this.glenviewInfo.setContent('<p class="map-info"><span class="town-name">Glenview.</span> <span class = "text-info">13.8%</span> of Russian speaking customers</p>');
                 this.glenviewInfo.setPosition(e.latLng);
                 this.glenviewInfo.open(this.gMap);
 
@@ -765,7 +765,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.wheelingInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.wheelingInfo);
-                this.wheelingInfo.setContent('<p class="map-info" >8.9% of Russian speaking customers</p>');
+                this.wheelingInfo.setContent('<p class="map-info"><span class="town-name">Wheeling.</span> <span class = "text-info">8.9%</span>  of Russian speaking customers</p>');
                 this.wheelingInfo.setPosition(e.latLng);
                 this.wheelingInfo.open(this.gMap);
 
@@ -838,7 +838,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.nilesInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.nilesInfo);
-                this.nilesInfo.setContent('<p class="map-info" >7.2% of Russian speaking customers</p>');
+                this.nilesInfo.setContent('<p class="map-info"><span class="town-name">Niles.</span> <span class = "text-info">7.2%</span>  of Russian speaking customers</p>');
                 this.nilesInfo.setPosition(e.latLng);
                 this.nilesInfo.open(this.gMap);
 
@@ -857,7 +857,7 @@ define(function (require, exports, module) {
         });
         this.rootNode = this.add(this.centerModifier);
     }
-    
+
 
     MapsCell.prototype = Object.create(View.prototype);
     MapsCell.prototype.constructor = MapsCell;
