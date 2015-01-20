@@ -858,6 +858,7 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.centerModifier);
     }
 
+
     MapsCell.prototype = Object.create(View.prototype);
     MapsCell.prototype.constructor = MapsCell;
 
