@@ -9,14 +9,8 @@ define(function (require, exports, module) {
     var Transitionable = require('famous/transitions/Transitionable');
     var SpringTransition = require('famous/transitions/SpringTransition');
 
-
-    var HomePart = require('cviews/content/home/HomePart');
+    var HomeSection = require('cviews/content/home/HomeSection');
     var MapsCell = require('cviews/content/home/MapsCell');
-
-    var grid11 = require('text!cviews/content/home/jade/grid11.html');
-    var grid12 = require('text!cviews/content/home/jade/grid12.html');
-    var grid21 = require('text!cviews/content/home/jade/grid21.html');
-    var grid22 = require('text!cviews/content/home/jade/grid22.html');
 
     function HomeCell() {
         View.apply(this, arguments);
@@ -27,24 +21,16 @@ define(function (require, exports, module) {
 
         this.on('parts:info', function (data) {
             switch (data.icon) {
-
                 case 'news-daily':
-
                 case 'weekly':
                     this.maps.showSvetPoints();
                     break;
-
                 case 'yp':
-
                     break;
-
                 case 'radio':
-
                     break;
-
             }
         })
-
     }
 
     HomeCell.prototype = Object.create(View.prototype);
@@ -86,7 +72,7 @@ define(function (require, exports, module) {
 
     function _gridParts() {
 
-        this.topLeftSection = new HomePart({
+        this.topLeftSection = new HomeSection({
             sign: -1,
             period: '900',
             dampingRatio: 0.3,
@@ -94,29 +80,29 @@ define(function (require, exports, module) {
             content: '<h4 class="icon-text">Svet</br>Daily Newspaper</h4>'
         });
 
-        this.topRightSection = new HomePart({
+        this.topRightSection = new HomeSection({
             sign: 1,
             period: '1000',
             dampingRatio: 0.3,
             icon: 'weekly',
             content: '<h4 class="icon-text">Saturday Plus</br>Weekly Newspaper</h4>'
         })
-        this.bottomLeftSection = new HomePart({
+        this.bottomLeftSection = new HomeSection({
             sign: -1,
             period: '1100',
             dampingRatio: 0.3,
             icon: 'yp',
-            content: '<h4>' +
-            '<a class="icon-text" href="http://www.spasibous.com/yp" target="_blank">Russian-American</br>Yellow Pages</a>' +
+            content: '<h4 class="icon-text"> Russian-American</br>Yellow Pages' +
+                //'<a class="icon-text" href="http://www.spasibous.com/yp" target="_blank">Russian-American</br>Yellow Pages</a>' +
             '</h4>'
         })
-        this.bottomRightSection = new HomePart({
+        this.bottomRightSection = new HomeSection({
             sign: 1,
             period: '800',
             dampingRatio: 0.3,
             icon: 'radio',
-            content: '<h4>' +
-            '<a class="icon-text" href="http://media.imcpro.com/OSA/" target="_blank">Radio-Program</br>"OSA"</a>' +
+            content: '<h4 class="icon-text"> Radio-Program</br>"OSA"' +
+                //'<a class="icon-text" href="http://media.imcpro.com/OSA/" target="_blank">Radio-Program</br>"OSA"</a>' +
             '</h4>'
         })
 

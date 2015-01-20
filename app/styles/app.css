@@ -129,16 +129,46 @@ body {
 }
 .h-home {
   margin-top: 0px;
+  font-size: 150%;
+}
+@media only screen and (max-width: 400px) {
+  .h-home {
+    font-size: 90%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .h-home {
+    margin-top: 0px;
+    font-size: 80%;
+    font-weight: #f00;
+  }
 }
 .icon-text {
-  margin-top: 0px;
-  color: #fffaf0;
+  padding-top: 5px;
+  line-height: 130%;
+  font-size: 120%;
 }
 .icon-text:hover,
 .icon-text:active,
 .icon-text:focus {
   text-decoration: none;
   color: #ffdead;
+}
+@media only screen and (max-width: 500px) {
+  .icon-text {
+    padding-top: 0px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .icon-text {
+    font-size: 90%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .icon-text {
+    font-size: 80%;
+    font-weight: normal;
+  }
 }
 @media only screen and (max-width: 500px) {
   .img-logo-mob {

@@ -97,7 +97,6 @@ body
     width 150px !important
     height 60px !important
 
-
 .home-icon-img
     width 70px
     height 70px
@@ -105,16 +104,31 @@ body
 
 .h-home
     margin-top 0px
+    font-size 150%
+    +below(size-s)
+        font-size 90%
+    +below(size-xs)
+        margin-top 0px
+        font-size 80%
+        font-weight red
+        color
 
 .icon-text
-    margin-top 0px
-    color floralwhite
+    padding-top 5px
+    line-height 130%
+    font-size 120%
     &:hover
     &:active
     &:focus
         text-decoration none
         color navajowhite
-
+    +below(size-m)
+        padding-top 0px
+    +below(size-s)
+        font-size 90%
+    +below(size-xs)
+        font-size 80%
+        font-weight normal
 
 .img-logo-mob
     +below(size-m)

@@ -12,7 +12,7 @@ define(function (require, exports, module) {
     function HomePart() {
         View.apply(this, arguments);
         this.on('click', function () {
-            this._eventOutput.emit('parts:info',{icon:this.options.icon});
+            this._eventOutput.emit('parts:info', {icon: this.options.icon});
             this.flipper.flip();
         })
         _initTransform.call(this);
@@ -32,59 +32,51 @@ define(function (require, exports, module) {
         period: 0,
         dampingRatio: 0,
         sign: 0,
-        size: [undefined, undefined],
         width: window.innerWidth,
+        sectionWidth: window.innerWidth / 2,
+        sectionIconWidth: (window.innerWidth / 2) * .4,
+        sectionImgWidth: (window.innerWidth / 2) * .26,
         sectionPop: {
-            fontSize: '18px',
-            cursor:'pointer',
+            paddingTop: window.innerWidth / 4.15 + 'px',
             color: window.sv.scheme.textWhite,
-            paddingTop: window.innerWidth / 4 + 'px',
-            textAlign: 'center',
-            backgroundColor: window.sv.scheme.sectionColor
+            backgroundColor: window.sv.scheme.sectionColor,
+            cursor: 'pointer',
+            textAlign: 'center'
         }
     };
 
     function _contentParts() {
         this.surface = new Surface({
-            size: this.options.size,
             content: this.options.content,
             properties: this.options.sectionPop
         });
         this.surface.pipe(this._eventOutput);
-
-
         this.renderNode.add(this.surface);
     }
 
     function _sectionIcon() {
         this.sectionIconMod = new StateModifier({
-            size: [(window.innerWidth / 2) * .4, (window.innerWidth / 2) * .4],
+            size: [this.options.sectionIconWidth, this.options.sectionIconWidth],
             align: [0.5, 0.1],
-            origin: [0.5, 0],
-            transform: Transform.translate(0, 0, 0)
+            origin: [0.5, 0]
         });
-        var imgDivider = 8;
+
         this.sectionIconSurface = new Surface({
             size: [undefined, undefined],
-            content: "<img style='width:" + (window.innerWidth / imgDivider) + "px; height: " + (window.innerWidth / imgDivider) + "px' class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
+            content: "<img style='width:" + (this.options.sectionImgWidth) + "px; height: " + (this.options.sectionImgWidth) + "px' class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
             properties: {
-                cursor:'pointer',
+                cursor: 'pointer',
                 textAlign: 'center',
-                borderRadius: '100px',
-                color: 'red',
+                borderRadius: this.options.sectionIconWidth / 2 + 'px',
                 backgroundColor: window.sv.scheme.homeIconColor
             }
         });
         this.sectionIconSurface.pipe(this._eventOutput);
-
         this.renderNode.add(this.sectionIconMod).add(this.sectionIconSurface);
     }
 
     function _initTransform() {
-
-            // mainContext.setPerspective(500);
-
-
+        // mainContext.setPerspective(500);
         // this.flipper.flip(); to flip!
         this.spring = {
             method: 'spring',
@@ -94,7 +86,7 @@ define(function (require, exports, module) {
         this.centerModifier = new StateModifier({
             align: this.options.center,
             origin: this.options.center,
-            transform: Transform.translate(this.options.sign * (this.options.width / 2), 0, 0)
+            transform: Transform.translate(this.options.sign * (this.options.sectionWidth), 0, 0)
         });
 
         this.rootNode = this.add(this.centerModifier);
@@ -107,7 +99,7 @@ define(function (require, exports, module) {
             content: 'More Info',
             classes: [],
             properties: {
-                cursor:'pointer',
+                cursor: 'pointer',
                 color: 'white',
                 textAlign: 'center',
                 backgroundColor: '#FA5C4F'
