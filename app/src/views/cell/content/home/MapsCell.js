@@ -19,7 +19,8 @@ define(function (require, exports, module) {
         _init.call(this);
 
         _map.call(this);
-        this.opacityLegend = new Transitionable(0);
+        this.opacityLegendSvet = new Transitionable(0);
+        this.opacityLegendYp = new Transitionable(0);
         this.geocoder = new google.maps.Geocoder();
 
     }
@@ -49,11 +50,12 @@ define(function (require, exports, module) {
             marker.setMap(null);
         });
 
-        this.opacityLegend.set(0, {duration: 500, curve: 'easeInOut'});
+        this.opacityLegendSvet.set(0, {duration: 500, curve: 'easeInOut'});
+        this.opacityLegendYp.set(0, {duration: 500, curve: 'easeInOut'});
 
     }
 
-    function legend() {
+    function legendSvet() {
 
         this.surface = new Surface({
             size: [170, 50],
@@ -67,11 +69,40 @@ define(function (require, exports, module) {
             align: [0, 0],
             origin: [0.5, 0.5],
             opacity: function () {
-                return this.opacityLegend.get();
+                return this.opacityLegendSvet.get();
             }.bind(this)
 
         });
-        this.opacityLegend.set(1, {duration: 500, curve: 'easeInOut'});
+        this.opacityLegendSvet.set(1, {duration: 500, curve: 'easeInOut'});
+
+        this.mapModifier = new MapModifier({
+            mapView: this.mapView,
+            position: this.legendPlace,
+            zoomBase: 9,
+            zoomScale: 0.3
+        });
+        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
+    }
+
+    function legendYp() {
+
+        this.surface = new Surface({
+            size: [170, 50],
+            content: '<p><img src="img/google-icon.png">  Our current clients </p>',
+            properties: {
+                color: 'black'
+            }
+        });
+        this.surface.pipe(this.mapView);
+        this.modifier = new Modifier({
+            align: [0, 0],
+            origin: [0.5, 0.5],
+            opacity: function () {
+                return this.opacityLegendYp.get();
+            }.bind(this)
+
+        });
+        this.opacityLegendYp.set(1, {duration: 500, curve: 'easeInOut'});
 
         this.mapModifier = new MapModifier({
             mapView: this.mapView,
@@ -924,7 +955,7 @@ define(function (require, exports, module) {
                 dropYpCompanies.call(this);
             }.bind(this), i * 100);
         }
-        legend.call(this);
+        legendYp.call(this);
 
     }
     MapsCell.prototype.showSvetPoints = function () {
@@ -972,7 +1003,7 @@ define(function (require, exports, module) {
                 dropSvetPoints.call(this);
             }.bind(this), i * 100);
         }
-        legend.call(this);
+        legendSvet.call(this);
 
     }
 
