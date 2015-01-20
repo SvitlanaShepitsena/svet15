@@ -2,7 +2,7 @@ var person = {
     name: 'John',
     lastName: 'Doe',
     album:{
-        title:'Family'
+        title:''
     }
 }; // Object inline settings
 
