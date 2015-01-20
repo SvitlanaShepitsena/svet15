@@ -818,29 +818,29 @@ define(function (require, exports, module) {
     MapsCell.prototype.constructor = MapsCell;
 
 
+    MapsCell.prototype.getRandomPoint = function (x) {
+
+        var maxRandomDispersion = 0.1;
+        x = (x << 13) ^ x;
+        return 0.01+maxRandomDispersion*( 1.0 - ( (x * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
+    }
+
     MapsCell.prototype.showSvetPoints = function () {
+        var that = this;
+
         var baseLat = 42.04,
             baseLong = -87.85;
 
         _closeAllOverlays.call(this);
 
-        var maxRandom = .1;
 
-        function getRandomShift(n) {
-            var random = seed(n) * .1 + 0.01;
-            return random;
-        }
-
-        function seed(x) {
-            x = (x << 13) ^ x;
-            return ( 1.0 - ( (x * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
-        }
 
         var counter = 0;
 
         function dropSvetPoints() {
+
             counter++;
-            var latLng = new google.maps.LatLng(baseLat + getRandomShift(counter), baseLong + getRandomShift(counter + 2));
+            var latLng = new google.maps.LatLng(baseLat + that.getRandomPoint(counter), baseLong + that.getRandomPoint(counter + 2));
             this.svetMarker = new google.maps.Marker({
                 position: latLng,
                 icon: 'img/svet-icon.png',
@@ -866,7 +866,7 @@ define(function (require, exports, module) {
         for (var i = 1; i < 20; i++) {
             setTimeout(function () {
 
-                dropSvetPoints.call(this);
+                dropSvetPoints.call(this, i);
             }.bind(this), i * 100);
         }
         legend.call(this);
