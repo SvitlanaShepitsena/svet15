@@ -23,18 +23,18 @@ define(function (require, exports, module) {
 
     MapsCell.DEFAULT_OPTIONS = {
         colors: {
-            buffaloGrove: '#FF280E',
-            highlandpark: '#FF3714',
-            deerfield: '#FF4F19',
-            glencoe: '#FF3714',
-            northbrook: '#FF4F19',
-            glenview: '#FF611B',
-            skokie: '#FF6D1C',
-            vernonHills: '#FF7316',
-            wheeling: '#FF7A14',
-            wilmette: '#FF7F11',
-            niles: '#FF8614',
-            evanston: '#FF8614'
+            buffaloGrove: 'coral',
+            highlandpark: '#D98982',
+            deerfield: '#EB8986',
+            glencoe: '#FFC0A3',
+            northbrook: '#9CDBAD',
+            glenview: '#EB8986',
+            skokie: '#FFE9BF',
+            vernonHills: '#D4E5FF',
+            wheeling: '#B2A5B6',
+            wilmette: '#89BF7A',
+            niles: 'coral',
+            evanston: '#FFE5DC'
         }
     };
 
@@ -826,7 +826,7 @@ define(function (require, exports, module) {
             }.bind(this));
 
 
-            //_modifier.call(this);
+            //_difier.call(this);
         }.bind(this));
     }
 
