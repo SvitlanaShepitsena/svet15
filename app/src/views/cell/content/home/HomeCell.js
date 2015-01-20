@@ -26,6 +26,11 @@ define(function (require, exports, module) {
 
         this.on('parts:info', function (data) {
             switch (data.icon) {
+
+                case 'hideAll':
+                    this.maps.hideEverything();
+
+                    break;
                 case 'news-daily':
                 case 'weekly':
                     this.maps.showSvetPoints();
