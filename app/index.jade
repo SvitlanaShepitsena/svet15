@@ -14,24 +14,25 @@ html
 
         meta(name='msapplication-tap-highlight', content='no')
 
-// build:css
+        // build:css
 
-link(rel='stylesheet', type='text/css', href='lib/famous/src/core/famous.css')
-link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css')
-link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css')
-link(rel='stylesheet', type='text/css', href='styles/app.css')
-// endbuild
+        link(rel='stylesheet', type='text/css', href='lib/famous/src/core/famous.css')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css')
+        link(rel='stylesheet', type='text/css', href='styles/app.css')
+        link(href='//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', rel='stylesheet')
+        // endbuild
 
-// build:remove
-script(type='text/javascript', src='lib/famous-polyfills/functionPrototypeBind.js')
-script(type='text/javascript', src='lib/famous-polyfills/classList.js')
-script(type='text/javascript', src='lib/famous-polyfills/requestAnimationFrame.js')
-// endbuild
+        // build:remove
+        script(type='text/javascript', src='lib/famous-polyfills/functionPrototypeBind.js')
+        script(type='text/javascript', src='lib/famous-polyfills/classList.js')
+        script(type='text/javascript', src='lib/famous-polyfills/requestAnimationFrame.js')
+        // endbuild
 
-// build:require
-script(type='text/javascript', src='lib/requirejs/require.js' data-main='src/requireConfig.js')
-// endbuild
-body
+        // build:require
+        script(type='text/javascript', src='lib/requirejs/require.js' data-main='src/requireConfig.js')
+        // endbuild
+    body
 
 
 
