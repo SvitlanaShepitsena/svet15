@@ -195,6 +195,7 @@ define(function (require, exports, module) {
                 fillColor: this.options.colors.buffaloGrove,
                 fillOpacity: 0.35
             });
+
             buffaloGroveLayer.setMap(this.gMap);
 
             google.maps.event.addListener(buffaloGroveLayer, 'click', function (e) {
