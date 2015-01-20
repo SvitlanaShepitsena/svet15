@@ -863,13 +863,6 @@ define(function (require, exports, module) {
     MapsCell.prototype.constructor = MapsCell;
 
 
-    MapsCell.prototype.hideEverything = function () {
-
-        _closeAllOverlays.call(this);
-
-    }
-
-
     MapsCell.prototype.showSvetPoints = function () {
         var baseLat = 42.04,
             baseLong = -87.85;

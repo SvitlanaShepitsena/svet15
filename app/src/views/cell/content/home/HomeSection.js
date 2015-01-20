@@ -11,17 +11,9 @@ define(function (require, exports, module) {
 
     function HomePart() {
         View.apply(this, arguments);
-        this.flipperFrontSide = true;
-
         this.on('click', function () {
-            if (this.flipperFrontSide) {
-                this._eventOutput.emit('parts:info', {icon: this.options.icon});
-            } else {
-
-                this._eventOutput.emit('parts:info', {icon: 'hideAll'});
-            }
+            this._eventOutput.emit('parts:info', {icon: this.options.icon});
             this.flipper.flip();
-            this.flipperFrontSide = !this.flipperFrontSide;
         })
         _initTransform.call(this);
         _contentParts.call(this);
