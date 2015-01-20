@@ -26,6 +26,7 @@ define(function (require, exports, module) {
                     this.maps.showSvetPoints();
                     break;
                 case 'yp':
+
                     break;
                 case 'radio':
                     break;
