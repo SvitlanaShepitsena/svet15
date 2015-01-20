@@ -861,6 +861,7 @@ define(function (require, exports, module) {
     MapsCell.prototype = Object.create(View.prototype);
     MapsCell.prototype.constructor = MapsCell;
 
+
     MapsCell.prototype.hideEverything = function () {
 
         _closeAllOverlays.call(this);
