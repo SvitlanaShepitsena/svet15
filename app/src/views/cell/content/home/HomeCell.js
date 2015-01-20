@@ -77,8 +77,8 @@ define(function (require, exports, module) {
             period: '900',
             dampingRatio: 0.3,
             icon: 'news-daily',
-            content: '<h4 class="icon-text">Svet</br>Daily Newspaper</h4>'
-        });
+            content: '<h4 class="icon-text">Svet</br>Daily Newspaper</h4>',
+            flipInfo: "<h4 class='text-primary'>Subscribe to receive by mail!</h4><p>It is the most up-to-date Russian language newspaper outside of Russia.Over 48 pages, free of charge.</p>"});
 
         this.topRightSection = new HomeSection({
             sign: 1,

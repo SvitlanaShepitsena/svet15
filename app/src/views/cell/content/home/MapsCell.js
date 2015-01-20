@@ -14,11 +14,9 @@ define(function (require, exports, module) {
     function MapsCell() {
         View.apply(this, arguments);
         _init.call(this);
-
         _map.call(this);
         this.opacityLegend = new Transitionable(0);
         this.geocoder = new google.maps.Geocoder();
-
     }
 
     MapsCell.DEFAULT_OPTIONS = {
@@ -29,12 +27,12 @@ define(function (require, exports, module) {
             glencoe: '#FFC0A3',
             northbrook: '#9CDBAD',
             glenview: '#EB8986',
-            skokie: '#FFE9BF',
+            skokie: '#61AEAE',
             vernonHills: '#D4E5FF',
             wheeling: '#B2A5B6',
             wilmette: '#89BF7A',
             niles: 'coral',
-            evanston: '#FFE5DC'
+            evanston: '#FFBFA3'
         }
     };
 
@@ -112,7 +110,7 @@ define(function (require, exports, module) {
              *********************************/
 
             /**
-             * 1.Buffalo Grove
+             * 1.=Buffalo Grove
              */
 
             var buffaloGroveCoordinates = [
@@ -199,18 +197,16 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.buffaloGroveInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.buffaloGroveInfo);
-                this.buffaloGroveInfo.setContent('<p class="map-info" >18.7% of Russian speaking customers</p>');
+                this.buffaloGroveInfo.setContent('<p class="map-info" ><span class="town-name">Buffalo Grove.</span> <span class = "text-info"> 18.7%</span>of Russian speaking customers</p>');
                 this.buffaloGroveInfo.setPosition(e.latLng);
                 this.buffaloGroveInfo.open(this.gMap);
 
             }.bind(this));
 
 
-            /**/
-            /**/
-            /**/
-
-            /*Highland Park starts*/
+            /**
+             * 2. =Highland Park
+             */
 
             var highlandParkCoordinates = [
                 /*Border with Deerfield*/
@@ -254,15 +250,17 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoHighlandPark = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoHighlandPark);
-                this.infoHighlandPark.setContent('<p class="map-info" >18.2% of Russian speaking customers</p>');
+                this.infoHighlandPark.setContent('<p class="map-info" ><span class="town-name"> Highland Park.</span> <span class = "text-info">18.2%</span> of Russian speaking customers</p>');
                 this.infoHighlandPark.setPosition(e.latLng);
                 this.infoHighlandPark.open(this.gMap);
 
             }.bind(this));
 
-            /*Highland Park end*/
-            //
-            /*Deerfield starts*/
+            /*=Highland Park end*/
+
+            /**
+             * 3. =Derrfield
+             */
 
             var deerfieldCoordinates = [
                 /*Border with Highland Park*/
@@ -303,14 +301,54 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoDeerfield = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoDeerfield);
-                this.infoDeerfield.setContent('<p class="map-info" >16.1% of Russian speaking customers</p>');
+                this.infoDeerfield.setContent('<p class="map-info"><span class="town-name">Derrfield.</span> <span class = "text-info">16.1%</span>  of Russian speaking customers</p>');
                 this.infoDeerfield.setPosition(e.latLng);
                 this.infoDeerfield.open(this.gMap);
 
             }.bind(this));
 
-            //
-            /*Northbrook*/
+            /*=Deerfield end*/
+
+            /**
+             * 4. =Glencoe
+             */
+
+            var glencoeCoordinates = [
+                /*Top Border with Northbrook*/
+                new google.maps.LatLng(42.152516, -87.795999),
+                new google.maps.LatLng(42.119928, -87.780034),
+                new google.maps.LatLng(42.116280, -87.775601),
+                new google.maps.LatLng(42.119973, -87.775601),
+                new google.maps.LatLng(42.119591, -87.741268),
+                new google.maps.LatLng(42.128503, -87.741612),
+                new google.maps.LatLng(42.152433, -87.759293),
+
+                new google.maps.LatLng(42.152516, -87.795999)
+            ];
+            var glencoeLayer = new google.maps.Polygon({
+                paths: glencoeCoordinates,
+                strokeColor: this.options.colors.glencoe,
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: this.options.colors.glencoe,
+                fillOpacity: 0.35
+            });
+            glencoeLayer.setMap(this.gMap);
+
+            google.maps.event.addListener(glencoeLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.infoGlencoe = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.infoGlencoe);
+                this.infoGlencoe.setContent('<p class="map-info"><span class="town-name">Glencoe.</span> <span class = "text-info">14.4%</span> of Russian speaking customers</p>');
+                this.infoGlencoe.setPosition(e.latLng);
+                this.infoGlencoe.open(this.gMap);
+
+            }.bind(this));
+            /*=Glencoe End*/
+
+            /**
+             * 5. =Northbrook
+             */
 
             var northbrookCoordinates = [
                 /*Top Border with Northbrook*/
@@ -351,49 +389,137 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoNorthbrook = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoNorthbrook);
-                this.infoNorthbrook.setContent('<p class="map-info" >14.3% of Russian speaking customers</p>');
+                this.infoNorthbrook.setContent('<p class="map-info" > <span class="town-name">Northbrook.</span> <span class = "text-info">14.3%</span> of Russian speaking customers</p>');
                 this.infoNorthbrook.setPosition(e.latLng);
                 this.infoNorthbrook.open(this.gMap);
 
             }.bind(this));
+            /*Northbrook ends*/
 
-            //
-            /*Glencoe*/
-
-            var glencoeCoordinates = [
-                /*Top Border with Northbrook*/
-                new google.maps.LatLng(42.152516, -87.795999),
-                new google.maps.LatLng(42.119928, -87.780034),
-                new google.maps.LatLng(42.116280, -87.775601),
-                new google.maps.LatLng(42.119973, -87.775601),
-                new google.maps.LatLng(42.119591, -87.741268),
-                new google.maps.LatLng(42.128503, -87.741612),
-                new google.maps.LatLng(42.152433, -87.759293),
-
-                new google.maps.LatLng(42.152516, -87.795999)
+            /**
+             * =Glenview
+             */
+            var glenviewCoordinates = [
+                new google.maps.LatLng(42.084618, -87.775059),
+                //Border with Wilmette
+                new google.maps.LatLng(42.084108, -87.777376),
+                new google.maps.LatLng(42.082070, -87.778234),
+                new google.maps.LatLng(42.079713, -87.777634),
+                new google.maps.LatLng(42.079586, -87.764501),
+                new google.maps.LatLng(42.079586, -87.764501),
+                new google.maps.LatLng(42.079586, -87.764501),
+                new google.maps.LatLng(42.070857, -87.758665),
+                new google.maps.LatLng(42.065100, -87.758751),
+                new google.maps.LatLng(42.065100, -87.765800),
+                new google.maps.LatLng(42.065356, -87.780448),
+                new google.maps.LatLng(42.062807, -87.780104),
+                new google.maps.LatLng(42.062425, -87.789374),
+                new google.maps.LatLng(42.058983, -87.789203),
+                new google.maps.LatLng(42.058729, -87.797786),
+                new google.maps.LatLng(42.055415, -87.795897),
+                new google.maps.LatLng(42.054905, -87.815638),
+                new google.maps.LatLng(42.060513, -87.822505),
+                new google.maps.LatLng(42.059493, -87.835723),
+                new google.maps.LatLng(42.056562, -87.840358),
+                new google.maps.LatLng(42.058219, -87.844821),
+                new google.maps.LatLng(42.060895, -87.845164),
+                new google.maps.LatLng(42.060895, -87.845164),
+                new google.maps.LatLng(42.072619, -87.843963),
+                new google.maps.LatLng(42.067140, -87.850486),
+                new google.maps.LatLng(42.066375, -87.867995),
+                new google.maps.LatLng(42.082812, -87.866622),
+                new google.maps.LatLng(42.083449, -87.870742),
+                new google.maps.LatLng(42.080137, -87.870742),
+                new google.maps.LatLng(42.080137, -87.878638),
+                new google.maps.LatLng(42.094787, -87.878123),
+                new google.maps.LatLng(42.093641, -87.868338),
+                //top left corner with Northbrook
+                new google.maps.LatLng(42.105995, -87.868853),
+                new google.maps.LatLng(42.105613, -87.799331),
+                new google.maps.LatLng(42.094532, -87.798472),
+                new google.maps.LatLng(42.094150, -87.779418),
+                new google.maps.LatLng(42.087271, -87.773238),
+                new google.maps.LatLng(42.084618, -87.775059)
             ];
-            var glencoeLayer = new google.maps.Polygon({
-                paths: glencoeCoordinates,
-                strokeColor: this.options.colors.glencoe,
+            var glenviewLayer = new google.maps.Polygon({
+                paths: glenviewCoordinates,
+                strokeColor: this.options.colors.glenview,
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: this.options.colors.glencoe,
+                fillColor: this.options.colors.glenview,
                 fillOpacity: 0.35
             });
-            glencoeLayer.setMap(this.gMap);
+            glenviewLayer.setMap(this.gMap);
 
-            google.maps.event.addListener(glencoeLayer, 'click', function (e) {
+            google.maps.event.addListener(glenviewLayer, 'click', function (e) {
                 _closeAllOverlays.call(this);
-                this.infoGlencoe = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.infoGlencoe);
-                this.infoGlencoe.setContent('<p class="map-info" >14.4% of Russian speaking customers</p>');
-                this.infoGlencoe.setPosition(e.latLng);
-                this.infoGlencoe.open(this.gMap);
+                this.glenviewInfo = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.glenviewInfo);
+                this.glenviewInfo.setContent('<p class="map-info"><span class="town-name">Glenview.</span> <span class = "text-info">13.8%</span> of Russian speaking customers</p>');
+                this.glenviewInfo.setPosition(e.latLng);
+                this.glenviewInfo.open(this.gMap);
 
             }.bind(this));
+            /*=Glenview Ends*/
 
-            //
-            /*Vernon Hills*/
+            /**
+             * =Skokie
+             */
+            var skokieCoordinates = [
+                new google.maps.LatLng(42.065100, -87.765800),
+                new google.maps.LatLng(42.064723, -87.732705),
+                new google.maps.LatLng(42.062429, -87.732190),
+                new google.maps.LatLng(42.062429, -87.727555),
+
+                new google.maps.LatLng(42.055828, -87.727563),
+                new google.maps.LatLng(42.055828, -87.715718),
+                new google.maps.LatLng(42.052131, -87.708852),
+                new google.maps.LatLng(42.012095, -87.709367),
+                new google.maps.LatLng(42.012095, -87.723614),
+                new google.maps.LatLng(42.015156, -87.724129),
+                new google.maps.LatLng(42.015156, -87.750565),
+                new google.maps.LatLng(42.004569, -87.750909),
+                new google.maps.LatLng(42.004952, -87.762238),
+                new google.maps.LatLng(42.008396, -87.767560),
+                new google.maps.LatLng(42.019237, -87.767216),
+                new google.maps.LatLng(42.019237, -87.777173),
+                new google.maps.LatLng(42.026506, -87.780949),
+                new google.maps.LatLng(42.026506, -87.767216),
+                new google.maps.LatLng(42.037089, -87.766873),
+                new google.maps.LatLng(42.039129, -87.764298),
+                new google.maps.LatLng(42.062583, -87.763955),
+                new google.maps.LatLng(42.062583, -87.769963),
+                new google.maps.LatLng(42.063730, -87.770821),
+                new google.maps.LatLng(42.063730, -87.765964),
+                new google.maps.LatLng(42.065100, -87.765800)
+            ];
+
+            var skokieLayer = new google.maps.Polygon({
+                paths: skokieCoordinates,
+                title: 'Skokie',
+                strokeColor: this.options.colors.skokie,
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: this.options.colors.skokie,
+                fillOpacity: 0.35
+            });
+            skokieLayer.setMap(this.gMap);
+
+
+            google.maps.event.addListener(skokieLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.infoSkokie = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.infoSkokie);
+                this.infoSkokie.setContent('<p class="map-info"><span class="town-name">Skokie.</span> <span class = "text-info">20%</span>  of Russian speaking customers</p>');
+                this.infoSkokie.setPosition(e.latLng);
+                this.infoSkokie.open(this.gMap);
+
+            }.bind(this));
+            /*=Skokie Ends*/
+
+            /**
+             * =Vernon Hills
+             */
 
             var vernonHillsCoordinates = [
                 /*Top Border with Northbrook*/
@@ -444,118 +570,77 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.vernonHillsInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.vernonHillsInfo);
-                this.vernonHillsInfo.setContent('<p class="map-info" >9.1% of Russian speaking customers</p>');
+                this.vernonHillsInfo.setContent('<p class="map-info"><span class="town-name">Vernon Hills.</span> <span class = "text-info">9.1%</span>  of Russian speaking customers</p>');
                 this.vernonHillsInfo.setPosition(e.latLng);
                 this.vernonHillsInfo.open(this.gMap);
 
             }.bind(this));
+            /*=Vernon Hills Ends*/
 
 
-            /*Skokie*/
-            var skokieCoordinates = [
-                new google.maps.LatLng(42.065100, -87.765800),
-                new google.maps.LatLng(42.064723, -87.732705),
-                new google.maps.LatLng(42.062429, -87.732190),
-                new google.maps.LatLng(42.062429, -87.727555),
+            /**
+             * =Wheeling
+             */
 
-                new google.maps.LatLng(42.055828, -87.727563),
-                new google.maps.LatLng(42.055828, -87.715718),
-                new google.maps.LatLng(42.052131, -87.708852),
-                new google.maps.LatLng(42.012095, -87.709367),
-                new google.maps.LatLng(42.012095, -87.723614),
-                new google.maps.LatLng(42.015156, -87.724129),
-                new google.maps.LatLng(42.015156, -87.750565),
-                new google.maps.LatLng(42.004569, -87.750909),
-                new google.maps.LatLng(42.004952, -87.762238),
-                new google.maps.LatLng(42.008396, -87.767560),
-                new google.maps.LatLng(42.019237, -87.767216),
-                new google.maps.LatLng(42.019237, -87.777173),
-                new google.maps.LatLng(42.026506, -87.780949),
-                new google.maps.LatLng(42.026506, -87.767216),
-                new google.maps.LatLng(42.037089, -87.766873),
-                new google.maps.LatLng(42.039129, -87.764298),
-                new google.maps.LatLng(42.062583, -87.763955),
-                new google.maps.LatLng(42.062583, -87.769963),
-                new google.maps.LatLng(42.063730, -87.770821),
-                new google.maps.LatLng(42.063730, -87.765964),
-                new google.maps.LatLng(42.065100, -87.765800)
+            var wheelingCoordinates = [
+                new google.maps.LatLng(42.131767, -87.961035),
+                new google.maps.LatLng(42.131767, -87.951422),
+                new google.maps.LatLng(42.134949, -87.951250),
+                new google.maps.LatLng(42.135204, -87.949534),
+                //Wheeling
+                new google.maps.LatLng(42.139277, -87.949190),
+                new google.maps.LatLng(42.139277, -87.956228),
+                new google.maps.LatLng(42.152005, -87.957087),
+                new google.maps.LatLng(42.155441, -87.954683),
+                new google.maps.LatLng(42.155314, -87.948847),
+                new google.maps.LatLng(42.153405, -87.949019),
+                //E Lake Cook Road
+                new google.maps.LatLng(42.153277, -87.910566),
+                //Potawatomi Woods
+                new google.maps.LatLng(42.140231, -87.903634),
+                new google.maps.LatLng(42.138703, -87.888185),
+                new google.maps.LatLng(42.115023, -87.894021),
+                new google.maps.LatLng(42.115023, -87.894021),
+                new google.maps.LatLng(42.114768, -87.907754),
+                new google.maps.LatLng(42.094773, -87.907926),
+                //E Camp MCdonald Rd
+                new google.maps.LatLng(42.095282, -87.912904),
+                new google.maps.LatLng(42.113367, -87.936593),
+                new google.maps.LatLng(42.120498, -87.936937),
+                new google.maps.LatLng(42.120753, -87.941743),
+                new google.maps.LatLng(42.124190, -87.941743),
+                new google.maps.LatLng(42.123936, -87.951185),
+                new google.maps.LatLng(42.118206, -87.951185),
+                new google.maps.LatLng(42.118333, -87.956334),
+                new google.maps.LatLng(42.124190, -87.955991),
+                new google.maps.LatLng(42.124572, -87.960798),
+                new google.maps.LatLng(42.131767, -87.961035)
             ];
-
-            var skokieLayer = new google.maps.Polygon({
-                paths: skokieCoordinates,
-                title: 'Skokie',
-                strokeColor: this.options.colors.skokie,
+            var wheelingLayer = new google.maps.Polygon({
+                paths: wheelingCoordinates,
+                strokeColor: this.options.colors.wheeling,
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: this.options.colors.skokie,
+                fillColor: this.options.colors.wheeling,
                 fillOpacity: 0.35
             });
-            skokieLayer.setMap(this.gMap);
+            wheelingLayer.setMap(this.gMap);
 
-
-            google.maps.event.addListener(skokieLayer, 'click', function (e) {
+            google.maps.event.addListener(wheelingLayer, 'click', function (e) {
                 _closeAllOverlays.call(this);
-                this.infoSkokie = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.infoSkokie);
-                this.infoSkokie.setContent('<p class="map-info" >20% of Russian speaking customers</p>');
-                this.infoSkokie.setPosition(e.latLng);
-                this.infoSkokie.open(this.gMap);
+                this.wheelingInfo = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.wheelingInfo);
+                this.wheelingInfo.setContent('<p class="map-info"><span class="town-name">Wheeling.</span> <span class = "text-info">8.9%</span>  of Russian speaking customers</p>');
+                this.wheelingInfo.setPosition(e.latLng);
+                this.wheelingInfo.open(this.gMap);
 
             }.bind(this));
+            /*=Wheeling Ends*/
 
+            /**
+             * =Wilmette
+             */
 
-            /*Evanston*/
-            var evanstonCoordinates = [
-                new google.maps.LatLng(42.062429, -87.732190),
-                new google.maps.LatLng(42.062429, -87.727555),
-                new google.maps.LatLng(42.055828, -87.727563),
-                new google.maps.LatLng(42.055828, -87.715718),
-                new google.maps.LatLng(42.052131, -87.708852),
-                new google.maps.LatLng(42.012095, -87.709367),
-                new google.maps.LatLng(42.019246, -87.673272),
-                new google.maps.LatLng(42.023071, -87.678165),
-                new google.maps.LatLng(42.023071, -87.678165),
-                new google.maps.LatLng(42.028937, -87.668809),
-                new google.maps.LatLng(42.028937, -87.668809),
-                new google.maps.LatLng(42.041305, -87.669581),
-                new google.maps.LatLng(42.041241, -87.669753),
-                new google.maps.LatLng(42.048061, -87.673358),
-                new google.maps.LatLng(42.052204, -87.669667),
-                new google.maps.LatLng(42.059596, -87.669839),
-                new google.maps.LatLng(42.060042, -87.671041),
-                new google.maps.LatLng(42.071767, -87.679624),
-                new google.maps.LatLng(42.071767, -87.682799),
-                new google.maps.LatLng(42.068708, -87.682799),
-
-                new google.maps.LatLng(42.069282, -87.729234),
-                new google.maps.LatLng(42.069664, -87.729405),
-                new google.maps.LatLng(42.068708, -87.732410),
-                new google.maps.LatLng(42.065100, -87.732581),
-
-                new google.maps.LatLng(42.062429, -87.732190),
-            ];
-            var evanstonLayer = new google.maps.Polygon({
-                paths: evanstonCoordinates,
-                strokeColor: this.options.colors.evanston,
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: this.options.colors.evanston,
-                fillOpacity: 0.35
-            });
-            evanstonLayer.setMap(this.gMap);
-            google.maps.event.addListener(evanstonLayer, 'click', function (e) {
-
-                _closeAllOverlays.call(this);
-                this.evanstonInfo = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.evanstonInfo);
-                this.evanstonInfo.setContent('<p class="map-info" >7.2% of Russian speaking customers</p>');
-                this.evanstonInfo.setPosition(e.latLng);
-                this.evanstonInfo.open(this.gMap);
-
-            }.bind(this));
-
-
-            /*Wilmette*/
             var wilmetteCoordinates = [
                 new google.maps.LatLng(42.065100, -87.765800),
                 new google.maps.LatLng(42.064723, -87.732705),
@@ -626,134 +711,71 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.wilmetteInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.wilmetteInfo);
-                this.wilmetteInfo.setContent('<p class="map-info" >7.2% of Russian speaking customers</p>');
+                this.wilmetteInfo.setContent('<p class="map-info"><span class="town-name">Wilmette.</span> <span class = "text-info">7.2% </span> of Russian speaking customers</p>');
                 this.wilmetteInfo.setPosition(e.latLng);
                 this.wilmetteInfo.open(this.gMap);
 
             }.bind(this));
+            /*=Wilmette Ends*/
 
+            /**
+             * =Evanston
+             */
 
-            /*Glenview*/
-            var glenviewCoordinates = [
-                new google.maps.LatLng(42.084618, -87.775059),
-                //Border with Wilmette
-                new google.maps.LatLng(42.084108, -87.777376),
-                new google.maps.LatLng(42.082070, -87.778234),
-                new google.maps.LatLng(42.079713, -87.777634),
-                new google.maps.LatLng(42.079586, -87.764501),
-                new google.maps.LatLng(42.079586, -87.764501),
-                new google.maps.LatLng(42.079586, -87.764501),
-                new google.maps.LatLng(42.070857, -87.758665),
-                new google.maps.LatLng(42.065100, -87.758751),
-                new google.maps.LatLng(42.065100, -87.765800),
-                new google.maps.LatLng(42.065356, -87.780448),
-                new google.maps.LatLng(42.062807, -87.780104),
-                new google.maps.LatLng(42.062425, -87.789374),
-                new google.maps.LatLng(42.058983, -87.789203),
-                new google.maps.LatLng(42.058729, -87.797786),
-                new google.maps.LatLng(42.055415, -87.795897),
-                new google.maps.LatLng(42.054905, -87.815638),
-                new google.maps.LatLng(42.060513, -87.822505),
-                new google.maps.LatLng(42.059493, -87.835723),
-                new google.maps.LatLng(42.056562, -87.840358),
-                new google.maps.LatLng(42.058219, -87.844821),
-                new google.maps.LatLng(42.060895, -87.845164),
-                new google.maps.LatLng(42.060895, -87.845164),
-                new google.maps.LatLng(42.072619, -87.843963),
-                new google.maps.LatLng(42.067140, -87.850486),
-                new google.maps.LatLng(42.066375, -87.867995),
-                new google.maps.LatLng(42.082812, -87.866622),
-                new google.maps.LatLng(42.083449, -87.870742),
-                new google.maps.LatLng(42.080137, -87.870742),
-                new google.maps.LatLng(42.080137, -87.878638),
-                new google.maps.LatLng(42.094787, -87.878123),
-                new google.maps.LatLng(42.093641, -87.868338),
-                //top left corner with Northbrook
-                new google.maps.LatLng(42.105995, -87.868853),
-                new google.maps.LatLng(42.105613, -87.799331),
-                new google.maps.LatLng(42.094532, -87.798472),
-                new google.maps.LatLng(42.094150, -87.779418),
-                new google.maps.LatLng(42.087271, -87.773238),
-                new google.maps.LatLng(42.084618, -87.775059)
+            var evanstonCoordinates = [
+                new google.maps.LatLng(42.062429, -87.732190),
+                new google.maps.LatLng(42.062429, -87.727555),
+                new google.maps.LatLng(42.055828, -87.727563),
+                new google.maps.LatLng(42.055828, -87.715718),
+                new google.maps.LatLng(42.052131, -87.708852),
+                new google.maps.LatLng(42.012095, -87.709367),
+                new google.maps.LatLng(42.019246, -87.673272),
+                new google.maps.LatLng(42.023071, -87.678165),
+                new google.maps.LatLng(42.023071, -87.678165),
+                new google.maps.LatLng(42.028937, -87.668809),
+                new google.maps.LatLng(42.028937, -87.668809),
+                new google.maps.LatLng(42.041305, -87.669581),
+                new google.maps.LatLng(42.041241, -87.669753),
+                new google.maps.LatLng(42.048061, -87.673358),
+                new google.maps.LatLng(42.052204, -87.669667),
+                new google.maps.LatLng(42.059596, -87.669839),
+                new google.maps.LatLng(42.060042, -87.671041),
+                new google.maps.LatLng(42.071767, -87.679624),
+                new google.maps.LatLng(42.071767, -87.682799),
+                new google.maps.LatLng(42.068708, -87.682799),
+
+                new google.maps.LatLng(42.069282, -87.729234),
+                new google.maps.LatLng(42.069664, -87.729405),
+                new google.maps.LatLng(42.068708, -87.732410),
+                new google.maps.LatLng(42.065100, -87.732581),
+
+                new google.maps.LatLng(42.062429, -87.732190),
             ];
-            var glenviewLayer = new google.maps.Polygon({
-                paths: glenviewCoordinates,
-                strokeColor: this.options.colors.glenview,
+            var evanstonLayer = new google.maps.Polygon({
+                paths: evanstonCoordinates,
+                strokeColor: this.options.colors.evanston,
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: this.options.colors.glenview,
+                fillColor: this.options.colors.evanston,
                 fillOpacity: 0.35
             });
-            glenviewLayer.setMap(this.gMap);
+            evanstonLayer.setMap(this.gMap);
+            google.maps.event.addListener(evanstonLayer, 'click', function (e) {
 
-            google.maps.event.addListener(glenviewLayer, 'click', function (e) {
                 _closeAllOverlays.call(this);
-                this.glenviewInfo = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.glenviewInfo);
-                this.glenviewInfo.setContent('<p class="map-info" >13.8% of Russian speaking customers</p>');
-                this.glenviewInfo.setPosition(e.latLng);
-                this.glenviewInfo.open(this.gMap);
+                this.evanstonInfo = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.evanstonInfo);
+                this.evanstonInfo.setContent('<p class="map-info"><span class="town-name">Evantson.</span> <span class = "text-info">7.2%</span> of Russian speaking customers</p>');
+                this.evanstonInfo.setPosition(e.latLng);
+                this.evanstonInfo.open(this.gMap);
 
             }.bind(this));
+            /*=Evanston Ends*/
 
+            /**
+             * =Niles
+             */
 
-            /*Wheeling*/
-            var wheelingCoordinates = [
-                new google.maps.LatLng(42.131767, -87.961035),
-                new google.maps.LatLng(42.131767, -87.951422),
-                new google.maps.LatLng(42.134949, -87.951250),
-                new google.maps.LatLng(42.135204, -87.949534),
-                //Wheeling
-                new google.maps.LatLng(42.139277, -87.949190),
-                new google.maps.LatLng(42.139277, -87.956228),
-                new google.maps.LatLng(42.152005, -87.957087),
-                new google.maps.LatLng(42.155441, -87.954683),
-                new google.maps.LatLng(42.155314, -87.948847),
-                new google.maps.LatLng(42.153405, -87.949019),
-                //E Lake Cook Road
-                new google.maps.LatLng(42.153277, -87.910566),
-                //Potawatomi Woods
-                new google.maps.LatLng(42.140231, -87.903634),
-                new google.maps.LatLng(42.138703, -87.888185),
-                new google.maps.LatLng(42.115023, -87.894021),
-                new google.maps.LatLng(42.115023, -87.894021),
-                new google.maps.LatLng(42.114768, -87.907754),
-                new google.maps.LatLng(42.094773, -87.907926),
-                //E Camp MCdonald Rd
-                new google.maps.LatLng(42.095282, -87.912904),
-                new google.maps.LatLng(42.113367, -87.936593),
-                new google.maps.LatLng(42.120498, -87.936937),
-                new google.maps.LatLng(42.120753, -87.941743),
-                new google.maps.LatLng(42.124190, -87.941743),
-                new google.maps.LatLng(42.123936, -87.951185),
-                new google.maps.LatLng(42.118206, -87.951185),
-                new google.maps.LatLng(42.118333, -87.956334),
-                new google.maps.LatLng(42.124190, -87.955991),
-                new google.maps.LatLng(42.124572, -87.960798),
-                new google.maps.LatLng(42.131767, -87.961035)
-            ];
-            var wheelingLayer = new google.maps.Polygon({
-                paths: wheelingCoordinates,
-                strokeColor: this.options.colors.wheeling,
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: this.options.colors.wheeling,
-                fillOpacity: 0.35
-            });
-            wheelingLayer.setMap(this.gMap);
-
-            google.maps.event.addListener(wheelingLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.wheelingInfo = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.wheelingInfo);
-                this.wheelingInfo.setContent('<p class="map-info" >8.9% of Russian speaking customers</p>');
-                this.wheelingInfo.setPosition(e.latLng);
-                this.wheelingInfo.open(this.gMap);
-
-            }.bind(this));
-
-
-            /*Niles*/
             var nilesCoordinates = [
                 new google.maps.LatLng(42.058624, -87.855539),
                 new google.maps.LatLng(42.058624, -87.849702),
@@ -819,13 +841,12 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.nilesInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.nilesInfo);
-                this.nilesInfo.setContent('<p class="map-info" >7.2% of Russian speaking customers</p>');
+                this.nilesInfo.setContent('<p class="map-info"><span class="town-name">Niles.</span> <span class = "text-info">7.2%</span>  of Russian speaking customers</p>');
                 this.nilesInfo.setPosition(e.latLng);
                 this.nilesInfo.open(this.gMap);
 
             }.bind(this));
-
-
+            /*=Niles Ends*/
             //_difier.call(this);
         }.bind(this));
     }
@@ -880,8 +901,6 @@ define(function (require, exports, module) {
                     this.markerInfo.setPosition(e.latLng);
                     this.markerInfo.open(this.gMap);
                 }.bind(this));
-
-
             }.bind(this));
 
             this.markers.push(this.svetMarker);
@@ -890,13 +909,10 @@ define(function (require, exports, module) {
 
         for (var i = 1; i < 20; i++) {
             setTimeout(function () {
-
                 dropSvetPoints.call(this);
             }.bind(this), i * 100);
         }
         legend.call(this);
-
     }
     module.exports = MapsCell;
-})
-;
+});
