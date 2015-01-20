@@ -12,6 +12,9 @@ define(function (require, exports, module) {
     var HomeSection = require('cviews/content/home/HomeSection');
     var MapsCell = require('cviews/content/home/MapsCell');
 
+    var flipDailyNews = require('text!cviews/content/home/jade/flipDailyNews.html');
+    var flipWeeklyNews = require('text!cviews/content/home/jade/flipWeeklyNews.html');
+
     function HomeCell() {
         View.apply(this, arguments);
 
@@ -78,15 +81,17 @@ define(function (require, exports, module) {
             period: '900',
             dampingRatio: 0.3,
             icon: 'news-daily',
-            content: '<h4 class="icon-text">Svet</br>Daily Newspaper</h4>'
-        });
+            content: '<h4 class="icon-text">Svet</br>Daily Newspaper</h4>',
+            flipInfo: flipDailyNews
+        })
 
         this.topRightSection = new HomeSection({
             sign: 1,
             period: '1000',
             dampingRatio: 0.3,
             icon: 'weekly',
-            content: '<h4 class="icon-text">Saturday Plus</br>Weekly Newspaper</h4>'
+            content: '<h4 class="icon-text">Saturday Plus</br>Weekly Newspaper</h4>',
+            flipInfo: flipWeeklyNews
         })
         this.bottomLeftSection = new HomeSection({
             sign: -1,

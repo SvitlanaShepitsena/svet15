@@ -31,12 +31,12 @@ define(function (require, exports, module) {
             glencoe: '#FFC0A3',
             northbrook: '#9CDBAD',
             glenview: '#EB8986',
-            skokie: '#FFE9BF',
+            skokie: '#61AEAE',
             vernonHills: '#D4E5FF',
             wheeling: '#B2A5B6',
             wilmette: '#89BF7A',
             niles: 'coral',
-            evanston: '#FFE5DC'
+            evanston: '#FFBFA3'
         }
     };
 
@@ -201,18 +201,16 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.buffaloGroveInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.buffaloGroveInfo);
-                this.buffaloGroveInfo.setContent('<p class="map-info" >18.7% of Russian speaking customers</p>');
+                this.buffaloGroveInfo.setContent('<p class="map-info" ><span class="town-name">Buffalo Grove.</span> <span class = "text-info"> 18.7%</span>of Russian speaking customers</p>');
                 this.buffaloGroveInfo.setPosition(e.latLng);
                 this.buffaloGroveInfo.open(this.gMap);
 
             }.bind(this));
 
 
-            /**/
-            /**/
-            /**/
-
-            /*Highland Park starts*/
+            /**
+             * 2. =Highland Park
+             */
 
             var highlandParkCoordinates = [
                 /*Border with Deerfield*/
@@ -266,6 +264,10 @@ define(function (require, exports, module) {
             //
             /*Deerfield starts*/
 
+            /**
+             * 3. =Derrfield
+             */
+
             var deerfieldCoordinates = [
                 /*Border with Highland Park*/
                 new google.maps.LatLng(42.189924, -87.852160),
@@ -314,6 +316,47 @@ define(function (require, exports, module) {
             //
             /*Northbrook*/
 
+            /**
+             * 4. =Glencoe
+             */
+
+            var glencoeCoordinates = [
+                /*Top Border with Northbrook*/
+                new google.maps.LatLng(42.152516, -87.795999),
+                new google.maps.LatLng(42.119928, -87.780034),
+                new google.maps.LatLng(42.116280, -87.775601),
+                new google.maps.LatLng(42.119973, -87.775601),
+                new google.maps.LatLng(42.119591, -87.741268),
+                new google.maps.LatLng(42.128503, -87.741612),
+                new google.maps.LatLng(42.152433, -87.759293),
+
+                new google.maps.LatLng(42.152516, -87.795999)
+            ];
+            var glencoeLayer = new google.maps.Polygon({
+                paths: glencoeCoordinates,
+                strokeColor: this.options.colors.glencoe,
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: this.options.colors.glencoe,
+                fillOpacity: 0.35
+            });
+            glencoeLayer.setMap(this.gMap);
+
+            google.maps.event.addListener(glencoeLayer, 'click', function (e) {
+                _closeAllOverlays.call(this);
+                this.infoGlencoe = new google.maps.InfoWindow({});
+                this.infoWindows.push(this.infoGlencoe);
+                this.infoGlencoe.setContent('<p class="map-info"><span class="town-name">Glencoe.</span> <span class = "text-info">14.4%</span> of Russian speaking customers</p>');
+                this.infoGlencoe.setPosition(e.latLng);
+                this.infoGlencoe.open(this.gMap);
+
+            }.bind(this));
+            /*=Glencoe End*/
+
+            /**
+             * 5. =Northbrook
+             */
+
             var northbrookCoordinates = [
                 /*Top Border with Northbrook*/
                 new google.maps.LatLng(42.152516, -87.795999),
@@ -358,6 +401,7 @@ define(function (require, exports, module) {
                 this.infoNorthbrook.open(this.gMap);
 
             }.bind(this));
+            /*Northbrook ends*/
 
             //
             /*Glencoe*/
@@ -818,29 +862,29 @@ define(function (require, exports, module) {
     MapsCell.prototype.constructor = MapsCell;
 
 
-    MapsCell.prototype.getRandomPoint = function (x) {
-
-        var maxRandomDispersion = 0.1;
-        x = (x << 13) ^ x;
-        return 0.01+maxRandomDispersion*( 1.0 - ( (x * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
-    }
-
     MapsCell.prototype.showSvetPoints = function () {
-        var that = this;
-
         var baseLat = 42.04,
             baseLong = -87.85;
 
         _closeAllOverlays.call(this);
 
+        var maxRandom = .1;
 
+        function getRandomShift(n) {
+            var random = seed(n) * .1 + 0.01;
+            return random;
+        }
+
+        function seed(x) {
+            x = (x << 13) ^ x;
+            return ( 1.0 - ( (x * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
+        }
 
         var counter = 0;
 
         function dropSvetPoints() {
-
             counter++;
-            var latLng = new google.maps.LatLng(baseLat + that.getRandomPoint(counter), baseLong + that.getRandomPoint(counter + 2));
+            var latLng = new google.maps.LatLng(baseLat + getRandomShift(counter), baseLong + getRandomShift(counter + 2));
             this.svetMarker = new google.maps.Marker({
                 position: latLng,
                 icon: 'img/svet-icon.png',
@@ -866,7 +910,7 @@ define(function (require, exports, module) {
         for (var i = 1; i < 20; i++) {
             setTimeout(function () {
 
-                dropSvetPoints.call(this, i);
+                dropSvetPoints.call(this);
             }.bind(this), i * 100);
         }
         legend.call(this);

@@ -56,6 +56,9 @@ html
     -webkit-backface-visibility: visible;
     backface-visibility: visible;
 
+.text-dark
+    color #393939 !important
+
 body
     font-size 14px
     line-height 20px
@@ -112,6 +115,11 @@ body
         font-size 80%
         font-weight normal
 
+.town-name
+    font-size 100%
+    font-weight bold
+    color dimgrey
+
 .icon-text
     padding-top 5px
     line-height 130%
@@ -122,6 +130,34 @@ body
         text-decoration none
         color navajowhite
     +below(size-m)
+        padding-top 0px
+    +below(size-s)
+        font-size 90%
+    +below(size-xs)
+        font-size 80%
+        font-weight normal
+
+.flip-text
+    line-height 130%
+    font-size 120%
+    margin-bottom 5px
+    margin-top 0px
+    +below(size-m)
+        line-height 110%
+        padding-top 0px
+    +below(size-s)
+        font-size 100%
+    +below(size-xs)
+        font-size 90%
+        font-weight normal
+
+.flip-text-sm
+    line-height 140%
+    font-size 110%
+    margin-bottom 5px
+    margin-top 0px
+    +below(size-m)
+        line-height 110%
         padding-top 0px
     +below(size-s)
         font-size 90%

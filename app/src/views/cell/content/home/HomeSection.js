@@ -94,20 +94,21 @@ define(function (require, exports, module) {
 
         this.renderNode = new RenderNode();
         this.flipper = new Flipper();
-        this.backInfo = new Surface({
+        this.flipInfo = new Surface({
             size: [undefined, undefined],
-            content: 'More Info',
+            content: this.options.flipInfo,
             classes: [],
             properties: {
                 cursor: 'pointer',
-                color: 'white',
+                padding: '5px',
+                color: window.sv.scheme.textDark,
                 textAlign: 'center',
-                backgroundColor: '#FA5C4F'
+                backgroundColor: window.sv.scheme.textWhite
             }
         });
-        this.backInfo.pipe(this._eventOutput);
+        this.flipInfo.pipe(this._eventOutput);
         this.flipper.setFront(this.renderNode);
-        this.flipper.setBack(this.backInfo);
+        this.flipper.setBack(this.flipInfo);
 
         this.rootNode.add(this.flipper);
     }
