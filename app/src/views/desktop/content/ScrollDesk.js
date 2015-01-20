@@ -25,22 +25,6 @@ define(function (require, exports, module) {
     function _init() {
 
         this.scrollview.setOptions({
-            direction: 1,
-            rails: true,
-            friction: 0.0005,
-            drag: 0.0005,
-            edgeGrip: 0.3,
-            edgePeriod: 300,
-            edgeDamp: 1,
-            margin: 5900, // mostly safe
-            paginated: true,
-            pagePeriod: 500,
-            pageDamp: 0.8,
-            pageStopSpeed: 10,
-            pageSwitchSpeed: 0.5,
-            speedLimit: 1,
-            groupScroll: false,
-            syncScale: 0.5
         })
     }
 

@@ -11,12 +11,10 @@ define(function (require, exports, module) {
 
         this.surface = new Surface({
             size: [undefined, undefined],
-            content: 'Home Desk',
             classes: [],
             properties: {
                 color: 'white',
-                textAlign: 'center',
-                backgroundColor: 'Indigo'
+                textAlign: 'center'
             }
         });
         this.surface.pipe(this._eventOutput);

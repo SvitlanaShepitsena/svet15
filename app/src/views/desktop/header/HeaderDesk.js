@@ -60,7 +60,7 @@ define(function (require, exports, module) {
 
     function _flex() {
         this.layout = new FlexibleLayout({
-            ratios: [1, 5],
+            ratios: [2, 1,2],
             direction: 0
         });
         this.rootNode.add(this.layout);
@@ -69,11 +69,17 @@ define(function (require, exports, module) {
 
 
         var logoDesk = new LogoDesk();
-        var navDesk = new NavDesk();
-        navDesk.pipe(this._eventOutput);
+        var leftNavDesk = new NavDesk({
+            menuTitles:['Home','About Us', 'Demographics']
+        });
+        var rightNavDesk = new NavDesk({
+            menuTitles:['Clients','Radio', 'Contact Us']
+        });
+        leftNavDesk.pipe(this._eventOutput);
 
+        this.contents.push(leftNavDesk);
         this.contents.push(logoDesk);
-        this.contents.push(navDesk);
+        this.contents.push(rightNavDesk);
 
         this.layout.sequenceFrom(this.contents);
 

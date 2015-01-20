@@ -13,7 +13,6 @@ define(function (require, exports, module) {
 
     function AppViewDesk() {
         View.apply(this, arguments);
-        console.log('here');
 
         _init.call(this);
         _navigation.call(this);

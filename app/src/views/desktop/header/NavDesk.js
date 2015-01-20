@@ -25,17 +25,20 @@ define(function (require, exports, module) {
 
     function _grid() {
         var that = this;
+
         this.grid = new GridLayout({
-            dimensions: [6, 1],
+            dimensions: [3, 1],
             direction: 0
         });
 
         this.navs = [];
-        var icons = ['home', 'about-us', 'clients', 'demographics', 'radio', 'contact-us'];
 
-        for (var i = 0; i < icons.length; i++) {
+
+        var titles = this.options.menuTitles;
+        for (var i = 0; i < titles.length; i++) {
+            var title = titles[i];
             var navItemDesk = new NavItemDesk({
-                itemUrl: 'img/d-nav/d-' + icons[i] + '.png',
+                title: title,
                 index: i
             });
             navItemDesk.pipe(this._eventOutput);

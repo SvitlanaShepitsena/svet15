@@ -27,10 +27,14 @@ define(function (require, exports, module) {
     }
 
     function _navItem() {
-        this.itemSurface = new ImageSurface({
-            size:[true,100],
-            content: this.options.itemUrl,
+        this.menuTitleModifier = new Modifier({
+            transform: Transform.translate(0, 0, 0)
+        });
+        this.itemSurface = new Surface({
+            content: this.options.title,
             properties: {
+                textAlign: 'center',
+                lineHeight: 7,
                 cursor: 'pointer'
             }
         });
@@ -38,7 +42,7 @@ define(function (require, exports, module) {
             this.eventOutput.emit('navigateTo', this.options.index);
         }.bind(this));
 
-        this.rootNode.add(this.itemSurface);
+        this.rootNode.add(this.menuTitleModifier).add(this.itemSurface);
 
     }
 
