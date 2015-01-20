@@ -20,7 +20,7 @@ define(function (require, exports, module) {
     function HomeCell() {
         View.apply(this, arguments);
 
-            _init.call(this);
+        _init.call(this);
         _flex.call(this);
         _gridParts.call(this);
 
