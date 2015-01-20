@@ -20,12 +20,17 @@ define(function (require, exports, module) {
     function HomeCell() {
         View.apply(this, arguments);
 
-        _init.call(this);
+            _init.call(this);
         _flex.call(this);
         _gridParts.call(this);
 
         this.on('parts:info', function (data) {
             switch (data.icon) {
+
+                case 'hideAll':
+                    this.maps.hideEverything();
+
+                    break;
                 case 'news-daily':
                 case 'weekly':
                     this.maps.showSvetPoints();
