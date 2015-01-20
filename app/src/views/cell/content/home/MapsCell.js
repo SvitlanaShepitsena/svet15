@@ -426,6 +426,7 @@ define(function (require, exports, module) {
             });
             evanstonLayer.setMap(this.gMap);
             google.maps.event.addListener(evanstonLayer, 'click', function (e) {
+
                 _closeAllOverlays.call(this);
                 this.evanstonInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.evanstonInfo);
