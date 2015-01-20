@@ -14,6 +14,8 @@ define(function (require, exports, module) {
 
     var flipDailyNews = require('text!cviews/content/home/jade/flipDailyNews.html');
     var flipWeeklyNews = require('text!cviews/content/home/jade/flipWeeklyNews.html');
+    var flipYellowPages = require('text!cviews/content/home/jade/flipYellowPages.html');
+    var flipRadioProgram = require('text!cviews/content/home/jade/flipRadioProgram.html');
 
     function HomeCell() {
         View.apply(this, arguments);
@@ -105,7 +107,9 @@ define(function (require, exports, module) {
             icon: 'yp',
             content: '<h4 class="icon-text"> Russian-American</br>Yellow Pages' +
                 //'<a class="icon-text" href="http://www.spasibous.com/yp" target="_blank">Russian-American</br>Yellow Pages</a>' +
-            '</h4>'
+            '</h4>',
+            flipInfo: flipYellowPages
+
         })
         this.bottomRightSection = new HomeSection({
             sign: 1,
@@ -114,7 +118,8 @@ define(function (require, exports, module) {
             icon: 'radio',
             content: '<h4 class="icon-text"> Radio-Program</br>"OSA"' +
                 //'<a class="icon-text" href="http://media.imcpro.com/OSA/" target="_blank">Radio-Program</br>"OSA"</a>' +
-            '</h4>'
+            '</h4>',
+            flipInfo: flipRadioProgram
         })
 
         this.topLeftSection.pipe(this._eventOutput);

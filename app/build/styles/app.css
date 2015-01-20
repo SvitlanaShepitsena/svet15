@@ -63,6 +63,9 @@ html {
   -webkit-backface-visibility: visible;
   backface-visibility: visible;
 }
+.text-dark {
+  color: #393939 !important;
+}
 body {
   font-size: 14px;
   line-height: 20px;
@@ -143,6 +146,11 @@ body {
     font-weight: normal;
   }
 }
+.town-name {
+  font-size: 100%;
+  font-weight: bold;
+  color: #696969;
+}
 .icon-text {
   padding-top: 5px;
   line-height: 130%;
@@ -166,6 +174,52 @@ body {
 }
 @media only screen and (max-width: 350px) {
   .icon-text {
+    font-size: 80%;
+    font-weight: normal;
+  }
+}
+.flip-text {
+  line-height: 130%;
+  font-size: 120%;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+@media only screen and (max-width: 500px) {
+  .flip-text {
+    line-height: 110%;
+    padding-top: 0px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .flip-text {
+    font-size: 100%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .flip-text {
+    font-size: 90%;
+    font-weight: normal;
+  }
+}
+.flip-text-sm {
+  line-height: 140%;
+  font-size: 110%;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+@media only screen and (max-width: 500px) {
+  .flip-text-sm {
+    line-height: 110%;
+    padding-top: 0px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .flip-text-sm {
+    font-size: 90%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .flip-text-sm {
     font-size: 80%;
     font-weight: normal;
   }

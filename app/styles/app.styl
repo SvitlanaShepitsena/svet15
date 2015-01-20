@@ -131,11 +131,11 @@ body
     &:focus
         text-decoration none
         color navajowhite
-    +below(size-m)
-        padding-top 0px
     +below(size-s)
+        margin-bottom 10px
         font-size 90%
     +below(size-xs)
+        padding-top 0px
         font-size 80%
         font-weight normal
 
@@ -146,12 +146,19 @@ body
     margin-top 0px
     +below(size-m)
         line-height 110%
-        padding-top 0px
     +below(size-s)
+        padding-top 5px
         font-size 100%
     +below(size-xs)
+        padding-top 0px
         font-size 90%
         font-weight normal
+
+.yp-link
+    margin-top 25px
+    display block
+    +below(size-s)
+        margin-top 5px
 
 .flip-text-sm
     line-height 140%

@@ -165,18 +165,15 @@ body {
   text-decoration: none;
   color: #ffdead;
 }
-@media only screen and (max-width: 500px) {
-  .icon-text {
-    padding-top: 0px;
-  }
-}
 @media only screen and (max-width: 400px) {
   .icon-text {
+    margin-bottom: 10px;
     font-size: 90%;
   }
 }
 @media only screen and (max-width: 350px) {
   .icon-text {
+    padding-top: 0px;
     font-size: 80%;
     font-weight: normal;
   }
@@ -190,18 +187,28 @@ body {
 @media only screen and (max-width: 500px) {
   .flip-text {
     line-height: 110%;
-    padding-top: 0px;
   }
 }
 @media only screen and (max-width: 400px) {
   .flip-text {
+    padding-top: 5px;
     font-size: 100%;
   }
 }
 @media only screen and (max-width: 350px) {
   .flip-text {
+    padding-top: 0px;
     font-size: 90%;
     font-weight: normal;
+  }
+}
+.yp-link {
+  margin-top: 25px;
+  display: block;
+}
+@media only screen and (max-width: 400px) {
+  .yp-link {
+    margin-top: 5px;
   }
 }
 .flip-text-sm {
