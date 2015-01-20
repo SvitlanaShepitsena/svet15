@@ -10,8 +10,6 @@ define(function (require, exports, module) {
     var MapModifier = require('fmaps/MapModifier');
     var MapStateModifier = require('fmaps/MapStateModifier');
 
-    var skokie = require('coord/Skokie');
-
 
     function MapsCell() {
         View.apply(this, arguments);
@@ -572,7 +570,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.vernonHillsInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.vernonHillsInfo);
-                this.vernonHillsInfo.setContent('<p class="map-info" >9.1% of Russian speaking customers</p>');
+                this.vernonHillsInfo.setContent('<p class="map-info"><span class="town-name">Vernon Hills.</span> <span class = "text-info">9.1%</span>  of Russian speaking customers</p>');
                 this.vernonHillsInfo.setPosition(e.latLng);
                 this.vernonHillsInfo.open(this.gMap);
 
@@ -720,6 +718,9 @@ define(function (require, exports, module) {
             }.bind(this));
             /*=Wilmette Ends*/
 
+            /**
+             * =Evanston
+             */
 
             var evanstonCoordinates = [
                 new google.maps.LatLng(42.062429, -87.732190),
@@ -758,7 +759,8 @@ define(function (require, exports, module) {
                 fillColor: this.options.colors.evanston,
                 fillOpacity: 0.35
             });
-            wheelingLayer.setMap(this.gMap);
+            evanstonLayer.setMap(this.gMap);
+            google.maps.event.addListener(evanstonLayer, 'click', function (e) {
 
                 _closeAllOverlays.call(this);
                 this.evanstonInfo = new google.maps.InfoWindow({});
