@@ -14,8 +14,10 @@ define(function (require, exports, module) {
     HeaderCell.prototype = Object.create(View.prototype);
     HeaderCell.prototype.constructor = HeaderCell;
     function _createHeader() {
+
         var backgroundSurface = new Surface({
             size: [undefined, undefined],
+            opacity: 0.5,
             properties: {
                 backgroundColor: window.sv.scheme.headerColor
                 //backgroundColor: '#FC6E51'
