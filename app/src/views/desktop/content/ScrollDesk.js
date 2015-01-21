@@ -25,11 +25,23 @@ define(function (require, exports, module) {
         _scrollEvent.call(this);
     }
 
+    function _scrollUtil() {
+        console.log('tick');
+
+    }
+
     function _scrollEvent() {
+        var that = this;
         var startPosition, startPage, currentPosition, currentPage, moveDown;
+       var clearFunc = Time.addTimerFunction(function () {
+           console.log('teeek');
+       })
+
         this.scrollview.sync.on('start', function () {
             startPosition = this.scrollview.getAbsolutePosition();
             startPage = this.scrollview.getCurrentIndex();
+
+
             Timer.after(function () {
                 currentPage = this.scrollview.getCurrentIndex();
                 currentPosition = this.scrollview.getAbsolutePosition();
@@ -43,7 +55,7 @@ define(function (require, exports, module) {
 
                     this._eventOutput.emit('increase:header');
                 }
-            }.bind(this),2);
+            }.bind(this), 1);
 
         }.bind(this));
 
