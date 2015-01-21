@@ -27,18 +27,15 @@ define(function (require, exports, module) {
             'fill-opacity': 0
         });
         this.logoSvgMod = new Modifier({
-            size: [undefined, undefined],
+            size: [paperWidth, undefined],
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
             transform: Transform.translate(0, 0, 0)
         });
 
         this.logoSvgSurf = new Surface({
             size: [undefined, undefined],
-            content: div,
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center'
-            }
+            content: div
         });
         this.rootNode.add(this.logoSvgMod).add(this.logoSvgSurf);
 
