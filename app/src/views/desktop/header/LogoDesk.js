@@ -32,13 +32,11 @@ define(function (require, exports, module) {
             origin: [0.5, 0.5],
             transform: Transform.translate(0, 0, 0)
         });
-
         this.logoSvgSurf = new Surface({
             size: [undefined, undefined],
             content: div
         });
         this.rootNode.add(this.logoSvgMod).add(this.logoSvgSurf);
-
     }
 
     function drawpath(canvas, pathstr, duration, attr, callback) {
@@ -66,17 +64,17 @@ define(function (require, exports, module) {
 
     function _svetText() {
         this.svetTextMod = new Modifier({
-            size: [undefined, undefined],
-            align: [0, 0],
-            origin: [0, 0],
-            transform: Transform.translate(0, 20, 0)
+            size: [undefined, 34],
+            align: [0.5, 0.74],
+            origin: [0.5, 0.5],
+            transform: Transform.translate(0, 0, 0)
         });
         this.svetTextSurf = new Surface({
-            size: [undefined, undefined],
             content: 'SVET',
-            classes: [],
             properties: {
                 color: 'white',
+                fontSize: '34px',
+                fontWeight: 'bold',
                 textAlign: 'center'
             }
         });
