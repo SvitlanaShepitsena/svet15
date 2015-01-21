@@ -75,7 +75,7 @@ jQuery.param = function( a, traditional ) {
 	return s.join( "&" ).replace( r20, "+" );
 };
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	serialize: function() {
 		return jQuery.param( this.serializeArray() );
 	},

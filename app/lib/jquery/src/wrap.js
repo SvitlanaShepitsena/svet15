@@ -5,7 +5,7 @@ define([
 	"./traversing" // parent, contents
 ], function( jQuery ) {
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	wrapAll: function( html ) {
 		var wrap;
 

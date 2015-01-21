@@ -7,7 +7,7 @@ define([
 // The deferred used on DOM ready
 var readyList;
 
-jQuery.fn.ready = function( fn ) {
+jQuery.scrollUtil.ready = function( fn ) {
 	// Add the callback
 	jQuery.ready.promise().done( fn );
 
@@ -51,7 +51,7 @@ jQuery.extend({
 		readyList.resolveWith( document, [ jQuery ] );
 
 		// Trigger any bound ready events
-		if ( jQuery.fn.triggerHandler ) {
+		if ( jQuery.scrollUtil.triggerHandler ) {
 			jQuery( document ).triggerHandler( "ready" );
 			jQuery( document ).off( "ready" );
 		}

@@ -73,7 +73,7 @@ var
 	jQuery = function( selector, context ) {
 		// The jQuery object is actually just the init constructor 'enhanced'
 		// Need init if jQuery is called (just allow error to be thrown if not included)
-		return new jQuery.fn.init( selector, context );
+		return new jQuery.scrollUtil.init( selector, context );
 	},
 
 	// Support: Android<4.1
@@ -89,7 +89,7 @@ var
 		return letter.toUpperCase();
 	};
 
-jQuery.fn = jQuery.prototype = {
+jQuery.scrollUtil = jQuery.prototype = {
 	// The current version of jQuery being used
 	jquery: version,
 
@@ -174,7 +174,7 @@ jQuery.fn = jQuery.prototype = {
 	splice: arr.splice
 };
 
-jQuery.extend = jQuery.fn.extend = function() {
+jQuery.extend = jQuery.scrollUtil.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
 		target = arguments[0] || {},
 		i = 1,
@@ -2669,7 +2669,7 @@ jQuery.filter = function( expr, elems, not ) {
 		}));
 };
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	find: function( selector ) {
 		var i,
 			len = this.length,
@@ -2727,7 +2727,7 @@ var rootjQuery,
 	// Strict HTML recognition (#11290: must start with <)
 	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,
 
-	init = jQuery.fn.init = function( selector, context ) {
+	init = jQuery.scrollUtil.init = function( selector, context ) {
 		var match, elem;
 
 		// HANDLE: $(""), $(null), $(undefined), $(false)
@@ -2827,7 +2827,7 @@ var rootjQuery,
 	};
 
 // Give the init function the jQuery prototype for later instantiation
-init.prototype = jQuery.fn;
+init.prototype = jQuery.scrollUtil;
 
 // Initialize central reference
 rootjQuery = jQuery( document );
@@ -2871,7 +2871,7 @@ jQuery.extend({
 	}
 });
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	has: function( target ) {
 		var targets = jQuery( target, this ),
 			l = targets.length;
@@ -2994,7 +2994,7 @@ jQuery.each({
 		return elem.contentDocument || jQuery.merge( [], elem.childNodes );
 	}
 }, function( name, fn ) {
-	jQuery.fn[ name ] = function( until, selector ) {
+	jQuery.scrollUtil[ name ] = function( until, selector ) {
 		var matched = jQuery.map( this, fn, until );
 
 		if ( name.slice( -5 ) !== "Until" ) {
@@ -3368,7 +3368,7 @@ jQuery.extend({
 // The deferred used on DOM ready
 var readyList;
 
-jQuery.fn.ready = function( fn ) {
+jQuery.scrollUtil.ready = function( fn ) {
 	// Add the callback
 	jQuery.ready.promise().done( fn );
 
@@ -3412,7 +3412,7 @@ jQuery.extend({
 		readyList.resolveWith( document, [ jQuery ] );
 
 		// Trigger any bound ready events
-		if ( jQuery.fn.triggerHandler ) {
+		if ( jQuery.scrollUtil.triggerHandler ) {
 			jQuery( document ).triggerHandler( "ready" );
 			jQuery( document ).off( "ready" );
 		}
@@ -3771,7 +3771,7 @@ jQuery.extend({
 	}
 });
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	data: function( key, value ) {
 		var i, name, data,
 			elem = this[ 0 ],
@@ -3940,7 +3940,7 @@ jQuery.extend({
 	}
 });
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	queue: function( type, data ) {
 		var setter = 2;
 
@@ -4801,7 +4801,7 @@ if ( !support.focusinBubbles ) {
 	});
 }
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 
 	on: function( types, selector, data, fn, /*INTERNAL*/ one ) {
 		var origFn, type;
@@ -5196,7 +5196,7 @@ jQuery.extend({
 	}
 });
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	text: function( value ) {
 		return access( this, function( value ) {
 			return value === undefined ?
@@ -5446,7 +5446,7 @@ jQuery.each({
 	insertAfter: "after",
 	replaceAll: "replaceWith"
 }, function( name, original ) {
-	jQuery.fn[ name ] = function( selector ) {
+	jQuery.scrollUtil[ name ] = function( selector ) {
 		var elems,
 			ret = [],
 			insert = jQuery( selector ),
@@ -6104,7 +6104,7 @@ jQuery.each({
 	}
 });
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	css: function( name, value ) {
 		return access( this, function( elem, name, value ) {
 			var styles, len,
@@ -6696,7 +6696,7 @@ jQuery.speed = function( speed, easing, fn ) {
 	return opt;
 };
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	fadeTo: function( speed, to, easing, callback ) {
 
 		// Show any hidden elements after setting opacity to 0
@@ -6817,8 +6817,8 @@ jQuery.fn.extend({
 });
 
 jQuery.each([ "toggle", "show", "hide" ], function( i, name ) {
-	var cssFn = jQuery.fn[ name ];
-	jQuery.fn[ name ] = function( speed, easing, callback ) {
+	var cssFn = jQuery.scrollUtil[ name ];
+	jQuery.scrollUtil[ name ] = function( speed, easing, callback ) {
 		return speed == null || typeof speed === "boolean" ?
 			cssFn.apply( this, arguments ) :
 			this.animate( genFx( name, true ), speed, easing, callback );
@@ -6834,7 +6834,7 @@ jQuery.each({
 	fadeOut: { opacity: "hide" },
 	fadeToggle: { opacity: "toggle" }
 }, function( name, props ) {
-	jQuery.fn[ name ] = function( speed, easing, callback ) {
+	jQuery.scrollUtil[ name ] = function( speed, easing, callback ) {
 		return this.animate( props, speed, easing, callback );
 	};
 });
@@ -6893,7 +6893,7 @@ jQuery.fx.speeds = {
 
 // Based off of the plugin by Clint Helfers, with permission.
 // http://blindsignals.com/index.php/2009/07/jquery-delay/
-jQuery.fn.delay = function( time, type ) {
+jQuery.scrollUtil.delay = function( time, type ) {
 	time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
 	type = type || "fx";
 
@@ -6938,7 +6938,7 @@ jQuery.fn.delay = function( time, type ) {
 var nodeHook, boolHook,
 	attrHandle = jQuery.expr.attrHandle;
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	attr: function( name, value ) {
 		return access( this, jQuery.attr, name, value, arguments.length > 1 );
 	},
@@ -7071,7 +7071,7 @@ jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( i, name ) 
 
 var rfocusable = /^(?:input|select|textarea|button)$/i;
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	prop: function( name, value ) {
 		return access( this, jQuery.prop, name, value, arguments.length > 1 );
 	},
@@ -7161,7 +7161,7 @@ jQuery.each([
 
 var rclass = /[\t\r\n\f]/g;
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	addClass: function( value ) {
 		var classes, elem, cur, clazz, j, finalValue,
 			proceed = typeof value === "string" && value,
@@ -7313,7 +7313,7 @@ jQuery.fn.extend({
 
 var rreturn = /\r/g;
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	val: function( value ) {
 		var hooks, ret, isFunction,
 			elem = this[0];
@@ -7476,14 +7476,14 @@ jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblcl
 	"change select submit keydown keypress keyup error contextmenu").split(" "), function( i, name ) {
 
 	// Handle event binding
-	jQuery.fn[ name ] = function( data, fn ) {
+	jQuery.scrollUtil[ name ] = function( data, fn ) {
 		return arguments.length > 0 ?
 			this.on( name, null, data, fn ) :
 			this.trigger( name );
 	};
 });
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	hover: function( fnOver, fnOut ) {
 		return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
 	},
@@ -8326,7 +8326,7 @@ jQuery._evalUrl = function( url ) {
 };
 
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	wrapAll: function( html ) {
 		var wrap;
 
@@ -8478,7 +8478,7 @@ jQuery.param = function( a, traditional ) {
 	return s.join( "&" ).replace( r20, "+" );
 };
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	serialize: function() {
 		return jQuery.param( this.serializeArray() );
 	},
@@ -8820,12 +8820,12 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 
 
 // Keep a copy of the old load method
-var _load = jQuery.fn.load;
+var _load = jQuery.scrollUtil.load;
 
 /**
  * Load a url into a page
  */
-jQuery.fn.load = function( url, params, callback ) {
+jQuery.scrollUtil.load = function( url, params, callback ) {
 	if ( typeof url !== "string" && _load ) {
 		return _load.apply( this, arguments );
 	}
@@ -8887,7 +8887,7 @@ jQuery.fn.load = function( url, params, callback ) {
 
 // Attach a bunch of functions for handling common AJAX events
 jQuery.each( [ "ajaxStart", "ajaxStop", "ajaxComplete", "ajaxError", "ajaxSuccess", "ajaxSend" ], function( i, type ) {
-	jQuery.fn[ type ] = function( fn ) {
+	jQuery.scrollUtil[ type ] = function( fn ) {
 		return this.on( type, fn );
 	};
 });
@@ -8963,7 +8963,7 @@ jQuery.offset = {
 	}
 };
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	offset: function( options ) {
 		if ( arguments.length ) {
 			return options === undefined ?
@@ -9054,7 +9054,7 @@ jQuery.fn.extend({
 jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( method, prop ) {
 	var top = "pageYOffset" === prop;
 
-	jQuery.fn[ method ] = function( val ) {
+	jQuery.scrollUtil[ method ] = function( val ) {
 		return access( this, function( elem, method, val ) {
 			var win = getWindow( elem );
 
@@ -9100,7 +9100,7 @@ jQuery.each( [ "top", "left" ], function( i, prop ) {
 jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 	jQuery.each( { padding: "inner" + name, content: type, "": "outer" + name }, function( defaultExtra, funcName ) {
 		// Margin is only for outerHeight, outerWidth
-		jQuery.fn[ funcName ] = function( margin, value ) {
+		jQuery.scrollUtil[ funcName ] = function( margin, value ) {
 			var chainable = arguments.length && ( defaultExtra || typeof margin !== "boolean" ),
 				extra = defaultExtra || ( margin === true || value === true ? "margin" : "border" );
 
@@ -9140,11 +9140,11 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 
 
 // The number of elements contained in the matched element set
-jQuery.fn.size = function() {
+jQuery.scrollUtil.size = function() {
 	return this.length;
 };
 
-jQuery.fn.andSelf = jQuery.fn.addBack;
+jQuery.scrollUtil.andSelf = jQuery.scrollUtil.addBack;
 
 
 

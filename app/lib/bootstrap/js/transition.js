@@ -33,7 +33,7 @@
   }
 
   // http://blog.alexmaccaw.com/css-transitions
-  $.fn.emulateTransitionEnd = function (duration) {
+  $.scrollUtil.emulateTransitionEnd = function (duration) {
     var called = false
     var $el = this
     $(this).one('bsTransitionEnd', function () { called = true })

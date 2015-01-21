@@ -13,7 +13,7 @@ var rootjQuery,
 	// Strict HTML recognition (#11290: must start with <)
 	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,
 
-	init = jQuery.fn.init = function( selector, context ) {
+	init = jQuery.scrollUtil.init = function( selector, context ) {
 		var match, elem;
 
 		// HANDLE: $(""), $(null), $(undefined), $(false)
@@ -113,7 +113,7 @@ var rootjQuery,
 	};
 
 // Give the init function the jQuery prototype for later instantiation
-init.prototype = jQuery.fn;
+init.prototype = jQuery.scrollUtil;
 
 // Initialize central reference
 rootjQuery = jQuery( document );

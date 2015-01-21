@@ -72,7 +72,7 @@ jQuery.extend({
 	}
 });
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	data: function( key, value ) {
 		var i, name, data,
 			elem = this[ 0 ],

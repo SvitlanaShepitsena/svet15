@@ -147,17 +147,17 @@
     })
   }
 
-  var old = $.fn.scrollspy
+  var old = $.scrollUtil.scrollspy
 
-  $.fn.scrollspy             = Plugin
-  $.fn.scrollspy.Constructor = ScrollSpy
+  $.scrollUtil.scrollspy             = Plugin
+  $.scrollUtil.scrollspy.Constructor = ScrollSpy
 
 
   // SCROLLSPY NO CONFLICT
   // =====================
 
-  $.fn.scrollspy.noConflict = function () {
-    $.fn.scrollspy = old
+  $.scrollUtil.scrollspy.noConflict = function () {
+    $.scrollUtil.scrollspy = old
     return this
   }
 

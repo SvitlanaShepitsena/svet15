@@ -127,17 +127,17 @@
     })
   }
 
-  var old = $.fn.affix
+  var old = $.scrollUtil.affix
 
-  $.fn.affix             = Plugin
-  $.fn.affix.Constructor = Affix
+  $.scrollUtil.affix             = Plugin
+  $.scrollUtil.affix.Constructor = Affix
 
 
   // AFFIX NO CONFLICT
   // =================
 
-  $.fn.affix.noConflict = function () {
-    $.fn.affix = old
+  $.scrollUtil.affix.noConflict = function () {
+    $.scrollUtil.affix = old
     return this
   }
 

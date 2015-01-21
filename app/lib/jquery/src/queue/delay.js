@@ -6,7 +6,7 @@ define([
 
 // Based off of the plugin by Clint Helfers, with permission.
 // http://blindsignals.com/index.php/2009/07/jquery-delay/
-jQuery.fn.delay = function( time, type ) {
+jQuery.scrollUtil.delay = function( time, type ) {
 	time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
 	type = type || "fx";
 
@@ -18,5 +18,5 @@ jQuery.fn.delay = function( time, type ) {
 	});
 };
 
-return jQuery.fn.delay;
+return jQuery.scrollUtil.delay;
 });

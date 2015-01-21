@@ -761,7 +761,7 @@ if ( !support.focusinBubbles ) {
 	});
 }
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 
 	on: function( types, selector, data, fn, /*INTERNAL*/ one ) {
 		var origFn, type;

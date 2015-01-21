@@ -10,7 +10,7 @@ define([
 var nodeHook, boolHook,
 	attrHandle = jQuery.expr.attrHandle;
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	attr: function( name, value ) {
 		return access( this, jQuery.attr, name, value, arguments.length > 1 );
 	},

@@ -123,17 +123,17 @@
     })
   }
 
-  var old = $.fn.tab
+  var old = $.scrollUtil.tab
 
-  $.fn.tab             = Plugin
-  $.fn.tab.Constructor = Tab
+  $.scrollUtil.tab             = Plugin
+  $.scrollUtil.tab.Constructor = Tab
 
 
   // TAB NO CONFLICT
   // ===============
 
-  $.fn.tab.noConflict = function () {
-    $.fn.tab = old
+  $.scrollUtil.tab.noConflict = function () {
+    $.scrollUtil.tab = old
     return this
   }
 

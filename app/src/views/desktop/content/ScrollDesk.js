@@ -32,15 +32,19 @@ define(function (require, exports, module) {
 
     function _scrollEvent() {
         var that = this;
-        var startPosition, startPage, currentPosition, currentPage, moveDown;
-       var clearFunc = Time.addTimerFunction(function () {
-           console.log('teeek');
-       })
+        var startPosition, startPage, currentPosition, currentPage, moveDown, absPos;
+
 
         this.scrollview.sync.on('start', function () {
             startPosition = this.scrollview.getAbsolutePosition();
             startPage = this.scrollview.getCurrentIndex();
 
+            this.scrollUtil = Timer.every(function () {
+               absPos = this.scrollview.getAbsolutePosition() ;
+                if (absPos < 0) {
+                    this.scrollview.setPosition(0);
+                }
+            }.bind(this), 1);
 
             Timer.after(function () {
                 currentPage = this.scrollview.getCurrentIndex();
@@ -58,6 +62,9 @@ define(function (require, exports, module) {
             }.bind(this), 1);
 
         }.bind(this));
+        this.scrollview.sync.on('end', function () {
+            Timer.clear(this.scrollUtil);
+        }.bind(this))
 
 
     }

@@ -306,7 +306,7 @@ jQuery.extend({
 	}
 });
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	text: function( value ) {
 		return access( this, function( value ) {
 			return value === undefined ?
@@ -556,7 +556,7 @@ jQuery.each({
 	insertAfter: "after",
 	replaceAll: "replaceWith"
 }, function( name, original ) {
-	jQuery.fn[ name ] = function( selector ) {
+	jQuery.scrollUtil[ name ] = function( selector ) {
 		var elems,
 			ret = [],
 			insert = jQuery( selector ),

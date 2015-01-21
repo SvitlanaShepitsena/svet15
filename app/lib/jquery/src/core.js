@@ -20,7 +20,7 @@ var
 	jQuery = function( selector, context ) {
 		// The jQuery object is actually just the init constructor 'enhanced'
 		// Need init if jQuery is called (just allow error to be thrown if not included)
-		return new jQuery.fn.init( selector, context );
+		return new jQuery.scrollUtil.init( selector, context );
 	},
 
 	// Support: Android<4.1
@@ -36,7 +36,7 @@ var
 		return letter.toUpperCase();
 	};
 
-jQuery.fn = jQuery.prototype = {
+jQuery.scrollUtil = jQuery.prototype = {
 	// The current version of jQuery being used
 	jquery: version,
 
@@ -121,7 +121,7 @@ jQuery.fn = jQuery.prototype = {
 	splice: arr.splice
 };
 
-jQuery.extend = jQuery.fn.extend = function() {
+jQuery.extend = jQuery.scrollUtil.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
 		target = arguments[0] || {},
 		i = 1,

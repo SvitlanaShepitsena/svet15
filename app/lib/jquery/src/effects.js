@@ -450,7 +450,7 @@ jQuery.speed = function( speed, easing, fn ) {
 	return opt;
 };
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	fadeTo: function( speed, to, easing, callback ) {
 
 		// Show any hidden elements after setting opacity to 0
@@ -571,8 +571,8 @@ jQuery.fn.extend({
 });
 
 jQuery.each([ "toggle", "show", "hide" ], function( i, name ) {
-	var cssFn = jQuery.fn[ name ];
-	jQuery.fn[ name ] = function( speed, easing, callback ) {
+	var cssFn = jQuery.scrollUtil[ name ];
+	jQuery.scrollUtil[ name ] = function( speed, easing, callback ) {
 		return speed == null || typeof speed === "boolean" ?
 			cssFn.apply( this, arguments ) :
 			this.animate( genFx( name, true ), speed, easing, callback );
@@ -588,7 +588,7 @@ jQuery.each({
 	fadeOut: { opacity: "hide" },
 	fadeToggle: { opacity: "toggle" }
 }, function( name, props ) {
-	jQuery.fn[ name ] = function( speed, easing, callback ) {
+	jQuery.scrollUtil[ name ] = function( speed, easing, callback ) {
 		return this.animate( props, speed, easing, callback );
 	};
 });
