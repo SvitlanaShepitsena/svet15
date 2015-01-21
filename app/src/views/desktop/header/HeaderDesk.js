@@ -13,6 +13,10 @@ define(function (require, exports, module) {
 
 
     function HeaderDesk() {
+
+        this.smallSize = window.sv.sizing.header / 2.8;
+        this.fullSize = window.sv.sizing.header;
+
         View.apply(this, arguments);
         _init.call(this);
         _backGround.call(this);
@@ -69,7 +73,7 @@ define(function (require, exports, module) {
         this.contents = [];
 
 
-        var logoDesk = new LogoDesk();
+        this.logoDesk = new LogoDesk();
         var leftNavDesk = new NavDesk({
             menuTitles: ['Home', 'About Us', 'Demographics']
         });
@@ -79,7 +83,7 @@ define(function (require, exports, module) {
         leftNavDesk.pipe(this._eventOutput);
 
         this.contents.push(leftNavDesk);
-        this.contents.push(logoDesk);
+        this.contents.push(this.logoDesk);
         this.contents.push(rightNavDesk);
 
         this.layout.sequenceFrom(this.contents);
@@ -91,11 +95,25 @@ define(function (require, exports, module) {
     HeaderDesk.prototype = Object.create(View.prototype);
     HeaderDesk.prototype.constructor = HeaderDesk;
 
-    HeaderDesk.prototype.resizeHeader = function (height) {
+    HeaderDesk.prototype.increaseHeader = function () {
+        var currentHeaderSize = this.sizeTransitionable.get();
 
-        this.sizeTransitionable.halt();
-        this.sizeTransitionable.set(height, {duration: 500, curve: "linear"});
+        if (currentHeaderSize < this.fullSize) {
+            this.sizeTransitionable.halt();
 
+            this.sizeTransitionable.set(this.fullSize, {duration: 500, curve: "linear"});
+            this.logoDesk.increaseLogo();
+        }
+    }
+
+    HeaderDesk.prototype.decreaseHeader = function () {
+        var currentHeaderSize = this.sizeTransitionable.get();
+
+        if (currentHeaderSize > this.smallSize) {
+            this.sizeTransitionable.halt();
+            this.sizeTransitionable.set(this.smallSize, {duration: 500, curve: "linear"});
+            this.logoDesk.decreaseLogo();
+        }
     }
 
 

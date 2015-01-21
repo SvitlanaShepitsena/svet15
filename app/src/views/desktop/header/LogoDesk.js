@@ -4,9 +4,18 @@ define(function (require, exports, module) {
     var ImageSurface = require('famous/surfaces/ImageSurface');
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
+    var Transitionable = require('famous/transitions/Transitionable');
 
 
     function LogoDesk() {
+
+        this.fullPosition = window.sv.sizing.header * .09;
+        this.shortPosition = -window.sv.sizing.header * 0.4;
+
+        this.logoHeight = (window.sv.sizing.header * .82);
+        this.shiftTransitionable = new Transitionable(this.fullPosition);
+        this.opacityTransitionable = new Transitionable(1);
+
         View.apply(this, arguments);
         _init.call(this);
         _svetText.call(this);
@@ -17,7 +26,6 @@ define(function (require, exports, module) {
     LogoDesk.DEFAULT_OPTIONS = {};
 
     function _logoSvg() {
-
         var div = document.createElement('div');
 
         var paperWidth = window.sv.sizing.logoContainerWidth * .87;
@@ -30,6 +38,11 @@ define(function (require, exports, module) {
         });
         this.logoSvgMod = new Modifier({
             size: [undefined, 200],
+             opacity: function () {
+            return this.opacityTransitionable.get();
+            }.bind(this),
+
+
             transform: Transform.translate(0, 0, 0)
         });
         this.logoSvgSurf = new Surface({
@@ -86,6 +99,9 @@ define(function (require, exports, module) {
 
         this.mediaSurfMod = new Modifier({
             size: [undefined, 21],
+            opacity: function () {
+                return this.opacityTransitionable.get();
+            }.bind(this),
             transform: Transform.translate(0, 100, 0)
         });
         this.mediaSurface = new Surface({
@@ -104,11 +120,11 @@ define(function (require, exports, module) {
     }
 
     function _init() {
-        var logoMargin = window.sv.sizing.header * .09;
-        var logoHeight = (window.sv.sizing.header * .82);
         this.centerModifier = new Modifier({
-            size: [window.sv.sizing.logoContainerWidth, logoHeight],
-            transform: Transform.translate(0, logoMargin, 0)
+            size: [window.sv.sizing.logoContainerWidth, this.logoHeight],
+            transform: function () {
+                return Transform.translate(0, this.shiftTransitionable.get(), 0);
+            }.bind(this)
         });
         this.rootNode = this.add(this.centerModifier);
     }
@@ -116,6 +132,29 @@ define(function (require, exports, module) {
     LogoDesk.prototype = Object.create(View.prototype);
     LogoDesk.prototype.constructor = LogoDesk;
 
+
+    LogoDesk.prototype.increaseLogo = function () {
+        var currentPosition = this.shiftTransitionable.get();
+        if (currentPosition !== this.fullPosition) {
+            this.shiftTransitionable.halt();
+            this.opacityTransitionable.halt();
+            this.shiftTransitionable.set(this.fullPosition, {duration: 500, curve: "linear"});
+            this.opacityTransitionable.set(1, {duration: 500, curve: "linear"});
+        }
+
+    }
+
+    LogoDesk.prototype.decreaseLogo = function () {
+        var currentPosition = this.shiftTransitionable.get();
+        if (currentPosition !== this.shortPosition) {
+            this.shiftTransitionable.halt();
+            this.opacityTransitionable.halt();
+
+            this.shiftTransitionable.set(this.shortPosition, {duration: 500, curve: "linear"});
+            this.opacityTransitionable.set(0, {duration: 500, curve: "linear"});
+        }
+
+    }
 
     module.exports = LogoDesk;
 });

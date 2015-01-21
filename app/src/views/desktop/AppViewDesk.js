@@ -28,11 +28,11 @@ define(function (require, exports, module) {
         this.scrolldesk = new ScrollDesk();
 
         this.scrolldesk.on('decrease:header', function () {
-            this.headerDesk.resizeHeader.call(this.headerDesk, window.sv.sizing.header / 2.8);
+            this.headerDesk.decreaseHeader.call(this.headerDesk);
         }.bind(this));
 
         this.scrolldesk.on('increase:header', function () {
-            this.headerDesk.resizeHeader.call(this.headerDesk, window.sv.sizing.header);
+            this.headerDesk.increaseHeader.call(this.headerDesk);
         }.bind(this));
 
         this.rootNode.add(this.scrolldesk);
