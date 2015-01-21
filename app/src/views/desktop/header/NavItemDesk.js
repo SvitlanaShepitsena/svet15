@@ -34,7 +34,6 @@ define(function (require, exports, module) {
             content: this.options.title,
             properties: {
                 textAlign: 'center',
-                lineHeight: 7,
                 cursor: 'pointer'
             }
         });

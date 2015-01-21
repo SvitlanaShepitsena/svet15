@@ -14,7 +14,8 @@ define(function (require, exports, module) {
             classes: [],
             properties: {
                 color: 'white',
-                textAlign: 'center'
+                textAlign: 'center',
+                backgroundColor: 'darkcyan'
             }
         });
         this.surface.pipe(this._eventOutput);

@@ -11,6 +11,8 @@ define(function (require, exports, module) {
     var DemographicsDesk = require('dviews/content/dpages/DemographicsDesk');
     var RadioDesk = require('dviews/content/dpages/RadioDesk');
     var ContactUsDesk = require('dviews/content/dpages/ContactUsDesk');
+    var Timer = require('famous/utilities/Timer');
+
 
     function ScrollDesk() {
         ScrollContainer.apply(this, arguments);
@@ -20,11 +22,37 @@ define(function (require, exports, module) {
         _init.call(this);
         _fillContent.call(this);
         _pipe.call(this);
+        _scrollEvent.call(this);
+    }
+
+    function _scrollEvent() {
+        var startPosition, startPage, currentPosition, currentPage, moveDown;
+        this.scrollview.sync.on('start', function () {
+            startPosition = this.scrollview.getAbsolutePosition();
+            startPage = this.scrollview.getCurrentIndex();
+            Timer.after(function () {
+                currentPage = this.scrollview.getCurrentIndex();
+                currentPosition = this.scrollview.getAbsolutePosition();
+                moveDown = currentPosition > startPosition ? true : false;
+
+                if (currentPage === 0 && startPosition <= 100 && moveDown) {
+
+                    this._eventOutput.emit('decrease:header');
+                }
+                if (currentPage === 0 && currentPosition <= 100 && !moveDown) {
+
+                    this._eventOutput.emit('increase:header');
+                }
+            }.bind(this),2);
+
+        }.bind(this));
+
+
     }
 
     function _init() {
-
         this.scrollview.setOptions({
+            paginated: false
         })
     }
 

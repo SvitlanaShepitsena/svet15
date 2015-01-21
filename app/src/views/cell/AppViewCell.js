@@ -18,6 +18,7 @@ define(function (require, exports, module) {
     var Transitionable = require('famous/transitions/Transitionable');
     var SpringTransition = require('famous/transitions/SpringTransition');
     var WallTransition = require('famous/transitions/WallTransition');
+    var SnapTransition = require('famous/transitions/SnapTransition');
 
 
     function AppViewCell() {

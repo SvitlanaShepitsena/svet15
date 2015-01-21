@@ -8,7 +8,6 @@ define(function (require, exports, module) {
     var HeaderDesk = require('dviews/header/HeaderDesk');
 
 
-
     AppViewDesk.DEFAULT_OPTIONS = {};
 
     function AppViewDesk() {
@@ -27,6 +26,15 @@ define(function (require, exports, module) {
 
     function _content() {
         this.scrolldesk = new ScrollDesk();
+
+        this.scrolldesk.on('decrease:header', function () {
+            this.headerDesk.resizeHeader.call(this.headerDesk, 50);
+        }.bind(this));
+
+        this.scrolldesk.on('increase:header', function () {
+            this.headerDesk.resizeHeader.call(this.headerDesk, 100);
+        }.bind(this));
+
         this.rootNode.add(this.scrolldesk);
     }
 

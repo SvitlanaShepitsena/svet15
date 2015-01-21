@@ -6,8 +6,6 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var FlexibleLayout = require('famous/views/FlexibleLayout');
     var GridLayout = require("famous/views/GridLayout");
-    var Transitionable = require('famous/transitions/Transitionable');
-    var SpringTransition = require('famous/transitions/SpringTransition');
 
     var HomeSection = require('cviews/content/home/HomeSection');
     var MapsCell = require('cviews/content/home/MapsCell');
@@ -49,6 +47,8 @@ define(function (require, exports, module) {
         center: [0.5, 0.5],
         height: window.innerHeight,
         width: window.innerWidth,
+        fromRight: 1,
+        fromLeft: -1,
         color: 'white',
         contProp: {
             backgroundColor: '#FFF2DF'
@@ -82,7 +82,7 @@ define(function (require, exports, module) {
     function _gridParts() {
 
         this.topLeftSection = new HomeSection({
-            sign: -1,
+            sign: this.options.fromLeft,
             period: '900',
             dampingRatio: 0.3,
             icon: 'news-daily',
@@ -91,7 +91,7 @@ define(function (require, exports, module) {
         })
 
         this.topRightSection = new HomeSection({
-            sign: 1,
+            sign: this.options.fromRight,
             period: '1000',
             dampingRatio: 0.3,
             icon: 'weekly',
@@ -99,18 +99,17 @@ define(function (require, exports, module) {
             flipInfo: flipWeeklyNews
         })
         this.bottomLeftSection = new HomeSection({
-            sign: -1,
+            sign: this.options.fromLeft,
             period: '1100',
             dampingRatio: 0.3,
             icon: 'yp',
             content: '<h4 class="icon-text"> Russian-American</br>Yellow Pages' +
-                //'<a class="icon-text" href="http://www.spasibous.com/yp" target="_blank">Russian-American</br>Yellow Pages</a>' +
             '</h4>',
             flipInfo: flipYellowPages
 
         })
         this.bottomRightSection = new HomeSection({
-            sign: 1,
+            sign: this.options.fromRight,
             period: '800',
             dampingRatio: 0.3,
             icon: 'radio',

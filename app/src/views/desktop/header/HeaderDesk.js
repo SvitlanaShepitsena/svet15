@@ -23,11 +23,14 @@ define(function (require, exports, module) {
 
     function _init() {
         this.opacityTransitionable = new Transitionable(0);
+        this.sizeTransitionable = new Transitionable(100);
 
         this.centerModifier = new Modifier({
             align: [0, 0],
             origin: [0, 0],
-            size:[undefined,100],
+            size: function () {
+                return [undefined, this.sizeTransitionable.get()]
+            }.bind(this),
             opacity: function () {
                 return this.opacityTransitionable.get();
             }.bind(this),
@@ -44,13 +47,13 @@ define(function (require, exports, module) {
         this.bgMod = new Modifier({
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
-            opacity: new Transitionable(0.5),
+            opacity: new Transitionable(0.7),
             transform: Transform.translate(0, 0, 0)
         });
         this.backGround = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: 'grey'
+                backgroundColor: 'orange'
             }
         });
         this.rootNode.add(this.bgMod).add(this.backGround);
@@ -60,7 +63,7 @@ define(function (require, exports, module) {
 
     function _flex() {
         this.layout = new FlexibleLayout({
-            ratios: [2, 1,2],
+            ratios: [2, 1, 2],
             direction: 0
         });
         this.rootNode.add(this.layout);
@@ -70,10 +73,10 @@ define(function (require, exports, module) {
 
         var logoDesk = new LogoDesk();
         var leftNavDesk = new NavDesk({
-            menuTitles:['Home','About Us', 'Demographics']
+            menuTitles: ['Home', 'About Us', 'Demographics']
         });
         var rightNavDesk = new NavDesk({
-            menuTitles:['Clients','Radio', 'Contact Us']
+            menuTitles: ['Clients', 'Radio', 'Contact Us']
         });
         leftNavDesk.pipe(this._eventOutput);
 
@@ -89,6 +92,13 @@ define(function (require, exports, module) {
 
     HeaderDesk.prototype = Object.create(View.prototype);
     HeaderDesk.prototype.constructor = HeaderDesk;
+
+    HeaderDesk.prototype.resizeHeader = function (height) {
+
+        this.sizeTransitionable.halt();
+        this.sizeTransitionable.set(height, {duration: 500,curve: "linear"});
+
+    }
 
 
     module.exports = HeaderDesk;

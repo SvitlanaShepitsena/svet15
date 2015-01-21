@@ -42,20 +42,17 @@ window.sv = {
             }
         },
         darkScheme: {
-            svYellow: {
-                textYellow: '#fafad2',
-                textWhite: 'floralwhite',
-                textDark: '#393939',
-                textShadow: '1px 1px #BD8D46',
-                homeIconColor: '#fffaf0',
-                headerColor: '#000000',
-                navColor: '#0B0B0B',
-                sectionColor: '#FF7F50',
-                sectionFlipColor: '#F2CA80',
-                footerColor: '#000000'
-            }
+            textYellow: '#fafad2',
+            textWhite: 'floralwhite',
+            textDark: '#393939',
+            textShadow: '1px 1px #BD8D46',
+            homeIconColor: '#fffaf0',
+            headerColor: '#000000',
+            navColor: '#0B0B0B',
+            sectionColor: '#FF7F50',
+            sectionFlipColor: '#F2CA80',
+            footerColor: '#000000'
         }
     }
-
 }
-window.sv.scheme = window.sv.options.darkScheme.svYellow;
+window.sv.scheme = window.sv.options.darkScheme;

@@ -4,8 +4,6 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
     var RenderNode = require('famous/core/RenderNode');
-    var Transitionable = require('famous/transitions/Transitionable');
-    var SpringTransition = require('famous/transitions/SpringTransition');
 
     var Flipper = require('famous/views/Flipper');
 
@@ -27,7 +25,6 @@ define(function (require, exports, module) {
         _contentParts.call(this);
         _sectionIcon.call(this);
     }
-
 
     HomePart.prototype = Object.create(View.prototype);
     HomePart.prototype.constructor = HomePart;
@@ -84,8 +81,6 @@ define(function (require, exports, module) {
     }
 
     function _initTransform() {
-        // mainContext.setPerspective(500);
-        // this.flipper.flip(); to flip!
         this.spring = {
             method: 'spring',
             period: this.options.period,
