@@ -14,6 +14,8 @@ define(function (require, exports, module) {
         _logoSvg.call(this);
     }
 
+    LogoDesk.DEFAULT_OPTIONS = {};
+
     function _logoSvg() {
 
         var div = document.createElement('div');
@@ -111,11 +113,9 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.centerModifier);
     }
 
-
     LogoDesk.prototype = Object.create(View.prototype);
     LogoDesk.prototype.constructor = LogoDesk;
 
-    LogoDesk.DEFAULT_OPTIONS = {};
 
     module.exports = LogoDesk;
 });
