@@ -65,9 +65,7 @@ define(function (require, exports, module) {
     function _svetText() {
         this.svetTextMod = new Modifier({
             size: [undefined, 34],
-            align: [0.5, 0.74],
-            origin: [0.5, 0.5],
-            transform: Transform.translate(0, 0, 0)
+            transform: Transform.translate(0, 70, 0)
         });
         this.svetTextSurf = new Surface({
             content: 'SVET',
@@ -84,16 +82,15 @@ define(function (require, exports, module) {
     function _rmgText() {
 
         this.mediaSurfMod = new Modifier({
-            size: [undefined, undefined],
-            align: [0, 0],
-            origin: [0, 0],
-            transform: Transform.translate(0, 40, 0)
+            size: [undefined, 21],
+            transform: Transform.translate(0, 100, 0)
         });
         this.mediaSurface = new Surface({
             size: [undefined, undefined],
-            content: 'Russian Media Group',
+            content: 'RUSSIAN MEDIA GROUP',
             classes: [],
             properties: {
+                fontSize: '21px',
                 color: 'white',
                 textAlign: 'center'
             }
