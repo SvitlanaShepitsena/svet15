@@ -108,7 +108,6 @@ define(function (require, exports, module) {
             size: [window.sv.sizing.logoContainerWidth, logoHeight],
             transform: Transform.translate(0, logoMargin, 0)
         });
-
         this.rootNode = this.add(this.centerModifier);
     }
 
