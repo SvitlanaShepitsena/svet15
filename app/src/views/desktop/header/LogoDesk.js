@@ -108,18 +108,8 @@ define(function (require, exports, module) {
             size: [window.sv.sizing.logoContainerWidth, logoHeight],
             transform: Transform.translate(0, logoMargin, 0)
         });
-        this.bg = new Surface({
-            size: [undefined, undefined],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center'
-            }
-        });
 
         this.rootNode = this.add(this.centerModifier);
-        this.rootNode.add(this.bg);
     }
 
 
