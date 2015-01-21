@@ -25,10 +25,6 @@ define(function (require, exports, module) {
         _scrollEvent.call(this);
     }
 
-    function _scrollUtil() {
-        console.log('tick');
-
-    }
 
     function _scrollEvent() {
         var that = this;
@@ -40,13 +36,6 @@ define(function (require, exports, module) {
             startPage = this.scrollview.getCurrentIndex();
 
             this.scrollUtil = Timer.every(function () {
-               absPos = this.scrollview.getAbsolutePosition() ;
-                if (absPos < 0) {
-                    this.scrollview.setPosition(0);
-                }
-            }.bind(this), 1);
-
-            Timer.after(function () {
                 currentPage = this.scrollview.getCurrentIndex();
                 currentPosition = this.scrollview.getAbsolutePosition();
                 moveDown = currentPosition > startPosition ? true : false;
@@ -59,11 +48,21 @@ define(function (require, exports, module) {
 
                     this._eventOutput.emit('increase:header');
                 }
-            }.bind(this), 1);
 
+
+               absPos = this.scrollview.getAbsolutePosition() ;
+                if (absPos < 0) {
+                    this.scrollview.setPosition(0);
+                }
+            }.bind(this), 1);
         }.bind(this));
+
         this.scrollview.sync.on('end', function () {
             Timer.clear(this.scrollUtil);
+        }.bind(this))
+
+        this.scrollview.sync.on('update', function () {
+
         }.bind(this))
 
 
