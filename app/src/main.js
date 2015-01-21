@@ -33,6 +33,9 @@ window.responsive = function responsive() {
 }
 
 window.sv = {
+    sizing: {
+        header: 120
+    },
     options: {
         lightScheme: {
             svYellow: {
@@ -55,4 +58,5 @@ window.sv = {
         }
     }
 }
+
 window.sv.scheme = window.sv.options.darkScheme;

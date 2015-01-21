@@ -18,8 +18,13 @@ define(function (require, exports, module) {
 
         var div = document.createElement('div');
 
-        var paper = Raphael(div, 256, 100);
-        var path = drawpath(paper, "M10,10 L200,10 L200,200 L10,200 L10,10 L11,10z", 4000, { fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity':0  }, function () {
+        var paper = Raphael(div, 580, 200);
+        var path = drawpath(paper, "M80,80 L20,80 L130,10 L240,80 L180,80", 2000, {
+            fill: 'none',
+            stroke: 'red',
+            'stroke-width': 11,
+            'fill-opacity': 0
+        }, function () {
             //path.animate( { fill: 'gray', stroke: 'black', 'fill-opacity': 1 }, 5000, function()
             //{
             //    this.animate( { fill: 'blue', stroke: 'black', 'fill-opacity': 0.5 }, 5000 );
@@ -70,7 +75,7 @@ define(function (require, exports, module) {
 
     function _svetText() {
         this.svetTextMod = new Modifier({
-            size: [undefined, 100],
+            size: [undefined, undefined],
             align: [0, 0],
             origin: [0, 0],
             transform: Transform.translate(0, 20, 0)
@@ -90,13 +95,13 @@ define(function (require, exports, module) {
     function _rmgText() {
 
         this.mediaSurfMod = new Modifier({
-            size: [undefined, 100],
+            size: [undefined, undefined],
             align: [0, 0],
             origin: [0, 0],
             transform: Transform.translate(0, 40, 0)
         });
         this.mediaSurface = new Surface({
-            size: [undefined, 100],
+            size: [undefined, undefined],
             content: 'Russian Media Group',
             classes: [],
             properties: {
@@ -121,6 +126,7 @@ define(function (require, exports, module) {
             }
         });
         this.centerModifier = new Modifier({
+            size: [300, undefined],
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             transform: Transform.translate(0, 0, 0)

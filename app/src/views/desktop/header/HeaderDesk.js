@@ -23,7 +23,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.opacityTransitionable = new Transitionable(0);
-        this.sizeTransitionable = new Transitionable(100);
+        this.sizeTransitionable = new Transitionable(window.sv.sizing.header);
 
         this.centerModifier = new Modifier({
             align: [0, 0],
@@ -57,13 +57,11 @@ define(function (require, exports, module) {
             }
         });
         this.rootNode.add(this.bgMod).add(this.backGround);
-
     }
-
 
     function _flex() {
         this.layout = new FlexibleLayout({
-            ratios: [2, 1, 2],
+            ratios: [2, true, 2],
             direction: 0
         });
         this.rootNode.add(this.layout);
@@ -96,7 +94,7 @@ define(function (require, exports, module) {
     HeaderDesk.prototype.resizeHeader = function (height) {
 
         this.sizeTransitionable.halt();
-        this.sizeTransitionable.set(height, {duration: 500,curve: "linear"});
+        this.sizeTransitionable.set(height, {duration: 500, curve: "linear"});
 
     }
 
