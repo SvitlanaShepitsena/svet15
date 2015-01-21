@@ -34,6 +34,7 @@ define(function (require, exports, module) {
             content: this.options.title,
             properties: {
                 textAlign: 'center',
+                color: window.sv.scheme.textWhite,
                 cursor: 'pointer'
             }
         });

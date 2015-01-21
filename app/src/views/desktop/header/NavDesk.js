@@ -6,7 +6,6 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var GridLayout = require("famous/views/GridLayout");
 
-    var ImageSurface = require('famous/surfaces/ImageSurface');
     var NavItemDesk = require('dviews/header/NavItemDesk');
 
     function NavDesk() {

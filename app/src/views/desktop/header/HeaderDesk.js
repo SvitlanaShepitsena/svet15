@@ -53,7 +53,7 @@ define(function (require, exports, module) {
         this.backGround = new Surface({
             size: [undefined, undefined],
             properties: {
-                backgroundColor: 'orange'
+                backgroundColor: 'black'
             }
         });
         this.rootNode.add(this.bgMod).add(this.backGround);
