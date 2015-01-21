@@ -34,7 +34,7 @@ window.responsive = function responsive() {
 
 window.sv = {
     sizing: {
-        header: 140,
+        header: 150,
         logoContainerWidth: 300
     },
     options: {

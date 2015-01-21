@@ -27,14 +27,15 @@ define(function (require, exports, module) {
             'fill-opacity': 0
         });
         this.logoSvgMod = new Modifier({
-            size: [paperWidth, undefined],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
+            size: [undefined, 200],
             transform: Transform.translate(0, 0, 0)
         });
         this.logoSvgSurf = new Surface({
             size: [undefined, undefined],
-            content: div
+            content: div,
+            properties: {
+                textAlign: 'center'
+            }
         });
         this.rootNode.add(this.logoSvgMod).add(this.logoSvgSurf);
     }
@@ -101,11 +102,11 @@ define(function (require, exports, module) {
     }
 
     function _init() {
+        var logoMargin = window.sv.sizing.header * .09;
+        var logoHeight = (window.sv.sizing.header * .82);
         this.centerModifier = new Modifier({
-            size: [window.sv.sizing.logoContainerWidth, undefined],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            transform: Transform.translate(0, 0, 0)
+            size: [window.sv.sizing.logoContainerWidth, logoHeight],
+            transform: Transform.translate(0, logoMargin, 0)
         });
         this.bg = new Surface({
             size: [undefined, undefined],
@@ -113,8 +114,7 @@ define(function (require, exports, module) {
             classes: [],
             properties: {
                 color: 'white',
-                textAlign: 'center',
-                backgroundColor: 'blueviolet'
+                textAlign: 'center'
             }
         });
 
