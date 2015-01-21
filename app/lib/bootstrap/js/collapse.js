@@ -178,17 +178,17 @@
     })
   }
 
-  var old = $.fn.collapse
+  var old = $.scrollUtil.collapse
 
-  $.fn.collapse             = Plugin
-  $.fn.collapse.Constructor = Collapse
+  $.scrollUtil.collapse             = Plugin
+  $.scrollUtil.collapse.Constructor = Collapse
 
 
   // COLLAPSE NO CONFLICT
   // ====================
 
-  $.fn.collapse.noConflict = function () {
-    $.fn.collapse = old
+  $.scrollUtil.collapse.noConflict = function () {
+    $.scrollUtil.collapse = old
     return this
   }
 

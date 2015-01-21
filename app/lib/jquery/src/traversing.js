@@ -45,7 +45,7 @@ jQuery.extend({
 	}
 });
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	has: function( target ) {
 		var targets = jQuery( target, this ),
 			l = targets.length;
@@ -168,7 +168,7 @@ jQuery.each({
 		return elem.contentDocument || jQuery.merge( [], elem.childNodes );
 	}
 }, function( name, fn ) {
-	jQuery.fn[ name ] = function( until, selector ) {
+	jQuery.scrollUtil[ name ] = function( until, selector ) {
 		var matched = jQuery.map( this, fn, until );
 
 		if ( name.slice( -5 ) !== "Until" ) {

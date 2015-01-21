@@ -51,7 +51,7 @@ jQuery.filter = function( expr, elems, not ) {
 		}));
 };
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	find: function( selector ) {
 		var i,
 			len = this.length,

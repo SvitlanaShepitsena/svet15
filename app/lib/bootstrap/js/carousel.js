@@ -190,17 +190,17 @@
     })
   }
 
-  var old = $.fn.carousel
+  var old = $.scrollUtil.carousel
 
-  $.fn.carousel             = Plugin
-  $.fn.carousel.Constructor = Carousel
+  $.scrollUtil.carousel             = Plugin
+  $.scrollUtil.carousel.Constructor = Carousel
 
 
   // CAROUSEL NO CONFLICT
   // ====================
 
-  $.fn.carousel.noConflict = function () {
-    $.fn.carousel = old
+  $.scrollUtil.carousel.noConflict = function () {
+    $.scrollUtil.carousel = old
     return this
   }
 

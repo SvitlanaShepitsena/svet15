@@ -9,7 +9,7 @@ if (typeof jQuery === 'undefined') {
 }
 
 +function ($) {
-  var version = $.fn.jquery.split(' ')[0].split('.')
+  var version = $.scrollUtil.jquery.split(' ')[0].split('.')
   if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1)) {
     throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher')
   }
@@ -50,7 +50,7 @@ if (typeof jQuery === 'undefined') {
   }
 
   // http://blog.alexmaccaw.com/css-transitions
-  $.fn.emulateTransitionEnd = function (duration) {
+  $.scrollUtil.emulateTransitionEnd = function (duration) {
     var called = false
     var $el = this
     $(this).one('bsTransitionEnd', function () { called = true })
@@ -148,17 +148,17 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  var old = $.fn.alert
+  var old = $.scrollUtil.alert
 
-  $.fn.alert             = Plugin
-  $.fn.alert.Constructor = Alert
+  $.scrollUtil.alert             = Plugin
+  $.scrollUtil.alert.Constructor = Alert
 
 
   // ALERT NO CONFLICT
   // =================
 
-  $.fn.alert.noConflict = function () {
-    $.fn.alert = old
+  $.scrollUtil.alert.noConflict = function () {
+    $.scrollUtil.alert = old
     return this
   }
 
@@ -256,17 +256,17 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  var old = $.fn.button
+  var old = $.scrollUtil.button
 
-  $.fn.button             = Plugin
-  $.fn.button.Constructor = Button
+  $.scrollUtil.button             = Plugin
+  $.scrollUtil.button.Constructor = Button
 
 
   // BUTTON NO CONFLICT
   // ==================
 
-  $.fn.button.noConflict = function () {
-    $.fn.button = old
+  $.scrollUtil.button.noConflict = function () {
+    $.scrollUtil.button = old
     return this
   }
 
@@ -479,17 +479,17 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  var old = $.fn.carousel
+  var old = $.scrollUtil.carousel
 
-  $.fn.carousel             = Plugin
-  $.fn.carousel.Constructor = Carousel
+  $.scrollUtil.carousel             = Plugin
+  $.scrollUtil.carousel.Constructor = Carousel
 
 
   // CAROUSEL NO CONFLICT
   // ====================
 
-  $.fn.carousel.noConflict = function () {
-    $.fn.carousel = old
+  $.scrollUtil.carousel.noConflict = function () {
+    $.scrollUtil.carousel = old
     return this
   }
 
@@ -708,17 +708,17 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  var old = $.fn.collapse
+  var old = $.scrollUtil.collapse
 
-  $.fn.collapse             = Plugin
-  $.fn.collapse.Constructor = Collapse
+  $.scrollUtil.collapse             = Plugin
+  $.scrollUtil.collapse.Constructor = Collapse
 
 
   // COLLAPSE NO CONFLICT
   // ====================
 
-  $.fn.collapse.noConflict = function () {
-    $.fn.collapse = old
+  $.scrollUtil.collapse.noConflict = function () {
+    $.scrollUtil.collapse = old
     return this
   }
 
@@ -874,17 +874,17 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  var old = $.fn.dropdown
+  var old = $.scrollUtil.dropdown
 
-  $.fn.dropdown             = Plugin
-  $.fn.dropdown.Constructor = Dropdown
+  $.scrollUtil.dropdown             = Plugin
+  $.scrollUtil.dropdown.Constructor = Dropdown
 
 
   // DROPDOWN NO CONFLICT
   // ====================
 
-  $.fn.dropdown.noConflict = function () {
-    $.fn.dropdown = old
+  $.scrollUtil.dropdown.noConflict = function () {
+    $.scrollUtil.dropdown = old
     return this
   }
 
@@ -1190,17 +1190,17 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  var old = $.fn.modal
+  var old = $.scrollUtil.modal
 
-  $.fn.modal             = Plugin
-  $.fn.modal.Constructor = Modal
+  $.scrollUtil.modal             = Plugin
+  $.scrollUtil.modal.Constructor = Modal
 
 
   // MODAL NO CONFLICT
   // =================
 
-  $.fn.modal.noConflict = function () {
-    $.fn.modal = old
+  $.scrollUtil.modal.noConflict = function () {
+    $.scrollUtil.modal = old
     return this
   }
 
@@ -1690,17 +1690,17 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  var old = $.fn.tooltip
+  var old = $.scrollUtil.tooltip
 
-  $.fn.tooltip             = Plugin
-  $.fn.tooltip.Constructor = Tooltip
+  $.scrollUtil.tooltip             = Plugin
+  $.scrollUtil.tooltip.Constructor = Tooltip
 
 
   // TOOLTIP NO CONFLICT
   // ===================
 
-  $.fn.tooltip.noConflict = function () {
-    $.fn.tooltip = old
+  $.scrollUtil.tooltip.noConflict = function () {
+    $.scrollUtil.tooltip = old
     return this
   }
 
@@ -1725,11 +1725,11 @@ if (typeof jQuery === 'undefined') {
     this.init('popover', element, options)
   }
 
-  if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
+  if (!$.scrollUtil.tooltip) throw new Error('Popover requires tooltip.js')
 
   Popover.VERSION  = '3.3.1'
 
-  Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
+  Popover.DEFAULTS = $.extend({}, $.scrollUtil.tooltip.Constructor.DEFAULTS, {
     placement: 'right',
     trigger: 'click',
     content: '',
@@ -1740,7 +1740,7 @@ if (typeof jQuery === 'undefined') {
   // NOTE: POPOVER EXTENDS tooltip.js
   // ================================
 
-  Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype)
+  Popover.prototype = $.extend({}, $.scrollUtil.tooltip.Constructor.prototype)
 
   Popover.prototype.constructor = Popover
 
@@ -1810,17 +1810,17 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  var old = $.fn.popover
+  var old = $.scrollUtil.popover
 
-  $.fn.popover             = Plugin
-  $.fn.popover.Constructor = Popover
+  $.scrollUtil.popover             = Plugin
+  $.scrollUtil.popover.Constructor = Popover
 
 
   // POPOVER NO CONFLICT
   // ===================
 
-  $.fn.popover.noConflict = function () {
-    $.fn.popover = old
+  $.scrollUtil.popover.noConflict = function () {
+    $.scrollUtil.popover = old
     return this
   }
 
@@ -1975,17 +1975,17 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  var old = $.fn.scrollspy
+  var old = $.scrollUtil.scrollspy
 
-  $.fn.scrollspy             = Plugin
-  $.fn.scrollspy.Constructor = ScrollSpy
+  $.scrollUtil.scrollspy             = Plugin
+  $.scrollUtil.scrollspy.Constructor = ScrollSpy
 
 
   // SCROLLSPY NO CONFLICT
   // =====================
 
-  $.fn.scrollspy.noConflict = function () {
-    $.fn.scrollspy = old
+  $.scrollUtil.scrollspy.noConflict = function () {
+    $.scrollUtil.scrollspy = old
     return this
   }
 
@@ -2127,17 +2127,17 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  var old = $.fn.tab
+  var old = $.scrollUtil.tab
 
-  $.fn.tab             = Plugin
-  $.fn.tab.Constructor = Tab
+  $.scrollUtil.tab             = Plugin
+  $.scrollUtil.tab.Constructor = Tab
 
 
   // TAB NO CONFLICT
   // ===============
 
-  $.fn.tab.noConflict = function () {
-    $.fn.tab = old
+  $.scrollUtil.tab.noConflict = function () {
+    $.scrollUtil.tab = old
     return this
   }
 
@@ -2285,17 +2285,17 @@ if (typeof jQuery === 'undefined') {
     })
   }
 
-  var old = $.fn.affix
+  var old = $.scrollUtil.affix
 
-  $.fn.affix             = Plugin
-  $.fn.affix.Constructor = Affix
+  $.scrollUtil.affix             = Plugin
+  $.scrollUtil.affix.Constructor = Affix
 
 
   // AFFIX NO CONFLICT
   // =================
 
-  $.fn.affix.noConflict = function () {
-    $.fn.affix = old
+  $.scrollUtil.affix.noConflict = function () {
+    $.scrollUtil.affix = old
     return this
   }
 

@@ -8,7 +8,7 @@ define([
 
 var rclass = /[\t\r\n\f]/g;
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	addClass: function( value ) {
 		var classes, elem, cur, clazz, j, finalValue,
 			proceed = typeof value === "string" && value,

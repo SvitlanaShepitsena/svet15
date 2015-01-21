@@ -71,17 +71,17 @@
     })
   }
 
-  var old = $.fn.alert
+  var old = $.scrollUtil.alert
 
-  $.fn.alert             = Plugin
-  $.fn.alert.Constructor = Alert
+  $.scrollUtil.alert             = Plugin
+  $.scrollUtil.alert.Constructor = Alert
 
 
   // ALERT NO CONFLICT
   // =================
 
-  $.fn.alert.noConflict = function () {
-    $.fn.alert = old
+  $.scrollUtil.alert.noConflict = function () {
+    $.scrollUtil.alert = old
     return this
   }
 

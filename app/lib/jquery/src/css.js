@@ -402,7 +402,7 @@ jQuery.each({
 	}
 });
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	css: function( name, value ) {
 		return access( this, function( elem, name, value ) {
 			var styles, len,

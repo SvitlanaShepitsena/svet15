@@ -84,17 +84,17 @@
     })
   }
 
-  var old = $.fn.button
+  var old = $.scrollUtil.button
 
-  $.fn.button             = Plugin
-  $.fn.button.Constructor = Button
+  $.scrollUtil.button             = Plugin
+  $.scrollUtil.button.Constructor = Button
 
 
   // BUTTON NO CONFLICT
   // ==================
 
-  $.fn.button.noConflict = function () {
-    $.fn.button = old
+  $.scrollUtil.button.noConflict = function () {
+    $.scrollUtil.button = old
     return this
   }
 

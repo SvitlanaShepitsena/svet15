@@ -461,17 +461,17 @@
     })
   }
 
-  var old = $.fn.tooltip
+  var old = $.scrollUtil.tooltip
 
-  $.fn.tooltip             = Plugin
-  $.fn.tooltip.Constructor = Tooltip
+  $.scrollUtil.tooltip             = Plugin
+  $.scrollUtil.tooltip.Constructor = Tooltip
 
 
   // TOOLTIP NO CONFLICT
   // ===================
 
-  $.fn.tooltip.noConflict = function () {
-    $.fn.tooltip = old
+  $.scrollUtil.tooltip.noConflict = function () {
+    $.scrollUtil.tooltip = old
     return this
   }
 

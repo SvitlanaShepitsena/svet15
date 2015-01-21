@@ -17,11 +17,11 @@
     this.init('popover', element, options)
   }
 
-  if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
+  if (!$.scrollUtil.tooltip) throw new Error('Popover requires tooltip.js')
 
   Popover.VERSION  = '3.3.1'
 
-  Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
+  Popover.DEFAULTS = $.extend({}, $.scrollUtil.tooltip.Constructor.DEFAULTS, {
     placement: 'right',
     trigger: 'click',
     content: '',
@@ -32,7 +32,7 @@
   // NOTE: POPOVER EXTENDS tooltip.js
   // ================================
 
-  Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype)
+  Popover.prototype = $.extend({}, $.scrollUtil.tooltip.Constructor.prototype)
 
   Popover.prototype.constructor = Popover
 
@@ -102,17 +102,17 @@
     })
   }
 
-  var old = $.fn.popover
+  var old = $.scrollUtil.popover
 
-  $.fn.popover             = Plugin
-  $.fn.popover.Constructor = Popover
+  $.scrollUtil.popover             = Plugin
+  $.scrollUtil.popover.Constructor = Popover
 
 
   // POPOVER NO CONFLICT
   // ===================
 
-  $.fn.popover.noConflict = function () {
-    $.fn.popover = old
+  $.scrollUtil.popover.noConflict = function () {
+    $.scrollUtil.popover = old
     return this
   }
 

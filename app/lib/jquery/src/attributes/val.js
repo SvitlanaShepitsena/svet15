@@ -6,7 +6,7 @@ define([
 
 var rreturn = /\r/g;
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	val: function( value ) {
 		var hooks, ret, isFunction,
 			elem = this[0];

@@ -6,7 +6,7 @@ define([
 
 var rfocusable = /^(?:input|select|textarea|button)$/i;
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	prop: function( name, value ) {
 		return access( this, jQuery.prop, name, value, arguments.length > 1 );
 	},

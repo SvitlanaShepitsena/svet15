@@ -132,17 +132,17 @@
     })
   }
 
-  var old = $.fn.dropdown
+  var old = $.scrollUtil.dropdown
 
-  $.fn.dropdown             = Plugin
-  $.fn.dropdown.Constructor = Dropdown
+  $.scrollUtil.dropdown             = Plugin
+  $.scrollUtil.dropdown.Constructor = Dropdown
 
 
   // DROPDOWN NO CONFLICT
   // ====================
 
-  $.fn.dropdown.noConflict = function () {
-    $.fn.dropdown = old
+  $.scrollUtil.dropdown.noConflict = function () {
+    $.scrollUtil.dropdown = old
     return this
   }
 

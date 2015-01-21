@@ -10,12 +10,12 @@ define([
 ], function( jQuery ) {
 
 // Keep a copy of the old load method
-var _load = jQuery.fn.load;
+var _load = jQuery.scrollUtil.load;
 
 /**
  * Load a url into a page
  */
-jQuery.fn.load = function( url, params, callback ) {
+jQuery.scrollUtil.load = function( url, params, callback ) {
 	if ( typeof url !== "string" && _load ) {
 		return _load.apply( this, arguments );
 	}

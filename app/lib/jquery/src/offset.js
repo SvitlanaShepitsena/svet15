@@ -71,7 +71,7 @@ jQuery.offset = {
 	}
 };
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	offset: function( options ) {
 		if ( arguments.length ) {
 			return options === undefined ?
@@ -162,7 +162,7 @@ jQuery.fn.extend({
 jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( method, prop ) {
 	var top = "pageYOffset" === prop;
 
-	jQuery.fn[ method ] = function( val ) {
+	jQuery.scrollUtil[ method ] = function( val ) {
 		return access( this, function( elem, method, val ) {
 			var win = getWindow( elem );
 

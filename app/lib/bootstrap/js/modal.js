@@ -286,17 +286,17 @@
     })
   }
 
-  var old = $.fn.modal
+  var old = $.scrollUtil.modal
 
-  $.fn.modal             = Plugin
-  $.fn.modal.Constructor = Modal
+  $.scrollUtil.modal             = Plugin
+  $.scrollUtil.modal.Constructor = Modal
 
 
   // MODAL NO CONFLICT
   // =================
 
-  $.fn.modal.noConflict = function () {
-    $.fn.modal = old
+  $.scrollUtil.modal.noConflict = function () {
+    $.scrollUtil.modal = old
     return this
   }
 

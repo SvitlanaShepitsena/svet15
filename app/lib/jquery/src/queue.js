@@ -71,7 +71,7 @@ jQuery.extend({
 	}
 });
 
-jQuery.fn.extend({
+jQuery.scrollUtil.extend({
 	queue: function( type, data ) {
 		var setter = 2;
 
