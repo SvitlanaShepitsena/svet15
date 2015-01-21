@@ -19,36 +19,19 @@ define(function (require, exports, module) {
         var div = document.createElement('div');
 
         var paper = Raphael(div, 256, 100);
-        var line2 = paper.path("M5 50");
-        var line3 = paper.path("M125 10");
-        var line4 = paper.path("M246 50");
-
-        var line = paper.path("M50 50").animate({path: "M50 50 L 5 50"}, 500, function () {
-            line2.animate({path: "M5 50 L125 10"}, 500, function () {
-                line3.animate({path: "M125 10 L246 50"}, 500, function () {
-                    line4.animate({path: "M246 50 L200 50"}, 500, function () {
-                    })
-                })
-            });
+        var path = drawpath(paper, "M10,10 L200,10 L200,200 L10,200 L10,10 L11,10z", 4000, { fill: 'none', stroke: 'red', 'stroke-width': 5, 'fill-opacity':0  }, function () {
+            //path.animate( { fill: 'gray', stroke: 'black', 'fill-opacity': 1 }, 5000, function()
+            //{
+            //    this.animate( { fill: 'blue', stroke: 'black', 'fill-opacity': 0.5 }, 5000 );
+            //} );
         });
-        line.attr("stroke", "red");
-        line.attr("stroke-width", "5px");
-
-        line2.attr("stroke", "red");
-        line2.attr("stroke-width", "5px");
-
-        line3.attr("stroke", "red");
-        line3.attr("stroke-width", "5px");
-
-        line4.attr("stroke", "red");
-        line4.attr("stroke-width", "5px");
-
         this.logoSvgMod = new Modifier({
             size: [undefined, undefined],
             align: [0, 0],
             origin: [0, 0],
             transform: Transform.translate(0, 0, 0)
         });
+
         this.logoSvgSurf = new Surface({
             size: [undefined, undefined],
             content: div,
@@ -60,6 +43,29 @@ define(function (require, exports, module) {
         });
         this.rootNode.add(this.logoSvgMod).add(this.logoSvgSurf);
 
+    }
+
+    function drawpath(canvas, pathstr, duration, attr, callback) {
+        var guide_path = canvas.path(pathstr).attr({stroke: "none", fill: "none"});
+        var path = canvas.path(guide_path.getSubpath(0, 1)).attr(attr);
+        var total_length = guide_path.getTotalLength(guide_path);
+        var last_point = guide_path.getPointAtLength(0);
+        var start_time = new Date().getTime();
+        var interval_length = 50;
+        var result = path;
+        var interval_id = setInterval(function () {
+            var elapsed_time = new Date().getTime() - start_time;
+            var this_length = elapsed_time / duration * total_length;
+            var subpathstr = guide_path.getSubpath(0, this_length);
+            attr.path = subpathstr;
+            path.animate(attr, interval_length);
+            if (elapsed_time >= duration) {
+                clearInterval(interval_id);
+                if (callback != undefined) callback();
+                guide_path.remove();
+            }
+        }, interval_length);
+        return result;
     }
 
     function _svetText() {
