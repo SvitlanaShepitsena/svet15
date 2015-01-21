@@ -18,22 +18,16 @@ define(function (require, exports, module) {
 
         var div = document.createElement('div');
 
-        var paper = Raphael(div, 580, 200);
+        var paperWidth = window.sv.sizing.logoContainerWidth * .87;
+        var paper = Raphael(div, paperWidth, 200);
         var path = drawpath(paper, "M80,80 L20,80 L130,10 L240,80 L180,80", 2000, {
             fill: 'none',
             stroke: 'red',
             'stroke-width': 11,
             'fill-opacity': 0
-        }, function () {
-            //path.animate( { fill: 'gray', stroke: 'black', 'fill-opacity': 1 }, 5000, function()
-            //{
-            //    this.animate( { fill: 'blue', stroke: 'black', 'fill-opacity': 0.5 }, 5000 );
-            //} );
         });
         this.logoSvgMod = new Modifier({
             size: [undefined, undefined],
-            align: [0, 0],
-            origin: [0, 0],
             transform: Transform.translate(0, 0, 0)
         });
 
@@ -115,6 +109,12 @@ define(function (require, exports, module) {
     }
 
     function _init() {
+        this.centerModifier = new Modifier({
+            size: [window.sv.sizing.logoContainerWidth, undefined],
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
+            transform: Transform.translate(0, 0, 0)
+        });
         this.bg = new Surface({
             size: [undefined, undefined],
             content: '',
@@ -124,12 +124,6 @@ define(function (require, exports, module) {
                 textAlign: 'center',
                 backgroundColor: 'blueviolet'
             }
-        });
-        this.centerModifier = new Modifier({
-            size: [300, undefined],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            transform: Transform.translate(0, 0, 0)
         });
 
         this.rootNode = this.add(this.centerModifier);
