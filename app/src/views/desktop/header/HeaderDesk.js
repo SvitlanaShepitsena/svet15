@@ -100,7 +100,7 @@ define(function (require, exports, module) {
         if (currentHeaderSize > this.smallSize) {
             this.sizeTransitionable.halt();
             this.sizeTransitionable.set(this.smallSize, {duration: 500, curve: "linear"}, function () {
-               this._eventOutput.emit('header:decreased');
+                this._eventOutput.emit('header:decreased');
             }.bind(this));
             this.logoDesk.decreaseLogo();
         }
