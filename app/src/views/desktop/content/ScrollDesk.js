@@ -64,7 +64,7 @@ define(function (require, exports, module) {
     function _init() {
         this.scrollview.setOptions({
             rails: true,
-            friction: 0.0001,
+            friction: 0.0007,
             drag: 0.0001,
             edgeGrip: 0.2,
             edgePeriod: 300,
@@ -73,11 +73,11 @@ define(function (require, exports, module) {
             paginated: false,
             pagePeriod: 500,
             pageDamp: 0.8,
-            pageStopSpeed: 10,
+            pageStopSpeed: 5,
             pageSwitchSpeed: 0.5,
             speedLimit: 5,
             groupScroll: false,
-            syncScale: 0.5
+            syncScale: 0.07
         })
     }
 
@@ -121,6 +121,12 @@ define(function (require, exports, module) {
 
     ScrollDesk.prototype = Object.create(ScrollContainer.prototype);
     ScrollDesk.prototype.constructor = ScrollContainer;
+
+    ScrollDesk.prototype.tuneToShortHeader = function () {
+        var currentPos = this.scrollview.getAbsolutePosition();
+
+
+    }
 
     ScrollDesk.DEFAULT_OPTIONS = {};
 

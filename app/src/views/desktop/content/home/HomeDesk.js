@@ -66,16 +66,17 @@ define(function (require, exports, module) {
             origin: [0.5, 0.5],
             opacity:1,
 
-            transform: Transform.translate(0, window.sv.sizing.headerHeight, 2)
+            transform: Transform.translate(0, window.sv.sizing.headerHeight, 0)
         });
 
         this.motoTextSurface = new Surface({
-            content: '<h1>We Make Your Business Known</h1>',
+            content: '<h1>We Make Your Business<br/>Known to Community</h1>',
             classes: [],
             properties: {
                 color: 'Orange',
                 textAlign: 'center',
-                zIndex:10
+                zIndex:1
+
             }
         });
 
@@ -90,6 +91,7 @@ define(function (require, exports, module) {
         });
 
         this.bgMotoSurface.pipe(this._eventOutput);
+        this.motoTextSurface.pipe(this._eventOutput);
         this.rootNode.add(this.motoModifier).add(this.bgMotoSurface);
         this.rootNode.add(this.motoTextModifier).add(this.motoTextSurface);
     }

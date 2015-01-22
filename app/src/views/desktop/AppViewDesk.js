@@ -21,6 +21,9 @@ define(function (require, exports, module) {
 
     function _header() {
         this.headerDesk = new HeaderDesk();
+        this.on('header:decreased', function () {
+
+        })
         this.rootNode.add(this.headerDesk);
     }
 
