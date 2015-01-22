@@ -22,6 +22,8 @@ define(function (require, exports, module) {
     NavDesk.prototype.constructor = NavDesk;
 
     NavDesk.DEFAULT_OPTIONS = {
+        gridDimentions: [3, 1],
+        gridDirection: 0,
         size: [window.sv.sizing.navContainerWidth, undefined],
         align: [0, 0],
         origin: [0, 0],
@@ -30,9 +32,10 @@ define(function (require, exports, module) {
 
     function _grid() {
         this.grid = new GridLayout({
-            dimensions: [3, 1],
-            direction: 0
+            dimensions: this.options.gridDimentions,
+            direction: this.options.gridDirection
         });
+
         this.navs = [];
         this.titles = this.options.navTitles;
         for (var i = 0; i < this.titles.length; i++) {
@@ -44,7 +47,6 @@ define(function (require, exports, module) {
             this.navItemDesk.pipe(this._eventOutput);
             this.navs.push(this.navItemDesk);
         }
-
         this.grid.sequenceFrom(this.navs);
         this.rootNode.add(this.grid);
     }
