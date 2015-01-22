@@ -38,27 +38,60 @@ define(function (require, exports, module) {
                 case 'radio':
                     break;
             }
-        }.bind(this))
+        }.bind(this));
+
+
+        _content.call(this);
+    }
+
+    function _content() {
+
     }
 
     function _homeMoto() {
         this.motoModifier = new Modifier({
-
+            opacity: 0.85,
             size: [undefined, window.innerHeight - window.sv.sizing.headerHeight],
             transform: Transform.translate(0, window.sv.sizing.headerHeight, 0)
         });
 
-        this.motoSurface = new Surface({
+        this.bgMotoSurface = new Surface({
+            properties: {
+                backgroundColor: '#3D566E'
+            }
+        });
+
+        this.motoTextModifier = new Modifier({
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
+            opacity:1,
+
+            transform: Transform.translate(0, window.sv.sizing.headerHeight, 2)
+        });
+
+        this.motoTextSurface = new Surface({
+            content: '<h1>We Make Your Business Known</h1>',
+            classes: [],
+            properties: {
+                color: 'Orange',
+                textAlign: 'center',
+                zIndex:10
+            }
+        });
+
+        this.bgMotoSurface = new Surface({
             content: '',
             classes: [],
             properties: {
-                color: 'white',
+                color: 'Orange',
                 textAlign: 'center',
                 backgroundColor: '#3D566E'
             }
         });
-        this.motoSurface.pipe(this._eventOutput);
-        this.rootNode.add(this.motoModifier).add(this.motoSurface);
+
+        this.bgMotoSurface.pipe(this._eventOutput);
+        this.rootNode.add(this.motoModifier).add(this.bgMotoSurface);
+        this.rootNode.add(this.motoTextModifier).add(this.motoTextSurface);
     }
 
     HomeDesk.prototype = Object.create(View.prototype);
@@ -160,7 +193,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            size:[undefined,undefined],
+            size: [undefined, undefined],
             align: this.options.center,
             origin: this.options.center
         });
