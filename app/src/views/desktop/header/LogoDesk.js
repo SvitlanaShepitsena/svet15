@@ -122,7 +122,6 @@ define(function (require, exports, module) {
                 textAlign: 'center'
             }
         });
-
         this.rootNode.add(this.mediaSurfMod).add(this.mediaSurface);
     }
 
@@ -135,7 +134,6 @@ define(function (require, exports, module) {
             this.shiftTransitionable.set(this.fullPosition, {duration: 500, curve: "linear"});
             this.opacityTransitionable.set(1, {duration: 500, curve: "linear"});
         }
-
     }
 
     LogoDesk.prototype.decreaseLogo = function () {
