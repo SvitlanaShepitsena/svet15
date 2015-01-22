@@ -13,6 +13,7 @@ define(function (require, exports, module) {
 
         View.apply(this, arguments);
         this.centerModifier = new Modifier({
+
             align: [0.5, 0],
             origin: [0.5, 0],
             transform: Transform.translate(0, 0, 0)

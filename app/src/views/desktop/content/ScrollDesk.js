@@ -123,7 +123,6 @@ define(function (require, exports, module) {
 
         for (var i = 0; i < this.scrollContent.length; i++) {
             var surface = this.scrollContent[i];
-            surface.pipe(this.scrollSync);
             surface.pipe(this.scrollview);
         }
     }

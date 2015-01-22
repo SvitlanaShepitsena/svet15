@@ -7,6 +7,7 @@ define(function (require, exports, module) {
 
     var EventHandler = require('famous/core/EventHandler');
 
+
     function NavItemDesk() {
         View.apply(this, arguments);
 
@@ -15,9 +16,9 @@ define(function (require, exports, module) {
         _init.call(this);
     }
 
-
     function _init() {
         this.centerModifier = new Modifier({
+            size:[undefined,32],
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             transform: Transform.translate(0, 0, 0)
@@ -27,9 +28,7 @@ define(function (require, exports, module) {
     }
 
     function _navItem() {
-        this.menuTitleModifier = new Modifier({
-            transform: Transform.translate(0, 0, 0)
-        });
+
         this.itemSurface = new Surface({
             content: this.options.title,
             properties: {
@@ -42,7 +41,7 @@ define(function (require, exports, module) {
             this.eventOutput.emit('navigateTo', this.options.index);
         }.bind(this));
 
-        this.rootNode.add(this.menuTitleModifier).add(this.itemSurface);
+        this.rootNode.add(this.itemSurface);
 
     }
 

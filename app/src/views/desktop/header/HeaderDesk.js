@@ -14,68 +14,64 @@ define(function (require, exports, module) {
 
     function HeaderDesk() {
 
-        this.smallSize = window.sv.sizing.header / 2.8;
-        this.fullSize = window.sv.sizing.header;
+        this.smallSize = window.sv.sizing.headerHeight / 2.8;
+        this.fullSize = window.sv.sizing.headerHeight;
 
+        this.opacityTransitionable = new Transitionable(0);
+        this.sizeTransitionable = new Transitionable(window.sv.sizing.headerHeight);
         View.apply(this, arguments);
         _init.call(this);
-        _backGround.call(this);
         _flex.call(this);
     }
 
     HeaderDesk.DEFAULT_OPTIONS = {};
 
     function _init() {
-        this.opacityTransitionable = new Transitionable(0);
-        this.sizeTransitionable = new Transitionable(window.sv.sizing.header);
 
-        this.centerModifier = new Modifier({
+        this.backgroundMod = new Modifier({
             align: [0.5, 0],
             origin: [0.5, 0],
             size: function () {
-                return [1200, this.sizeTransitionable.get()]
+                return [undefined, this.sizeTransitionable.get()]
             }.bind(this),
             opacity: function () {
                 return this.opacityTransitionable.get();
             }.bind(this),
             transform: Transform.translate(0, 0, 0)
         });
-
-        this.rootNode = this.add(this.centerModifier);
-        this.opacityTransitionable.set(1, {duration: 1000, curve: 'easeInOut'});
-    }
-
-
-    function _backGround() {
-
-        this.bgMod = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            opacity: new Transitionable(0.7),
-            transform: Transform.translate(0, 0, 0)
-        });
-        this.backGround = new Surface({
+        this.backgroundSurf = new Surface({
             size: [undefined, undefined],
             properties: {
                 backgroundColor: 'black'
             }
         });
-        this.rootNode.add(this.bgMod).add(this.backGround);
+
+        this.rootNode = this.add(this.backgroundMod);
+        this.rootNode.add(this.backgroundSurf);
+
+        this.opacityTransitionable.set(0.7, {duration: 1000, curve: 'easeInOut'});
     }
 
+
     function _flex() {
+        this.contentMod = new Modifier({
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            size: [window.sv.sizing.contentWidth, undefined],
+            opacity: new Transitionable(0.7),
+            transform: Transform.translate(0, 0, 0)
+        });
         this.layout = new FlexibleLayout({
             ratios: [2, true, 2],
             direction: 0
         });
-        this.rootNode.add(this.layout);
-
+        this.rootNode.add(this.contentMod).add(this.layout);
         this.contents = [];
-
 
         this.logoDesk = new LogoDesk();
         var leftNavDesk = new NavDesk({
-            menuTitles: ['HOME', 'ABOUT US', 'DEMOGRAPHICS']
+            menuTitles: ['HOME', 'ABOUT US', 'DEMOGRAPHICS'],
+            sizeTransitionable:this.sizeTransitionable.get()
         });
         var rightNavDesk = new NavDesk({
             menuTitles: ['CLIENTS', 'RADIO', 'CONTACT US']
