@@ -30,10 +30,10 @@ define(function (require, exports, module) {
         this.sizeTransitionable = new Transitionable(window.sv.sizing.header);
 
         this.centerModifier = new Modifier({
-            align: [0, 0],
-            origin: [0, 0],
+            align: [0.5, 0],
+            origin: [0.5, 0],
             size: function () {
-                return [undefined, this.sizeTransitionable.get()]
+                return [1200, this.sizeTransitionable.get()]
             }.bind(this),
             opacity: function () {
                 return this.opacityTransitionable.get();

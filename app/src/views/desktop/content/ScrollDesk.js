@@ -113,12 +113,12 @@ define(function (require, exports, module) {
         var currVelocity, prevVelocity;
 
         this.scrollSync.on('start', function (data) {
-           //var velocity =  this.scrollSync._payload.delta[1];
-           // console.log(velocity);
-           // if (data.delta !== null) {
-           //     data.delta[1]>0?this.scrollview.goToNextPage():this.scrollview.goToPreviousPage();
-           // }
-           //this.scrollview.goToNextPage();
+            //var velocity =  this.scrollSync._payload.delta[1];
+            // console.log(velocity);
+            // if (data.delta !== null) {
+            //     data.delta[1]>0?this.scrollview.goToNextPage():this.scrollview.goToPreviousPage();
+            // }
+            //this.scrollview.goToNextPage();
         }.bind(this));
 
         for (var i = 0; i < this.scrollContent.length; i++) {
