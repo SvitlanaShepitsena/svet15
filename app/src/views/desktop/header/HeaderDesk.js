@@ -13,7 +13,6 @@ define(function (require, exports, module) {
 
 
     function HeaderDesk() {
-
         this.smallSize = window.sv.sizing.headerHeight / 2.8;
         this.fullSize = window.sv.sizing.headerHeight;
 
@@ -27,17 +26,13 @@ define(function (require, exports, module) {
     HeaderDesk.DEFAULT_OPTIONS = {};
 
     function _init() {
-
         this.backgroundMod = new Modifier({
-            align: [0.5, 0],
-            origin: [0.5, 0],
             size: function () {
                 return [undefined, this.sizeTransitionable.get()]
             }.bind(this),
             opacity: function () {
                 return this.opacityTransitionable.get();
-            }.bind(this),
-            transform: Transform.translate(0, 0, 0)
+            }.bind(this)
         });
         this.backgroundSurf = new Surface({
             size: [undefined, undefined],
@@ -52,14 +47,11 @@ define(function (require, exports, module) {
         this.opacityTransitionable.set(0.7, {duration: 1000, curve: 'easeInOut'});
     }
 
-
     function _flex() {
         this.contentMod = new Modifier({
+            size: [window.sv.sizing.contentWidth, window.sv.sizing.headerHeight],
             align: [0.5, 0],
-            origin: [0.5, 0],
-            size: [window.sv.sizing.contentWidth, undefined],
-            opacity: new Transitionable(0.7),
-            transform: Transform.translate(0, 0, 0)
+            origin: [0.5, 0]
         });
         this.layout = new FlexibleLayout({
             ratios: [2, true, 2],
@@ -71,10 +63,17 @@ define(function (require, exports, module) {
         this.logoDesk = new LogoDesk();
         var leftNavDesk = new NavDesk({
             menuTitles: ['HOME', 'ABOUT US', 'DEMOGRAPHICS'],
-            sizeTransitionable:this.sizeTransitionable.get()
+            sizeTransitionable: this.sizeTransitionable.get()
+            //size: [window.sv.sizing.navContainerWidth, undefined],
+            //align: [1, 0],
+            //origin: [1, 0]
         });
         var rightNavDesk = new NavDesk({
-            menuTitles: ['CLIENTS', 'RADIO', 'CONTACT US']
+            menuTitles: ['CLIENTS', 'RADIO', 'CONTACT US'],
+            sizeTransitionable: this.sizeTransitionable.get()
+            //size: [window.sv.sizing.navContainerWidth, undefined],
+            //align: [0, 1],
+            //origin: [0, 1]
         });
         leftNavDesk.pipe(this._eventOutput);
 
@@ -84,7 +83,7 @@ define(function (require, exports, module) {
 
         this.layout.sequenceFrom(this.contents);
 
-        this.rootNode.add(this.layout);
+        this.rootNode.add(this.contentMod).add(this.layout);
 
     }
 

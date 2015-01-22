@@ -13,14 +13,19 @@ define(function (require, exports, module) {
 
         View.apply(this, arguments);
         this.centerModifier = new Modifier({
-
-            align: [0.5, 0],
-            origin: [0.5, 0],
+            size: this.options.size,
+            align: this.options.align,
+            origin: this.options.origin,
             transform: Transform.translate(0, 0, 0)
         });
         this.rootNode = this.add(this.centerModifier);
         _grid.call(this);
     }
+
+    NavDesk.DEFAULT_OPTIONS = {
+        align: [0, 0],
+        origin: [0, 0]
+    };
 
     function _grid() {
         var that = this;
@@ -50,7 +55,6 @@ define(function (require, exports, module) {
     NavDesk.prototype = Object.create(View.prototype);
     NavDesk.prototype.constructor = NavDesk;
 
-    NavDesk.DEFAULT_OPTIONS = {};
 
     module.exports = NavDesk;
 });
