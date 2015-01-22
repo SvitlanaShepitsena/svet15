@@ -28,21 +28,21 @@ define(function (require, exports, module) {
 
     function _init() {
         this.scrollview.setOptions({
-            //rails: true,
-            //friction: 0.0007,
-            //drag: 0.0001,
-            //edgeGrip: 0.2,
-            //edgePeriod: 300,
-            //edgeDamp: 1,
-            //margin: 1000,       // mostly safe
-            //paginated: false,
-            //pagePeriod: 500,
-            //pageDamp: 0.8,
-            //pageStopSpeed: 5,
-            //pageSwitchSpeed: 0.5,
-            //speedLimit: 5,
-            //groupScroll: false,
-            //syncScale: 0.4
+            rails: true,
+            friction: 0.0007,
+            drag: 0.0001,
+            edgeGrip: 0.2,
+            edgePeriod: 300,
+            edgeDamp: 1,
+            margin: 1000,       // mostly safe
+            paginated: false,
+            pagePeriod: 500,
+            pageDamp: 0.8,
+            pageStopSpeed: 5,
+            pageSwitchSpeed: 0.5,
+            speedLimit: 5,
+            groupScroll: false,
+            syncScale: 0.04
         })
     }
 
@@ -125,7 +125,9 @@ define(function (require, exports, module) {
 
     ScrollDesk.prototype.tuneToShortHeader = function () {
         var currentPos = this.scrollview.getAbsolutePosition();
-
+        if (currentPos < 150) {
+           this.scrollview.setPositionAnimated.call(this.scrollview,150);
+        }
 
     }
 
