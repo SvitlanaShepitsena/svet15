@@ -20,8 +20,7 @@ define(function (require, exports, module) {
 
         _init.call(this);
         _flex.call(this);
-        //_gridParts.call(this);
-        _homeMoto.call(this);
+        _gridParts.call(this);
 
         this.on('parts:info', function (data) {
             switch (data.icon) {
@@ -39,26 +38,6 @@ define(function (require, exports, module) {
                     break;
             }
         }.bind(this))
-    }
-
-    function _homeMoto() {
-        this.motoModifier = new Modifier({
-
-            size: [undefined, window.innerHeight - window.sv.sizing.headerHeight],
-            transform: Transform.translate(0, window.sv.sizing.headerHeight, 0)
-        });
-
-        this.motoSurface = new Surface({
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: '#3D566E'
-            }
-        });
-        this.motoSurface.pipe(this._eventOutput);
-        this.rootNode.add(this.motoModifier).add(this.motoSurface);
     }
 
     HomeDesk.prototype = Object.create(View.prototype);
@@ -88,15 +67,16 @@ define(function (require, exports, module) {
             origin: this.options.center
         });
         this.layout = new FlexibleLayout({
-            ratios: [4, 1, 1],
+            ratios: [4, 2, 2],
             direction: 1
         });
         this.maps = new MapsCell();
+        //this.maps.pipe(this._eventOutput);
 
         this.flexContent = [];
         this.flexContent.push(this.maps);
         this.layout.sequenceFrom(this.flexContent);
-        this.rootNode.add(this.flexMod).add(this.maps);
+        this.rootNode.add(this.flexMod).add(this.layout);
     }
 
     function _gridParts() {
@@ -160,7 +140,6 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            size:[undefined,undefined],
             align: this.options.center,
             origin: this.options.center
         });

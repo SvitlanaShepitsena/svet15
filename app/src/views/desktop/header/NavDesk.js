@@ -13,6 +13,9 @@ define(function (require, exports, module) {
 
         View.apply(this, arguments);
         this.centerModifier = new Modifier({
+            size: this.options.size,
+            align: this.options.align,
+            origin: this.options.origin,
             transform: Transform.translate(0, 0, 0)
         });
         this.rootNode = this.add(this.centerModifier);
@@ -20,6 +23,8 @@ define(function (require, exports, module) {
     }
 
     NavDesk.DEFAULT_OPTIONS = {
+        align: [0, 0],
+        origin: [0, 0]
     };
 
     function _grid() {

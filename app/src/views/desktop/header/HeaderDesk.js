@@ -63,11 +63,17 @@ define(function (require, exports, module) {
         this.logoDesk = new LogoDesk();
         var leftNavDesk = new NavDesk({
             menuTitles: ['HOME', 'ABOUT US', 'DEMOGRAPHICS'],
-            sizeTransitionable: this.sizeTransitionable.get()
+            sizeTransitionable: this.sizeTransitionable.get(),
+            size: [window.sv.sizing.navContainerWidth, undefined],
+            align: [1, 0],
+            origin: [1, 0]
         });
         var rightNavDesk = new NavDesk({
             menuTitles: ['CLIENTS', 'RADIO', 'CONTACT US'],
-            sizeTransitionable: this.sizeTransitionable.get()
+            sizeTransitionable: this.sizeTransitionable.get(),
+            size: [window.sv.sizing.navContainerWidth, undefined],
+            align: [0, 1],
+            origin: [0, 1]
         });
         leftNavDesk.pipe(this._eventOutput);
 
@@ -77,7 +83,7 @@ define(function (require, exports, module) {
 
         this.layout.sequenceFrom(this.contents);
 
-        this.rootNode.add(this.contentMod).add(this.layout);
+        this.rootNode.add(this.layout);
 
     }
 

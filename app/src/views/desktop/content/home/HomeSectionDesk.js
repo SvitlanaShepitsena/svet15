@@ -88,7 +88,7 @@ define(function (require, exports, module) {
         }
         this.centerModifier = new StateModifier({
             align: this.options.center,
-            origin: this.options.center
+            origin: this.options.center,
         });
 
         this.rootNode = this.add(this.centerModifier);
