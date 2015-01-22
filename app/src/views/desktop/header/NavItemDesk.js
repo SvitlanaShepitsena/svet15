@@ -16,16 +16,25 @@ define(function (require, exports, module) {
     }
 
     NavItemDesk.DEFAULT_OPTIONS = {
+        title: null,
         itemUrl: null,
-        index: -1
+        size: [undefined, 32],
+        align: [0.5, 0.75],
+        origin: [0.5, 0.75],
+        index: -1,
+        navBtnOpts: {
+            textAlign: 'center',
+            color: window.sv.scheme.textWhite,
+            cursor: 'pointer',
+            fontSize: '14px'
+        }
     };
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [undefined, 32],
-            align: [0.5, 0.75],
-            origin: [0.5, 0.75],
-            transform: Transform.translate(0, 0, 0)
+            size: this.options.size,
+            align: this.options.align,
+            origin: this.options.origin
         });
         this.rootNode = this.add(this.centerModifier);
         _navItem.call(this);
@@ -34,11 +43,7 @@ define(function (require, exports, module) {
     function _navItem() {
         this.itemSurface = new Surface({
             content: this.options.title,
-            properties: {
-                textAlign: 'center',
-                color: window.sv.scheme.textWhite,
-                cursor: 'pointer'
-            }
+            properties: this.options.navBtnOpts
         });
         this.itemSurface.on('click', function () {
             this.eventOutput.emit('navigateTo', this.options.index);

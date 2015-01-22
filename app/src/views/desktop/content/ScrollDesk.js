@@ -26,6 +26,26 @@ define(function (require, exports, module) {
         _scrollEvent.call(this);
     }
 
+    function _init() {
+        this.scrollview.setOptions({
+            //rails: true,
+            //friction: 0.0007,
+            //drag: 0.0001,
+            //edgeGrip: 0.2,
+            //edgePeriod: 300,
+            //edgeDamp: 1,
+            //margin: 1000,       // mostly safe
+            //paginated: false,
+            //pagePeriod: 500,
+            //pageDamp: 0.8,
+            //pageStopSpeed: 5,
+            //pageSwitchSpeed: 0.5,
+            //speedLimit: 5,
+            //groupScroll: false,
+            //syncScale: 0.4
+        })
+    }
+
     function _scrollEvent() {
         var that = this;
         var startPosition, startPage, currentPosition, currentPage, moveDown, absPos;
@@ -61,25 +81,6 @@ define(function (require, exports, module) {
         }.bind(this))
     }
 
-    function _init() {
-        this.scrollview.setOptions({
-            rails: true,
-            friction: 0.0007,
-            drag: 0.0001,
-            edgeGrip: 0.2,
-            edgePeriod: 300,
-            edgeDamp: 1,
-            margin: 1000,       // mostly safe
-            paginated: false,
-            pagePeriod: 500,
-            pageDamp: 0.8,
-            pageStopSpeed: 5,
-            pageSwitchSpeed: 0.5,
-            speedLimit: 5,
-            groupScroll: false,
-            syncScale: 0.07
-        })
-    }
 
     function _fillContent() {
         this.homeDesk = new HomeDesk();
@@ -124,7 +125,6 @@ define(function (require, exports, module) {
 
     ScrollDesk.prototype.tuneToShortHeader = function () {
         var currentPos = this.scrollview.getAbsolutePosition();
-
 
 
     }
