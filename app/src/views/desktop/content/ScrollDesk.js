@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var ScrollContainer = require('famous/views/ScrollContainer');
 
-    var HomeDesk = require('dviews/content/dpages/HomeDesk');
+    var HomeDesk = require('dviews/content/home/HomeDesk');
     var AboutUsDesk = require('dviews/content/dpages/AboutUsDesk');
     var ClientsDesk = require('dviews/content/dpages/ClientsDesk');
     var DemographicsDesk = require('dviews/content/dpages/DemographicsDesk');
