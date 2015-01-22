@@ -20,7 +20,8 @@ define(function (require, exports, module) {
 
         _init.call(this);
         _flex.call(this);
-        _gridParts.call(this);
+        //_gridParts.call(this);
+        _homeMoto.call(this);
 
         this.on('parts:info', function (data) {
             switch (data.icon) {
@@ -38,6 +39,25 @@ define(function (require, exports, module) {
                     break;
             }
         }.bind(this))
+    }
+
+    function _homeMoto() {
+        this.motoModifier = new Modifier({
+            transform: Transform.translate(0, 10, 0)
+        });
+
+        this.motoSurface = new Surface({
+            size: [undefined, window.innerHeight-window.sv.sizing.headerHeight],
+            content: '',
+            classes: [],
+            properties: {
+                color: 'white',
+                textAlign: 'center',
+                backgroundColor: '#FA5C4F'
+            }
+        });
+
+        this.rootNode.add(this.motoModifier).add(this.motoSurface);
     }
 
     HomeDesk.prototype = Object.create(View.prototype);
@@ -67,16 +87,15 @@ define(function (require, exports, module) {
             origin: this.options.center
         });
         this.layout = new FlexibleLayout({
-            ratios: [4, 2, 2],
+            ratios: [4, 1, 1],
             direction: 1
         });
         this.maps = new MapsCell();
-        //this.maps.pipe(this._eventOutput);
 
         this.flexContent = [];
         this.flexContent.push(this.maps);
         this.layout.sequenceFrom(this.flexContent);
-        this.rootNode.add(this.flexMod).add(this.layout);
+        this.rootNode.add(this.flexMod).add(this.maps);
     }
 
     function _gridParts() {
