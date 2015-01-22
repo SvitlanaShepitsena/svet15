@@ -7,7 +7,6 @@ define(function (require, exports, module) {
 
     var EventHandler = require('famous/core/EventHandler');
 
-
     function NavItemDesk() {
         View.apply(this, arguments);
 
