@@ -11,8 +11,6 @@ define(function (require, exports, module) {
 
         this.fullPosition = window.sv.sizing.headerHeight * .09;
         this.shortPosition = -window.sv.sizing.headerHeight * 0.4;
-
-        this.logoHeight = (window.sv.sizing.headerHeight * .82);
         this.shiftTransitionable = new Transitionable(this.fullPosition);
         this.opacityTransitionable = new Transitionable(1);
 
@@ -23,13 +21,14 @@ define(function (require, exports, module) {
         _logoSvg.call(this);
     }
 
-    LogoDesk.DEFAULT_OPTIONS = {};
+    LogoDesk.DEFAULT_OPTIONS = {
+        logoHeight: window.sv.sizing.headerHeight * .82,
+        paperWidth: window.sv.sizing.logoContainerWidth * .87
+    };
 
     function _logoSvg() {
         var div = document.createElement('div');
-
-        var paperWidth = window.sv.sizing.logoContainerWidth * .87;
-        var paper = Raphael(div, paperWidth, 200);
+        var paper = Raphael(div, this.options.paperWidth, this.options.logoHeight);
         var path = drawpath(paper, "M80,80 L20,80 L130,10 L240,80 L180,80", 2000, {
             fill: 'none',
             stroke: 'red',
@@ -37,12 +36,10 @@ define(function (require, exports, module) {
             'fill-opacity': 0
         });
         this.logoSvgMod = new Modifier({
-            size: [undefined, 200],
+            size: [undefined, this.options.logoHeight],
             opacity: function () {
                 return this.opacityTransitionable.get();
             }.bind(this),
-
-
             transform: Transform.translate(0, 0, 0)
         });
         this.logoSvgSurf = new Surface({
@@ -96,7 +93,6 @@ define(function (require, exports, module) {
     }
 
     function _rmgText() {
-
         this.mediaSurfMod = new Modifier({
             size: [undefined, 21],
             opacity: function () {
@@ -121,7 +117,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [window.sv.sizing.logoContainerWidth, this.logoHeight],
+            size: [window.sv.sizing.logoContainerWidth, this.options.logoHeight],
             transform: function () {
                 return Transform.translate(0, this.shiftTransitionable.get(), 0);
             }.bind(this)
