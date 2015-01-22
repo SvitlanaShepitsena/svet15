@@ -7,7 +7,7 @@
  * @copyright Famous Industries, Inc. 2014
  */
 
-define(function(require, exports, module) {
+define(function (require, exports, module) {
     var PhysicsEngine = require('../physics/PhysicsEngine');
     var Particle = require('../physics/bodies/Particle');
     var Drag = require('../physics/forces/Drag');
@@ -22,10 +22,10 @@ define(function(require, exports, module) {
     var GenericSync = require('../inputs/GenericSync');
     var ScrollSync = require('../inputs/ScrollSync');
     var TouchSync = require('../inputs/TouchSync');
-    GenericSync.register({scroll : ScrollSync, touch : TouchSync});
+    GenericSync.register({scroll: ScrollSync, touch: TouchSync});
 
     /** @const */
-    var TOLERANCE = 0.5;
+    var TOLERANCE = 0.3;
 
     /** @enum */
     var SpringStates = {
@@ -36,8 +36,8 @@ define(function(require, exports, module) {
 
     /** @enum */
     var EdgeStates = {
-        TOP:   -1,
-        NONE:   0,
+        TOP: -1,
+        NONE: 0,
         BOTTOM: 1
     };
 
@@ -85,8 +85,8 @@ define(function(require, exports, module) {
         this.sync = new GenericSync(
             ['scroll', 'touch'],
             {
-                direction : this.options.direction,
-                scale : this.options.syncScale,
+                direction: this.options.direction,
+                scale: this.options.syncScale,
                 rails: this.options.rails,
                 preventDefault: this.options.preventDefault !== undefined
                     ? this.options.preventDefault
@@ -234,28 +234,28 @@ define(function(require, exports, module) {
         this._eventInput.on('update', _handleMove);
         this._eventInput.on('end', _handleEnd);
 
-        this._eventInput.on('resize', function() {
+        this._eventInput.on('resize', function () {
             this._node._.calculateSize();
         }.bind(this));
 
-        this._scroller.on('onEdge', function(data) {
+        this._scroller.on('onEdge', function (data) {
             this._edgeSpringPosition = data.position;
             _handleEdge.call(this, this._scroller.onEdge());
             this._eventOutput.emit('onEdge');
         }.bind(this));
 
-        this._scroller.on('offEdge', function() {
+        this._scroller.on('offEdge', function () {
             this.sync.setOptions({scale: this.options.syncScale});
             this._onEdge = this._scroller.onEdge();
             this._eventOutput.emit('offEdge');
         }.bind(this));
 
-        this._particle.on('update', function(particle) {
+        this._particle.on('update', function (particle) {
             if (this._springState === SpringStates.NONE) _normalizeState.call(this);
             this._displacement = particle.position.x - this._totalShift;
         }.bind(this));
 
-        this._particle.on('end', function() {
+        this._particle.on('end', function () {
             if (!this.options.paginated || (this.options.paginated && this._springState !== SpringStates.NONE))
                 this._eventOutput.emit('settle');
         }.bind(this));
@@ -501,6 +501,14 @@ define(function(require, exports, module) {
      */
     Scrollview.prototype.getPosition = function getPosition() {
         return this._particle.getPosition1D();
+    };
+
+    Scrollview.prototype.setPositionAnimated = function (amount) {
+        var position = this.getPosition();
+
+        _detachAgents.call(this);
+        this.setVelocity(0.05);
+        _attachAgents.call(this);
     };
 
     /**
