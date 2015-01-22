@@ -26,11 +26,9 @@ define(function (require, exports, module) {
         _scrollEvent.call(this);
     }
 
-
     function _scrollEvent() {
         var that = this;
         var startPosition, startPage, currentPosition, currentPage, moveDown, absPos;
-
 
         this.scrollview.sync.on('start', function () {
             startPosition = this.scrollview.getAbsolutePosition();
@@ -49,8 +47,6 @@ define(function (require, exports, module) {
 
                     this._eventOutput.emit('increase:header');
                 }
-
-
                 absPos = this.scrollview.getAbsolutePosition();
                 if (absPos < 0) {
                     this.scrollview.setPosition(0);
@@ -61,12 +57,8 @@ define(function (require, exports, module) {
         this.scrollview.sync.on('end', function () {
             Timer.clear(this.scrollUtil);
         }.bind(this))
-
         this.scrollview.sync.on('update', function () {
-
         }.bind(this))
-
-
     }
 
     function _init() {
