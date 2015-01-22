@@ -43,20 +43,21 @@ define(function (require, exports, module) {
 
     function _homeMoto() {
         this.motoModifier = new Modifier({
-            transform: Transform.translate(0, 10, 0)
+
+            size: [undefined, window.innerHeight - window.sv.sizing.headerHeight],
+            transform: Transform.translate(0, window.sv.sizing.headerHeight, 0)
         });
 
         this.motoSurface = new Surface({
-            size: [undefined, window.innerHeight-window.sv.sizing.headerHeight],
             content: '',
             classes: [],
             properties: {
                 color: 'white',
                 textAlign: 'center',
-                backgroundColor: '#FA5C4F'
+                backgroundColor: '#3D566E'
             }
         });
-
+        this.motoSurface.pipe(this._eventOutput);
         this.rootNode.add(this.motoModifier).add(this.motoSurface);
     }
 
@@ -159,6 +160,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
+            size:[undefined,undefined],
             align: this.options.center,
             origin: this.options.center
         });
