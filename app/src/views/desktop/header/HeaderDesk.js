@@ -75,10 +75,10 @@ define(function (require, exports, module) {
 
         this.logoDesk = new LogoDesk();
         var leftNavDesk = new NavDesk({
-            menuTitles: ['Home', 'About Us', 'Demographics']
+            menuTitles: ['HOME', 'ABOUT US', 'DEMOGRAPHICS']
         });
         var rightNavDesk = new NavDesk({
-            menuTitles: ['Clients', 'Radio', 'Contact Us']
+            menuTitles: ['CLIENTS', 'RADIO', 'CONTACT US']
         });
         leftNavDesk.pipe(this._eventOutput);
 
