@@ -11,6 +11,14 @@ define(function (require, exports, module) {
 
         this.fullPosition = window.sv.sizing.headerHeight * .09;
         this.shortPosition = -window.sv.sizing.headerHeight * 0.36;
+        this.shortPosition = -window.sv.sizing.headerHeight * 0.4;
+
+        this.red = new Transitionable(255);
+        this.green = new Transitionable(255);
+        this.blue = new Transitionable(255);
+
+
+        this.logoHeight = (window.sv.sizing.headerHeight * .82);
         this.shiftTransitionable = new Transitionable(this.fullPosition);
         this.opacityTransitionable = new Transitionable(1);
 
@@ -88,6 +96,8 @@ define(function (require, exports, module) {
     }
 
     function _svetText() {
+        var that = this;
+
         this.svetTextMod = new Modifier({
             size: [undefined, 34],
             transform: Transform.translate(0, 70, 0)
@@ -95,12 +105,22 @@ define(function (require, exports, module) {
         this.svetTextSurf = new Surface({
             content: 'SVET',
             properties: {
-                color: 'white',
                 fontSize: '34px',
                 fontWeight: 'bold',
                 textAlign: 'center'
             }
         });
+        this.svetTextSurf.render = function () {
+            var red = Math.ceil(that.red.get()),
+                green = Math.ceil(that.green.get()),
+                blue = Math.ceil(that.blue.get());
+
+            this.setProperties({
+                color: 'rgb(' + red + ', ' + green + ', ' + blue + ')'
+            });
+
+            return this.id;
+        };
         this.rootNode.add(this.svetTextMod).add(this.svetTextSurf);
     }
 
@@ -133,6 +153,7 @@ define(function (require, exports, module) {
             this.opacityTransitionable.halt();
             this.shiftTransitionable.set(this.fullPosition, {duration: 500, curve: "linear"});
             this.opacityTransitionable.set(1, {duration: 500, curve: "linear"});
+            this.changeColorHigh.call(this);
         }
     }
 
@@ -144,7 +165,32 @@ define(function (require, exports, module) {
 
             this.shiftTransitionable.set(this.shortPosition, {duration: 500, curve: "linear"});
             this.opacityTransitionable.set(0, {duration: 500, curve: "linear"});
+
+            this.changeColorShort.call(this);
         }
+
+    }
+
+    LogoDesk.prototype.changeColorHigh = function () {
+        this.red.halt();
+        this.green.halt();
+        this.blue.halt();
+
+        this.red.set(255, {duration: 500, curve: "linear"});
+        this.green.set(255, {duration: 500, curve: "linear"});
+        this.blue.set(255, {duration: 500, curve: "linear"});
+
+    }
+
+    LogoDesk.prototype.changeColorShort = function () {
+        this.red.halt();
+        this.green.halt();
+        this.blue.halt();
+
+
+        this.red.set(255, {duration: 500, curve: "linear"});
+        this.green.set(102, {duration: 500, curve: "linear"});
+        this.blue.set(0, {duration: 500, curve: "linear"});
 
     }
 
