@@ -17,8 +17,6 @@ define(function (require, exports, module) {
         this.green = new Transitionable(255);
         this.blue = new Transitionable(255);
 
-
-        this.logoHeight = (window.sv.sizing.headerHeight * .82);
         this.shiftTransitionable = new Transitionable(this.fullPosition);
         this.opacityTransitionable = new Transitionable(1);
 
@@ -188,9 +186,9 @@ define(function (require, exports, module) {
         this.blue.halt();
 
 
-        this.red.set(255, {duration: 500, curve: "linear"});
-        this.green.set(102, {duration: 500, curve: "linear"});
-        this.blue.set(0, {duration: 500, curve: "linear"});
+        this.red.set(250, {duration: 500, curve: "linear"});
+        this.green.set(250, {duration: 500, curve: "linear"});
+        this.blue.set(210, {duration: 500, curve: "linear"});
 
     }
 
