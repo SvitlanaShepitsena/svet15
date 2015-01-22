@@ -57,14 +57,12 @@ define(function (require, exports, module) {
 
         this.logoDesk = new LogoDesk();
         this.leftNavDesk = new NavDesk({
-            menuTitles: ['HOME', 'ABOUT US', 'DEMOGRAPHICS'],
-            size: [window.sv.sizing.navContainerWidth, undefined],
+            navTitles: ['HOME', 'ABOUT US', 'DEMOGRAPHICS'],
             align: [1, 0],
             origin: [1, 0]
         });
         this.rightNavDesk = new NavDesk({
-            menuTitles: ['CLIENTS', 'RADIO', 'CONTACT US'],
-            size: [window.sv.sizing.navContainerWidth, undefined],
+            navTitles: ['CLIENTS', 'RADIO', 'CONTACT US'],
             align: [0, 1],
             origin: [0, 1]
         });
@@ -100,7 +98,7 @@ define(function (require, exports, module) {
         if (currentHeaderSize > this.smallSize) {
             this.sizeTransitionable.halt();
             this.sizeTransitionable.set(this.smallSize, {duration: 500, curve: "linear"}, function () {
-               this._eventOutput.emit('header:decreased');
+                this._eventOutput.emit('header:decreased');
             }.bind(this));
             this.logoDesk.decreaseLogo();
         }

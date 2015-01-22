@@ -12,7 +12,7 @@ define(function (require, exports, module) {
 
         this.eventOutput = new EventHandler();
         EventHandler.setOutputHandler(this, this.eventOutput);
-        _init.call(this);
+        _navItem.call(this);
     }
 
     NavItemDesk.DEFAULT_OPTIONS = {
@@ -30,25 +30,22 @@ define(function (require, exports, module) {
         }
     };
 
-    function _init() {
+    function _navItem() {
         this.centerModifier = new Modifier({
             size: this.options.size,
             align: this.options.align,
             origin: this.options.origin
         });
-        this.rootNode = this.add(this.centerModifier);
-        _navItem.call(this);
-    }
-
-    function _navItem() {
         this.itemSurface = new Surface({
             content: this.options.title,
             properties: this.options.navBtnOpts
         });
+
         this.itemSurface.on('click', function () {
             this.eventOutput.emit('navigateTo', this.options.index);
         }.bind(this));
 
+        this.rootNode = this.add(this.centerModifier);
         this.rootNode.add(this.itemSurface);
     }
 
