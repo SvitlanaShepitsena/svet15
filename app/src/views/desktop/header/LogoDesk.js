@@ -25,6 +25,18 @@ define(function (require, exports, module) {
         logoHeight: window.sv.sizing.headerHeight * .82,
         paperWidth: window.sv.sizing.logoContainerWidth * .87
     };
+    LogoDesk.prototype = Object.create(View.prototype);
+    LogoDesk.prototype.constructor = LogoDesk;
+
+    function _init() {
+        this.centerModifier = new Modifier({
+            size: [window.sv.sizing.logoContainerWidth, this.options.logoHeight],
+            transform: function () {
+                return Transform.translate(0, this.shiftTransitionable.get(), 0);
+            }.bind(this)
+        });
+        this.rootNode = this.add(this.centerModifier);
+    }
 
     function _logoSvg() {
         var div = document.createElement('div');
@@ -113,19 +125,6 @@ define(function (require, exports, module) {
 
         this.rootNode.add(this.mediaSurfMod).add(this.mediaSurface);
     }
-
-    function _init() {
-        this.centerModifier = new Modifier({
-            size: [window.sv.sizing.logoContainerWidth, this.options.logoHeight],
-            transform: function () {
-                return Transform.translate(0, this.shiftTransitionable.get(), 0);
-            }.bind(this)
-        });
-        this.rootNode = this.add(this.centerModifier);
-    }
-
-    LogoDesk.prototype = Object.create(View.prototype);
-    LogoDesk.prototype.constructor = LogoDesk;
 
 
     LogoDesk.prototype.increaseLogo = function () {
