@@ -12,6 +12,7 @@ define(function (require, exports, module) {
     var RadioDesk = require('dviews/content/dpages/RadioDesk');
     var ContactUsDesk = require('dviews/content/dpages/ContactUsDesk');
     var Timer = require('famous/utilities/Timer');
+    var ScrollSync = require("famous/inputs/ScrollSync");
 
 
     function ScrollDesk() {
@@ -70,7 +71,21 @@ define(function (require, exports, module) {
 
     function _init() {
         this.scrollview.setOptions({
-            paginated: false
+            rails: true,
+            friction: 0.0001,
+            drag: 0.0001,
+            edgeGrip: 0.2,
+            edgePeriod: 300,
+            edgeDamp: 1,
+            margin: 1000,       // mostly safe
+            paginated: false,
+            pagePeriod: 500,
+            pageDamp: 0.8,
+            pageStopSpeed: 10,
+            pageSwitchSpeed: 0.5,
+            speedLimit: 5,
+            groupScroll: false,
+            syncScale: 0.5
         })
     }
 
@@ -92,9 +107,15 @@ define(function (require, exports, module) {
     }
 
     function _pipe() {
+        this.scrollSync = new ScrollSync();
+        var counter = 1;
+        this.scrollSync.on('update', function (data) {
+            console.log(counter++);
+
+        })
         for (var i = 0; i < this.scrollContent.length; i++) {
             var surface = this.scrollContent[i];
-            surface.pipe(this.scrollview);
+            surface.pipe(this.scrollSync);
         }
     }
 
