@@ -48,16 +48,11 @@ define(function (require, exports, module) {
     }
 
     function _flex() {
-        this.contentMod = new Modifier({
-            size: [window.sv.sizing.contentWidth, window.sv.sizing.headerHeight],
-            align: [0.5, 0],
-            origin: [0.5, 0]
-        });
         this.layout = new FlexibleLayout({
             ratios: [2, true, 2],
             direction: 0
         });
-        this.rootNode.add(this.contentMod).add(this.layout);
+        this.rootNode.add(this.layout);
         this.contents = [];
 
         this.logoDesk = new LogoDesk();

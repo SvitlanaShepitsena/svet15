@@ -35,7 +35,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [window.sv.sizing.logoContainerWidth, this.options.logoHeight],
+            size: [window.sv.sizing.logoContainerWidth, window.sv.sizing.headerHeight],
             transform: function () {
                 return Transform.translate(0, this.shiftTransitionable.get(), 0);
             }.bind(this)
@@ -69,32 +69,8 @@ define(function (require, exports, module) {
         this.rootNode.add(this.logoSvgMod).add(this.logoSvgSurf);
     }
 
-    function drawpath(canvas, pathstr, duration, attr, callback) {
-        var guide_path = canvas.path(pathstr).attr({stroke: "none", fill: "none"});
-        var path = canvas.path(guide_path.getSubpath(0, 1)).attr(attr);
-        var total_length = guide_path.getTotalLength(guide_path);
-        var last_point = guide_path.getPointAtLength(0);
-        var start_time = new Date().getTime();
-        var interval_length = 50;
-        var result = path;
-        var interval_id = setInterval(function () {
-            var elapsed_time = new Date().getTime() - start_time;
-            var this_length = elapsed_time / duration * total_length;
-            var subpathstr = guide_path.getSubpath(0, this_length);
-            attr.path = subpathstr;
-            path.animate(attr, interval_length);
-            if (elapsed_time >= duration) {
-                clearInterval(interval_id);
-                if (callback != undefined) callback();
-                guide_path.remove();
-            }
-        }, interval_length);
-        return result;
-    }
-
     function _svetText() {
         var that = this;
-
         this.svetTextMod = new Modifier({
             size: [undefined, 34],
             transform: Transform.translate(0, 70, 0)
@@ -165,7 +141,6 @@ define(function (require, exports, module) {
 
             this.changeColorShort.call(this);
         }
-
     }
 
     LogoDesk.prototype.changeColorHigh = function () {
@@ -184,12 +159,34 @@ define(function (require, exports, module) {
         this.green.halt();
         this.blue.halt();
 
-
         this.red.set(250, {duration: 500, curve: "linear"});
         this.green.set(250, {duration: 500, curve: "linear"});
         this.blue.set(210, {duration: 500, curve: "linear"});
-
     }
+
+    function drawpath(canvas, pathstr, duration, attr, callback) {
+        var guide_path = canvas.path(pathstr).attr({stroke: "none", fill: "none"});
+        var path = canvas.path(guide_path.getSubpath(0, 1)).attr(attr);
+        var total_length = guide_path.getTotalLength(guide_path);
+        var last_point = guide_path.getPointAtLength(0);
+        var start_time = new Date().getTime();
+        var interval_length = 50;
+        var result = path;
+        var interval_id = setInterval(function () {
+            var elapsed_time = new Date().getTime() - start_time;
+            var this_length = elapsed_time / duration * total_length;
+            var subpathstr = guide_path.getSubpath(0, this_length);
+            attr.path = subpathstr;
+            path.animate(attr, interval_length);
+            if (elapsed_time >= duration) {
+                clearInterval(interval_id);
+                if (callback != undefined) callback();
+                guide_path.remove();
+            }
+        }, interval_length);
+        return result;
+    }
+
 
     module.exports = LogoDesk;
 });
