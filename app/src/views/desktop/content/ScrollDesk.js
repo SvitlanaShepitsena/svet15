@@ -78,11 +78,11 @@ define(function (require, exports, module) {
             edgePeriod: 300,
             edgeDamp: 1,
             margin: 1000,       // mostly safe
-            paginated: true,
+            paginated: false,
             pagePeriod: 500,
             pageDamp: 0.8,
             pageStopSpeed: 10,
-            pageSwitchSpeed: 0.2,
+            pageSwitchSpeed: 0.5,
             speedLimit: 5,
             groupScroll: false,
             syncScale: 0.5
@@ -112,28 +112,19 @@ define(function (require, exports, module) {
         var counterView = 0;
         var currVelocity, prevVelocity;
 
-
-        this.scrollSync.on('end', function () {
-            console.log('endAngle');
-
-        });
-
-        this.scrollSync.on('start', function () {
-            var delta = this.scrollSync._payload.delta;
-            if (delta !== null) {
-                if (delta[1] < 0) {
-                    this.scrollview.goToPreviousPage();
-                } else{
-                    this.scrollview.goToNextPage();
-
-                }
-            }
+        this.scrollSync.on('start', function (data) {
+            //var velocity =  this.scrollSync._payload.delta[1];
+            // console.log(velocity);
+            // if (data.delta !== null) {
+            //     data.delta[1]>0?this.scrollview.goToNextPage():this.scrollview.goToPreviousPage();
+            // }
+            //this.scrollview.goToNextPage();
         }.bind(this));
 
         for (var i = 0; i < this.scrollContent.length; i++) {
             var surface = this.scrollContent[i];
             surface.pipe(this.scrollSync);
-            //surface.pipe(this.scrollview);
+            surface.pipe(this.scrollview);
         }
     }
 

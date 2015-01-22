@@ -49,6 +49,7 @@ define(function (require, exports, module) {
         var centerModifier = new Modifier({
             align: this.options.centerModifier,
             origin: this.options.centerModifier,
+
             transform: Transform.translate(0, 0, 0)
         });
         this.rootNode = this.add(centerModifier);

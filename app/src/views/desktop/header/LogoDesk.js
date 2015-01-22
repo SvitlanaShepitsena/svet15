@@ -38,8 +38,8 @@ define(function (require, exports, module) {
         });
         this.logoSvgMod = new Modifier({
             size: [undefined, 200],
-             opacity: function () {
-            return this.opacityTransitionable.get();
+            opacity: function () {
+                return this.opacityTransitionable.get();
             }.bind(this),
 
 
