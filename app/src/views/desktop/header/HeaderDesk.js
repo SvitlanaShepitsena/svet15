@@ -56,25 +56,23 @@ define(function (require, exports, module) {
         this.contents = [];
 
         this.logoDesk = new LogoDesk();
-        var leftNavDesk = new NavDesk({
+        this.leftNavDesk = new NavDesk({
             menuTitles: ['HOME', 'ABOUT US', 'DEMOGRAPHICS'],
-            sizeTransitionable: this.sizeTransitionable.get(),
             size: [window.sv.sizing.navContainerWidth, undefined],
             align: [1, 0],
             origin: [1, 0]
         });
-        var rightNavDesk = new NavDesk({
+        this.rightNavDesk = new NavDesk({
             menuTitles: ['CLIENTS', 'RADIO', 'CONTACT US'],
-            sizeTransitionable: this.sizeTransitionable.get(),
             size: [window.sv.sizing.navContainerWidth, undefined],
             align: [0, 1],
             origin: [0, 1]
         });
-        leftNavDesk.pipe(this._eventOutput);
+        this.leftNavDesk.pipe(this._eventOutput);
 
-        this.contents.push(leftNavDesk);
+        this.contents.push(this.leftNavDesk);
         this.contents.push(this.logoDesk);
-        this.contents.push(rightNavDesk);
+        this.contents.push(this.rightNavDesk);
 
         this.layout.sequenceFrom(this.contents);
 
