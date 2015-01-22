@@ -11,7 +11,6 @@ define(function (require, exports, module) {
 
         this.fullPosition = window.sv.sizing.headerHeight * .09;
         this.shortPosition = -window.sv.sizing.headerHeight * 0.36;
-        this.shortPosition = -window.sv.sizing.headerHeight * 0.4;
 
         this.red = new Transitionable(255);
         this.green = new Transitionable(255);
