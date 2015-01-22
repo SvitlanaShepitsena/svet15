@@ -2,7 +2,8 @@ define(['require', 'famous/core/Engine', 'views/cell/AppViewCell', 'views/deskto
     var MOBILEWIDTH = 490;
 
     var Transform = require('famous/core/Transform');
-
+    var container = document.getElementsByClassName('container');
+    console.log(container);
     var mainContext = Engine.createContext();
     mainContext.setPerspective(500);
 
