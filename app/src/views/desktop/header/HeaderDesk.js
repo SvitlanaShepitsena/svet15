@@ -11,21 +11,37 @@ define(function (require, exports, module) {
     var LogoDesk = require('dviews/header/LogoDesk');
     var NavDesk = require('dviews/header/NavDesk');
 
-
     function HeaderDesk() {
         this.smallSize = window.sv.sizing.headerHeight / 2.8;
         this.fullSize = window.sv.sizing.headerHeight;
 
         this.opacityTransitionable = new Transitionable(0);
         this.sizeTransitionable = new Transitionable(window.sv.sizing.headerHeight);
+
         View.apply(this, arguments);
-        _init.call(this);
+        _headerBackground.call(this);
         _flex.call(this);
     }
 
-    HeaderDesk.DEFAULT_OPTIONS = {};
+    HeaderDesk.prototype = Object.create(View.prototype);
+    HeaderDesk.prototype.constructor = HeaderDesk;
 
-    function _init() {
+    HeaderDesk.DEFAULT_OPTIONS = {
+        flexOpts: {
+            ratios: [2, true, 2],
+            direction: 0
+        },
+        backgroundOpts: {
+            backgroundColor: 'black'
+        },
+        opacityOpts: {
+            opacity: 0.7,
+            duration: 1000,
+            curve: 'easeInOut'
+        }
+    };
+
+    function _headerBackground() {
         this.backgroundMod = new Modifier({
             size: function () {
                 return [undefined, this.sizeTransitionable.get()]
@@ -36,26 +52,26 @@ define(function (require, exports, module) {
         });
         this.backgroundSurf = new Surface({
             size: [undefined, undefined],
-            properties: {
-                backgroundColor: 'black'
-            }
+            properties: this.options.backgroundOpts
         });
-
         this.rootNode = this.add(this.backgroundMod);
         this.rootNode.add(this.backgroundSurf);
-
-        this.opacityTransitionable.set(0.7, {duration: 1000, curve: 'easeInOut'});
+        this.opacityTransitionable.set(this.options.opacityOpts.opacity, {
+            duration: this.options.opacityOpts.duration,
+            curve: this.options.opacityOpts.curve
+        });
     }
 
     function _flex() {
         this.layout = new FlexibleLayout({
-            ratios: [2, true, 2],
-            direction: 0
+            ratios: this.options.flexOpts.ratios,
+            direction: this.options.flexOpts.direction
         });
         this.rootNode.add(this.layout);
         this.contents = [];
 
         this.logoDesk = new LogoDesk();
+
         this.leftNavDesk = new NavDesk({
             navTitles: ['HOME', 'ABOUT US', 'DEMOGRAPHICS'],
             align: [1, 0],
@@ -66,20 +82,18 @@ define(function (require, exports, module) {
             align: [0, 1],
             origin: [0, 1]
         });
+
         this.leftNavDesk.pipe(this._eventOutput);
+        this.rightNavDesk.pipe(this._eventOutput);
 
         this.contents.push(this.leftNavDesk);
         this.contents.push(this.logoDesk);
         this.contents.push(this.rightNavDesk);
 
         this.layout.sequenceFrom(this.contents);
-
         this.rootNode.add(this.layout);
-
     }
 
-    HeaderDesk.prototype = Object.create(View.prototype);
-    HeaderDesk.prototype.constructor = HeaderDesk;
 
     HeaderDesk.prototype.increaseHeader = function () {
         var currentHeaderSize = this.sizeTransitionable.get();
