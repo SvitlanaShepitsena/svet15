@@ -16,11 +16,16 @@ define(function (require, exports, module) {
         _init.call(this);
     }
 
+    NavItemDesk.DEFAULT_OPTIONS = {
+        itemUrl: null,
+        index: -1
+    };
+
     function _init() {
         this.centerModifier = new Modifier({
-            size:[undefined,32],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
+            size: [undefined, 32],
+            align: [0.5, 0.75],
+            origin: [0.5, 0.75],
             transform: Transform.translate(0, 0, 0)
         });
         this.rootNode = this.add(this.centerModifier);
@@ -28,7 +33,6 @@ define(function (require, exports, module) {
     }
 
     function _navItem() {
-
         this.itemSurface = new Surface({
             content: this.options.title,
             properties: {
@@ -42,16 +46,10 @@ define(function (require, exports, module) {
         }.bind(this));
 
         this.rootNode.add(this.itemSurface);
-
     }
 
     NavItemDesk.prototype = Object.create(View.prototype);
     NavItemDesk.prototype.constructor = NavItemDesk;
-
-    NavItemDesk.DEFAULT_OPTIONS = {
-        itemUrl: null,
-        index: -1
-    };
 
     module.exports = NavItemDesk;
 });
