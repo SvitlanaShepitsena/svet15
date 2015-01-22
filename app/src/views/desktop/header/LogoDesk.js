@@ -5,12 +5,12 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
     var Transitionable = require('famous/transitions/Transitionable');
-    var Timer = require('famous/utilities/Timer');
 
 
     function LogoDesk() {
 
         this.fullPosition = window.sv.sizing.headerHeight * .09;
+        this.shortPosition = -window.sv.sizing.headerHeight * 0.36;
         this.shortPosition = -window.sv.sizing.headerHeight * 0.4;
 
         this.red = new Transitionable(255);
@@ -29,13 +29,26 @@ define(function (require, exports, module) {
         _logoSvg.call(this);
     }
 
-    LogoDesk.DEFAULT_OPTIONS = {};
+    LogoDesk.DEFAULT_OPTIONS = {
+        logoHeight: window.sv.sizing.headerHeight * .82,
+        paperWidth: window.sv.sizing.logoContainerWidth * .87
+    };
+    LogoDesk.prototype = Object.create(View.prototype);
+    LogoDesk.prototype.constructor = LogoDesk;
+
+    function _init() {
+        this.centerModifier = new Modifier({
+            size: [window.sv.sizing.logoContainerWidth, this.options.logoHeight],
+            transform: function () {
+                return Transform.translate(0, this.shiftTransitionable.get(), 0);
+            }.bind(this)
+        });
+        this.rootNode = this.add(this.centerModifier);
+    }
 
     function _logoSvg() {
         var div = document.createElement('div');
-
-        var paperWidth = window.sv.sizing.logoContainerWidth * .87;
-        var paper = Raphael(div, paperWidth, 200);
+        var paper = Raphael(div, this.options.paperWidth, this.options.logoHeight);
         var path = drawpath(paper, "M80,80 L20,80 L130,10 L240,80 L180,80", 2000, {
             fill: 'none',
             stroke: 'red',
@@ -43,12 +56,10 @@ define(function (require, exports, module) {
             'fill-opacity': 0
         });
         this.logoSvgMod = new Modifier({
-            size: [undefined, 200],
+            size: [undefined, this.options.logoHeight],
             opacity: function () {
                 return this.opacityTransitionable.get();
             }.bind(this),
-
-
             transform: Transform.translate(0, 0, 0)
         });
         this.logoSvgSurf = new Surface({
@@ -114,7 +125,6 @@ define(function (require, exports, module) {
     }
 
     function _rmgText() {
-
         this.mediaSurfMod = new Modifier({
             size: [undefined, 21],
             opacity: function () {
@@ -132,23 +142,8 @@ define(function (require, exports, module) {
                 textAlign: 'center'
             }
         });
-
-
         this.rootNode.add(this.mediaSurfMod).add(this.mediaSurface);
     }
-
-    function _init() {
-        this.centerModifier = new Modifier({
-            size: [window.sv.sizing.logoContainerWidth, this.logoHeight],
-            transform: function () {
-                return Transform.translate(0, this.shiftTransitionable.get(), 0);
-            }.bind(this)
-        });
-        this.rootNode = this.add(this.centerModifier);
-    }
-
-    LogoDesk.prototype = Object.create(View.prototype);
-    LogoDesk.prototype.constructor = LogoDesk;
 
 
     LogoDesk.prototype.increaseLogo = function () {
@@ -160,7 +155,6 @@ define(function (require, exports, module) {
             this.opacityTransitionable.set(1, {duration: 500, curve: "linear"});
             this.changeColorHigh.call(this);
         }
-
     }
 
     LogoDesk.prototype.decreaseLogo = function () {
