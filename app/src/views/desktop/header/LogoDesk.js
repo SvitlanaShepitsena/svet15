@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     function LogoDesk() {
 
         this.fullPosition = window.sv.sizing.headerHeight * .09;
-        this.shortPosition = -window.sv.sizing.headerHeight * 0.35;
+        this.shortPosition = -window.sv.sizing.headerHeight * 0.36;
         this.shiftTransitionable = new Transitionable(this.fullPosition);
         this.opacityTransitionable = new Transitionable(1);
 
