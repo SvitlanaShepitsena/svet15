@@ -19,7 +19,7 @@ define(['require', 'famous/core/Engine', 'views/cell/AppViewCell', 'views/deskto
 });
 
 window.responsive = function responsive() {
-    var MOBILEWIDTH = 490;
+    var MOBILEWIDTH = 1000;
     var device;
     switch (true) {
         case window.innerWidth <= MOBILEWIDTH:
@@ -35,7 +35,11 @@ window.responsive = function responsive() {
 window.sv = {
     sizing: {
         headerHeight: 160,
-        contentWidth: 1300,
+        headerSmallHeight: Math.ceil(this.headerHeight / 2.8),
+        headerHeightShift: Math.ceil(this.headerHeight - this.headerSmallHeight),
+
+        contentWidth: 1200,
+        contentHeight: window.innerHeight,
         logoContainerWidth: 300,
         navContainerWidth: 500
     },

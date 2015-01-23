@@ -6,13 +6,15 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var FlexibleLayout = require('famous/views/FlexibleLayout');
     var GridLayout = require("famous/views/GridLayout");
+    var RenderNode = require('famous/core/RenderNode');
 
     var HomeSectionDesk = require('dviews/content/home/HomeSectionDesk');
 
-    var flipDailyNews = require('text!cviews/content/home/jade/flipDailyNews.html');
-    var flipWeeklyNews = require('text!cviews/content/home/jade/flipWeeklyNews.html');
-    var flipYellowPages = require('text!cviews/content/home/jade/flipYellowPages.html');
-    var flipRadioProgram = require('text!cviews/content/home/jade/flipRadioProgram.html');
+    var dailyNews = require('text!dviews/content/home/jade/dailyNews.html');
+    var weeklyNews = require('text!dviews/content/home/jade/weeklyNews.html');
+    var yellowPages = require('text!dviews/content/home/jade/yellowPages.html');
+    var radioProgram = require('text!dviews/content/home/jade/radioProgram.html');
+    var Transitionable = require('famous/transitions/Transitionable');
 
     function HomeContentDesk() {
         View.apply(this, arguments);
@@ -34,15 +36,25 @@ define(function (require, exports, module) {
             }
         }.bind(this));
 
+
         _init.call(this);
-        _flex.call(this);
         _homeMoto.call(this);
         _gridParts.call(this);
     }
 
+
     HomeContentDesk.prototype = Object.create(View.prototype);
     HomeContentDesk.prototype.constructor = HomeContentDesk;
 
+    HomeContentDesk.prototype.contentShort = function () {
+        this.opacityMotoTrans.halt();
+        this.opacityMotoTrans.set(0, {duration: 500});
+        this.gridTrans.set(sv.sizing.headerHeightShift, {duration: 500, curve: "easeOut"});
+    }
+    HomeContentDesk.prototype.contentInit = function () {
+        this.opacityMotoTrans.halt();
+        this.opacityMotoTrans.set(1, {duration: 500});
+    }
     HomeContentDesk.DEFAULT_OPTIONS = {
         center: [0.5, 0.5],
         height: window.innerHeight,
@@ -58,20 +70,38 @@ define(function (require, exports, module) {
     };
 
     function _init() {
+
         this.contentMod = new Modifier({
+            size: [window.sv.sizing.contentWidth, window.sv.sizing.contentHeight],
             align: [0.5, 0],
-            origin: [0.5, 0],
-            size: [window.sv.sizing.contentWidth, window.sv.sizing.contentWidth - window.sv.sizing.headerHeight]
+            origin: [0.5, 0]
         });
+
+        this.flexContent = [];
+        var ratios = [2, 1];
+
+        this.flexibleLayout = new FlexibleLayout({
+            ratios: ratios,
+            direction: 1
+        });
+
+        this.flexibleLayout.sequenceFrom(this.flexContent);
+
         this.rootNode = this.add(this.contentMod);
+        this.rootNode.add(this.flexibleLayout);
     }
 
     function _homeMoto() {
+        this.motoRenderNode = new RenderNode();
+
+        this.opacityMotoTrans = new Transitionable(1);
         this.motoTextMod = new Modifier({
             align: [0.5, 0],
             origin: [0.5, 0],
             size: [window.sv.sizing.contentWidth, true],
-            opacity: 1,
+            opacity: function () {
+                return this.opacityMotoTrans.get()
+            }.bind(this),
             transform: Transform.translate(0, window.sv.sizing.headerHeight * 1.2, 0)
         });
         this.motoTextSurf = new Surface({
@@ -79,57 +109,39 @@ define(function (require, exports, module) {
             properties: this.options.motoOpts
         });
 
-        this.rootNode.add(this.motoTextMod).add(this.motoTextSurf);
+        this.motoRenderNode.add(this.motoTextMod).add(this.motoTextSurf);
+        this.flexContent.push(this.motoRenderNode);
     }
 
-
-    function _flex() {
-        this.flexMod = new Modifier({
-            align: this.options.center,
-            transform: Transform.translate(0, window.sv.sizing.headerHeight, 0),
-            zIndex: 10,
-            origin: this.options.center
-        });
-        this.layout = new FlexibleLayout({
-            ratios: [1, 1],
-            direction: 1
-        });
-        this.flex1surf = new Surface({
-            size: [window.sv.sizing.contentWidth, 50],
-            content: 'Hello, World!',
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: 'red'
-
-            }
-        });
-        this.flexContent = [];
-        this.flexContent.push(this.flex1surf);
-        this.layout.sequenceFrom(this.flexContent);
-        this.rootNode.add(this.flexMod).add(this.layout);
-    }
 
     function _gridParts() {
 
+        this.gridRenderNode = new RenderNode();
+        this.gridTrans = new Transitionable(0);
+        this.gridMod = new Modifier({
+            size: [undefined, 0.7 * window.innerHeight],
+            align: [0, 0],
+            origin: [0, 0],
+            transform: function () {
+                return Transform.translate(0, this.gridTrans.get(), 0);
+            }.bind(this)
+        });
         this.dailyNews = new HomeSectionDesk({
             icon: 'news-daily',
-            content: '<h3 class="icon-text-desk">Svet</br>Daily Newspaper</h3>'
+            content: dailyNews
         })
 
         this.weeklyNews = new HomeSectionDesk({
             icon: 'weekly',
-            content: '<h3 class="icon-text-desk">Saturday Plus</br>Weekly Newspaper</h3>'
+            content: weeklyNews
         })
         this.yp = new HomeSectionDesk({
             icon: 'yp',
-            content: '<h3 class="icon-text-desk"> Russian-American</br>Yellow Pages' +
-            '</h3>'
-
+            content: yellowPages
         })
         this.radioProgram = new HomeSectionDesk({
             icon: 'radio',
-            content: '<h3 class="icon-text-desk"> Radio-Program</br>"OSA"</h3>'
+            content: radioProgram
         })
 
         this.dailyNews.pipe(this._eventOutput);
@@ -137,16 +149,17 @@ define(function (require, exports, module) {
         this.yp.pipe(this._eventOutput);
         this.radioProgram.pipe(this._eventOutput);
 
-        this.contentTop = [];
-        this.contentTop.push(this.dailyNews);
-        this.contentTop.push(this.weeklyNews);
-        this.contentTop.push(this.yp);
-        this.contentTop.push(this.radioProgram);
+        this.homeSectionsContainse = [];
+        this.homeSectionsContainse.push(this.dailyNews);
+        this.homeSectionsContainse.push(this.weeklyNews);
+        this.homeSectionsContainse.push(this.yp);
+        this.homeSectionsContainse.push(this.radioProgram);
         this.gridContentTop = new GridLayout({dimensions: [4, 1]});
-        this.gridContentTop.sequenceFrom(this.contentTop);
+        this.gridContentTop.sequenceFrom(this.homeSectionsContainse);
 
 
-        this.flexContent.push(this.gridContentTop);
+        this.gridRenderNode.add(this.gridMod).add(this.gridContentTop);
+        this.flexContent.push(this.gridRenderNode);
     }
 
 

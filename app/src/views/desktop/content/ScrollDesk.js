@@ -42,11 +42,11 @@ define(function (require, exports, module) {
             paginated: false,
             pagePeriod: 500,
             pageDamp: 0.8,
-            pageStopSpeed: 5,
+            pageStopSpeed: 1,
             pageSwitchSpeed: 0.5,
             speedLimit: 5,
             groupScroll: false,
-            syncScale: 0.04
+            syncScale: 0.05
         })
     }
 
@@ -63,13 +63,14 @@ define(function (require, exports, module) {
                 currentPosition = this.scrollview.getAbsolutePosition();
                 moveDown = currentPosition > startPosition ? true : false;
 
-                if (currentPage === 0 && startPosition <= 100 && moveDown) {
+                if (currentPage === 0 && startPosition <= window.sv.sizing.headerHeight && moveDown) {
 
                     this._eventOutput.emit('decrease:header');
                 }
-                if (currentPage === 0 && currentPosition <= 100 && !moveDown) {
+                if (currentPage === 0 && currentPosition <= window.sv.sizing.headerHeight && !moveDown) {
 
                     this._eventOutput.emit('increase:header');
+                    this.homeDesk.tuneToDefaultView();
                 }
                 absPos = this.scrollview.getAbsolutePosition();
                 if (absPos < 0) {
@@ -130,8 +131,18 @@ define(function (require, exports, module) {
         if (currentPos < 150) {
             this.scrollview.setPositionAnimated.call(this.scrollview, 150);
         }
+        this.homeDesk.tuneToShortView();
 
     }
+    ScrollDesk.prototype.tuneToDefaultHeader = function () {
+        //var currentPos = this.scrollview.getAbsolutePosition();
+        //if (currentPos < 150) {
+        //    this.scrollview.setPositionAnimated.call(this.scrollview, 150);
+        //}
+        this.homeDesk.tuneToDefaultView();
+
+    }
+
 
     module.exports = ScrollDesk;
 });
