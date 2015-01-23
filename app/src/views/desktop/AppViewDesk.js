@@ -8,8 +8,6 @@ define(function (require, exports, module) {
     var HeaderDesk = require('dviews/header/HeaderDesk');
 
 
-    AppViewDesk.DEFAULT_OPTIONS = {};
-
     function AppViewDesk() {
         View.apply(this, arguments);
 
@@ -18,6 +16,18 @@ define(function (require, exports, module) {
         _content.call(this);
         _header.call(this);
     }
+
+    AppViewDesk.prototype = Object.create(View.prototype);
+    AppViewDesk.prototype.constructor = AppViewDesk;
+    AppViewDesk.DEFAULT_OPTIONS = {};
+
+    function _init() {
+        var centerModifier = new Modifier({
+            transform: Transform.translate(0, 0, 0)
+        });
+        this.rootNode = this.add(centerModifier);
+    }
+
 
     function _header() {
         this.headerDesk = new HeaderDesk();
@@ -47,19 +57,6 @@ define(function (require, exports, module) {
         })
     }
 
-
-    function _init() {
-        var centerModifier = new Modifier({
-            align: this.options.centerModifier,
-            origin: this.options.centerModifier,
-
-            transform: Transform.translate(0, 0, 0)
-        });
-        this.rootNode = this.add(centerModifier);
-    }
-
-    AppViewDesk.prototype = Object.create(View.prototype);
-    AppViewDesk.prototype.constructor = AppViewDesk;
 
     module.exports = AppViewDesk;
 });
