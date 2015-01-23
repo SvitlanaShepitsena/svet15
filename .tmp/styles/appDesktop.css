@@ -1,7 +1,9 @@
+.body-desktop {
+  min-width: 1300px;
+}
 .icon-text-desk {
   padding-top: 5px;
   line-height: 130%;
-  font-size: 120%;
 }
 .icon-text-desk:hover,
 .icon-text-desk:active,
