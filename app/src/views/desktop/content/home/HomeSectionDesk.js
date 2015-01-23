@@ -15,6 +15,7 @@ define(function (require, exports, module) {
         this.sectionIconWidth = this.sectionWidth * .7;
         this.sectionImgWidth = this.sectionIconWidth * .7;
         this.centerImg = (this.sectionIconWidth - this.sectionImgWidth) / 2;
+        this.contentPosition = this.sectionIconWidth * 1.1;
 
         _init.call(this);
         _contentParts.call(this);
@@ -27,14 +28,7 @@ define(function (require, exports, module) {
     HomePart.DEFAULT_OPTIONS = {
         content: null,
         icon: null,
-        width: window.innerWidth,
-        sectionPop: {
-            paddingTop: window.innerWidth / 3 + 'px',
-            color: window.sv.scheme.textWhite,
-            backgroundColor: window.sv.scheme.sectionColor,
-            cursor: 'pointer',
-            textAlign: 'center'
-        }
+        width: window.innerWidth
     }
 
     function _init() {
@@ -49,7 +43,13 @@ define(function (require, exports, module) {
     function _contentParts() {
         this.surface = new Surface({
             content: this.options.content,
-            properties: this.options.sectionPop
+            properties: {
+                paddingTop: this.contentPosition + 'px',
+                color: window.sv.scheme.textWhite,
+                backgroundColor: window.sv.scheme.sectionColor,
+                cursor: 'pointer',
+                textAlign: 'center'
+            }
         });
         this.surface.pipe(this._eventOutput);
         this.rootNode.add(this.surface);
@@ -63,7 +63,7 @@ define(function (require, exports, module) {
             origin: [0.5, 0]
         });
         this.sectionIconSurface = new Surface({
-            content: "<img style='width:" + (this.sectionImgWidth) + "px; height: " + (this.sectionImgWidth) + "px; margin: " +(this.centerImg) +"px;' class='' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
+            content: "<img style='width:" + (this.sectionImgWidth) + "px; height: " + (this.sectionImgWidth) + "px; margin: " + (this.centerImg) + "px;' class='' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
             properties: {
                 cursor: 'pointer',
                 textAlign: 'center',
