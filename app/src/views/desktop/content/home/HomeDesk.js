@@ -9,10 +9,13 @@ define(function (require, exports, module) {
 
     var HomeContentDesk = require('dviews/content/home/HomeContentDesk');
     var MapsCell = require('dviews/content/home/MapsDesk');
+    var Transitionable = require('famous/transitions/Transitionable');
 
 
     function HomeDesk() {
         View.apply(this, arguments);
+        this.defaultOpacity = 0.85;
+        this.opacityBg = new Transitionable(this.defaultOpacity);
 
         _init.call(this);
         _addColorBackground.call(this);
@@ -36,7 +39,9 @@ define(function (require, exports, module) {
 
     function _addColorBackground() {
         this.backdropMod = new Modifier({
-            opacity: 0.85,
+            opacity: function () {
+                return this.opacityBg.get();
+            }.bind(this),
             size: [undefined, window.innerHeight - window.sv.sizing.headerHeight],
             transform: Transform.translate(0, window.sv.sizing.headerHeight, 0)
         });
@@ -52,8 +57,19 @@ define(function (require, exports, module) {
 
     function _fillHomeContent() {
         this.homeContentDesk = new HomeContentDesk();
+        this.homeContentDesk.pipe(this._eventOutput);
         this.rootNode.add(this.homeContentDesk);
     }
 
+    HomeDesk.prototype.tuneToShortView = function () {
+        this.opacityBg.halt();
+        this.opacityBg.set(0, {duration: 500});
+        this.homeContentDesk.contentShort();
+    }
+    HomeDesk.prototype.tuneToDefaultView = function () {
+        this.opacityBg.halt();
+        this.opacityBg.set(this.defaultOpacity, {duration: 500});
+        this.homeContentDesk.contentInit();
+    }
     module.exports = HomeDesk;
 });
