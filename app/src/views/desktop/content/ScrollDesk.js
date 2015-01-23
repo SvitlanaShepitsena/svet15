@@ -26,6 +26,10 @@ define(function (require, exports, module) {
         _scrollEvent.call(this);
     }
 
+    ScrollDesk.prototype = Object.create(ScrollContainer.prototype);
+    ScrollDesk.prototype.constructor = ScrollContainer;
+    ScrollDesk.DEFAULT_OPTIONS = {};
+
     function _init() {
         this.scrollview.setOptions({
             rails: true,
@@ -120,18 +124,14 @@ define(function (require, exports, module) {
         }
     }
 
-    ScrollDesk.prototype = Object.create(ScrollContainer.prototype);
-    ScrollDesk.prototype.constructor = ScrollContainer;
 
     ScrollDesk.prototype.tuneToShortHeader = function () {
         var currentPos = this.scrollview.getAbsolutePosition();
         if (currentPos < 150) {
-           this.scrollview.setPositionAnimated.call(this.scrollview,150);
+            this.scrollview.setPositionAnimated.call(this.scrollview, 150);
         }
 
     }
-
-    ScrollDesk.DEFAULT_OPTIONS = {};
 
     module.exports = ScrollDesk;
 });

@@ -6,18 +6,15 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var Transitionable = require('famous/transitions/Transitionable');
 
-
     function LogoDesk() {
-
         this.fullPosition = window.sv.sizing.headerHeight * .09;
         this.shortPosition = -window.sv.sizing.headerHeight * 0.36;
+        this.shiftTransitionable = new Transitionable(this.fullPosition);
+        this.opacityTransitionable = new Transitionable(1);
 
         this.red = new Transitionable(255);
         this.green = new Transitionable(255);
         this.blue = new Transitionable(255);
-
-        this.shiftTransitionable = new Transitionable(this.fullPosition);
-        this.opacityTransitionable = new Transitionable(1);
 
         View.apply(this, arguments);
         _init.call(this);
@@ -26,12 +23,13 @@ define(function (require, exports, module) {
         _logoSvg.call(this);
     }
 
+    LogoDesk.prototype = Object.create(View.prototype);
+    LogoDesk.prototype.constructor = LogoDesk;
+
     LogoDesk.DEFAULT_OPTIONS = {
         logoHeight: window.sv.sizing.headerHeight * .82,
         paperWidth: window.sv.sizing.logoContainerWidth * .87
     };
-    LogoDesk.prototype = Object.create(View.prototype);
-    LogoDesk.prototype.constructor = LogoDesk;
 
     function _init() {
         this.centerModifier = new Modifier({
@@ -91,7 +89,6 @@ define(function (require, exports, module) {
             this.setProperties({
                 color: 'rgb(' + red + ', ' + green + ', ' + blue + ')'
             });
-
             return this.id;
         };
         this.rootNode.add(this.svetTextMod).add(this.svetTextSurf);

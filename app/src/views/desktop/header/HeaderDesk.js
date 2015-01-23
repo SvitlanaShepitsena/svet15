@@ -1,20 +1,17 @@
 define(function (require, exports, module) {
     var View = require('famous/core/View');
     var Surface = require('famous/core/Surface');
-    var Transform = require('famous/core/Transform');
+    var Modifier = require("famous/core/Modifier");
     var StateModifier = require('famous/modifiers/StateModifier');
     var FlexibleLayout = require('famous/views/FlexibleLayout');
-    var ImageSurface = require('famous/surfaces/ImageSurface');
-    var Modifier = require("famous/core/Modifier");
+
+    var Transform = require('famous/core/Transform');
     var Transitionable = require('famous/transitions/Transitionable');
 
     var LogoDesk = require('dviews/header/LogoDesk');
     var NavDesk = require('dviews/header/NavDesk');
 
     function HeaderDesk() {
-        this.smallSize = window.sv.sizing.headerHeight / 2.8;
-        this.fullSize = window.sv.sizing.headerHeight;
-
         this.opacityTransitionable = new Transitionable(0);
         this.sizeTransitionable = new Transitionable(window.sv.sizing.headerHeight);
 
@@ -27,20 +24,18 @@ define(function (require, exports, module) {
     HeaderDesk.prototype.constructor = HeaderDesk;
 
     HeaderDesk.DEFAULT_OPTIONS = {
+        smallHeight: window.sv.sizing.headerHeight / 2.8,
         flexOpts: {
             ratios: [2, true, 2],
             direction: 0
         },
         backgroundOpts: {
-            backgroundColor: 'black'
-        },
-        opacityOpts: {
+            backgroundColor: 'black',
             opacity: 0.7,
-            duration: 1000,
+            duration: 3000,
             curve: 'easeInOut'
         }
     };
-
     function _headerBackground() {
         this.backgroundMod = new Modifier({
             size: function () {
@@ -56,9 +51,9 @@ define(function (require, exports, module) {
         });
         this.rootNode = this.add(this.backgroundMod);
         this.rootNode.add(this.backgroundSurf);
-        this.opacityTransitionable.set(this.options.opacityOpts.opacity, {
-            duration: this.options.opacityOpts.duration,
-            curve: this.options.opacityOpts.curve
+        this.opacityTransitionable.set(this.options.backgroundOpts.opacity, {
+            duration: this.options.backgroundOpts.duration,
+            curve: this.options.backgroundOpts.curve
         });
     }
 
@@ -94,30 +89,27 @@ define(function (require, exports, module) {
         this.rootNode.add(this.layout);
     }
 
-
     HeaderDesk.prototype.increaseHeader = function () {
-        var currentHeaderSize = this.sizeTransitionable.get();
+        this.currentHeaderHeight = this.sizeTransitionable.get();
 
-        if (currentHeaderSize < this.fullSize) {
+        if (this.currentHeaderHeight <window.sv.sizing.headerHeight) {
             this.sizeTransitionable.halt();
-
-            this.sizeTransitionable.set(this.fullSize, {duration: 500, curve: "linear"});
+            this.sizeTransitionable.set(window.sv.sizing.headerHeight, {duration: 500, curve: "linear"});
             this.logoDesk.increaseLogo();
         }
     }
 
     HeaderDesk.prototype.decreaseHeader = function () {
-        var currentHeaderSize = this.sizeTransitionable.get();
+        this.currentHeaderHeight = this.sizeTransitionable.get();
 
-        if (currentHeaderSize > this.smallSize) {
+        if (this.currentHeaderHeight > this.options.smallHeight) {
             this.sizeTransitionable.halt();
-            this.sizeTransitionable.set(this.smallSize, {duration: 500, curve: "linear"}, function () {
+            this.sizeTransitionable.set(this.options.smallHeight, {duration: 500, curve: "linear"}, function () {
                 this._eventOutput.emit('header:decreased');
             }.bind(this));
             this.logoDesk.decreaseLogo();
         }
     }
-
 
     module.exports = HeaderDesk;
 });

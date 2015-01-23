@@ -1,0 +1,332 @@
+body {
+  padding-bottom: 44px !important;
+}
+/*Headers*/
+@media only screen and (max-width: 500px) {
+  h1 {
+    font-size: 32px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  h2 {
+    font-size: 26px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  h3 {
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  h4 {
+    font-size: 18px;
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+  }
+}
+@media only screen and (max-width: 400px) {
+  h4 {
+    font-size: 16px;
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+  }
+}
+@media only screen and (max-width: 350px) {
+  h4 {
+    font-size: 15px;
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+  }
+}
+@media only screen and (max-width: 500px) {
+  p {
+    font-size: 13px;
+    line-height: 16px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  p {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  p {
+    font-size: 11px;
+    line-height: 14px;
+  }
+}
+hr {
+  color: #a19a9c;
+  color: #a19a9c;
+}
+.fa-fw {
+  margin-right: 5px;
+}
+html {
+  background: #f5f5f5;
+}
+.backfaceVisibility {
+  -webkit-backface-visibility: visible;
+  backface-visibility: visible;
+}
+.text-dark {
+  color: #393939 !important;
+}
+body {
+/*font-family "Open Sans"*/
+  font-size: 14px;
+  line-height: 20px;
+  color: #3e3a3b;
+}
+/**********************
+    =Header
+**********************/
+.img-hamb {
+  width: 100%;
+}
+@media only screen and (max-width: 500px) {
+  .img-hamb {
+    width: 15%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .img-hamb {
+    width: 15%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .img-hamb {
+    width: 15%;
+  }
+}
+.svet-h {
+  font-weight: bold;
+  margin: 0px;
+  line-height: 180%;
+}
+@media only screen and (max-width: 500px) {
+  .svet-h {
+    line-height: 240%;
+    font-size: 22px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .svet-h {
+    line-height: 200%;
+    font-size: 22px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .svet-h {
+    line-height: 210%;
+    font-size: 18px;
+  }
+}
+/**********************
+    =Home
+**********************/
+.map-info {
+  width: 200px !important;
+}
+.map-marker-info {
+  width: 150px !important;
+  height: 60px !important;
+}
+.home-icon-img {
+  width: 70px;
+  height: 70px;
+  margin-top: 15px;
+}
+.h-home {
+  margin-top: 0px;
+  font-size: 150%;
+}
+@media only screen and (max-width: 400px) {
+  .h-home {
+    font-size: 90%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .h-home {
+    margin-top: 0px;
+    font-size: 80%;
+    font-weight: normal;
+  }
+}
+.town-name {
+  font-size: 100%;
+  font-weight: bold;
+  color: #696969;
+}
+.icon-text {
+  padding-top: 5px;
+  line-height: 130%;
+  font-size: 120%;
+}
+.icon-text:hover,
+.icon-text:active,
+.icon-text:focus {
+  text-decoration: none;
+  color: #ffdead;
+}
+@media only screen and (max-width: 400px) {
+  .icon-text {
+    margin-bottom: 10px;
+    font-size: 90%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .icon-text {
+    padding-top: 0px;
+    font-size: 80%;
+    font-weight: normal;
+  }
+}
+.flip-text {
+  line-height: 130%;
+  font-size: 120%;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+@media only screen and (max-width: 500px) {
+  .flip-text {
+    line-height: 110%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .flip-text {
+    padding-top: 5px;
+    font-size: 100%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .flip-text {
+    padding-top: 0px;
+    font-size: 90%;
+    font-weight: normal;
+  }
+}
+.yp-link {
+  margin-top: 25px;
+  display: block;
+}
+@media only screen and (max-width: 400px) {
+  .yp-link {
+    margin-top: 5px;
+  }
+}
+.flip-text-sm {
+  line-height: 140%;
+  font-size: 110%;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+@media only screen and (max-width: 500px) {
+  .flip-text-sm {
+    line-height: 110%;
+    padding-top: 0px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .flip-text-sm {
+    font-size: 90%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .flip-text-sm {
+    font-size: 80%;
+    font-weight: normal;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .img-logo-mob {
+    margin-bottom: 10px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .img-logo-mob {
+    width: 40%;
+    margin: 0 auto;
+    margin-bottom: 5px;
+  }
+}
+.em-svet {
+  font-size: 18px;
+  font-weight: 700;
+}
+@media only screen and (max-width: 350px) {
+  .em-svet {
+    font-size: 14px;
+  }
+}
+.p-svet {
+  font-size: 14px !important;
+}
+@media only screen and (max-width: 500px) {
+  .p-svet {
+    font-size: 14px !important;
+    line-height: 26px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .p-svet {
+    font-size: 12px !important;
+    line-height: 24px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .p-svet {
+    font-size: 11px !important;
+    line-height: 18px;
+  }
+}
+.img-frame {
+  width: 80%;
+  display: inline-block;
+  text-align: center;
+}
+@media only screen and (max-width: 500px) {
+  .img-frame {
+    width: 65%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .img-frame {
+    width: 60%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .img-frame {
+    width: 50%;
+  }
+}
+.img-frame img {
+  vertical-align: middle;
+}
+.li-text {
+  width: 70%;
+  display: inline-block;
+  float: left;
+  text-align: left;
+}
+@media only screen and (max-width: 500px) {
+  .li-text {
+    width: 70%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .li-text {
+    width: 74%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .li-text {
+    width: 80%;
+  }
+}
+.img-section {
+  width: 100px;
+  height: 100px;
+  z-index: 999;
+}
