@@ -29,7 +29,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [undefined, undefined]
+            size: [undefined, 1200]
         });
         this.mapBackdrop = new MapsCell();
         this.mapBackdrop.pipe(this._eventOutput);
