@@ -1,7 +1,53 @@
+.body-desktop {
+  min-width: 1300px;
+}
+.icon-text-desk {
+  padding-top: 5px;
+  line-height: 130%;
+}
+.icon-text-desk:hover,
+.icon-text-desk:active,
+.icon-text-desk:focus {
+  text-decoration: none;
+  color: #ffdead;
+}
+.h4-section {
+  color: #393939 !important;
+  line-height: 130%;
+  font-size: 120%;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+.p-section {
+  line-height: 140%;
+  color: #494949 !important;
+  font-size: 120%;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+.panel-section {
+  background-color: #fffaf0;
+  border-radius: 0px;
+  padding: 15px;
+  height: 150px;
+}
+.p-ad {
+  font-size: 17px;
+}
+.a-yp-desktop {
+  font-size: 17px;
+  color: #fffaf0;
+  text-decoration: underline;
+}
+.a-yp-desktop:hover,
+.a-yp-desktop:active,
+.a-yp-desktop:focus {
+  color: #faebd7;
+  text-decoration: none;
+}
 body {
   padding-bottom: 44px !important;
 }
-/*Headers*/
 @media only screen and (max-width: 500px) {
   h1 {
     font-size: 32px;
@@ -74,9 +120,6 @@ body {
   line-height: 20px;
   color: #3e3a3b;
 }
-/**********************
-    =Header
-**********************/
 .img-hamb {
   width: 100%;
 }
@@ -118,9 +161,6 @@ body {
     font-size: 18px;
   }
 }
-/**********************
-    =Home
-**********************/
 .map-info {
   width: 200px !important;
 }
@@ -324,11 +364,4 @@ body {
   width: 100px;
   height: 100px;
   z-index: 999;
-}
-/**********************
-  =Footer
-***********************/
-.ravinia-img {
-  max-width: 90%;
-  max-height: 90%;
 }
