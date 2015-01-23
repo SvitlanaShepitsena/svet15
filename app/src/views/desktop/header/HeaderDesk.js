@@ -12,8 +12,8 @@ define(function (require, exports, module) {
     var NavDesk = require('dviews/header/NavDesk');
 
     function HeaderDesk() {
-        this.smallSize = window.sv.sizing.headerHeight / 2.8;
-        this.fullSize = window.sv.sizing.headerHeight;
+        this.smallHeight = window.sv.sizing.headerHeight / 2.8;
+        this.fullHeight = window.sv.sizing.headerHeight;
 
         this.opacityTransitionable = new Transitionable(0);
         this.sizeTransitionable = new Transitionable(window.sv.sizing.headerHeight);
@@ -32,15 +32,12 @@ define(function (require, exports, module) {
             direction: 0
         },
         backgroundOpts: {
-            backgroundColor: 'black'
-        },
-        opacityOpts: {
+            backgroundColor: 'black',
             opacity: 0.7,
             duration: 1000,
             curve: 'easeInOut'
         }
     };
-
     function _headerBackground() {
         this.backgroundMod = new Modifier({
             size: function () {
@@ -56,9 +53,9 @@ define(function (require, exports, module) {
         });
         this.rootNode = this.add(this.backgroundMod);
         this.rootNode.add(this.backgroundSurf);
-        this.opacityTransitionable.set(this.options.opacityOpts.opacity, {
-            duration: this.options.opacityOpts.duration,
-            curve: this.options.opacityOpts.curve
+        this.opacityTransitionable.set(this.options.backgroundOpts.opacity, {
+            duration: this.options.backgroundOpts.duration,
+            curve: this.options.backgroundOpts.curve
         });
     }
 
@@ -96,22 +93,21 @@ define(function (require, exports, module) {
 
 
     HeaderDesk.prototype.increaseHeader = function () {
-        var currentHeaderSize = this.sizeTransitionable.get();
+        this.currentHeaderHeight = this.sizeTransitionable.get();
 
-        if (currentHeaderSize < this.fullSize) {
+        if (this.currentHeaderHeight < this.fullHeight) {
             this.sizeTransitionable.halt();
-
-            this.sizeTransitionable.set(this.fullSize, {duration: 500, curve: "linear"});
+            this.sizeTransitionable.set(this.fullHeight, {duration: 500, curve: "linear"});
             this.logoDesk.increaseLogo();
         }
     }
 
     HeaderDesk.prototype.decreaseHeader = function () {
-        var currentHeaderSize = this.sizeTransitionable.get();
+        this.currentHeaderHeight = this.sizeTransitionable.get();
 
-        if (currentHeaderSize > this.smallSize) {
+        if (this.currentHeaderHeight > this.smallHeight) {
             this.sizeTransitionable.halt();
-            this.sizeTransitionable.set(this.smallSize, {duration: 500, curve: "linear"}, function () {
+            this.sizeTransitionable.set(this.smallHeight, {duration: 500, curve: "linear"}, function () {
                 this._eventOutput.emit('header:decreased');
             }.bind(this));
             this.logoDesk.decreaseLogo();
