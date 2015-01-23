@@ -39,7 +39,7 @@ window.sv = {
         headerHeightShift: Math.ceil(this.headerHeight - this.headerSmallHeight),
 
         contentWidth: 1200,
-        contentHeight: window.innerHeight * .9,
+        contentHeight: window.innerHeight,
         logoContainerWidth: 300,
         navContainerWidth: 500
     },

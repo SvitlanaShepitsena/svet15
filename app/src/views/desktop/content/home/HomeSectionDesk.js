@@ -12,7 +12,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         this.sectionWidth = (window.sv.sizing.contentWidth / 4) * .9;
-        this.sectionHight = (window.sv.sizing.contentHeight / 2.5) ;
+        this.sectionHight = (window.sv.sizing.contentHeight * .3);
 
         this.sectionIconWidth = this.sectionWidth * .7;
         this.sectionImgWidth = this.sectionIconWidth * .7;
