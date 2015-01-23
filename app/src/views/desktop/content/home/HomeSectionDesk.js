@@ -36,7 +36,7 @@ define(function (require, exports, module) {
     function _init() {
 
         this.centerModifier = new StateModifier({
-            size: [this.sectionWidth, this.sectionHeight * .9],
+            size: [this.sectionWidth, 520],
             align: [0.5, 0],
             origin: [0.5, 0]
         });
