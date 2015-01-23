@@ -35,8 +35,8 @@ define(function (require, exports, module) {
         }.bind(this));
 
         _init.call(this);
-        _homeMoto.call(this);
         _flex.call(this);
+        _homeMoto.call(this);
         _gridParts.call(this);
     }
 
@@ -86,7 +86,8 @@ define(function (require, exports, module) {
     function _flex() {
         this.flexMod = new Modifier({
             align: this.options.center,
-            zIndex: '999',
+            transform: Transform.translate(0, window.sv.sizing.headerHeight, 0),
+            zIndex: 10,
             origin: this.options.center
         });
         this.layout = new FlexibleLayout({
@@ -95,12 +96,12 @@ define(function (require, exports, module) {
         });
         this.flex1surf = new Surface({
             size: [window.sv.sizing.contentWidth, 50],
-            transform: Transform.translate(0, window.sv.sizing.headerHeight, 0),
             content: 'Hello, World!',
             properties: {
                 color: 'white',
                 textAlign: 'center',
                 backgroundColor: 'red'
+
             }
         });
         this.flexContent = [];
@@ -113,22 +114,22 @@ define(function (require, exports, module) {
 
         this.dailyNews = new HomeSectionDesk({
             icon: 'news-daily',
-            content: '<h4 class="icon-text-desk">Svet</br>Daily Newspaper</h4>'
+            content: '<h3 class="icon-text-desk">Svet</br>Daily Newspaper</h3>'
         })
 
         this.weeklyNews = new HomeSectionDesk({
             icon: 'weekly',
-            content: '<h4 class="icon-text-desk">Saturday Plus</br>Weekly Newspaper</h4>'
+            content: '<h3 class="icon-text-desk">Saturday Plus</br>Weekly Newspaper</h3>'
         })
         this.yp = new HomeSectionDesk({
             icon: 'yp',
-            content: '<h4 class="icon-text-desk"> Russian-American</br>Yellow Pages' +
-            '</h4>'
+            content: '<h3 class="icon-text-desk"> Russian-American</br>Yellow Pages' +
+            '</h3>'
 
         })
         this.radioProgram = new HomeSectionDesk({
             icon: 'radio',
-            content: '<h4 class="icon-text-desk"> Radio-Program</br>"OSA"</h4>'
+            content: '<h3 class="icon-text-desk"> Radio-Program</br>"OSA"</h3>'
         })
 
         this.dailyNews.pipe(this._eventOutput);
