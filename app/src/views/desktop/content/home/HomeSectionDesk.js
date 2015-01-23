@@ -37,8 +37,8 @@ define(function (require, exports, module) {
 
         this.centerModifier = new StateModifier({
             size: [this.sectionWidth, 520],
-            align: [0.5, 0],
-            origin: [0.5, 0]
+            align: this.options.align,
+            origin: this.options.origin
         });
         this.rootNode = this.add(this.centerModifier);
     };

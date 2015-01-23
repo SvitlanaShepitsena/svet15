@@ -113,7 +113,7 @@ define(function (require, exports, module) {
         this.gridRenderNode = new RenderNode();
         this.gridTrans = new Transitionable(0);
         this.gridMod = new Modifier({
-            size: [undefined, undefined],
+            size: [window.sv.sizing.contentWidth, undefined],
             align: [0.5, 0],
             origin: [0.5, 0],
             transform: function () {
@@ -122,18 +122,26 @@ define(function (require, exports, module) {
         });
         this.dailyNews = new HomeSectionDesk({
             icon: 'news-daily',
+            align: [0.5, 0],
+            origin: [0.5, 0],
             content: dailyNews
         })
 
         this.weeklyNews = new HomeSectionDesk({
+            align: [0.5, 0],
+            origin: [0.5, 0],
             icon: 'weekly',
             content: weeklyNews
         })
         this.yp = new HomeSectionDesk({
+            align: [0.5, 0],
+            origin: [0.5, 0],
             icon: 'yp',
             content: yellowPages
         })
         this.radioProgram = new HomeSectionDesk({
+            align: [0.5, 0],
+            origin: [0.5, 0],
             icon: 'radio',
             content: radioProgram
         })
