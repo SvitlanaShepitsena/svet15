@@ -12,7 +12,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         this.sectionWidth = (window.sv.sizing.contentWidth / 4) * .9;
-        this.sectionHight = (window.sv.sizing.contentHeight * .3);
+        this.sectionHeight = (window.sv.sizing.contentHeight - window.sv.sizing.headerHeight) / 2
 
         this.sectionIconWidth = this.sectionWidth * .7;
         this.sectionImgWidth = this.sectionIconWidth * .7;
@@ -36,7 +36,7 @@ define(function (require, exports, module) {
     function _init() {
 
         this.centerModifier = new StateModifier({
-            size: [this.sectionWidth, this.sectionHight],
+            size: [this.sectionWidth, this.sectionHeight * .9],
             align: [0.5, 0],
             origin: [0.5, 0]
         });
