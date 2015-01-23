@@ -36,10 +36,9 @@ window.sv = {
     sizing: {
         headerHeight: 160,
         headerSmallHeight: Math.ceil(this.headerHeight / 2.8),
-        headerHeightShift: Math.ceil(this.headerHeight - this.headerSmallHeight),
+        headerHeightShift: Math.ceil(this.headerHeight -this.headerSmallHeight),
 
         contentWidth: 1200,
-        contentHeight: window.innerHeight,
         logoContainerWidth: 300,
         navContainerWidth: 500
     },

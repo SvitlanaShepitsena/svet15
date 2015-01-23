@@ -36,7 +36,6 @@ define(function (require, exports, module) {
             }
         }.bind(this));
 
-
         _init.call(this);
         _homeMoto.call(this);
         _gridParts.call(this);
@@ -56,6 +55,9 @@ define(function (require, exports, module) {
         this.opacityMotoTrans.set(1, {duration: 500});
     }
     HomeContentDesk.DEFAULT_OPTIONS = {
+        center: [0.5, 0.5],
+        height: window.innerHeight,
+        width: window.innerWidth,
         color: 'white',
         motoOpts: {
             fontSize: '42px',
@@ -67,23 +69,24 @@ define(function (require, exports, module) {
     };
 
     function _init() {
-        this.contentMod = new Modifier({
-            size: [window.sv.sizing.contentWidth, window.sv.sizing.contentHeight - window.sv.sizing.headerHeight],
-            transform: Transform.translate(0, window.sv.sizing.headerHeight, 0),
-            align: [0.5, 0],
-            origin: [0.5, 0]
-        });
-        this.rootNode = this.add(this.contentMod);
-
         this.flexContent = [];
-        var ratios = [1, 1];
 
+        this.contentMod = new Modifier({
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5]
+        });
+
+        var ratios = [1, 1];
         this.flexibleLayout = new FlexibleLayout({
             ratios: ratios,
             direction: 1
         });
 
+
         this.flexibleLayout.sequenceFrom(this.flexContent);
+
+
+        this.rootNode = this.add(this.contentMod);
         this.rootNode.add(this.flexibleLayout);
     }
 
@@ -92,9 +95,9 @@ define(function (require, exports, module) {
 
         this.opacityMotoTrans = new Transitionable(1);
         this.motoTextMod = new Modifier({
-            size: [window.sv.sizing.contentWidth, true],
             align: [0.5, 0],
             origin: [0.5, 0],
+            size: [window.sv.sizing.contentWidth, true],
             opacity: function () {
                 return this.opacityMotoTrans.get()
             }.bind(this),
@@ -109,13 +112,15 @@ define(function (require, exports, module) {
         this.flexContent.push(this.motoRenderNode);
     }
 
+
     function _gridParts() {
+
         this.gridRenderNode = new RenderNode();
         this.gridTrans = new Transitionable(0);
         this.gridMod = new Modifier({
-            size: [undefined, undefined],
-            align: [0.5, 0],
-            origin: [0.5, 0],
+            size: [undefined, 0.7 * window.innerHeight],
+            align: [0, 0],
+            origin: [0, 0],
             transform: function () {
                 return Transform.translate(0, this.gridTrans.get(), 0);
             }.bind(this)
