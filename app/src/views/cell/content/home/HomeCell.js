@@ -60,6 +60,14 @@ define(function (require, exports, module) {
             textAlign: "center"
         }
     };
+    function _init() {
+        this.centerModifier = new Modifier({
+            size: [undefined, undefined],
+            align: this.options.center,
+            origin: this.options.center
+        });
+        this.rootNode = this.add(this.centerModifier);
+    }
 
     function _flex() {
         this.flexMod = new Modifier({
@@ -138,13 +146,6 @@ define(function (require, exports, module) {
         this.flexContent.push(this.gridContentBottom);
     }
 
-    function _init() {
-        this.centerModifier = new Modifier({
-            align: this.options.center,
-            origin: this.options.center
-        });
-        this.rootNode = this.add(this.centerModifier);
-    }
 
     module.exports = HomeCell;
 });

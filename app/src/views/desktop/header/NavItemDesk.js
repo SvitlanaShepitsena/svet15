@@ -19,8 +19,8 @@ define(function (require, exports, module) {
         title: null,
         itemUrl: null,
         size: [undefined, 32],
-        align: [0.5, 0.75],
-        origin: [0.5, 0.75],
+        align: [0.5, 0.72],
+        origin: [0.5, 0.72],
         index: -1,
         navBtnOpts: {
             textAlign: 'center',
