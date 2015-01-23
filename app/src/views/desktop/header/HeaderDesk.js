@@ -34,7 +34,7 @@ define(function (require, exports, module) {
         backgroundOpts: {
             backgroundColor: 'black',
             opacity: 0.7,
-            duration: 1000,
+            duration: 3000,
             curve: 'easeInOut'
         }
     };
