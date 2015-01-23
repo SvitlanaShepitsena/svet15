@@ -64,8 +64,7 @@ define(function (require, exports, module) {
         this.flipper.setBack(this.flipInfo);
 
         this.rootNode.add(this.flipper);
-    }
-    ;
+    };
 
     function _contentParts() {
 
