@@ -1,20 +1,17 @@
 define(function (require, exports, module) {
     var View = require('famous/core/View');
     var Surface = require('famous/core/Surface');
-    var Transform = require('famous/core/Transform');
+    var Modifier = require("famous/core/Modifier");
     var StateModifier = require('famous/modifiers/StateModifier');
     var FlexibleLayout = require('famous/views/FlexibleLayout');
-    var ImageSurface = require('famous/surfaces/ImageSurface');
-    var Modifier = require("famous/core/Modifier");
+
+    var Transform = require('famous/core/Transform');
     var Transitionable = require('famous/transitions/Transitionable');
 
     var LogoDesk = require('dviews/header/LogoDesk');
     var NavDesk = require('dviews/header/NavDesk');
 
     function HeaderDesk() {
-        this.smallHeight = window.sv.sizing.headerHeight / 2.8;
-        this.fullHeight = window.sv.sizing.headerHeight;
-
         this.opacityTransitionable = new Transitionable(0);
         this.sizeTransitionable = new Transitionable(window.sv.sizing.headerHeight);
 
@@ -27,6 +24,7 @@ define(function (require, exports, module) {
     HeaderDesk.prototype.constructor = HeaderDesk;
 
     HeaderDesk.DEFAULT_OPTIONS = {
+        smallHeight: window.sv.sizing.headerHeight / 2.8,
         flexOpts: {
             ratios: [2, true, 2],
             direction: 0
@@ -91,13 +89,12 @@ define(function (require, exports, module) {
         this.rootNode.add(this.layout);
     }
 
-
     HeaderDesk.prototype.increaseHeader = function () {
         this.currentHeaderHeight = this.sizeTransitionable.get();
 
-        if (this.currentHeaderHeight < this.fullHeight) {
+        if (this.currentHeaderHeight <window.sv.sizing.headerHeight) {
             this.sizeTransitionable.halt();
-            this.sizeTransitionable.set(this.fullHeight, {duration: 500, curve: "linear"});
+            this.sizeTransitionable.set(window.sv.sizing.headerHeight, {duration: 500, curve: "linear"});
             this.logoDesk.increaseLogo();
         }
     }
@@ -105,15 +102,14 @@ define(function (require, exports, module) {
     HeaderDesk.prototype.decreaseHeader = function () {
         this.currentHeaderHeight = this.sizeTransitionable.get();
 
-        if (this.currentHeaderHeight > this.smallHeight) {
+        if (this.currentHeaderHeight > this.options.smallHeight) {
             this.sizeTransitionable.halt();
-            this.sizeTransitionable.set(this.smallHeight, {duration: 500, curve: "linear"}, function () {
+            this.sizeTransitionable.set(this.options.smallHeight, {duration: 500, curve: "linear"}, function () {
                 this._eventOutput.emit('header:decreased');
             }.bind(this));
             this.logoDesk.decreaseLogo();
         }
     }
-
 
     module.exports = HeaderDesk;
 });
