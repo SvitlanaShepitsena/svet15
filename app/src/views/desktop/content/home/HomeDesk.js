@@ -42,8 +42,8 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.opacityBg.get();
             }.bind(this),
-            size: [undefined, window.innerHeight - window.sv.sizing.headerHeight],
-            transform: Transform.translate(0, window.sv.sizing.headerHeight, 0)
+            size: [undefined, undefined],
+            transform: Transform.translate(0, 0, 0)
         });
         this.backdropSurf = new Surface({
             properties: {

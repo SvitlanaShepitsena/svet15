@@ -68,8 +68,8 @@ define(function (require, exports, module) {
 
     function _init() {
         this.contentMod = new Modifier({
-            size: [window.sv.sizing.contentWidth, window.sv.sizing.contentHeight - window.sv.sizing.headerHeight],
-            transform: Transform.translate(0, window.sv.sizing.headerHeight, 0),
+            size: [undefined, undefined],
+            transform: Transform.translate(0, 0, 0),
             align: [0.5, 0],
             origin: [0.5, 0]
         });
