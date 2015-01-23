@@ -9,10 +9,10 @@ define(function (require, exports, module) {
 
     var HomeSectionDesk = require('dviews/content/home/HomeSectionDesk');
 
-    var flipDailyNews = require('text!cviews/content/home/jade/flipDailyNews.html');
-    var flipWeeklyNews = require('text!cviews/content/home/jade/flipWeeklyNews.html');
-    var flipYellowPages = require('text!cviews/content/home/jade/flipYellowPages.html');
-    var flipRadioProgram = require('text!cviews/content/home/jade/flipRadioProgram.html');
+    var dailyNews = require('text!dviews/content/home/jade/dailyNews.html');
+    var weeklyNews = require('text!dviews/content/home/jade/weeklyNews.html');
+    var yellowPages = require('text!dviews/content/home/jade/yellowPages.html');
+    var radioProgram = require('text!dviews/content/home/jade/radioProgram.html');
 
     function HomeContentDesk() {
         View.apply(this, arguments);
@@ -114,22 +114,20 @@ define(function (require, exports, module) {
 
         this.dailyNews = new HomeSectionDesk({
             icon: 'news-daily',
-            content: '<h3 class="icon-text-desk">Svet</br>Daily Newspaper</h3>'
+            content: dailyNews
         })
 
         this.weeklyNews = new HomeSectionDesk({
             icon: 'weekly',
-            content: '<h3 class="icon-text-desk">Saturday Plus</br>Weekly Newspaper</h3>'
+            content: weeklyNews
         })
         this.yp = new HomeSectionDesk({
             icon: 'yp',
-            content: '<h3 class="icon-text-desk"> Russian-American</br>Yellow Pages' +
-            '</h3>'
-
+            content: yellowPages
         })
         this.radioProgram = new HomeSectionDesk({
             icon: 'radio',
-            content: '<h3 class="icon-text-desk"> Radio-Program</br>"OSA"</h3>'
+            content: radioProgram
         })
 
         this.dailyNews.pipe(this._eventOutput);
