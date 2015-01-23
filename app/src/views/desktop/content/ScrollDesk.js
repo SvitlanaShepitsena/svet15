@@ -76,11 +76,12 @@ define(function (require, exports, module) {
                 if (absPos < 0) {
                     this.scrollview.setPosition(0);
                 }
-            }.bind(this), 1);
+            }.bind(this), 4);
         }.bind(this));
 
         this.scrollview.sync.on('end', function () {
             Timer.clear(this.scrollUtil);
+            this.scrollview.setPositionUpAnimated()
         }.bind(this))
         this.scrollview.sync.on('update', function () {
         }.bind(this))
