@@ -510,13 +510,6 @@ define(function (require, exports, module) {
         this.setVelocity(0.05);
         _attachAgents.call(this);
     };
-    Scrollview.prototype.setPositionUpAnimated = function (amount) {
-        var position = this.getPosition();
-
-        _detachAgents.call(this);
-        this.setVelocity(-0.05);
-        _attachAgents.call(this);
-    };
 
     /**
      * Returns the absolute position associated with the Scrollview instance
