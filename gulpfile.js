@@ -128,7 +128,6 @@ gulp.task('autoprefix', ['stylus'], function () {
 });
 
 
-
 gulp.task('add', shell.task([
     'git add .',
 ]))
@@ -221,6 +220,10 @@ gulp.task('assets:dist', function () {
 
     gulp.src(dev + 'img/**/*', {base: dev}).pipe(gulp.dest(dist));
 
+    gulp.src(app + 'lib/raphael/**/*.js', {base: app})
+        .pipe(uglify({outSourceMap: false, mangle: true}))
+        .pipe(gulp.dest(dist));
+
     return gulp.src(app + 'lib/requirejs/**/*.js', {base: app})
         .pipe(uglify({outSourceMap: false, mangle: true}))
         .pipe(gulp.dest(dist));
@@ -258,7 +261,7 @@ gulp.task('browser-sync', function () {
     });
 });
 
-gulp.task('default', ['jade:v', 'jade', 'autoprefix','jade:parts'], function () {
+gulp.task('default', ['jade:v', 'jade', 'autoprefix', 'jade:parts'], function () {
     //runSequence('js', 'add');
 
     gulp.watch(['app/src/*.js', 'app/src/views/**/*.js'], ['reload']);
@@ -302,7 +305,7 @@ gulp.task('famo:glob', ['glob'], function () {
 
 gulp.task('her', function () {
     //runSequence('clean', 'jade:d', 'jade:v', 'copyAssets', 'img', 'js', 'autoprefix', 'copy:reset', 'assets:dist', 'index:dist', 'famo:glob', 'add', 'commit', 'heroku');
-    runSequence('clean', 'jade:d', 'jade:v', 'copyAssets', 'img', 'js', 'autoprefix', 'copy:reset', 'assets:dist', 'index:dist',  'add', 'commit', 'heroku');
+    runSequence('clean', 'jade:d', 'jade:v', 'copyAssets', 'img', 'js', 'autoprefix', 'copy:reset', 'assets:dist', 'index:dist', 'add', 'commit', 'heroku');
 });
 
 
