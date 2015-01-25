@@ -5,6 +5,8 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
     var RenderNode = require('famous/core/RenderNode');
+    var ImageSurface = require('famous/surfaces/ImageSurface');
+    var Transitionable = require('famous/transitions/Transitionable');
 
     var Flipper = require('famous/views/Flipper');
 
@@ -36,7 +38,6 @@ define(function (require, exports, module) {
     function _init() {
 
         this.centerModifier = new StateModifier({
-            size: [this.sectionWidth, 520],
             align: this.options.align,
             origin: this.options.origin
         });
@@ -59,14 +60,22 @@ define(function (require, exports, module) {
     }
 
     function _sectionIcon() {
-        this.sectionIconMod = new StateModifier({
-            size: [this.sectionIconWidth, this.sectionIconWidth],
+        this.transitionableName = new Transitionable(window.innerWidth / 5);
+
+        this.sectionIconMod = new Modifier({
+            size: function () {
+                if (window.innerWidth < window.innerHeight) {
+                    return [window.innerWidth / 5, window.innerWidth / 5]
+                }
+                    return [window.innerHeight / 5, window.innerHeight / 5]
+
+            }.bind(this),
             transform: Transform.translate(0, 30, 0),
             align: [0.5, 0],
             origin: [0.5, 0]
         });
-        this.sectionIconSurface = new Surface({
-            content: "<img style='width:" + (this.sectionImgWidth) + "px; height: " + (this.sectionImgWidth) + "px; margin: " + (this.centerImg) + "px;' class='' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
+        this.sectionIconSurface = new ImageSurface({
+            content: "img/home-page/icons-color/" + this.options.icon + ".png",
             properties: {
                 cursor: 'pointer',
                 textAlign: 'center',

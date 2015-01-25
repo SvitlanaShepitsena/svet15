@@ -141,16 +141,6 @@ define(function (require, exports, module) {
         });
 
 
-        this.daily = new Surface({
-            size: [undefined, undefined],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: '#FA5C4F'
-            }
-        });
         this.dailyNews = new HomeSectionDesk({
             icon: 'news-daily',
             align: [0.5, 0],
@@ -183,7 +173,7 @@ define(function (require, exports, module) {
         this.radioProgram.pipe(this._eventOutput);
 
         this.homeSectionsContainse = [];
-        this.homeSectionsContainse.push(this.daily);
+        this.homeSectionsContainse.push(this.dailyNews);
         this.homeSectionsContainse.push(this.weeklyNews);
         this.homeSectionsContainse.push(this.yp);
         this.homeSectionsContainse.push(this.radioProgram);

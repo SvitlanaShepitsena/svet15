@@ -15,7 +15,7 @@ define(function (require, exports, module) {
 
         _init.call(this);
         _navigation.call(this);
-        //_content.call(this);
+        _content.call(this);
         _header.call(this);
     }
 
@@ -23,17 +23,22 @@ define(function (require, exports, module) {
     AppViewDesk.prototype.constructor = AppViewDesk;
     AppViewDesk.DEFAULT_OPTIONS = {};
 
+    AppViewDesk.prototype.resize = function (mainWidth) {
+
+
+    }
     function _init() {
         this.mapDesk = new MapDesk();
         this.add(this.mapDesk);
         var limitSize = 1280;
 
         this.contentSize = window.innerWidth > limitSize ? limitSize : window.innerWidth;
-        this.sizeTransitionable = new Transitionable(this.contentSize);
+        this.widthTransitionable = new Transitionable(this.contentSize);
+        this.heightTransitionable = new Transitionable(window.innerHeight);
 
         var centerModifier = new Modifier({
             size: function () {
-                return [this.sizeTransitionable.get(), undefined]
+                return [this.widthTransitionable.get(), this.heightTransitionable.get()]
             }.bind(this),
             align: [0.5, 0.5],
             origin: [0.5, 0.5]
@@ -41,8 +46,11 @@ define(function (require, exports, module) {
         this.rootNode = this.add(centerModifier);
         window.onresize = function () {
             this.contentSize = window.innerWidth > limitSize ? limitSize : window.innerWidth;
-            this.sizeTransitionable.halt();
-            this.sizeTransitionable.set(this.contentSize, {duration: 300,curve: "easeInOut"});
+            this.widthTransitionable.halt();
+            this.widthTransitionable.set(this.contentSize, {duration: 300,curve: "easeInOut"});
+
+            this.heightTransitionable.halt();
+            this.heightTransitionable.set(window.innerHeight, {duration: 300,curve: "easeInOut"});
         }.bind(this)
     }
 

@@ -14,7 +14,7 @@ define(function (require, exports, module) {
     function HeaderDesk() {
         this.flexTransitionable = new Transitionable(30);
         this.opacityTransitionable = new Transitionable(0);
-        this.sizeTransitionable = new Transitionable(window.sv.sizing.headerHeight);
+        this.widthTransitionable = new Transitionable(window.sv.sizing.headerHeight);
 
         View.apply(this, arguments);
         _headerBackground.call(this);
@@ -40,7 +40,7 @@ define(function (require, exports, module) {
     function _headerBackground() {
         this.backgroundMod = new Modifier({
             size: function () {
-                return [undefined, this.sizeTransitionable.get()]
+                return [undefined, this.widthTransitionable.get()]
             }.bind(this),
             opacity: function () {
                 return this.opacityTransitionable.get();
@@ -83,7 +83,6 @@ define(function (require, exports, module) {
 
             this.contents.push(surf);
         }
-        var resized = false;
         this.layout.sequenceFrom(this.contents);
         this.flexMod = new Modifier({
             transform: function () {
@@ -94,29 +93,29 @@ define(function (require, exports, module) {
     }
 
     HeaderDesk.prototype.increaseHeader = function () {
-        this.currentHeaderHeight = this.sizeTransitionable.get();
+        this.currentHeaderHeight = this.widthTransitionable.get();
 
         if (this.currentHeaderHeight < window.sv.sizing.headerHeight) {
             this.flexTransitionable.halt();
             this.flexTransitionable.set(30, {duration: 500});
-            this.sizeTransitionable.halt();
-            this.sizeTransitionable.set(window.sv.sizing.headerHeight, {duration: 500, curve: "linear"});
-            this.logoDesk.increaseLogo();
+            this.widthTransitionable.halt();
+            this.widthTransitionable.set(window.sv.sizing.headerHeight, {duration: 500, curve: "linear"});
+            //this.logoDesk.increaseLogo();
         }
     }
 
     HeaderDesk.prototype.decreaseHeader = function () {
-        this.currentHeaderHeight = this.sizeTransitionable.get();
+        this.currentHeaderHeight = this.widthTransitionable.get();
 
         if (this.currentHeaderHeight > this.options.smallHeight) {
             this.flexTransitionable.halt();
             this.flexTransitionable.set(-25, {duration: 500});
 
-            this.sizeTransitionable.halt();
-            this.sizeTransitionable.set(this.options.smallHeight, {duration: 500, curve: "linear"}, function () {
+            this.widthTransitionable.halt();
+            this.widthTransitionable.set(this.options.smallHeight, {duration: 500, curve: "linear"}, function () {
                 this._eventOutput.emit('header:decreased');
             }.bind(this));
-            this.logoDesk.decreaseLogo();
+            //this.logoDesk.decreaseLogo();
         }
     }
 
