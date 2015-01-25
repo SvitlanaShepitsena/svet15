@@ -45,10 +45,17 @@ define(function (require, exports, module) {
     };
 
     function _contentParts() {
+        this.textMod = new Modifier({
+            // proportions: [.5, .25],
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
+            transform: function () {
+                return Transform.translate(0,30,0);
+            }
+        });
         this.surface = new Surface({
             content: this.options.content,
             properties: {
-                paddingTop: this.contentPosition + 'px',
                 color: window.sv.scheme.textWhite,
                 backgroundColor: window.sv.scheme.sectionColor,
                 cursor: 'pointer',
@@ -56,21 +63,25 @@ define(function (require, exports, module) {
             }
         });
         this.surface.pipe(this._eventOutput);
-        this.rootNode.add(this.surface);
+        this.rootNode.add(this.textMod).add(this.surface);
     }
 
     function _sectionIcon() {
         this.transitionableName = new Transitionable(window.innerWidth / 5);
-
+        var maxSize = 180;
+        this.sizeIcon;
         this.sectionIconMod = new Modifier({
             size: function () {
                 if (window.innerWidth < window.innerHeight) {
-                    return [window.innerWidth / 5, window.innerWidth / 5]
+                    this.sizeIcon = window.innerWidth / 5.5;
+                } else {
+                    this.sizeIcon = window.innerHeight / 5.5;
                 }
-                    return [window.innerHeight / 5, window.innerHeight / 5]
+                this.sizeIcon = this.sizeIcon > maxSize ? maxSize : this.sizeIcon;
+                return [this.sizeIcon, this.sizeIcon];
 
             }.bind(this),
-            transform: Transform.translate(0, 30, 0),
+            transform: Transform.translate(0, 0, 0),
             align: [0.5, 0],
             origin: [0.5, 0]
         });
