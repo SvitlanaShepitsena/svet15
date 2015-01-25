@@ -41,23 +41,36 @@ define(function (require, exports, module) {
             align: this.options.align,
             origin: this.options.origin
         });
+        this.bgMod = new StateModifier({
+            align: this.options.align,
+            origin: this.options.origin
+        });
+        this.bg = new Surface({
+            size: [undefined, undefined],
+            content: '',
+            classes: [],
+            properties: {
+                color: 'white',
+                backgroundColor: window.sv.scheme.sectionColor,
+                textAlign: 'center'
+            }
+        });
+        this.add(this.bgMod).add(this.bg);
         this.rootNode = this.add(this.centerModifier);
     };
 
     function _contentParts() {
         this.textMod = new Modifier({
-            // proportions: [.5, .25],
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             transform: function () {
-                return Transform.translate(0,30,0);
+                return Transform.translate(0,100,0);
             }
         });
         this.surface = new Surface({
             content: this.options.content,
             properties: {
                 color: window.sv.scheme.textWhite,
-                backgroundColor: window.sv.scheme.sectionColor,
                 cursor: 'pointer',
                 textAlign: 'center'
             }
