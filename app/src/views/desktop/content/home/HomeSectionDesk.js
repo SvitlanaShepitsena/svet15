@@ -64,8 +64,8 @@ define(function (require, exports, module) {
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             transform: function () {
-                return Transform.translate(0,100,0);
-            }
+                return Transform.translate(0, _getIconSize(), 0);
+            }.bind(this)
         });
         this.surface = new Surface({
             content: this.options.content,
@@ -79,18 +79,24 @@ define(function (require, exports, module) {
         this.rootNode.add(this.textMod).add(this.surface);
     }
 
+    function _getIconSize() {
+        if (window.innerWidth < window.innerHeight) {
+            this.sizeIcon = window.innerWidth / 5.5;
+        } else {
+            this.sizeIcon = window.innerHeight / 5.5;
+        }
+        this.sizeIcon = this.sizeIcon > this.maxSize ? this.maxSize : this.sizeIcon;
+        return this.sizeIcon;
+    }
+
     function _sectionIcon() {
         this.transitionableName = new Transitionable(window.innerWidth / 5);
-        var maxSize = 180;
+        this.maxSize = 180;
         this.sizeIcon;
+
         this.sectionIconMod = new Modifier({
             size: function () {
-                if (window.innerWidth < window.innerHeight) {
-                    this.sizeIcon = window.innerWidth / 5.5;
-                } else {
-                    this.sizeIcon = window.innerHeight / 5.5;
-                }
-                this.sizeIcon = this.sizeIcon > maxSize ? maxSize : this.sizeIcon;
+                _getIconSize.call(this);
                 return [this.sizeIcon, this.sizeIcon];
 
             }.bind(this),
