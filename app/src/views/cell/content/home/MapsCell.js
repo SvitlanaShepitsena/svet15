@@ -885,7 +885,7 @@ define(function (require, exports, module) {
         this.centerModifier = new Modifier({
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
-            transform: Transform.translate(0, 0, 0)
+            transform: Transform.translate(0, 0, 101)
         });
         this.rootNode = this.add(this.centerModifier);
     }

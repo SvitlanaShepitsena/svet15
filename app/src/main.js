@@ -35,8 +35,8 @@ window.responsive = function responsive() {
 window.sv = {
     sizing: {
         headerHeight: 140,
-        headerSmallHeight: Math.ceil(this.headerHeight / 2.8),
-        headerHeightShift: Math.ceil(this.headerHeight - this.headerSmallHeight),
+        headerSmallHeight: Math.ceil(140/ 2.8),
+        headerHeightShift: Math.ceil(140-140/2.8),
 
         contentWidth: 1200,
         contentHeight: window.innerHeight,

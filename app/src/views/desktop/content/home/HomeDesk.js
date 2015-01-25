@@ -28,13 +28,30 @@ define(function (require, exports, module) {
     HomeDesk.DEFAULT_OPTIONS = {};
 
     function _init() {
+        this.opacityMain = new Transitionable(1);
+        this.contentTrans = new Transitionable(0);
+
         this.centerModifier = new Modifier({
             size: [undefined, undefined]
         });
+        this.mapModifier = new Modifier({
+            size: [undefined, undefined],
+            opacity: function () {
+                return 1- this.opacityMain.get();
+            }.bind(this)
+        });
         this.mapBackdrop = new MapsCell();
         this.mapBackdrop.pipe(this._eventOutput);
-        this.rootNode = this.add(this.centerModifier);
-        this.rootNode.add(this.mapBackdrop);
+
+        this.beforeRootNode = this.add(this.centerModifier);
+        this.beforeRootNode.add(this.mapModifier).add(this.mapBackdrop);
+        this.rootNodeMod = new Modifier({
+            transform: function () {
+                return Transform.translate(0,this.contentTrans.get(), 0)
+            }.bind(this)
+        });
+        this.rootNode = this.beforeRootNode.add(this.rootNodeMod);
+
     }
 
     function _addColorBackground() {
@@ -56,19 +73,43 @@ define(function (require, exports, module) {
     }
 
     function _fillHomeContent() {
+        this.contentMod = new Modifier({
+            align: [0, 0],
+            origin: [0, 0],
+            opacity: function () {
+                return this.opacityMain.get();
+            }.bind(this),
+            transform: Transform.translate(0, 0, 0)
+        });
         this.homeContentDesk = new HomeContentDesk();
         this.homeContentDesk.pipe(this._eventOutput);
-        this.rootNode.add(this.homeContentDesk);
+        this.rootNode.add(this.contentMod).add(this.homeContentDesk);
     }
 
     HomeDesk.prototype.tuneToShortView = function () {
         this.opacityBg.halt();
-        this.opacityBg.set(0, {duration: 500});
+        this.opacityBg.set(0, {duration: 500}, function () {
+        }.bind(this));
         this.homeContentDesk.contentShort();
+    }
+    HomeDesk.prototype.hideShowMap = function (opacity) {
+        this.opacityMain.halt();
+        this.opacityMain.set(opacity, {duration: 500});
+        if (opacity === 0) {
+            this.tuneToShortView();
+        } else{
+            this.tuneToDefaultView();
+
+        }
+
     }
     HomeDesk.prototype.tuneToDefaultView = function () {
         this.opacityBg.halt();
-        this.opacityBg.set(this.defaultOpacity, {duration: 500});
+        this.opacityBg.set(0);
+        this.contentTrans.halt();
+        this.contentTrans.set(0, function () {
+            this.opacityBg.set(this.defaultOpacity,{duration:500}) ;
+        }.bind(this));
         this.homeContentDesk.contentInit();
     }
     module.exports = HomeDesk;
