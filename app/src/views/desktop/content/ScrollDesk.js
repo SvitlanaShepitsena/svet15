@@ -53,31 +53,39 @@ define(function (require, exports, module) {
 
     function _scrollEvent() {
         var that = this;
-        var startPosition, startPage, currentPosition, currentPage, moveDown, absPos;
+        var startPosition, startPage, currentPosition, currentPage, moveDown, absPos, coef;
+        var emitDecrease = false, emitIncrease = false;
 
         this.scrollview.sync.on('start', function () {
             startPosition = this.scrollview.getAbsolutePosition();
             startPage = this.scrollview.getCurrentIndex();
-
+            emitDecrease = false;
+            emitIncrease = false;
             this.scrollUtil = Timer.every(function () {
                 currentPage = this.scrollview.getCurrentIndex();
                 currentPosition = this.scrollview.getAbsolutePosition();
                 moveDown = currentPosition > startPosition ? true : false;
 
-                if (currentPage === 0 && startPosition <= window.sv.sizing.headerHeight && moveDown) {
+                if (currentPage === 0 && startPosition <= window.sv.sizing.headerHeight && moveDown && !emitDecrease) {
                     this.headerFull = false;
                     this._eventOutput.emit('decrease:header');
+                    this.homeDesk.hideShowMap(0);
+                    emitDecrease = true;
                 }
-                if (currentPage === 0 && currentPosition <= window.sv.sizing.headerHeight && !moveDown) {
+                if (currentPage === 0 && currentPosition <= window.sv.sizing.headerHeight && !moveDown && !emitIncrease) {
 
                     this.headerFull = true;
                     this._eventOutput.emit('increase:header');
+                    this.homeDesk.hideShowMap(1);
                     this.homeDesk.tuneToDefaultView();
+                    emitIncrease = true;
                 }
                 absPos = this.scrollview.getAbsolutePosition();
                 if (absPos < 0) {
                     this.scrollview.setPosition(0);
                 }
+
+
             }.bind(this), 1);
         }.bind(this));
 
@@ -85,13 +93,12 @@ define(function (require, exports, module) {
 
             var absPos = this.scrollview.getAbsolutePosition();
             Timer.clear(this.scrollUtil);
-            if (this.headerFull && absPos<140) {
+            if (this.headerFull && absPos < 140) {
                 this.scrollview.setPositionAnimated(-0.05);
 
             }
         }.bind(this))
-        this.scrollview.sync.on('update', function () {
-        }.bind(this))
+
     }
 
 

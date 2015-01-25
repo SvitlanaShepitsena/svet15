@@ -78,7 +78,7 @@ define(function (require, exports, module) {
         var ratios = [10, 20, 2];
 
         this.flexibleLayout = new FlexibleLayout({
-            ratios: window.innerHeight<960?ratios:[10,20,true],
+            ratios: window.innerHeight < 960 ? ratios : [10, 20, true],
             direction: 1
         });
 
@@ -130,12 +130,12 @@ define(function (require, exports, module) {
 
     function _gridParts() {
         this.gridRenderNode = new RenderNode();
-        this.gridTrans = new Transitionable(0);
+        this.gridTrans = new Transitionable(140);
         this.gridMod = new Modifier({
             align: [0.5, 0],
             origin: [0.5, 0],
             transform: function () {
-                return Transform.translate(0, 140, 0);
+                return Transform.translate(0, this.gridTrans.get(), 0);
             }.bind(this)
         });
 
@@ -177,8 +177,11 @@ define(function (require, exports, module) {
         this.homeSectionsContainse.push(this.yp);
         this.homeSectionsContainse.push(this.radioProgram);
         this.gridContentTop = new GridLayout(
-            {dimensions: [4, 1],
-            gutterSize:[8,10]}
+            {
+                dimensions: [4, 1],
+                gutterSize: [8, 10],
+                transition: {duration:1000, curve: "easeInOut"}
+            }
         );
         this.gridContentTop.sequenceFrom(this.homeSectionsContainse);
 
@@ -186,7 +189,7 @@ define(function (require, exports, module) {
         this.gridRenderNode.add(this.gridMod).add(this.gridContentTop);
         this.flexContent.push(this.gridRenderNode);
         this.emptySurface = new Surface({
-            size: [undefined, window.innerHeight-960],
+            size: [undefined, window.innerHeight - 960],
             content: ''
         });
         this.flexContent.push(this.emptySurface);
