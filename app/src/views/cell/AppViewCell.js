@@ -6,7 +6,6 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var MouseSync = require('famous/inputs/MouseSync');
     var GenericSync = require('famous/inputs/GenericSync');
-    var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
 
     var GridLayout = require("famous/views/GridLayout");
     var EventHandler = require('famous/core/EventHandler');

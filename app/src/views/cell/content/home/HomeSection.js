@@ -20,7 +20,13 @@ define(function (require, exports, module) {
             }
             this.flipper.flip();
             this.flipperFrontSide = !this.flipperFrontSide;
-        })
+        });
+
+        this.sectionWidth = window.innerWidth / 2;
+        this.sectionIconWidth = (window.innerWidth / 2) * .4;
+        this.sectionImgWidth = (window.innerWidth / 2) * .26;
+        this.iconImgMargin = (this.sectionIconWidth - this.sectionImgWidth) / 2;
+
         _initTransform.call(this);
         _contentParts.call(this);
         _sectionIcon.call(this);
@@ -37,10 +43,6 @@ define(function (require, exports, module) {
         period: 0,
         dampingRatio: 0,
         sign: 0,
-        width: window.innerWidth,
-        sectionWidth: window.innerWidth / 2,
-        sectionIconWidth: (window.innerWidth / 2) * .4,
-        sectionImgWidth: (window.innerWidth / 2) * .26,
         sectionPop: {
             paddingTop: window.innerWidth / 4.15 + 'px',
             color: window.sv.scheme.textWhite,
@@ -61,18 +63,18 @@ define(function (require, exports, module) {
 
     function _sectionIcon() {
         this.sectionIconMod = new StateModifier({
-            size: [this.options.sectionIconWidth, this.options.sectionIconWidth],
+            size: [this.sectionIconWidth, this.sectionIconWidth],
             align: [0.5, 0.1],
             origin: [0.5, 0]
         });
 
         this.sectionIconSurface = new Surface({
             size: [undefined, undefined],
-            content: "<img style='width:" + (this.options.sectionImgWidth) + "px; height: " + (this.options.sectionImgWidth) + "px' class='home-icon-img' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
+            content: "<img style='width:" + (this.sectionImgWidth) + "px; height: " + (this.sectionImgWidth) + "px; margin:" + this.iconImgMargin + "px;' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
             properties: {
                 cursor: 'pointer',
                 textAlign: 'center',
-                borderRadius: this.options.sectionIconWidth / 2 + 'px',
+                borderRadius: this.sectionIconWidth / 2 + 'px',
                 backgroundColor: window.sv.scheme.homeIconColor
             }
         });
@@ -89,7 +91,7 @@ define(function (require, exports, module) {
         this.centerModifier = new StateModifier({
             align: this.options.center,
             origin: this.options.center,
-            transform: Transform.translate(this.options.sign * (this.options.sectionWidth), 0, 0)
+            transform: Transform.translate(this.options.sign * (this.sectionWidth), 0, 0)
         });
 
         this.rootNode = this.add(this.centerModifier);

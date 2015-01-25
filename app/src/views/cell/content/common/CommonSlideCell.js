@@ -53,6 +53,7 @@ define(function (require, exports, module) {
             content: require('text!cviews/jade/' + this.options.folder + '/' + this.options.content + '.html'),
             properties: {
                 textAlign: 'center',
+                marginBottom: '10px',
                 zIndex: 2,
                 pointerEvents: 'none'
             }
