@@ -10,9 +10,17 @@ define(function (require, exports, module) {
     var ImageSurface = require('famous/surfaces/ImageSurface');
 
     var CommonSlideCell = require('views/cell/content/common/CommonSlideCell');
-    var about1 = require('text!jade/about1.html');
-    var about2 = require('text!jade/about2.html');
-    var about3 = require('text!jade/about3.html');
+/*    var about1 = require('text!cviews/jade/about/about1.html');
+    var about2 = require('text!cviews/jade/about/about2.html');
+    var about3 = require('text!cviews/jade/about/about3.html');
+
+    var radio1 = require('text!cviews/jade/radio/radio1.html');
+    var radio2 = require('text!cviews/jade/radio/radio2.html');
+    var radio3 = require('text!cviews/jade/radio/radio3.html');
+
+    var contactus1 = require('text!cviews/jade/contactus/contactus1.html');
+    var contactus2 = require('text!cviews/jade/contactus/contactus2.html');
+    var contactus3 = require('text!cviews/jade/contactus/contactus3.html');*/
 
     function CommonPageCell() {
         View.apply(this, arguments);

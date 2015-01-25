@@ -11,6 +11,18 @@ define(function (require, exports, module) {
     var CommonPageCell = require('views/cell/content/common/CommonPageCell');
     var HomeCell = require('views/cell/content/home/HomeCell');
 
+    var about1 = require('text!cviews/jade/about/about1.html');
+    var about2 = require('text!cviews/jade/about/about2.html');
+    var about3 = require('text!cviews/jade/about/about3.html');
+
+    var radio1 = require('text!cviews/jade/radio/radio1.html');
+    var radio2 = require('text!cviews/jade/radio/radio2.html');
+    var radio3 = require('text!cviews/jade/radio/radio3.html');
+
+    var contactus1 = require('text!cviews/jade/contactus/contactus1.html');
+    var contactus2 = require('text!cviews/jade/contactus/contactus2.html');
+    var contactus3 = require('text!cviews/jade/contactus/contactus3.html');
+
 
     function ContentScrollCell() {
         ScrollContainer.apply(this, arguments);
@@ -47,13 +59,22 @@ define(function (require, exports, module) {
     ContentScrollCell.DEFAULT_OPTIONS = {};
 
     function _createContent() {
-        var that = this;
         this.contents = [];
 
         this.homeCell = new HomeCell();
         this.aboutUsCell = new CommonPageCell({
-            bgColor: 'orange',
+            bgColor: 'floralwhite',
             pages: ['about1', 'about2', 'about3'],
+            sync: this.options.sync
+        });
+        this.radioCell = new CommonPageCell({
+            bgColor: 'floralwhite',
+            pages: ['radio1', 'radio2', 'radio3'],
+            sync: this.options.sync
+        });
+        this.contactUsCell = new CommonPageCell({
+            bgColor: 'floralwhite',
+            pages: ['contactus1', 'contactus2', 'contactus3'],
             sync: this.options.sync
         });
         //this.demographicsCell = new CommonPageCell({bgColor: 'green', page: 'Demographics', sync: this.options.sync});
@@ -63,11 +84,15 @@ define(function (require, exports, module) {
          */
         this.homeCell.pipe(this.options.sync);
         this.aboutUsCell.pipe(this.options.sync);
+        this.radioCell.pipe(this.options.sync);
+        this.contactUsCell.pipe(this.options.sync);
         //this.demographicsCell.pipe(this.options.sync);
         //this.clientsCell.pipe(this.options.sync);
 
         this.contents.push(this.homeCell);
         this.contents.push(this.aboutUsCell);
+        this.contents.push(this.radioCell);
+        this.contents.push(this.contactUsCell);
         //this.contents.push(this.demographicsCell);
         //this.contents.push(this.clientsCell);
         this.scrollview.sequenceFrom(this.contents);
