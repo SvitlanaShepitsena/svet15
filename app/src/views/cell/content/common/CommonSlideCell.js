@@ -50,7 +50,7 @@ define(function (require, exports, module) {
             transform: Transform.translate(0, 0, 2)
         });
         this.viewContent = new Surface({
-            content: require('text!cviews/jade/about/' + this.options.content + '.html'),
+            content: require('text!cviews/jade/' + this.options.folder + '/' + this.options.content + '.html'),
             properties: {
                 zIndex: 2,
                 pointerEvents: 'none'

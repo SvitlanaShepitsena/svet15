@@ -64,16 +64,19 @@ define(function (require, exports, module) {
         this.homeCell = new HomeCell();
         this.aboutUsCell = new CommonPageCell({
             bgColor: 'floralwhite',
+            folder: 'about',
             pages: ['about1', 'about2', 'about3'],
             sync: this.options.sync
         });
         this.radioCell = new CommonPageCell({
             bgColor: 'floralwhite',
+            folder: 'radio',
             pages: ['radio1', 'radio2', 'radio3'],
             sync: this.options.sync
         });
         this.contactUsCell = new CommonPageCell({
             bgColor: 'floralwhite',
+            folder: 'contactus',
             pages: ['contactus1', 'contactus2', 'contactus3'],
             sync: this.options.sync
         });
