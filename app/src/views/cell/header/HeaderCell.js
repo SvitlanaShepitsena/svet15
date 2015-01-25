@@ -15,19 +15,17 @@ define(function (require, exports, module) {
     HeaderCell.prototype.constructor = HeaderCell;
     function _createHeader() {
 
-        var backgroundSurface = new Surface({
+        this.backgroundSurface = new Surface({
             size: [undefined, undefined],
             opacity: 0.5,
             properties: {
                 backgroundColor: window.sv.scheme.headerColor
-                //backgroundColor: '#FC6E51'
-
-                //background: '#D24811'
-                //backgroundColor: '#FFB083'
-                //backgroundColor: '#C8645B'
             }
         });
 
+        this.hamburgerModifier = new Modifier({
+            transform: Transform.translate(0, 0, 2)
+        });
         this.hamburgerSurface = new Surface({
             size: [undefined, undefined],
             content: '<img class="img-hamb" src="../../../../img/hamburger-template.png"/>',
@@ -36,33 +34,25 @@ define(function (require, exports, module) {
             }
         });
 
-
+        this.titleModifier = new Modifier({
+            transform: Transform.translate(0, 0, 1),
+            origin: [0.5, 0],
+        align: [0.5, 0]
+        });
         this.titleSurface = new Surface({
             size: [undefined, undefined],
             content: '<h1 class="svet-h">SVET Media Group</h1>',
             properties: {
-                fontSize: '22px',
                 textAlign: 'center',
-                color: window.sv.scheme.textYellow,
-                lineHeight: "50px",
-                fontWeight: '700'
+                color: window.sv.scheme.textYellow
             }
         });
 
-        this.hamburgerModifier = new Modifier({
-            transform: Transform.translate(0, 0, 2)
-        });
-
-        this.titleModifier = new Modifier({
-            transform: Transform.translate(0, 0, 1),
-            origin: [0.5, 0],
-            align: [0.5, 0]
-        });
 
         this._add(this.titleModifier).add(this.titleSurface);
         this._add(this.hamburgerModifier).add(this.hamburgerSurface);
 
-        this._add(backgroundSurface);
+        this._add(this.backgroundSurface);
     }
 
     function _setListeners() {
