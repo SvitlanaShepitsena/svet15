@@ -20,11 +20,6 @@ define(function (require, exports, module) {
             opacity: 0.5,
             properties: {
                 backgroundColor: window.sv.scheme.headerColor
-                //backgroundColor: '#FC6E51'
-
-                //background: '#D24811'
-                //backgroundColor: '#FFB083'
-                //backgroundColor: '#C8645B'
             }
         });
 
@@ -41,11 +36,8 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: '<span class="svet-h">SVET Media Group</span>',
             properties: {
-                fontSize: '22px',
                 textAlign: 'center',
-                color: window.sv.scheme.textYellow,
-                lineHeight: "50px",
-                fontWeight: '700'
+                color: window.sv.scheme.textYellow
             }
         });
 
