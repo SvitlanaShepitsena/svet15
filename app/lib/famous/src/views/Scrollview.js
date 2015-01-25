@@ -395,6 +395,7 @@ define(function (require, exports, module) {
     }
 
     function _shiftOrigin(amount) {
+        console.log(amount);
         this._edgeSpringPosition += amount;
         this._pageSpringPosition += amount;
         this.setPosition(this.getPosition() + amount);
@@ -504,10 +505,10 @@ define(function (require, exports, module) {
     };
 
     Scrollview.prototype.setPositionAnimated = function (amount) {
-        var position = this.getPosition();
+        var velocity = amount?amount:0.05;
 
         _detachAgents.call(this);
-        this.setVelocity(0.05);
+        this.setVelocity(velocity);
         _attachAgents.call(this);
     };
 
