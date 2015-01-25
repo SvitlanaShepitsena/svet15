@@ -49,7 +49,7 @@ define(function (require, exports, module) {
             'stroke-width': 11,
             'fill-opacity': 0
         });
-        var text =  paper.text(129,59, 'RUSSIAN MEDIA GROUP');
+        var text =  paper.text(129,56, 'RUSSIAN MEDIA GROUP');
         text.attr({
             stroke: 'none',
             fill: 'white',
@@ -95,13 +95,9 @@ define(function (require, exports, module) {
             'font-family': "Myriad Pro"
         })
         var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
-        this.svetTextMod = new Modifier({
-
+        this.svetSvgMod = new Modifier({
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
-            opacity: function () {
-                return this.opacityTransitionable.get();
-            }.bind(this),
             transform: function () {
                 shift = window.innerWidth > 1160 ? 84 : 10;
                 this.svgLine.halt();
@@ -115,56 +111,10 @@ define(function (require, exports, module) {
                 textAlign: 'center'
             }
         });
-        this.rootNode.add(this.logoSvgMod).add(this.logoSvgSurf);
+        this.rootNode.add(this.svetSvgMod).add(this.svetSvgSurf);
     }
 
-    function _svetText() {
-        var that = this;
-        this.svetTextMod = new Modifier({
-            size: [undefined, 34],
-            transform: Transform.translate(0, 0, 0)
-        });
-        this.svetTextSurf = new Surface({
-            content: 'SVET',
-            properties: {
-                fontSize: '34px',
-                fontWeight: 'bold',
-                textAlign: 'center'
-            }
-        });
-        this.svetTextSurf.render = function () {
-            var red = Math.ceil(that.red.get()),
-                green = Math.ceil(that.green.get()),
-                blue = Math.ceil(that.blue.get());
 
-            this.setProperties({
-                color: 'rgb(' + red + ', ' + green + ', ' + blue + ')'
-            });
-            return this.id;
-        };
-        this.rootNode.add(this.svetTextMod).add(this.svetTextSurf);
-    }
-
-    function _rmgText() {
-        this.mediaSurfMod = new Modifier({
-            size: [undefined, 21],
-            opacity: function () {
-                return this.opacityTransitionable.get();
-            }.bind(this),
-            transform: Transform.translate(0, 30, 0)
-        });
-        this.mediaSurface = new Surface({
-            size: [undefined, undefined],
-            content: 'RUSSIAN MEDIA GROUP',
-            classes: [],
-            properties: {
-                fontSize: '21px',
-                color: 'white',
-                textAlign: 'center'
-            }
-        });
-        this.rootNode.add(this.mediaSurfMod).add(this.mediaSurface);
-    }
 
 
     LogoDesk.prototype.increaseLogo = function () {

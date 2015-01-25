@@ -79,7 +79,8 @@ define(function (require, exports, module) {
 
             var mod = new Modifier({
                 align: [0.5, 0.5],
-                origin: [0.5, 0.5]
+                origin: [0.5, 0.5],
+                transform:Transform.translate(0,40,0)
             });
             var surf = new Surface({
                 size: [undefined, undefined],
@@ -110,7 +111,7 @@ define(function (require, exports, module) {
             this.flexTransitionable.set(30, {duration: 500});
             this.widthTransitionable.halt();
             this.widthTransitionable.set(window.sv.sizing.headerHeight, {duration: 500, curve: "linear"});
-            //this.logoDesk.increaseLogo();
+            this.logoDesk.increaseLogo();
         }
     }
 
@@ -125,7 +126,7 @@ define(function (require, exports, module) {
             this.widthTransitionable.set(this.options.smallHeight, {duration: 500, curve: "linear"}, function () {
                 this._eventOutput.emit('header:decreased');
             }.bind(this));
-            //this.logoDesk.decreaseLogo();
+            this.logoDesk.decreaseLogo();
         }
     }
 
