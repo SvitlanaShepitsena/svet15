@@ -18,7 +18,7 @@ define(function (require, exports, module) {
     NavItemDesk.DEFAULT_OPTIONS = {
         title: null,
         itemUrl: null,
-        size: [undefined, 32],
+        size: [undefined, 100],
         align: [0.5, 0.72],
         origin: [0.5, 0.72],
         index: -1,
@@ -31,13 +31,20 @@ define(function (require, exports, module) {
     };
 
     function _navItem() {
+
+        var div = document.createElement('div');
+        var paper = Raphael(div, 200, 32);
+        var t = paper.text(10, 20, this.options.title);
+        t.attr({stroke:'white',
+            'font-size':18
+        });
+
         this.centerModifier = new Modifier({
-            size: this.options.size,
-            align: this.options.align,
-            origin: this.options.origin
+
+
         });
         this.itemSurface = new Surface({
-            content: this.options.title,
+            content: div,
             properties: this.options.navBtnOpts
         });
 

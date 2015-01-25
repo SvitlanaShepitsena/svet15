@@ -76,7 +76,7 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.contentMod);
 
         this.flexContent = [];
-        var ratios = [1, 1];
+        var ratios = [1, 2];
 
         this.flexibleLayout = new FlexibleLayout({
             ratios: ratios,
@@ -92,19 +92,39 @@ define(function (require, exports, module) {
 
         this.opacityMotoTrans = new Transitionable(1);
         this.motoTextMod = new Modifier({
-            size: [window.sv.sizing.contentWidth, true],
             align: [0.5, 0],
             origin: [0.5, 0],
             opacity: function () {
                 return this.opacityMotoTrans.get()
             }.bind(this),
-            transform: Transform.translate(0, window.sv.sizing.headerHeight * 1.2, 0)
-        });
-        this.motoTextSurf = new Surface({
-            content: '<p>WE MAKE YOUR BUSINESS<br/>KNOWN TO COMMUNITY</p>',
-            properties: this.options.motoOpts
+            transform: Transform.translate(0, window.sv.sizing.headerHeight, 0)
         });
 
+
+        var div = document.createElement('div');
+        //div.style.cssText = 'position:relative;';
+        var paper = Raphael(div, 600, 150);
+
+        var st = paper.set();
+        var t = paper.text(280, 30, 'WE MAKE YOUR BUSINESS');
+        var t2 = paper.text(290, 50, 'KNOWN TO COMMUNITY');
+        st.push(t);
+        st.push(t2);
+
+        st.attr({
+            stroke: 'none',
+            fill: '#BA090C',
+            'font-size': 25,
+            'font-weight': 'bold',
+            'line-height': '5em',
+            'font-family': "Myriad Pro"
+        });
+
+        this.motoTextSurf = new Surface({
+            content: div,
+            properties: this.options.motoOpts
+        });
+        this.motoTextSurf.pipe(this._eventOutput);
         this.motoRenderNode.add(this.motoTextMod).add(this.motoTextSurf);
         this.flexContent.push(this.motoRenderNode);
     }
@@ -113,12 +133,23 @@ define(function (require, exports, module) {
         this.gridRenderNode = new RenderNode();
         this.gridTrans = new Transitionable(0);
         this.gridMod = new Modifier({
-            size: [window.sv.sizing.contentWidth, undefined],
             align: [0.5, 0],
             origin: [0.5, 0],
             transform: function () {
-                return Transform.translate(0, this.gridTrans.get(), 0);
+                return Transform.translate(0, 140, 0);
             }.bind(this)
+        });
+
+
+        this.daily = new Surface({
+            size: [undefined, undefined],
+            content: '',
+            classes: [],
+            properties: {
+                color: 'white',
+                textAlign: 'center',
+                backgroundColor: '#FA5C4F'
+            }
         });
         this.dailyNews = new HomeSectionDesk({
             icon: 'news-daily',
@@ -152,11 +183,14 @@ define(function (require, exports, module) {
         this.radioProgram.pipe(this._eventOutput);
 
         this.homeSectionsContainse = [];
-        this.homeSectionsContainse.push(this.dailyNews);
+        this.homeSectionsContainse.push(this.daily);
         this.homeSectionsContainse.push(this.weeklyNews);
         this.homeSectionsContainse.push(this.yp);
         this.homeSectionsContainse.push(this.radioProgram);
-        this.gridContentTop = new GridLayout({dimensions: [4, 1]});
+        this.gridContentTop = new GridLayout(
+            {dimensions: [4, 1],
+            gutterSize:[8,10]}
+        );
         this.gridContentTop.sequenceFrom(this.homeSectionsContainse);
 
 

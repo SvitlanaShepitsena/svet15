@@ -4,7 +4,7 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var StateModifier = require('famous/modifiers/StateModifier');
     var FlexibleLayout = require('famous/views/FlexibleLayout');
-
+    var RenderNode = require('famous/core/RenderNode');
     var Transform = require('famous/core/Transform');
     var Transitionable = require('famous/transitions/Transitionable');
 
@@ -12,6 +12,7 @@ define(function (require, exports, module) {
     var NavDesk = require('dviews/header/NavDesk');
 
     function HeaderDesk() {
+        this.flexTransitionable = new Transitionable(30);
         this.opacityTransitionable = new Transitionable(0);
         this.sizeTransitionable = new Transitionable(window.sv.sizing.headerHeight);
 
@@ -26,7 +27,7 @@ define(function (require, exports, module) {
     HeaderDesk.DEFAULT_OPTIONS = {
         smallHeight: window.sv.sizing.headerHeight / 2.8,
         flexOpts: {
-            ratios: [2, true, 2],
+            ratios: [1, 1, 1, 1],
             direction: 0
         },
         backgroundOpts: {
@@ -58,41 +59,46 @@ define(function (require, exports, module) {
     }
 
     function _flex() {
-        this.layout = new FlexibleLayout({
+        var flexOptions = {
+
             ratios: this.options.flexOpts.ratios,
             direction: this.options.flexOpts.direction
-        });
-        this.rootNode.add(this.layout);
+        }
+        this.layout = new FlexibleLayout(flexOptions);
+        var menuItems = ['Home', 'About Us', 'Radio', 'Contact Us'];
         this.contents = [];
+        for (var i = 0; i < menuItems.length; i++) {
 
-        this.logoDesk = new LogoDesk();
+            var mod = new Modifier({
+                align: [0.5, 0.5],
+                origin: [0.5, 0.5]
+            });
+            var surf = new Surface({
+                size: [undefined, undefined],
+                content: menuItems[i],
+                properties: {
+                    color: 'white'
+                }
+            });
 
-        this.leftNavDesk = new NavDesk({
-            navTitles: ['HOME', 'ABOUT US', 'DEMOGRAPHICS'],
-            align: [1, 0],
-            origin: [1, 0]
-        });
-        this.rightNavDesk = new NavDesk({
-            navTitles: ['CLIENTS', 'RADIO', 'CONTACT US'],
-            align: [0, 1],
-            origin: [0, 1]
-        });
-
-        this.leftNavDesk.pipe(this._eventOutput);
-        this.rightNavDesk.pipe(this._eventOutput);
-
-        this.contents.push(this.leftNavDesk);
-        this.contents.push(this.logoDesk);
-        this.contents.push(this.rightNavDesk);
-
+            this.contents.push(surf);
+        }
+        var resized = false;
         this.layout.sequenceFrom(this.contents);
-        this.rootNode.add(this.layout);
+        this.flexMod = new Modifier({
+            transform: function () {
+                return Transform.translate(0, this.flexTransitionable.get(), 0);
+            }.bind(this)
+        });
+        this.rootNode.add(this.flexMod).add(this.layout);
     }
 
     HeaderDesk.prototype.increaseHeader = function () {
         this.currentHeaderHeight = this.sizeTransitionable.get();
 
-        if (this.currentHeaderHeight <window.sv.sizing.headerHeight) {
+        if (this.currentHeaderHeight < window.sv.sizing.headerHeight) {
+            this.flexTransitionable.halt();
+            this.flexTransitionable.set(30, {duration: 500});
             this.sizeTransitionable.halt();
             this.sizeTransitionable.set(window.sv.sizing.headerHeight, {duration: 500, curve: "linear"});
             this.logoDesk.increaseLogo();
@@ -103,6 +109,9 @@ define(function (require, exports, module) {
         this.currentHeaderHeight = this.sizeTransitionable.get();
 
         if (this.currentHeaderHeight > this.options.smallHeight) {
+            this.flexTransitionable.halt();
+            this.flexTransitionable.set(-25, {duration: 500});
+
             this.sizeTransitionable.halt();
             this.sizeTransitionable.set(this.options.smallHeight, {duration: 500, curve: "linear"}, function () {
                 this._eventOutput.emit('header:decreased');

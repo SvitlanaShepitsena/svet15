@@ -6,14 +6,16 @@ define(function (require, exports, module) {
 
     var ScrollDesk = require('dviews/content/ScrollDesk');
     var HeaderDesk = require('dviews/header/HeaderDesk');
+    var MapDesk = require('dviews/BgMapsDesk');
 
+    var Transitionable = require('famous/transitions/Transitionable');
 
     function AppViewDesk() {
         View.apply(this, arguments);
 
         _init.call(this);
         _navigation.call(this);
-        _content.call(this);
+        //_content.call(this);
         _header.call(this);
     }
 
@@ -22,10 +24,26 @@ define(function (require, exports, module) {
     AppViewDesk.DEFAULT_OPTIONS = {};
 
     function _init() {
+        this.mapDesk = new MapDesk();
+        this.add(this.mapDesk);
+        var limitSize = 1280;
+
+        this.contentSize = window.innerWidth > limitSize ? limitSize : window.innerWidth;
+        this.sizeTransitionable = new Transitionable(this.contentSize);
+
         var centerModifier = new Modifier({
-            transform: Transform.translate(0, 0, 0)
+            size: function () {
+                return [this.sizeTransitionable.get(), undefined]
+            }.bind(this),
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5]
         });
         this.rootNode = this.add(centerModifier);
+        window.onresize = function () {
+            this.contentSize = window.innerWidth > limitSize ? limitSize : window.innerWidth;
+            this.sizeTransitionable.halt();
+            this.sizeTransitionable.set(this.contentSize, {duration: 300,curve: "easeInOut"});
+        }.bind(this)
     }
 
 

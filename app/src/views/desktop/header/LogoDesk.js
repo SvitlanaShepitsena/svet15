@@ -35,7 +35,7 @@ define(function (require, exports, module) {
         this.centerModifier = new Modifier({
             size: [window.sv.sizing.logoContainerWidth, window.sv.sizing.headerHeight],
             transform: function () {
-                return Transform.translate(0, this.shiftTransitionable.get(), 0);
+                return Transform.translate(0, 40, 0);
             }.bind(this)
         });
         this.rootNode = this.add(this.centerModifier);
@@ -55,7 +55,7 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.opacityTransitionable.get();
             }.bind(this),
-            transform: Transform.translate(0, 0, 0)
+            transform: Transform.translate(0, -70, 0)
         });
         this.logoSvgSurf = new Surface({
             size: [undefined, undefined],
@@ -71,7 +71,7 @@ define(function (require, exports, module) {
         var that = this;
         this.svetTextMod = new Modifier({
             size: [undefined, 34],
-            transform: Transform.translate(0, 70, 0)
+            transform: Transform.translate(0, 0, 0)
         });
         this.svetTextSurf = new Surface({
             content: 'SVET',
@@ -100,7 +100,7 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.opacityTransitionable.get();
             }.bind(this),
-            transform: Transform.translate(0, 100, 0)
+            transform: Transform.translate(0, 30, 0)
         });
         this.mediaSurface = new Surface({
             size: [undefined, undefined],

@@ -169,6 +169,12 @@ define(function(require, exports, module) {
     FlexibleLayout.prototype.getSize = function getSize() {
         return this._size;
     };
+    FlexibleLayout.prototype.reflow = function reflow(width) {
+        var currRatios = this._ratios;
+        currRatios.set(this._ratios.get(), {duration:500});
+        this._ratiosDirty = true;
+        _reflow.call(this,this._ratios.get(), width,0);
+    };
 
     /**
      * Apply changes from this component to the corresponding document element.
