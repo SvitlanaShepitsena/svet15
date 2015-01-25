@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     var HomeContentDesk = require('dviews/content/home/HomeContentDesk');
     var MapsCell = require('dviews/content/home/MapsDesk');
     var Transitionable = require('famous/transitions/Transitionable');
-
+    var ImageSurface = require('famous/surfaces/ImageSurface');
 
     function HomeDesk() {
         View.apply(this, arguments);
@@ -20,6 +20,53 @@ define(function (require, exports, module) {
         _init.call(this);
         _addColorBackground.call(this);
         _fillHomeContent.call(this);
+        _shortViewIcons.call(this);
+    }
+
+    function _shortViewIcons() {
+        this.gridIconTrans = new Transitionable(0);
+
+        this.gridIconsMod = new Modifier({
+            // proportions: [.5, .25],
+            size: [200, 200],
+            align: [1, 0.5],
+            origin: [1, 1],
+            opacity: function () {
+                return this.gridIconTrans.get() ;
+            }.bind(this),
+            transform: Transform.translate(0, 0, 0)
+        });
+        this.gridLayout = new GridLayout({
+            dimensions: [2, 2]
+        });
+
+        this.surfaces = [];
+        this.gridLayout.sequenceFrom(this.surfaces);
+
+        var iconRoot = 'img/home-page/icons-color/';
+        this.dailyNewsIcon = new ImageSurface({
+            size: [50, 50],
+            content: iconRoot + 'news-daily.png'
+        });
+        this.weeklyNewsIcon = new ImageSurface({
+            size: [50, 50],
+            content: iconRoot + 'weekly.png'
+        });
+        this.ypIcon = new ImageSurface({
+            size: [50, 50],
+            content: iconRoot + 'yp.png'
+        });
+        this.radioIcon = new ImageSurface({
+            size: [50, 50],
+            content: iconRoot + 'radio.png'
+        });
+        this.surfaces.push(this.dailyNewsIcon);
+        this.surfaces.push(this.weeklyNewsIcon);
+        this.surfaces.push(this.ypIcon);
+        this.surfaces.push(this.radioIcon);
+        this.rootNode.add(this.gridIconsMod).add(this.gridLayout);
+
+
     }
 
     HomeDesk.prototype = Object.create(View.prototype);
@@ -37,7 +84,7 @@ define(function (require, exports, module) {
         this.mapModifier = new Modifier({
             size: [undefined, undefined],
             opacity: function () {
-                return 1- this.opacityMain.get();
+                return 1 - this.opacityMain.get();
             }.bind(this)
         });
         this.mapBackdrop = new MapsCell();
@@ -47,7 +94,7 @@ define(function (require, exports, module) {
         this.beforeRootNode.add(this.mapModifier).add(this.mapBackdrop);
         this.rootNodeMod = new Modifier({
             transform: function () {
-                return Transform.translate(0,this.contentTrans.get(), 0)
+                return Transform.translate(0, this.contentTrans.get(), 0)
             }.bind(this)
         });
         this.rootNode = this.beforeRootNode.add(this.rootNodeMod);
@@ -88,6 +135,8 @@ define(function (require, exports, module) {
 
     HomeDesk.prototype.tuneToShortView = function () {
         this.opacityBg.halt();
+        this.gridIconTrans.halt();
+        this.gridIconTrans.set(1,{duration:500});
         this.opacityBg.set(0, {duration: 500}, function () {
         }.bind(this));
         this.homeContentDesk.contentShort();
@@ -97,7 +146,7 @@ define(function (require, exports, module) {
         this.opacityMain.set(opacity, {duration: 500});
         if (opacity === 0) {
             this.tuneToShortView();
-        } else{
+        } else {
             this.tuneToDefaultView();
 
         }
@@ -106,9 +155,14 @@ define(function (require, exports, module) {
     HomeDesk.prototype.tuneToDefaultView = function () {
         this.opacityBg.halt();
         this.opacityBg.set(0);
+
+
+        this.gridIconTrans.halt();
+        this.gridIconTrans.set(0,{duration:500});
+
         this.contentTrans.halt();
         this.contentTrans.set(0, function () {
-            this.opacityBg.set(this.defaultOpacity,{duration:500}) ;
+            this.opacityBg.set(this.defaultOpacity, {duration: 500});
         }.bind(this));
         this.homeContentDesk.contentInit();
     }
