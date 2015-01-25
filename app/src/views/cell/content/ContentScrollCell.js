@@ -17,7 +17,6 @@ define(function (require, exports, module) {
         /**
          * Assign an event handler to receive an object's input events.
          */
-
         this.eventInput = new EventHandler();
         EventHandler.setInputHandler(this, this.eventInput);
 

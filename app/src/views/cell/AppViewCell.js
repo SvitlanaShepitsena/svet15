@@ -22,20 +22,13 @@ define(function (require, exports, module) {
 
 
     function AppViewCell() {
-        View.apply(this, arguments);
-        var that = this;
-
-        /*Initial Values*/
-        this.menuToggle = false;
-        this.eventInput = new EventHandler();
-        EventHandler.setInputHandler(this, this.eventInput);
         Transitionable.registerMethod('spring', SpringTransition);
 
-        /*Backdrop Image*/
-        this.backdropNewspaper = new StateModifier({
+        this.imgModifier = new StateModifier({
             opacity: 1
         });
-        this.backdropNewspaper = new ImageSurface({
+
+        this.imgSurface = new ImageSurface({
             size: [undefined, undefined],
             properties: {
                 lineHeight: window.innerHeight + "px",
@@ -45,28 +38,36 @@ define(function (require, exports, module) {
             }
         });
 
-        /*Navigation Menu*/
+        var that = this;
+        View.apply(this, arguments);
+        this.menuToggle = false;
+        this.eventInput = new EventHandler();
+
+        EventHandler.setInputHandler(this, this.eventInput);
         this.menuView = new MenuViewCell({navWidth: this.options.maxOpenPos});
         this.menuView.pipe(this);
 
-        /*App Page View*/
-        this.pageViewMod = new Modifier();
-        this.pageViewMod.transformFrom(function () {
-            return Transform.translate(this.pageViewCellPos.get(), 0, 0);
-        }.bind(this));
-
         this.pageViewCell = new PageViewCell();
         this.pageViewCellPos = new Transitionable(0);
+
         this.eventInput.on('navigateTo', function (index) {
             that.pageViewCell.navigateTo(index);
             /*Close navigation menu*/
             that.toggleMenu();
         })
+
+        this.pageModifier = new Modifier();
+
+        this.pageModifier.transformFrom(function () {
+            return Transform.translate(this.pageViewCellPos.get(), 0, 0);
+        }.bind(this));
+
         this.pageViewCell.on('menuToggle', this.toggleMenu.bind(this));
 
+        this.add(this.imgModifier).add(this.imgSurface);
+
         this.add(this.menuView);
-        this.add(this.backdropNewspaper).add(this.backdropNewspaper);
-        this.add(this.pageViewMod).add(this.pageViewCell);
+        this.add(this.pageModifier).add(this.pageViewCell);
 
         _handleTouch.call(this);
     }
@@ -96,6 +97,7 @@ define(function (require, exports, module) {
             if (this.pageViewCellPos.get() === 0 && data.position > 0) {
                 this.menuView.animateNavItems();
             }
+
             this.pageViewCellPos.set(Math.min(Math.max(0, data.position), this.options.maxOpenPos));
         }.bind(this));
 
