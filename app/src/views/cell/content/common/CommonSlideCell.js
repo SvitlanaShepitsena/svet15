@@ -52,6 +52,7 @@ define(function (require, exports, module) {
         this.viewContent = new Surface({
             content: require('text!cviews/jade/' + this.options.folder + '/' + this.options.content + '.html'),
             properties: {
+                textAlign: 'center',
                 zIndex: 2,
                 pointerEvents: 'none'
             }

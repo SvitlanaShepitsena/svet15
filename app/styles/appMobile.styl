@@ -6,6 +6,9 @@ size-m = 500px
 size-l = 1050px
 size-xl = 1800px
 
+.text-warning
+    color #FF7F50
+
 body
     padding-bottom 44px !important
 
@@ -14,16 +17,20 @@ color-main = #3E3A3B
 /*Headers*/
 h1
     +below(size-m)
-        font-size 20px
-        line-height 22px
+        font-size 22px !important
+        line-height 26px
 
 h2
+    font-weight bold !important
+    font-size 24px !important
+    line-height 26px
     +below(size-m)
-        font-size 18px
+        font-size 18px !important
 
 h3
+    font-weight bold !important
     +below(size-m)
-        font-size 16px
+        font-size 17px
 
 h4
     +below(size-m)
@@ -86,16 +93,16 @@ body
         width 15%
 
 .svet-h
-    font-weight bold
+    font-size 26px !important
     font-weight bold
     margin 0px
     line-height 180%
     +below(size-m)
         line-height 240%
-        font-size 22px
+        font-size 21px !important
     +below(size-s)
         line-height 200%
-        font-size 22px
+        font-size 20px
     +below(size-xs)
         line-height 210%
         font-size 18px
@@ -238,3 +245,32 @@ body
     height 100px
     z-index 999
 
+.p-content
+    font-size 15px !important
+    line-height 24px !important
+    +below(size-m)
+        font-size 14px !important
+        line-height 20px !important
+        font-weight normal
+        margin-bottom 10px !important
+
+/**********************
+  =About Us
+***********************/
+.h2-about
+    margin-top 0px !important
+    font-size 24px !important
+    +below(size-m)
+        font-size 20px !important
+
+.img-about
+    width 100%
+    height auto
+    +below(size-m)
+        width 85%
+
+.ul-about
+    li
+        color #595959
+        a
+            color #797979
