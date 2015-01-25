@@ -94,8 +94,8 @@ define(function (require, exports, module) {
         var navData = [
             {iconUrl: 'img/nav-icons/home.png'},
             {iconUrl: 'img/nav-icons/about-us.png'},
-            {iconUrl: 'img/nav-icons/demographics.png'},
-            {iconUrl: 'img/nav-icons/clients.png'},
+            //{iconUrl: 'img/nav-icons/demographics.png'},
+            //{iconUrl: 'img/nav-icons/clients.png'},
             {iconUrl: 'img/nav-icons/radio.png'},
             {iconUrl: 'img/nav-icons/contact-us.png'},
         ];
