@@ -31,12 +31,19 @@ define(function (require, exports, module) {
             }
         });
 
+        this.titleModifier = new Modifier({
+            size: [undefined, window.sv.sizing.headerHeightCell],
+            transform: Transform.translate(0, 0, 1),
+            origin: [0.5, 0],
+            align: [0.5, 0]
+        });
 
         this.titleSurface = new Surface({
-            size: [undefined, undefined],
-            content: '<span class="svet-h">SVET Media Group</span>',
+            content: '<span class="svet-h">SVET Media Group</span> ',
             properties: {
+                lineHeight: window.sv.sizing.headerHeightCell + "px",
                 textAlign: 'center',
+                margin: '0px',
                 color: window.sv.scheme.textYellow
             }
         });
@@ -45,11 +52,6 @@ define(function (require, exports, module) {
             transform: Transform.translate(0, 0, 2)
         });
 
-        this.titleModifier = new Modifier({
-            transform: Transform.translate(0, 0, 1),
-            origin: [0.5, 0],
-            align: [0.5, 0]
-        });
 
         this._add(this.titleModifier).add(this.titleSurface);
         this._add(this.hamburgerModifier).add(this.hamburgerSurface);

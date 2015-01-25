@@ -1,21 +1,32 @@
+.text-warning {
+  color: #ff7f50;
+}
 body {
   padding-bottom: 44px !important;
 }
 /*Headers*/
 @media only screen and (max-width: 500px) {
   h1 {
-    font-size: 20px;
-    line-height: 22px;
+    font-size: 22px !important;
+    line-height: 26px;
   }
+}
+h2 {
+  font-weight: bold !important;
+  font-size: 28px !important;
+  line-height: 32px;
 }
 @media only screen and (max-width: 500px) {
   h2 {
-    font-size: 18px;
+    font-size: 18px !important;
   }
+}
+h3 {
+  font-weight: bold !important;
 }
 @media only screen and (max-width: 500px) {
   h3 {
-    font-size: 16px;
+    font-size: 17px;
   }
 }
 @media only screen and (max-width: 500px) {
@@ -102,27 +113,23 @@ body {
   }
 }
 .svet-h {
-  font-weight: bold;
+  font-size: 26px !important;
   font-weight: bold;
   margin: 0px;
-  line-height: 180%;
 }
 @media only screen and (max-width: 500px) {
   .svet-h {
-    line-height: 240%;
-    font-size: 22px;
+    font-size: 26px !important;
   }
 }
 @media only screen and (max-width: 400px) {
   .svet-h {
-    line-height: 200%;
-    font-size: 22px;
+    font-size: 24px !important;
   }
 }
 @media only screen and (max-width: 350px) {
   .svet-h {
-    line-height: 210%;
-    font-size: 18px;
+    font-size: 20px !important;
   }
 }
 /**********************
@@ -134,11 +141,6 @@ body {
 .map-marker-info {
   width: 150px !important;
   height: 60px !important;
-}
-.home-icon-img {
-  width: 70px;
-  height: 70px;
-  margin-top: 15px;
 }
 .h-home {
   margin-top: 0px;
@@ -331,4 +333,47 @@ body {
   width: 100px;
   height: 100px;
   z-index: 999;
+}
+.p-content {
+  font-size: 15px !important;
+  line-height: 24px !important;
+}
+@media only screen and (max-width: 500px) {
+  .p-content {
+    font-size: 14px !important;
+    line-height: 20px !important;
+    font-weight: normal;
+    margin-bottom: 10px !important;
+  }
+}
+/**********************
+  =About Us
+***********************/
+.h2-about {
+  font-weight: bold !important;
+  font-size: 26px;
+  line-height: 32px;
+  display: block;
+  margin-bottom: 10px !important;
+}
+@media only screen and (max-width: 500px) {
+  .h2-about {
+    font-size: 18px !important;
+    line-height: 24px !important;
+  }
+}
+.img-about {
+  width: 100%;
+  height: auto;
+}
+@media only screen and (max-width: 500px) {
+  .img-about {
+    width: 85%;
+  }
+}
+.ul-about li {
+  color: #595959;
+}
+.ul-about li a {
+  color: #797979;
 }
