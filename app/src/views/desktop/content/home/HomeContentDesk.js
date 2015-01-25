@@ -59,7 +59,6 @@ define(function (require, exports, module) {
         color: 'white',
         motoOpts: {
             fontSize: '42px',
-            lineHeight: '50px',
             color: 'Orange',
             textAlign: 'center',
             zIndex: 1
@@ -76,10 +75,10 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.contentMod);
 
         this.flexContent = [];
-        var ratios = [1, 2];
+        var ratios = [10, 20, 2];
 
         this.flexibleLayout = new FlexibleLayout({
-            ratios: ratios,
+            ratios: window.innerHeight<960?ratios:[10,20,true],
             direction: 1
         });
 
@@ -186,6 +185,11 @@ define(function (require, exports, module) {
 
         this.gridRenderNode.add(this.gridMod).add(this.gridContentTop);
         this.flexContent.push(this.gridRenderNode);
+        this.emptySurface = new Surface({
+            size: [undefined, window.innerHeight-960],
+            content: ''
+        });
+        this.flexContent.push(this.emptySurface);
     }
 
 

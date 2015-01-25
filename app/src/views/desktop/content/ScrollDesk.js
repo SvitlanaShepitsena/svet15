@@ -16,6 +16,7 @@ define(function (require, exports, module) {
 
 
     function ScrollDesk() {
+        this.headerFull = true;
         ScrollContainer.apply(this, arguments);
         this.scrollContent = [];
         this.scrollview.sequenceFrom(this.scrollContent);
@@ -64,11 +65,12 @@ define(function (require, exports, module) {
                 moveDown = currentPosition > startPosition ? true : false;
 
                 if (currentPage === 0 && startPosition <= window.sv.sizing.headerHeight && moveDown) {
-
+                    this.headerFull = false;
                     this._eventOutput.emit('decrease:header');
                 }
                 if (currentPage === 0 && currentPosition <= window.sv.sizing.headerHeight && !moveDown) {
 
+                    this.headerFull = true;
                     this._eventOutput.emit('increase:header');
                     this.homeDesk.tuneToDefaultView();
                 }
@@ -80,7 +82,13 @@ define(function (require, exports, module) {
         }.bind(this));
 
         this.scrollview.sync.on('end', function () {
+
+            var absPos = this.scrollview.getAbsolutePosition();
             Timer.clear(this.scrollUtil);
+            if (this.headerFull && absPos<140) {
+                this.scrollview.setPositionAnimated(-0.05);
+
+            }
         }.bind(this))
         this.scrollview.sync.on('update', function () {
         }.bind(this))
@@ -129,7 +137,7 @@ define(function (require, exports, module) {
     ScrollDesk.prototype.tuneToShortHeader = function () {
         var currentPos = this.scrollview.getAbsolutePosition();
         if (currentPos < 150) {
-            this.scrollview.setPositionAnimated.call(this.scrollview, 150);
+            this.scrollview.setPositionAnimated.call(this.scrollview, 0.05);
         }
         this.homeDesk.tuneToShortView();
 
