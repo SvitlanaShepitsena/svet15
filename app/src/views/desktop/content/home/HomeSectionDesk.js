@@ -100,7 +100,7 @@ define(function (require, exports, module) {
                 return [this.sizeIcon, this.sizeIcon];
 
             }.bind(this),
-            transform: Transform.translate(0, 0, 0),
+            transform: Transform.translate(0, 10, 0),
             align: [0.5, 0],
             origin: [0.5, 0]
         });

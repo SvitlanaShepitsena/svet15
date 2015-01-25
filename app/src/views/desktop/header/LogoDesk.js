@@ -18,8 +18,8 @@ define(function (require, exports, module) {
 
         View.apply(this, arguments);
         _init.call(this);
-        _svetText.call(this);
-        _rmgText.call(this);
+        _svetSvg.call(this);
+        //_rmgText.call(this);
         _logoSvg.call(this);
     }
 
@@ -33,7 +33,6 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [window.sv.sizing.logoContainerWidth, window.sv.sizing.headerHeight],
             transform: function () {
                 return Transform.translate(0, 40, 0);
             }.bind(this)
@@ -43,22 +42,74 @@ define(function (require, exports, module) {
 
     function _logoSvg() {
         var div = document.createElement('div');
-        var paper = Raphael(div, this.options.paperWidth, this.options.logoHeight);
+        var paper = Raphael(div, window.innerWidth, this.options.logoHeight);
         var path = drawpath(paper, "M80,80 L20,80 L130,10 L240,80 L180,80", 2000, {
             fill: 'none',
             stroke: 'red',
             'stroke-width': 11,
             'fill-opacity': 0
         });
+        var text =  paper.text(129,59, 'RUSSIAN MEDIA GROUP');
+        text.attr({
+            stroke: 'none',
+            fill: 'white',
+            'font-size': 22,
+            'line-height': '5em',
+            'font-family': "Myriad Pro"
+        })
+        var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
+        this.svgLine = new Transitionable(shift);
         this.logoSvgMod = new Modifier({
-            size: [undefined, this.options.logoHeight],
+
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
             opacity: function () {
                 return this.opacityTransitionable.get();
             }.bind(this),
-            transform: Transform.translate(0, -70, 0)
+            transform: function () {
+                shift = window.innerWidth > 1160 ? 84 : 10;
+                this.svgLine.halt();
+                this.svgLine.set(shift, {duration: 50});
+                return Transform.translate(this.svgLine.get(), -70, 0);
+            }.bind(this)
         });
         this.logoSvgSurf = new Surface({
-            size: [undefined, undefined],
+            content: div,
+            properties: {
+                textAlign: 'center'
+            }
+        });
+        this.rootNode.add(this.logoSvgMod).add(this.logoSvgSurf);
+    }
+
+    function _svetSvg() {
+        var div = document.createElement('div');
+        var paper = Raphael(div, window.innerWidth, this.options.logoHeight);
+        var text =  paper.text(129,45, 'SVET');
+        text.attr({
+            stroke: 'none',
+            fill: 'white',
+            'font-size': 32,
+            'font-weight': 'bold',
+            'line-height': '5em',
+            'font-family': "Myriad Pro"
+        })
+        var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
+        this.svetTextMod = new Modifier({
+
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
+            opacity: function () {
+                return this.opacityTransitionable.get();
+            }.bind(this),
+            transform: function () {
+                shift = window.innerWidth > 1160 ? 84 : 10;
+                this.svgLine.halt();
+                this.svgLine.set(shift, {duration: 50});
+                return Transform.translate(this.svgLine.get(), -70, 0);
+            }.bind(this)
+        });
+        this.svetSvgSurf = new Surface({
             content: div,
             properties: {
                 textAlign: 'center'

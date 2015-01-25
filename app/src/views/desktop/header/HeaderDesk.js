@@ -27,7 +27,7 @@ define(function (require, exports, module) {
     HeaderDesk.DEFAULT_OPTIONS = {
         smallHeight: window.sv.sizing.headerHeight / 2.8,
         flexOpts: {
-            ratios: [1, 1, 1, 1],
+            ratios: [1, 1, 2, 1, 1],
             direction: 0
         },
         backgroundOpts: {
@@ -64,10 +64,18 @@ define(function (require, exports, module) {
             ratios: this.options.flexOpts.ratios,
             direction: this.options.flexOpts.direction
         }
+        this.logoDesk = new LogoDesk();
         this.layout = new FlexibleLayout(flexOptions);
-        var menuItems = ['Home', 'About Us', 'Radio', 'Contact Us'];
+        var menuItems = ['Home', 'About Us', 'Logo', 'Radio', 'Contact Us'];
         this.contents = [];
         for (var i = 0; i < menuItems.length; i++) {
+            if (menuItems[i] === 'Logo') {
+                this.contents.push(this.logoDesk);
+                continue;
+            }
+
+
+            this.renderNode = new RenderNode();
 
             var mod = new Modifier({
                 align: [0.5, 0.5],
@@ -77,11 +85,13 @@ define(function (require, exports, module) {
                 size: [undefined, undefined],
                 content: menuItems[i],
                 properties: {
-                    color: 'white'
+                    color: 'white',
+                    textAlign: 'center',
+                    fontSize: '1.2em'
                 }
             });
-
-            this.contents.push(surf);
+            this.renderNode.add(mod).add(surf);
+            this.contents.push(this.renderNode);
         }
         this.layout.sequenceFrom(this.contents);
         this.flexMod = new Modifier({
