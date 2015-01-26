@@ -1,0 +1,26 @@
+div
+    ul.ul-about.list-inline
+        li Contact Us
+        li Page 1
+    .text-center
+        .panel.panel-default.panel-address-cell.text-left
+            .address
+                i.fa.fa-envelope.fa-fw
+                strong SVET Media Group
+                .street 900 Skokie Blvd., Suite 103,
+                .city Northbrook, IL 60062
+                .abbr Tel. (847)715-9407
+                .phone Fax: (847)715-9677
+                a(href="mailto:#") E-mail: manager@svet.com
+
+    .address-map
+        img(src="../img/contact/address-map.jpg")
+    hr
+    ul.ul-about.list-inline
+        li
+            i.fa.fa-play.fa-rotate-180.fa-fw
+            span.text-left Previous Page
+        li
+            span.text-right Next Page
+                i.fa.fa-play.fa-fw
+
