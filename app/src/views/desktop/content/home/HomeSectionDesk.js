@@ -12,7 +12,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         this.sectionWidth = (window.sv.sizing.contentWidth / 4) * .9;
-        this.sectionHeight = window.innerHeight * .38;
+        //this.sectionHeight = window.innerHeight * .38;
 
         this.sectionIconWidth = this.sectionWidth * .7;
         this.sectionImgWidth = this.sectionIconWidth * .7;
@@ -44,14 +44,32 @@ define(function (require, exports, module) {
         return this.sizeIcon;
     }
 
+    function _getSectionHeight() {
+        this.maxSectionHeight = 400;
+        this.sectionHeight;
+        if (window.innerWidth < window.innerHeight) {
+            this.sectionHeight = window.innerWidth / 2;
+        } else {
+            this.sectionHeight = window.innerWidth / 2;
+        }
+        this.sectionHeight = this.sectionHeight > this.maxSectionHeight ? this.maxSectionHeight : this.sectionHeight;
+        return this.sectionHeight;
+    }
+
     function _init() {
+        this.maxSectionHeight = 400;
+        this.sectionHeight;
 
         this.centerModifier = new StateModifier({
             align: [0.5, 0],
             origin: [0.5, 0]
         });
         this.bgMod = new StateModifier({
-            size: [undefined, this.sectionHeight],
+            size: function () {
+                _getSectionHeight().call(this);
+                return [undefined, 200];
+            }.bind(this),
+            //size: [undefined, undefined],
             align: [0.5, 0],
             origin: [0.5, 0]
         });
@@ -89,16 +107,6 @@ define(function (require, exports, module) {
         this.rootNode.add(this.textMod).add(this.surface);
     }
 
-
-    function _getSectionHeight() {
-        if (window.innerWidth < window.innerHeight) {
-            this.sectionHeight = window.innerWidth / 4;
-        } else {
-            this.sectionHeight = window.innerWidth / 4;
-        }
-        this.sectionHeight = this.sizeIcon > this.maxHeight ? this.maxHeight : this.sectionHeight;
-        return this.sectionHeight;
-    }
 
     function _sectionIcon() {
         this.maxSize = 180;
