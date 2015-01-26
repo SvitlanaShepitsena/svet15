@@ -914,8 +914,9 @@ define(function (require, exports, module) {
         var that = this;
         that.allowAnimation = true;
 
-        var baseLat = 42.04,
-            baseLong = -87.85;
+        var baseLat = 42.14,
+
+            baseLong = -87.9;
 
         _closeAllOverlays.call(this);
 
@@ -949,7 +950,7 @@ define(function (require, exports, module) {
             that.ypMarker.setMap(this.gMap);
         }
 
-        for (var i = 1; i < 15; i++) {
+        for (var i = 1; i < 25; i++) {
             setTimeout(function () {
 
                 dropYpCompanies.call(this);
@@ -961,8 +962,8 @@ define(function (require, exports, module) {
     MapsDesk.prototype.showSvetPoints = function () {
         this.allowAnimation = true;
         var that = this;
-        var baseLat = 42.04,
-            baseLong = -87.85;
+        var baseLat = 42.14,
+            baseLong = -87.9;
 
         _closeAllOverlays.call(this);
 
@@ -997,7 +998,7 @@ define(function (require, exports, module) {
             this.svetMarker.setMap(this.gMap);
         }
 
-        for (var i = 1; i < 20; i++) {
+        for (var i = 1; i < 40; i++) {
             setTimeout(function () {
 
                 dropSvetPoints.call(this);
