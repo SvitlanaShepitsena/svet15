@@ -11,7 +11,7 @@ define(function (require, exports, module) {
         _init.call(this);
 
         this.surface = new Surface({
-            size: [undefined, undefined],
+            size: [undefined, 1000],
             content: 'Avout Us',
             classes: [],
             properties: {

@@ -79,7 +79,7 @@ define(function (require, exports, module) {
         this.contentTrans = new Transitionable(0);
 
         this.centerModifier = new Modifier({
-            size: [undefined, undefined]
+            size: [undefined, window.innerHeight]
         });
         this.mapModifier = new Modifier({
             size: [undefined, undefined],

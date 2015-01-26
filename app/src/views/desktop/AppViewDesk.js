@@ -62,7 +62,7 @@ define(function (require, exports, module) {
         }.bind(this));
 
         this.headerDesk.on('navigateTo', function (data) {
-            this.scrolldesk.scrollview.setPosition(window.innerHeight*data.index);
+            this.scrolldesk.scrollview.goToNextPage(window.innerHeight*data.index);
         }.bind(this))
         this.rootNode.add(this.headerDesk);
     }
