@@ -42,27 +42,27 @@ define(function (require, exports, module) {
         _gridParts.call(this);
     }
 
+    HomeContentDesk.DEFAULT_OPTIONS = {
+        color: 'white',
+        motoOpts: {
+            color: 'red',
+            textAlign: 'center',
+            zIndex: 1
+        }
+    };
 
     HomeContentDesk.prototype = Object.create(View.prototype);
     HomeContentDesk.prototype.constructor = HomeContentDesk;
+
+    HomeContentDesk.prototype.contentInit = function () {
+        this.opacityMotoTrans.halt();
+        this.opacityMotoTrans.set(1, {duration: 500});
+    };
 
     HomeContentDesk.prototype.contentShort = function () {
         this.opacityMotoTrans.halt();
         this.opacityMotoTrans.set(0, {duration: 500});
         this.gridTrans.set(sv.sizing.headerHeightShift, {duration: 500, curve: "easeOut"});
-    }
-    HomeContentDesk.prototype.contentInit = function () {
-        this.opacityMotoTrans.halt();
-        this.opacityMotoTrans.set(1, {duration: 500});
-    }
-    HomeContentDesk.DEFAULT_OPTIONS = {
-        color: 'white',
-        motoOpts: {
-            fontSize: '42px',
-            color: 'Orange',
-            textAlign: 'center',
-            zIndex: 1
-        }
     };
 
     function _init() {
@@ -102,20 +102,18 @@ define(function (require, exports, module) {
 
         var div = document.createElement('div');
         //div.style.cssText = 'position:relative;';
-        var paper = Raphael(div, 600, 150);
-
+        var paper = Raphael(div, 575, 150);
         var st = paper.set();
-        var t = paper.text(280, 30, 'WE MAKE YOUR BUSINESS');
-        var t2 = paper.text(290, 50, 'KNOWN TO COMMUNITY');
+        var t = paper.text(280, 40, 'WE MAKE YOUR BUSINESS');
+        var t2 = paper.text(285, 70, 'KNOWN TO COMMUNITY');
         st.push(t);
         st.push(t2);
 
         st.attr({
             stroke: 'none',
-            fill: '#BA090C',
-            'font-size': 25,
+            fill: window.sv.scheme.textYellow,
+            'font-size': '45px',
             'font-weight': 'bold',
-            'line-height': '5em',
             'font-family': "Myriad Pro"
         });
 
@@ -132,8 +130,6 @@ define(function (require, exports, module) {
         this.gridRenderNode = new RenderNode();
         this.gridTrans = new Transitionable(140);
         this.gridMod = new Modifier({
-            align: [0.5, 0],
-            origin: [0.5, 0],
             transform: function () {
                 return Transform.translate(0, this.gridTrans.get(), 0);
             }.bind(this)
@@ -142,26 +138,18 @@ define(function (require, exports, module) {
 
         this.dailyNews = new HomeSectionDesk({
             icon: 'news-daily',
-            align: [0.5, 0],
-            origin: [0.5, 0],
             content: dailyNews
         })
 
         this.weeklyNews = new HomeSectionDesk({
-            align: [0.5, 0],
-            origin: [0.5, 0],
             icon: 'weekly',
             content: weeklyNews
         })
         this.yp = new HomeSectionDesk({
-            align: [0.5, 0],
-            origin: [0.5, 0],
             icon: 'yp',
             content: yellowPages
         })
         this.radioProgram = new HomeSectionDesk({
-            align: [0.5, 0],
-            origin: [0.5, 0],
             icon: 'radio',
             content: radioProgram
         })
@@ -180,7 +168,7 @@ define(function (require, exports, module) {
             {
                 dimensions: [4, 1],
                 gutterSize: [8, 10],
-                transition: {duration:1000, curve: "easeInOut"}
+                transition: {duration: 1000, curve: "easeInOut"}
             }
         );
         this.gridContentTop.sequenceFrom(this.homeSectionsContainse);

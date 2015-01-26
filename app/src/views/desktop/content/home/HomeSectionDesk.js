@@ -8,13 +8,11 @@ define(function (require, exports, module) {
     var ImageSurface = require('famous/surfaces/ImageSurface');
     var Transitionable = require('famous/transitions/Transitionable');
 
-    var Flipper = require('famous/views/Flipper');
-
     function HomePart() {
         View.apply(this, arguments);
 
         this.sectionWidth = (window.sv.sizing.contentWidth / 4) * .9;
-        this.sectionHeight = (window.sv.sizing.contentHeight - window.sv.sizing.headerHeight) / 2
+        this.sectionHeight = window.innerHeight * .38;
 
         this.sectionIconWidth = this.sectionWidth * .7;
         this.sectionImgWidth = this.sectionIconWidth * .7;
@@ -30,41 +28,53 @@ define(function (require, exports, module) {
     HomePart.prototype.constructor = HomePart;
 
     HomePart.DEFAULT_OPTIONS = {
+        align: [0, 0],
+        origin: [0, 0],
         content: null,
-        icon: null,
-        width: window.innerWidth
+        icon: null
+    }
+
+    function _getIconSize() {
+        if (window.innerWidth < window.innerHeight) {
+            this.sizeIcon = window.innerWidth / 5.5;
+        } else {
+            this.sizeIcon = window.innerHeight / 5.5;
+        }
+        this.sizeIcon = this.sizeIcon > this.maxSize ? this.maxSize : this.sizeIcon;
+        return this.sizeIcon;
     }
 
     function _init() {
 
         this.centerModifier = new StateModifier({
-            align: this.options.align,
-            origin: this.options.origin
+            align: [0.5, 0],
+            origin: [0.5, 0]
         });
         this.bgMod = new StateModifier({
-            align: this.options.align,
-            origin: this.options.origin
+            size: [undefined, this.sectionHeight],
+            align: [0.5, 0],
+            origin: [0.5, 0]
         });
         this.bg = new Surface({
-            size: [undefined, undefined],
-            content: '',
-            classes: [],
             properties: {
                 color: 'white',
                 backgroundColor: window.sv.scheme.sectionColor,
                 textAlign: 'center'
             }
         });
-        this.add(this.bgMod).add(this.bg);
         this.rootNode = this.add(this.centerModifier);
+        this.add(this.bgMod).add(this.bg);
     };
 
     function _contentParts() {
+        this.maxSize = 180;
+        this.sizeIcon;
         this.textMod = new Modifier({
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             transform: function () {
-                return Transform.translate(0, _getIconSize(), 0);
+                _getIconSize.call(this);
+                return Transform.translate(0, this.sizeIcon, 0);
             }.bind(this)
         });
         this.surface = new Surface({
@@ -79,18 +89,18 @@ define(function (require, exports, module) {
         this.rootNode.add(this.textMod).add(this.surface);
     }
 
-    function _getIconSize() {
+
+    function _getSectionHeight() {
         if (window.innerWidth < window.innerHeight) {
-            this.sizeIcon = window.innerWidth / 5.5;
+            this.sectionHeight = window.innerWidth / 4;
         } else {
-            this.sizeIcon = window.innerHeight / 5.5;
+            this.sectionHeight = window.innerWidth / 4;
         }
-        this.sizeIcon = this.sizeIcon > this.maxSize ? this.maxSize : this.sizeIcon;
-        return this.sizeIcon;
+        this.sectionHeight = this.sizeIcon > this.maxHeight ? this.maxHeight : this.sectionHeight;
+        return this.sectionHeight;
     }
 
     function _sectionIcon() {
-        this.transitionableName = new Transitionable(window.innerWidth / 5);
         this.maxSize = 180;
         this.sizeIcon;
 
@@ -104,8 +114,7 @@ define(function (require, exports, module) {
             align: [0.5, 0],
             origin: [0.5, 0]
         });
-        this.sectionIconSurface = new ImageSurface({
-            content: "img/home-page/icons-color/" + this.options.icon + ".png",
+        this.sectionIconSurface = new Surface({
             properties: {
                 cursor: 'pointer',
                 textAlign: 'center',
@@ -113,7 +122,29 @@ define(function (require, exports, module) {
                 backgroundColor: window.sv.scheme.homeIconColor
             }
         });
+
+        this.sectionImgMod = new Modifier({
+            size: function () {
+                _getIconSize.call(this);
+                return [this.sizeIcon * .7, this.sizeIcon * .7];
+            }.bind(this),
+            transform: function () {
+                _getIconSize.call(this);
+                return Transform.translate(0, (this.sizeIcon * .3) / 1.5, 0);
+            }.bind(this),
+            align: [0.5, 0],
+            origin: [0.5, 0]
+        });
+        this.sectionImgSurface = new ImageSurface({
+            content: "img/home-page/icons-color/" + this.options.icon + ".png",
+            properties: {
+                cursor: 'pointer',
+                textAlign: 'center'
+            }
+        });
+
         this.sectionIconSurface.pipe(this._eventOutput);
+        this.rootNode.add(this.sectionImgMod).add(this.sectionImgSurface);
         this.rootNode.add(this.sectionIconMod).add(this.sectionIconSurface);
     }
 

@@ -2,14 +2,28 @@
   background-color: #708090;
 }
 .icon-text-desk {
-  padding-top: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-weight: bold;
   line-height: 130%;
+  display: block;
+  font-size: 1.6em !important;
 }
 .icon-text-desk:hover,
 .icon-text-desk:active,
 .icon-text-desk:focus {
   text-decoration: none;
   color: #ffdead;
+}
+@media only screen and (max-width: 1050px) {
+  .icon-text-desk {
+    font-size: 1.5em !important;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .icon-text-desk {
+    font-size: 1em !important;
+  }
 }
 .h4-section {
   color: #393939 !important;
@@ -31,8 +45,18 @@
   padding: 15px;
   height: 150px;
 }
+@media only screen and (max-width: 700px) {
+  .panel-section {
+    font-size: 0.7em;
+  }
+}
 .p-ad {
   font-size: 17px;
+}
+@media only screen and (max-width: 700px) {
+  .p-ad {
+    font-size: 0.8em;
+  }
 }
 .a-yp-desktop {
   font-size: 17px;
@@ -44,6 +68,11 @@
 .a-yp-desktop:focus {
   color: #faebd7;
   text-decoration: none;
+}
+@media only screen and (max-width: 700px) {
+  .a-yp-desktop {
+    font-size: 0.8em;
+  }
 }
 .text-warning {
   color: #ff7f50;

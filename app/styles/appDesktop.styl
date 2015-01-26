@@ -2,21 +2,29 @@
 
 size-xs = 350px
 size-s = 400px
-size-m = 500px
-size-l = 1050px
+size-md-d = 700px
+size-lg-d = 1050px
 size-xl = 1800px
 
 .body-desktop
     background-color slategrey
 
 .icon-text-desk
-    padding-top 5px
+    margin-top 15px
+    margin-bottom 15px
+    font-weight bold
     line-height 130%
+    display block
+    font-size 1.6em !important
     &:hover
     &:active
     &:focus
         text-decoration none
         color navajowhite
+    +below(size-lg-d)
+        font-size 1.5em !important
+    +below(size-md-d)
+        font-size 1em !important
 
 .h4-section
     color #393939 !important
@@ -37,9 +45,13 @@ size-xl = 1800px
     border-radius 0px
     padding 15px
     height 150px
+    +below(size-md-d)
+        font-size 0.7em
 
 .p-ad
     font-size 17px
+    +below(size-md-d)
+        font-size 0.8em
 
 .a-yp-desktop
     font-size 17px
@@ -50,5 +62,7 @@ size-xl = 1800px
     &:focus
         color antiquewhite
         text-decoration none
+    +below(size-md-d)
+        font-size 0.8em
 
 
