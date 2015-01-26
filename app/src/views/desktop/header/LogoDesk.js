@@ -49,7 +49,7 @@ define(function (require, exports, module) {
             'stroke-width': 11,
             'fill-opacity': 0
         });
-        var text =  paper.text(129,56, 'RUSSIAN MEDIA GROUP');
+        var text = paper.text(129, 56, 'RUSSIAN MEDIA GROUP');
         text.attr({
             stroke: 'none',
             fill: 'white',
@@ -85,7 +85,7 @@ define(function (require, exports, module) {
     function _svetSvg() {
         var div = document.createElement('div');
         var paper = Raphael(div, window.innerWidth, this.options.logoHeight);
-        var text =  paper.text(129,45, 'SVET');
+        var text = paper.text(129, 45, 'SVET');
         text.attr({
             stroke: 'none',
             fill: 'white',
@@ -113,8 +113,6 @@ define(function (require, exports, module) {
         });
         this.rootNode.add(this.svetSvgMod).add(this.svetSvgSurf);
     }
-
-
 
 
     LogoDesk.prototype.increaseLogo = function () {
