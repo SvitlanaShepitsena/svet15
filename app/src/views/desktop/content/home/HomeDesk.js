@@ -42,35 +42,41 @@ define(function (require, exports, module) {
         this.surfaces = [];
         this.gridLayout.sequenceFrom(this.surfaces);
 
-        var iconRoot = 'img/home-page/icons-color/';
+        var iconRoot = 'img/home-page/icons-map/';
         this.dailyNewsIcon = new ImageSurface({
             size: [50, 50],
-            properties:{
-                cursor:'pointer'
+            properties: {
+                borderRadius: '25px',
+                cursor: 'pointer',
+                backgroundColor: window.sv.scheme.textWhite
             },
-            content: iconRoot + 'news-daily.png'
-
+            content: iconRoot + 'daily.png'
         });
-
 
         this.weeklyNewsIcon = new ImageSurface({
             size: [50, 50],
-            properties:{
-                cursor:'pointer'
+            properties: {
+                borderRadius: '25px',
+                cursor: 'pointer',
+                backgroundColor: window.sv.scheme.textWhite
             },
             content: iconRoot + 'weekly.png'
         });
         this.ypIcon = new ImageSurface({
             size: [50, 50],
-            properties:{
-                cursor:'pointer'
+            properties: {
+                borderRadius: '25px',
+                cursor: 'pointer',
+                backgroundColor: window.sv.scheme.textWhite
             },
             content: iconRoot + 'yp.png'
         });
         this.radioIcon = new ImageSurface({
             size: [50, 50],
-            properties:{
-                cursor:'pointer'
+            properties: {
+                borderRadius: '25px',
+                cursor: 'pointer',
+                backgroundColor: window.sv.scheme.textWhite
             },
             content: iconRoot + 'radio.png'
         });
