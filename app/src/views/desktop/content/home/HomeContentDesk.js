@@ -75,10 +75,10 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.contentMod);
 
         this.flexContent = [];
-        var ratios = [10, true, 2];
+        var ratios = [1, 1];
 
         this.flexibleLayout = new FlexibleLayout({
-            ratios: window.innerHeight < 960 ? ratios : [10, 20, true],
+            ratios: window.innerHeight < 960 ? ratios : [1, 2],
             direction: 1
         });
 
@@ -126,16 +126,32 @@ define(function (require, exports, module) {
         this.flexContent.push(this.motoRenderNode);
     }
 
+    function _getSectionHeight() {
+        if (window.innerWidth < window.innerHeight) {
+            this.sectionHeight = window.innerWidth;
+        } else {
+            this.sectionHeight = window.innerWidth;
+        }
+        this.sectionHeight = this.sectionHeight > this.maxSectionHeight ? this.maxSectionHeight : this.sectionHeight;
+        return this.sectionHeight;
+    }
+
     function _gridParts() {
+        this.maxSectionHeight = 480;
+        this.sectionHeight;
         this.gridRenderNode = new RenderNode();
         this.gridTrans = new Transitionable(140);
         this.gridMod = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            size: [window.innerWidth-100, window.innerHeight/1.5],
-            transform: function () {
-                return Transform.translate(0, this.gridTrans.get(), 0);
-            }.bind(this)
+            size: function () {
+                _getSectionHeight.call(this);
+                return [undefined, this.sectionHeight];
+            }.bind(this),
+            align: [0.5, 0.8],
+            origin: [0.5, 0.8]
+            //size: [undefined, 600]
+            //transform: function () {
+            //    return Transform.translate(0, this.gridTrans.get(), 0);
+            //}.bind(this)
         });
 
 
@@ -179,11 +195,12 @@ define(function (require, exports, module) {
 
         this.gridRenderNode.add(this.gridMod).add(this.gridContentTop);
         this.flexContent.push(this.gridRenderNode);
-        this.emptySurface = new Surface({
-            size: [undefined, window.innerHeight - 960],
-            content: ''
-        });
-        this.flexContent.push(this.emptySurface);
+        //this.emptySurface = new Surface({
+        //    //size: [undefined, window.innerHeight - 960],
+        //    size: [undefined, undefined],
+        //    content: ''
+        //});
+        //this.flexContent.push(this.emptySurface);
     }
 
 

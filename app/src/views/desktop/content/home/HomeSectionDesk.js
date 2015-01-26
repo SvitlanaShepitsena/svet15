@@ -45,21 +45,18 @@ define(function (require, exports, module) {
     }
 
     function _getSectionHeight() {
-        this.maxSectionHeight = 400;
-        this.sectionHeight;
         if (window.innerWidth < window.innerHeight) {
-            this.sectionHeight = window.innerWidth / 2;
+            this.sectionHeight = window.innerWidth;
         } else {
-            this.sectionHeight = window.innerWidth / 2;
+            this.sectionHeight = window.innerWidth;
         }
         this.sectionHeight = this.sectionHeight > this.maxSectionHeight ? this.maxSectionHeight : this.sectionHeight;
         return this.sectionHeight;
     }
 
     function _init() {
-        this.maxSectionHeight = 400;
+        this.maxSectionHeight = 480;
         this.sectionHeight;
-
         this.centerModifier = new StateModifier({
             align: [0.5, 0],
             origin: [0.5, 0]
@@ -69,7 +66,6 @@ define(function (require, exports, module) {
                 _getSectionHeight.call(this);
                 return [undefined, this.sectionHeight];
             }.bind(this),
-            //size: [undefined, undefined],
             align: [0.5, 0],
             origin: [0.5, 0]
         });
