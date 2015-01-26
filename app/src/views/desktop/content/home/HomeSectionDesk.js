@@ -65,7 +65,7 @@ define(function (require, exports, module) {
             origin: [0.5, 0]
         });
         this.bgMod = new Modifier({
-            size: function() {
+            size: function () {
                 _getSectionHeight.call(this);
                 return [undefined, this.sectionHeight];
             }.bind(this),

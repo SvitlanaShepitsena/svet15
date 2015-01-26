@@ -27,12 +27,11 @@ define(function (require, exports, module) {
         this.gridIconTrans = new Transitionable(0);
 
         this.gridIconsMod = new Modifier({
-            // proportions: [.5, .25],
             size: [200, 200],
             align: [1, 0.5],
             origin: [1, 1],
             opacity: function () {
-                return this.gridIconTrans.get() ;
+                return this.gridIconTrans.get();
             }.bind(this),
             transform: Transform.translate(0, 0, 0)
         });
