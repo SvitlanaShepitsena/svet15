@@ -111,7 +111,7 @@ define(function (require, exports, module) {
 
         this.scrollContent.push(this.homeDesk);
         this.scrollContent.push(this.aboutUsDesk);
-        //this.scrollContent.push(this.radioDesk);
+        this.scrollContent.push(this.radioDesk);
         this.scrollContent.push(this.contactUsDesk);
     }
 
