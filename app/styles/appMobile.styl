@@ -60,6 +60,9 @@ p
 hr
     color lighten(color-main, 50%)
     color lighten(color-main, 50%)
+    +below(size-s)
+        margin-top 10px
+        margin-bottom 5px
 
 .fa-fw
     margin-right 5px
@@ -267,6 +270,36 @@ body
 
 .ul-about
     li
-        color #595959
+        color #797979
+        font-size 14px
         a
             color #797979
+        +below(size-xs)
+            font-size 11px !important
+
+/**********************
+  =Contact
+***********************/
+.panel-address-cell
+    margin auto
+    margin-bottom 10px
+    width 270px
+    padding 10px
+
+.address
+    +below(size-xs)
+        font-size 12px
+        line-height 15px
+
+.address-map
+    img
+        width 90%
+        +below(size-xs)
+            width 60%
+
+/**********************
+     =Radio
+**********************/
+.radio-text
+    h3, h4, p, a
+        line-height 22px
