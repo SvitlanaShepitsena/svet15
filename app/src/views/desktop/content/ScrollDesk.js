@@ -105,16 +105,12 @@ define(function (require, exports, module) {
     function _fillContent() {
         this.homeDesk = new HomeDesk();
         this.aboutUsDesk = new AboutUsDesk();
-        this.clientsDesk = new ClientsDesk();
-        this.demographicsDesk = new DemographicsDesk();
         this.radioDesk = new RadioDesk();
         this.contactUsDesk = new ContactUsDesk();
 
 
         this.scrollContent.push(this.homeDesk);
         this.scrollContent.push(this.aboutUsDesk);
-        this.scrollContent.push(this.clientsDesk);
-        this.scrollContent.push(this.demographicsDesk);
         this.scrollContent.push(this.radioDesk);
         this.scrollContent.push(this.contactUsDesk);
     }

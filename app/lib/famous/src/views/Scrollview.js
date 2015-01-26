@@ -395,7 +395,6 @@ define(function (require, exports, module) {
     }
 
     function _shiftOrigin(amount) {
-        console.log(amount);
         this._edgeSpringPosition += amount;
         this._pageSpringPosition += amount;
         this.setPosition(this.getPosition() + amount);

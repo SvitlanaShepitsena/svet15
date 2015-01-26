@@ -60,7 +60,6 @@ define(function (require, exports, module) {
 
     function _flex() {
         var flexOptions = {
-
             ratios: this.options.flexOpts.ratios,
             direction: this.options.flexOpts.direction
         }
@@ -68,6 +67,7 @@ define(function (require, exports, module) {
         this.layout = new FlexibleLayout(flexOptions);
         var menuItems = ['Home', 'About Us', 'Logo', 'Radio', 'Contact Us'];
         this.contents = [];
+        this.surfaces = [];
         for (var i = 0; i < menuItems.length; i++) {
             if (menuItems[i] === 'Logo') {
                 this.contents.push(this.logoDesk);
@@ -80,20 +80,29 @@ define(function (require, exports, module) {
             var mod = new Modifier({
                 align: [0.5, 0.5],
                 origin: [0.5, 0.5],
-                transform:Transform.translate(0,40,0)
+                transform: Transform.translate(0, 40, 0)
             });
             var surf = new Surface({
                 size: [undefined, undefined],
                 content: menuItems[i],
                 properties: {
                     color: 'white',
+                    cursor: 'pointer',
                     textAlign: 'center',
                     fontSize: '1.2em'
                 }
             });
+            this.surfaces.push(surf);
+
             this.renderNode.add(mod).add(surf);
             this.contents.push(this.renderNode);
         }
+
+        this.surfaces.forEach(function (surf, index) {
+            surf.on('click', function () {
+                this._eventOutput.emit('navigateTo', {index: index});
+            }.bind(this));
+        }.bind(this))
         this.layout.sequenceFrom(this.contents);
         this.flexMod = new Modifier({
             transform: function () {

@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var GridLayout = require("famous/views/GridLayout");
 
     var HomeContentDesk = require('dviews/content/home/HomeContentDesk');
-    var MapsCell = require('dviews/content/home/MapsDesk');
+    var MapsDesk= require('dviews/content/home/MapsDesk');
     var Transitionable = require('famous/transitions/Transitionable');
     var ImageSurface = require('famous/surfaces/ImageSurface');
 
@@ -74,6 +74,7 @@ define(function (require, exports, module) {
     HomeDesk.DEFAULT_OPTIONS = {};
 
     function _init() {
+        this.mapLayerTranf = new Transitionable(0);
         this.opacityMain = new Transitionable(1);
         this.contentTrans = new Transitionable(0);
 
@@ -84,9 +85,12 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             opacity: function () {
                 return 1 - this.opacityMain.get();
+            }.bind(this),
+            transform: function () {
+                return Transform.translate(0,0,this.mapLayerTranf.get());
             }.bind(this)
         });
-        this.mapBackdrop = new MapsCell();
+        this.mapBackdrop = new MapsDesk();
         this.mapBackdrop.pipe(this._eventOutput);
 
         this.beforeRootNode = this.add(this.centerModifier);

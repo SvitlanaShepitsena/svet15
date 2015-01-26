@@ -59,6 +59,10 @@ define(function (require, exports, module) {
         this.headerDesk = new HeaderDesk();
         this.headerDesk.on('header:decreased', function () {
             this.scrolldesk.tuneToShortHeader();
+        }.bind(this));
+
+        this.headerDesk.on('navigateTo', function (data) {
+            this.scrolldesk.scrollview.setPosition(window.innerHeight*data.index);
         }.bind(this))
         this.rootNode.add(this.headerDesk);
     }
@@ -79,9 +83,7 @@ define(function (require, exports, module) {
     }
 
     function _navigation() {
-        this.on('navigateTo', function (index) {
-            this.layout.content.scrollview.goToPage(index);
-        })
+
     }
 
 
