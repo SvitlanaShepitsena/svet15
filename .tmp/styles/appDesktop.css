@@ -25,41 +25,41 @@
     font-size: 1em !important;
   }
 }
+.p-section,
+.a-yp-desktop,
+.p-ad {
+  font-size: 110%;
+  line-height: 130%;
+}
+@media only screen and (max-width: 1050px) {
+  .p-section,
+  .a-yp-desktop,
+  .p-ad {
+    font-size: 90%;
+    line-height: 120%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .p-section,
+  .a-yp-desktop,
+  .p-ad {
+    font-size: 80%;
+    line-height: 120%;
+  }
+}
 .h4-section {
   color: #393939 !important;
+  font-size: 110%;
   line-height: 130%;
-  font-size: 120%;
   margin-bottom: 5px;
   margin-top: 0px;
 }
 .p-section {
-  line-height: 140%;
   color: #494949 !important;
-  font-size: 120%;
   margin-bottom: 5px;
   margin-top: 0px;
 }
-.panel-section {
-  background-color: #fffaf0;
-  border-radius: 0px;
-  padding: 15px;
-  height: 150px;
-}
-@media only screen and (max-width: 700px) {
-  .panel-section {
-    font-size: 0.7em;
-  }
-}
-.p-ad {
-  font-size: 17px;
-}
-@media only screen and (max-width: 700px) {
-  .p-ad {
-    font-size: 0.8em;
-  }
-}
 .a-yp-desktop {
-  font-size: 17px;
   color: #fffaf0;
   text-decoration: underline;
 }
@@ -69,8 +69,9 @@
   color: #faebd7;
   text-decoration: none;
 }
-@media only screen and (max-width: 700px) {
-  .a-yp-desktop {
-    font-size: 0.8em;
-  }
+.panel-section {
+  background-color: #fffaf0;
+  border-radius: 0px;
+  padding: 15px;
+  height: 150px;
 }
