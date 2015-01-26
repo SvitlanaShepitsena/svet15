@@ -37,8 +37,8 @@ window.sv = {
         headerHeightCell: 0.08 * window.innerHeight,
         footerSize: 0 * window.innerHeight,
         headerHeight: 140,
-        headerSmallHeight: Math.ceil(140/ 2.8),
-        headerHeightShift: Math.ceil(140-140/2.8),
+        headerSmallHeight: Math.ceil(140 / 2.8),
+        headerHeightShift: Math.ceil(140 - 140 / 2.8),
 
         contentWidth: 1200,
         contentHeight: window.innerHeight,
@@ -55,7 +55,7 @@ window.sv = {
         },
         darkScheme: {
             textYellow: '#fafad2',
-            textWhite: 'floralwhite',
+            textWhite: '#fffaf0',
             textDark: '#393939',
             textShadow: '1px 1px #BD8D46',
             homeIconColor: '#fffaf0',
@@ -63,7 +63,10 @@ window.sv = {
             navColor: '#0B0B0B',
             sectionColor: '#FF7F50',
             sectionFlipColor: '#F2CA80',
-            footerColor: '#000000'
+            footerColor: '#000000',
+            aboutDesk: '#FFFAF0',
+            radioDesk: '#FFFAF0',
+            contactDesk: '#FFFAF0'
         }
     }
 }

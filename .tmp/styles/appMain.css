@@ -99,6 +99,9 @@
     height: 125px;
   }
 }
+.img-about-desk {
+  width: true;
+}
 .text-warning {
   color: #ff7f50;
 }

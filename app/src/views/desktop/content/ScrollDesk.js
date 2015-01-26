@@ -90,7 +90,6 @@ define(function (require, exports, module) {
         }.bind(this));
 
         this.scrollview.sync.on('end', function () {
-
             var absPos = this.scrollview.getAbsolutePosition();
             Timer.clear(this.scrollUtil);
             if (this.headerFull && absPos < 140) {
