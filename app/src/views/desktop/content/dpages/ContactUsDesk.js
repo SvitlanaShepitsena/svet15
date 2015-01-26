@@ -10,7 +10,7 @@ define(function (require, exports, module) {
         _init.call(this);
 
         this.surface = new Surface({
-            size: [undefined, undefined],
+            size: [undefined, window.innerHeight],
             content: 'Contact Us',
             classes: [],
             properties: {

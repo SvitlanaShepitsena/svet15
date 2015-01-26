@@ -7,12 +7,9 @@ define(function (require, exports, module) {
 
     var HomeDesk = require('dviews/content/home/HomeDesk');
     var AboutUsDesk = require('dviews/content/dpages/AboutUsDesk');
-    var ClientsDesk = require('dviews/content/dpages/ClientsDesk');
-    var DemographicsDesk = require('dviews/content/dpages/DemographicsDesk');
     var RadioDesk = require('dviews/content/dpages/RadioDesk');
     var ContactUsDesk = require('dviews/content/dpages/ContactUsDesk');
     var Timer = require('famous/utilities/Timer');
-    var ScrollSync = require("famous/inputs/ScrollSync");
 
 
     function ScrollDesk() {
@@ -115,19 +112,6 @@ define(function (require, exports, module) {
     }
 
     function _pipe() {
-        this.scrollSync = new ScrollSync();
-        var counter = 0;
-        var counterView = 0;
-        var currVelocity, prevVelocity;
-
-        this.scrollSync.on('start', function (data) {
-            //var velocity =  this.scrollSync._payload.delta[1];
-            // console.log(velocity);
-            // if (data.delta !== null) {
-            //     data.delta[1]>0?this.scrollview.goToNextPage():this.scrollview.goToPreviousPage();
-            // }
-            //this.scrollview.goToNextPage();
-        }.bind(this));
 
         for (var i = 0; i < this.scrollContent.length; i++) {
             var surface = this.scrollContent[i];
