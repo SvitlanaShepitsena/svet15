@@ -102,6 +102,9 @@
 .img-about-desk {
   width: true;
 }
+.contact-map-desk {
+  width: 100%;
+}
 .text-warning {
   color: #ff7f50;
 }
