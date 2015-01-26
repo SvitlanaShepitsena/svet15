@@ -75,7 +75,7 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.contentMod);
 
         this.flexContent = [];
-        var ratios = [10, 20, 2];
+        var ratios = [10, true, 2];
 
         this.flexibleLayout = new FlexibleLayout({
             ratios: window.innerHeight < 960 ? ratios : [10, 20, true],
@@ -112,7 +112,7 @@ define(function (require, exports, module) {
         st.attr({
             stroke: 'none',
             fill: window.sv.scheme.textYellow,
-            'font-size': '45px',
+            'font-size': '40px',
             'font-weight': 'bold',
             'font-family': "Myriad Pro"
         });
@@ -130,6 +130,9 @@ define(function (require, exports, module) {
         this.gridRenderNode = new RenderNode();
         this.gridTrans = new Transitionable(140);
         this.gridMod = new Modifier({
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
+            size: [window.innerWidth-100, window.innerHeight/1.5],
             transform: function () {
                 return Transform.translate(0, this.gridTrans.get(), 0);
             }.bind(this)
