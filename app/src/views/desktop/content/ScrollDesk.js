@@ -82,7 +82,6 @@ define(function (require, exports, module) {
                     this.scrollview.setPosition(0);
                 }
 
-
             }.bind(this), 1);
         }.bind(this));
 
