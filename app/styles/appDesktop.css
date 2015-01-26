@@ -25,6 +25,22 @@
     font-size: 1em !important;
   }
 }
+.h4-section {
+  font-size: 120%;
+  line-height: 130%;
+}
+@media only screen and (max-width: 1050px) {
+  .h4-section {
+    font-size: 100%;
+    line-height: 120%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .h4-section {
+    font-size: 90%;
+    line-height: 120%;
+  }
+}
 .p-section,
 .a-yp-desktop,
 .p-ad {
@@ -48,14 +64,12 @@
   }
 }
 .h4-section {
-  color: #393939 !important;
-  font-size: 110%;
-  line-height: 130%;
+  color: #595959 !important;
   margin-bottom: 5px;
   margin-top: 0px;
 }
 .p-section {
-  color: #494949 !important;
+  color: #393939 !important;
   margin-bottom: 5px;
   margin-top: 0px;
 }
@@ -74,4 +88,14 @@
   border-radius: 0px;
   padding: 15px;
   height: 150px;
+}
+@media only screen and (max-width: 1050px) {
+  .panel-section {
+    height: 135px;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .panel-section {
+    height: 125px;
+  }
 }
