@@ -17,6 +17,7 @@ define(function (require, exports, module) {
             origin: [0.5, 0.5],
             transform: Transform.translate(0, 0, 0)
         });
+
         this.surface = new Surface({
             content: aboutDesk,
             classes: [],
@@ -33,10 +34,173 @@ define(function (require, exports, module) {
         this.surface.pipe(this._eventOutput);
         this.rootNode = this.add(this.centerModifier);
         this.rootNode.add(this.surface);
+        _raphael1994.call(this);
+        _raphael1991.call(this);
     }
+
+
+    function _raphael1991() {
+
+        var div = document.createElement('div');
+        var p = Raphael(div, 200, 200);
+        var start = 0, end = 20;
+        var x = 75, y = 80;
+        var arcStart = _getArc(1, end, x, y).path;
+
+        this.arc1991 = p.path(arcStart.path).attr({'stroke-width': 5, 'stroke': 'red'});
+        p.setStart()
+        p.text(75, 40, 'Launched YP');
+        p.text(75, 50, '1994');
+        var set = p.setFinish();
+        set.attr({
+            'font-size': 20,
+            'fill': 'orange'
+        })
+        this.raphMod = new Modifier({
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            transform: Transform.translate(0, 0, 10)
+        });
+
+
+        this.raphaelSurface = new Surface({
+            size: [undefined, 200],
+            content: div,
+            classes: [],
+            properties: {
+                color: 'white',
+                cursor: 'pointer',
+                textAlign: 'center'
+            }
+        });
+
+        this.raphaelSurface.pipe(this._eventOutput);
+        this.rootNode.add(this.raphMod).add(this.raphaelSurface);
+    }
+
+    function _raphael1994() {
+
+        var div = document.createElement('div');
+        var p = Raphael(div, window.innerWidth, 200);
+        var start = 0, end = 20;
+        var x = 75, y = 80;
+        var arcStart = _getArc(1, end, x, y).path;
+
+        this.arc1994 = p.path(arcStart.path).attr({'stroke-width': 5, 'stroke': 'red'});
+        p.setStart()
+        p.text(75, 40, 'Started');
+        p.text(75, 50, '1991');
+        var set = p.setFinish();
+        set.attr({
+            'font-size': 20,
+            'fill': 'orange'
+        })
+
+        this.raphMod94 = new Modifier({
+            // proportions: [.5, .25],
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            transform: Transform.translate(0, 0, 11)
+        });
+
+
+        this.raphaelSurface94 = new Surface({
+            size: [undefined, 200],
+            content: div,
+            classes: [],
+            properties: {
+                color: 'white',
+                cursor: 'pointer',
+                textAlign: 'center'
+            }
+        });
+        this.rootNode.add(this.raphMod94).add(this.raphaelSurface94);
+        this.raphaelSurface94.pipe(this._eventOutput);
+    }
+
+    function animateOn() {
+
+        var interval = 20;
+        var arcEnd;
+        var start = 0, end = 20;
+        var x = 75, y = 80;
+
+        var timer = setInterval(function () {
+
+            start++;
+            arcEnd = _getArc(start, end, x, y).path;
+            this.arc1991.animate({path: arcEnd}, interval);
+            this.arc1994.animate({path: arcEnd}, interval);
+
+            if (start === end) {
+                clearInterval(timer);
+            }
+        }.bind(this), interval);
+
+    }
+
+    function animateOff() {
+
+        var interval = 20;
+        var arcEnd;
+        var start = 20, end = 20;
+        var x = 75, y = 80;
+
+        var timer = setInterval(function () {
+
+            start--;
+            arcEnd = _getArc(start, end, x, y).path;
+            this.arc1991.animate({path: arcEnd}, interval)
+            this.arc1994.animate({path: arcEnd}, interval)
+
+            if (start === 0) {
+                clearInterval(timer);
+            }
+        }.bind(this), interval);
+
+    }
+
+    function _getArc(value, total, startX, startY) {
+        startX = startX || 75;
+        startY = startY || 75;
+
+        var R = 66;
+        var handle;
+        var current = 0;
+        var timeOut = 30;
+        var threshold = timeOut * (80 / 100);
+        var color = "rgba(153, 153, 153, .25)";
+
+
+        var alpha = 360 / total * value,
+            a = (90 - alpha) * Math.PI / 180,
+            x = startX + R * Math.cos(a),
+            y = startY - R * Math.sin(a),
+            path;
+        if (total == value) {
+            path = [
+                ["M", startX, startY - R],
+                ["A", R, R, 0, 1, 1, 74.99, startY - R]
+            ];
+        } else {
+            path = [
+                ["M", startX, startY - R],
+                ["A", R, R, 0, +(alpha > 180), 1, x, y]
+            ];
+        }
+        return {path: path, stroke: 'green', 'stroke-width': 15};
+    };
 
     AboutUsDesk.prototype = Object.create(View.prototype);
     AboutUsDesk.prototype.constructor = AboutUsDesk;
+
+    AboutUsDesk.prototype.long = function () {
+       animateOff.call(this);
+    }
+    AboutUsDesk.prototype.short = function () {
+       animateOn.call(this);
+
+    }
 
     AboutUsDesk.DEFAULT_OPTIONS = {};
 

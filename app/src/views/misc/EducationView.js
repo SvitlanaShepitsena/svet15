@@ -99,7 +99,7 @@ define(function (require, exports, module) {
             return d.value;
         });
 
-        var arc = d3.svg.arc().outerRadius(r);
+        var arc = d3.svg.arc1991().outerRadius(r);
 
         var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
         arcs.append("svg:path")
