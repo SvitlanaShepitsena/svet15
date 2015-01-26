@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var GridLayout = require("famous/views/GridLayout");
 
     var HomeContentDesk = require('dviews/content/home/HomeContentDesk');
-    var MapsDesk= require('dviews/content/home/MapsDesk');
+    var MapsDesk = require('dviews/content/home/MapsDesk');
     var Transitionable = require('famous/transitions/Transitionable');
     var ImageSurface = require('famous/surfaces/ImageSurface');
 
@@ -33,7 +33,7 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.gridIconTrans.get();
             }.bind(this),
-            transform: Transform.translate(0, 0, 0)
+            transform: Transform.translate(0, 0, 1)
         });
         this.gridLayout = new GridLayout({
             dimensions: [2, 2]
@@ -45,20 +45,48 @@ define(function (require, exports, module) {
         var iconRoot = 'img/home-page/icons-color/';
         this.dailyNewsIcon = new ImageSurface({
             size: [50, 50],
+            properties:{
+                cursor:'pointer'
+            },
             content: iconRoot + 'news-daily.png'
+
         });
+
+
         this.weeklyNewsIcon = new ImageSurface({
             size: [50, 50],
+            properties:{
+                cursor:'pointer'
+            },
             content: iconRoot + 'weekly.png'
         });
         this.ypIcon = new ImageSurface({
             size: [50, 50],
+            properties:{
+                cursor:'pointer'
+            },
             content: iconRoot + 'yp.png'
         });
         this.radioIcon = new ImageSurface({
             size: [50, 50],
+            properties:{
+                cursor:'pointer'
+            },
             content: iconRoot + 'radio.png'
         });
+
+        this.dailyNewsIcon.on('click', function () {
+            this.map.showSvetPoints();
+        }.bind(this))
+
+        this.weeklyNewsIcon.on('click', function () {
+            this.map.showSvetPoints();
+        }.bind(this))
+
+        this.ypIcon.on('click', function () {
+            this.map.showYpCompanies();
+        }.bind(this))
+
         this.surfaces.push(this.dailyNewsIcon);
         this.surfaces.push(this.weeklyNewsIcon);
         this.surfaces.push(this.ypIcon);
@@ -87,14 +115,14 @@ define(function (require, exports, module) {
                 return 1 - this.opacityMain.get();
             }.bind(this),
             transform: function () {
-                return Transform.translate(0,0,this.mapLayerTranf.get());
+                return Transform.translate(0, 0, this.mapLayerTranf.get());
             }.bind(this)
         });
-        this.mapBackdrop = new MapsDesk();
-        this.mapBackdrop.pipe(this._eventOutput);
+        this.map = new MapsDesk();
+        this.map.pipe(this._eventOutput);
 
         this.beforeRootNode = this.add(this.centerModifier);
-        this.beforeRootNode.add(this.mapModifier).add(this.mapBackdrop);
+        this.beforeRootNode.add(this.mapModifier).add(this.map);
         this.rootNodeMod = new Modifier({
             transform: function () {
                 return Transform.translate(0, this.contentTrans.get(), 0)
@@ -139,7 +167,7 @@ define(function (require, exports, module) {
     HomeDesk.prototype.tuneToShortView = function () {
         this.opacityBg.halt();
         this.gridIconTrans.halt();
-        this.gridIconTrans.set(1,{duration:500});
+        this.gridIconTrans.set(1, {duration: 500});
         this.opacityBg.set(0, {duration: 500}, function () {
         }.bind(this));
         this.homeContentDesk.contentShort();
@@ -161,7 +189,7 @@ define(function (require, exports, module) {
 
 
         this.gridIconTrans.halt();
-        this.gridIconTrans.set(0,{duration:500});
+        this.gridIconTrans.set(0, {duration: 500});
 
         this.contentTrans.halt();
         this.contentTrans.set(0, function () {
