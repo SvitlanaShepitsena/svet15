@@ -74,8 +74,8 @@ nv.models.pie = function() {
             });
 
 
-            var arc = d3.svg.arc().outerRadius(arcRadius);
-            var arcOver = d3.svg.arc().outerRadius(arcRadius + 5);
+            var arc = d3.svg.arc1991().outerRadius(arcRadius);
+            var arcOver = d3.svg.arc1991().outerRadius(arcRadius + 5);
 
             if (startAngle) {
                 arc.startAngle(startAngle);
@@ -198,14 +198,14 @@ nv.models.pie = function() {
 
             if (showLabels) {
                 // This does the normal label
-                var labelsArc = d3.svg.arc().innerRadius(0);
+                var labelsArc = d3.svg.arc1991().innerRadius(0);
 
                 if (pieLabelsOutside){
                     var labelsArc = arc;
                 }
 
                 if (donutLabelsOutside) {
-                    labelsArc = d3.svg.arc().outerRadius(arc.outerRadius());
+                    labelsArc = d3.svg.arc1991().outerRadius(arc.outerRadius());
                 }
 
                 pieLabels.enter().append("g").classed("nv-label",true).each(function(d,i) {

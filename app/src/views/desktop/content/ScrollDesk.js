@@ -74,6 +74,8 @@ define(function (require, exports, module) {
                     this.headerFull = true;
                     this._eventOutput.emit('increase:header');
                     this.homeDesk.hideShowMap(1);
+
+                    this.aboutUsDesk.long();
                     this.homeDesk.tuneToDefaultView();
                     emitIncrease = true;
                 }
@@ -125,6 +127,7 @@ define(function (require, exports, module) {
             this.scrollview.setPositionAnimated.call(this.scrollview, 0.05);
         }
         this.homeDesk.tuneToShortView();
+        this.aboutUsDesk.short();
 
     }
     ScrollDesk.prototype.tuneToDefaultHeader = function () {
@@ -133,6 +136,7 @@ define(function (require, exports, module) {
         //    this.scrollview.setPositionAnimated.call(this.scrollview, 150);
         //}
         this.homeDesk.tuneToDefaultView();
+
 
     }
 
