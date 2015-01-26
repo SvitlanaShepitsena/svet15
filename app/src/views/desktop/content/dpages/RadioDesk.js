@@ -11,7 +11,7 @@ define(function (require, exports, module) {
         this.contentHeight = window.innerWidth / 2;
 
         this.centerModifier = new Modifier({
-            size: [undefined, undefined],
+            size: [undefined, window.innerHeight],
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             transform: Transform.translate(0, 0, 0)
