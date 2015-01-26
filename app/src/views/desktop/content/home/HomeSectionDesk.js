@@ -64,10 +64,10 @@ define(function (require, exports, module) {
             align: [0.5, 0],
             origin: [0.5, 0]
         });
-        this.bgMod = new StateModifier({
-            size: function () {
-                _getSectionHeight().call(this);
-                return [undefined, 200];
+        this.bgMod = new Modifier({
+            size: function() {
+                _getSectionHeight.call(this);
+                return [undefined, this.sectionHeight];
             }.bind(this),
             //size: [undefined, undefined],
             align: [0.5, 0],
