@@ -31,20 +31,20 @@ define(function (require, exports, module) {
     function _init() {
         this.scrollview.setOptions({
             rails: true,
-            margin: 1000,       // mostly safe
             friction: 0.0007,
             drag: 0.0001,
             edgeGrip: 0.2,
             edgePeriod: 300,
             edgeDamp: 1,
+            margin: 1000,       // mostly safe
             paginated: false,
             pagePeriod: 500,
             pageDamp: 0.8,
-            pageStopSpeed: 9,
+            pageStopSpeed: 1,
             pageSwitchSpeed: 0.5,
             speedLimit: 5,
             groupScroll: false,
-            syncScale: 2
+            syncScale: 0.5
         })
     }
 
@@ -90,10 +90,6 @@ define(function (require, exports, module) {
         this.scrollview.sync.on('end', function () {
             var absPos = this.scrollview.getAbsolutePosition();
             Timer.clear(this.scrollUtil);
-            if (this.headerFull && absPos < 140) {
-                this.scrollview.setPositionAnimated(-0.05);
-
-            }
         }.bind(this))
 
     }
@@ -123,9 +119,9 @@ define(function (require, exports, module) {
 
     ScrollDesk.prototype.tuneToShortHeader = function () {
         var currentPos = this.scrollview.getAbsolutePosition();
-        if (currentPos < 150) {
-            this.scrollview.setPositionAnimated.call(this.scrollview, 0.05);
-        }
+        //if (currentPos < 150) {
+        //    this.scrollview.setPositionAnimated.call(this.scrollview, 0.05);
+        //}
         this.homeDesk.tuneToShortView();
         this.aboutUsDesk.short();
 

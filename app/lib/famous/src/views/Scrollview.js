@@ -212,10 +212,13 @@ define(function (require, exports, module) {
     }
 
     function _handleEnd(event) {
+       var direction;
         this._touchCount = event.count || 0;
         if (!this._touchCount) {
             _detachAgents.call(this);
             if (this._onEdge !== EdgeStates.NONE) _setSpring.call(this, this._edgeSpringPosition, SpringStates.EDGE);
+
+
             _attachAgents.call(this);
             var velocity = -event.velocity;
             var speedLimit = this.options.speedLimit;
@@ -225,7 +228,12 @@ define(function (require, exports, module) {
             this.setVelocity(velocity);
             this._touchVelocity = 0;
             this._needsPaginationCheck = true;
+
+            _detachAgents.call(this);
+            event.delta<0? this.setVelocity(0.05):this.setVelocity(-0.05);
+            _attachAgents.call(this);
         }
+
     }
 
     function _bindEvents() {
