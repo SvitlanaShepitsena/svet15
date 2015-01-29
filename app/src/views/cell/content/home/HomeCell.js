@@ -83,7 +83,7 @@ define(function (require, exports, module) {
 
         this.topLeftSection = new HomeSection({
             sign: this.options.fromLeft,
-            period: '900',
+            period: '2000',
             dampingRatio: 0.3,
             icon: 'news-daily',
             content: '<h4 class="icon-text">Svet</br>Daily Newspaper</h4>',
@@ -91,14 +91,16 @@ define(function (require, exports, module) {
         })
 
         this.topRightSection = new HomeSection({
+            //sign: this.options.fromLeft,
             sign: this.options.fromRight,
             period: '1000',
-            dampingRatio: 0.3,
+            dampingRatio: 0.5,
             icon: 'weekly',
             content: '<h4 class="icon-text">Saturday Plus</br>Weekly Newspaper</h4>',
             flipInfo: flipWeeklyNews
         })
         this.bottomLeftSection = new HomeSection({
+            //sign: this.options.fromRight,
             sign: this.options.fromLeft,
             period: '1100',
             dampingRatio: 0.3,

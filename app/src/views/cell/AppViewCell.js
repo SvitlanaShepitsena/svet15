@@ -15,20 +15,20 @@ define(function (require, exports, module) {
     var PageViewCell = require('./content/PageViewCell');
     var ImageSurface = require('famous/surfaces/ImageSurface');
 
-    var Transitionable = require('famous/transitions/Transitionable');
-    var SpringTransition = require('famous/transitions/SpringTransition');
     var WallTransition = require('famous/transitions/WallTransition');
     var SnapTransition = require('famous/transitions/SnapTransition');
 
 
+    var Transitionable = require('famous/transitions/Transitionable');
+    var SpringTransition = require('famous/transitions/SpringTransition');
+
+
     function AppViewCell() {
-        Transitionable.registerMethod('spring', SpringTransition);
+        Transitionable.registerMethod('spring', WallTransition);
 
         this.imgModifier = new StateModifier({
             opacity: 1
-        });
-
-        this.imgSurface = new ImageSurface({
+        }); this.imgSurface = new ImageSurface({
             size: [undefined, undefined],
             properties: {
                 lineHeight: window.innerHeight + "px",

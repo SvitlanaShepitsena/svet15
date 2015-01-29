@@ -1,8 +1,5 @@
 define(['require', 'famous/core/Engine', 'views/cell/AppViewCell', 'views/desktop/AppViewDesk'], function (require, Engine, AppViewCell, AppViewDesk) {
-    var MOBILEWIDTH = 490;
-
     var Transform = require('famous/core/Transform');
-
     var mainContext = Engine.createContext();
     mainContext.setPerspective(500);
 

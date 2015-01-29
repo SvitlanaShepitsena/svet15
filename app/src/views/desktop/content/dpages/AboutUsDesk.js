@@ -3,6 +3,7 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
+    var Transitionable = require('famous/transitions/Transitionable');
 
     //var aboutDesk = require('text!dviews/jade/about/about-desk.html');
     var aboutDesk = require('text!dviews/jade/about/aboutUsPage.html');
@@ -47,19 +48,23 @@ define(function (require, exports, module) {
         var x = 75, y = 80;
         var arcStart = _getArc(1, end, x, y).path;
 
-        this.arc1991 = p.path(arcStart.path).attr({'stroke-width': 5, 'stroke': 'red'});
+        this.arc1991 = p.path(arcStart.path).attr({'stroke-width': 5, 'stroke': window.sv.scheme.sectionColor});
         p.setStart()
         p.text(75, 40, 'Launched YP');
         p.text(75, 50, '1994');
         var set = p.setFinish();
         set.attr({
             'font-size': 20,
-            'fill': 'orange'
+            'fill': window.sv.scheme.textDark
         })
         this.raphMod = new Modifier({
+            size: [true, undefined],
             align: [0.5, 0],
             origin: [0.5, 0],
-            transform: Transform.translate(0, 0, 10)
+            opacity: function () {
+                return this.opacityTransitionable.get()
+            }.bind(this),
+            transform: Transform.translate(450, -250, 0)
         });
 
 
@@ -79,6 +84,7 @@ define(function (require, exports, module) {
     }
 
     function _raphael1994() {
+        this.opacityTransitionable = new Transitionable(0);
 
         var div = document.createElement('div');
         var p = Raphael(div, window.innerWidth, 200);
@@ -86,21 +92,24 @@ define(function (require, exports, module) {
         var x = 75, y = 80;
         var arcStart = _getArc(1, end, x, y).path;
 
-        this.arc1994 = p.path(arcStart.path).attr({'stroke-width': 5, 'stroke': 'red'});
+        this.arc1994 = p.path(arcStart.path).attr({'stroke-width': 5, 'stroke': window.sv.scheme.sectionColor});
         p.setStart()
         p.text(75, 40, 'Started');
         p.text(75, 50, '1991');
         var set = p.setFinish();
         set.attr({
             'font-size': 20,
-            'fill': 'orange'
+            'fill': window.sv.scheme.textDark
         })
 
         this.raphMod94 = new Modifier({
             // proportions: [.5, .25],
             align: [0.5, 0],
             origin: [0.5, 0],
-            transform: Transform.translate(0, 0, 11)
+            opacity: function () {
+                return this.opacityTransitionable.get()
+            }.bind(this),
+            transform: Transform.translate(850, -250, 0)
         });
 
 
@@ -120,9 +129,9 @@ define(function (require, exports, module) {
 
     function animateOn() {
 
-        var interval = 20;
+        var interval = 50;
         var arcEnd;
-        var start = 0, end = 20;
+        var start = 0, end = 30;
         var x = 75, y = 80;
 
         var timer = setInterval(function () {
@@ -195,10 +204,12 @@ define(function (require, exports, module) {
     AboutUsDesk.prototype.constructor = AboutUsDesk;
 
     AboutUsDesk.prototype.long = function () {
-       animateOff.call(this);
+        this.opacityTransitionable.set(0, {duration: 300})
+        animateOff.call(this);
     }
     AboutUsDesk.prototype.short = function () {
-       animateOn.call(this);
+        this.opacityTransitionable.set(1, {duration: 300})
+        animateOn.call(this);
 
     }
 

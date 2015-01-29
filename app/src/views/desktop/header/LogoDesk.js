@@ -60,7 +60,6 @@ define(function (require, exports, module) {
         var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
         this.svgLine = new Transitionable(shift);
         this.logoSvgMod = new Modifier({
-
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             opacity: function () {

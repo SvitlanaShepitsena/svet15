@@ -9,13 +9,12 @@ define(function (require, exports, module) {
 
     function HomePart() {
         View.apply(this, arguments);
-        this.flipperFrontSide = true;
 
+        this.flipperFrontSide = true;
         this.on('click', function () {
             if (this.flipperFrontSide) {
                 this._eventOutput.emit('parts:info', {icon: this.options.icon});
             } else {
-
                 this._eventOutput.emit('parts:info', {icon: 'hideAll'});
             }
             this.flipper.flip();
@@ -38,6 +37,7 @@ define(function (require, exports, module) {
     HomePart.DEFAULT_OPTIONS = {
         center: [0.5, 0, 5],
         content: null,
+        flipInfo: null,
         spring: null,
         icon: null,
         period: 0,
@@ -51,6 +51,44 @@ define(function (require, exports, module) {
             textAlign: 'center'
         }
     };
+
+    function _initTransform() {
+        this.spring = {
+            method: 'spring',
+            period: this.options.period,
+            dampingRatio: this.options.dampingRatio
+        }
+        this.centerModifier = new StateModifier({
+            align: this.options.center,
+            origin: this.options.center,
+            transform: Transform.translate(this.options.sign * (this.sectionWidth), 0, 0)
+            //transform: Transform.translate(0, this.options.sign * (this.sectionWidth), 0)
+        });
+
+        this.rootNode = this.add(this.centerModifier);
+        this.centerModifier.setTransform(Transform.translate(0, 0, 0), this.spring);
+
+        this.flipper = new Flipper();
+        this.flipInfo = new Surface({
+            size: [undefined, undefined],
+            content: this.options.flipInfo,
+            classes: [],
+            properties: {
+                cursor: 'pointer',
+                padding: '5px',
+                color: window.sv.scheme.textDark,
+                textAlign: 'center',
+                backgroundColor: window.sv.scheme.textWhite
+            }
+        });
+        this.flipInfo.pipe(this._eventOutput);
+
+        this.renderNode = new RenderNode();
+        this.flipper.setFront(this.renderNode);
+        this.flipper.setBack(this.flipInfo);
+
+        this.rootNode.add(this.flipper);
+    }
 
     function _contentParts() {
         this.surface = new Surface({
@@ -82,41 +120,6 @@ define(function (require, exports, module) {
         this.renderNode.add(this.sectionIconMod).add(this.sectionIconSurface);
     }
 
-    function _initTransform() {
-        this.spring = {
-            method: 'spring',
-            period: this.options.period,
-            dampingRatio: this.options.dampingRatio
-        }
-        this.centerModifier = new StateModifier({
-            align: this.options.center,
-            origin: this.options.center,
-            transform: Transform.translate(this.options.sign * (this.sectionWidth), 0, 0)
-        });
-
-        this.rootNode = this.add(this.centerModifier);
-        this.centerModifier.setTransform(Transform.translate(0, 0, 0), this.spring);
-
-        this.renderNode = new RenderNode();
-        this.flipper = new Flipper();
-        this.flipInfo = new Surface({
-            size: [undefined, undefined],
-            content: this.options.flipInfo,
-            classes: [],
-            properties: {
-                cursor: 'pointer',
-                padding: '5px',
-                color: window.sv.scheme.textDark,
-                textAlign: 'center',
-                backgroundColor: window.sv.scheme.textWhite
-            }
-        });
-        this.flipInfo.pipe(this._eventOutput);
-        this.flipper.setFront(this.renderNode);
-        this.flipper.setBack(this.flipInfo);
-
-        this.rootNode.add(this.flipper);
-    }
 
     module.exports = HomePart;
 });
