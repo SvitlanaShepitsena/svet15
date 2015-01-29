@@ -47,10 +47,10 @@ define(function (require, exports, module) {
         window.onresize = function () {
             this.contentSize = window.innerWidth > limitSize ? limitSize : window.innerWidth;
             this.widthTransitionable.halt();
-            this.widthTransitionable.set(this.contentSize, {duration: 300,curve: "easeInOut"});
-
+            this.widthTransitionable.set(this.contentSize, {duration: 300, curve: "easeInOut"});
+            this.scrolldesk.reflow();
             this.heightTransitionable.halt();
-            this.heightTransitionable.set(window.innerHeight, {duration: 300,curve: "easeInOut"});
+            this.heightTransitionable.set(window.innerHeight, {duration: 300, curve: "easeInOut"});
         }.bind(this)
     }
 
@@ -62,7 +62,13 @@ define(function (require, exports, module) {
         }.bind(this));
 
         this.headerDesk.on('navigateTo', function (data) {
-            this.scrolldesk.scrollview.goToPage(data.index);
+            if (data.index === 0) {
+                this.scrolldesk.tuneToDefaultHeader();
+                this.scrolldesk.scrollview.goToPage(0);
+                this.scrolldesk.scrollview.setPosition(0);
+
+            } else
+                this.scrolldesk.scrollview.goToPage(data.index);
         }.bind(this))
         this.rootNode.add(this.headerDesk);
     }
