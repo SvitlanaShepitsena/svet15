@@ -29,7 +29,7 @@ define(function (require, exports, module) {
     }
     function _init() {
         this.mapDesk = new MapDesk();
-        this.add(this.mapDesk);
+        //this.add(this.mapDesk);
         var limitSize = 1280;
 
         this.contentSize = window.innerWidth > limitSize ? limitSize : window.innerWidth;
@@ -70,14 +70,14 @@ define(function (require, exports, module) {
     function _content() {
         this.scrolldesk = new ScrollDesk();
 
-        this.scrolldesk.on('decrease:header', function () {
-            this.headerDesk.decreaseHeader.call(this.headerDesk);
-        }.bind(this));
+        //this.scrolldesk.on('decrease:header', function () {
+        //    this.headerDesk.decreaseHeader.call(this.headerDesk);
+        //}.bind(this));
+        //
+        //this.scrolldesk.on('increase:header', function () {
+        //    this.headerDesk.increaseHeader.call(this.headerDesk);
 
-        this.scrolldesk.on('increase:header', function () {
-            this.headerDesk.increaseHeader.call(this.headerDesk);
-
-        }.bind(this));
+        //}.bind(this));
 
         this.rootNode.add(this.scrolldesk);
     }
