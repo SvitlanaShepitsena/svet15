@@ -27,6 +27,12 @@ define(function (require, exports, module) {
         _handleScroll.call(this);
     }
 
+    function _restrict(pos) {
+        pos = pos > 0 ? 0 : pos;
+        pos = pos < -this.shift * 7 ? -this.shift * 7 : pos;
+        return pos;
+    }
+
     function _handleScroll() {
         //console.log('here');
         this.sync.on('start', function (data) {
@@ -35,9 +41,7 @@ define(function (require, exports, module) {
         this.sync.on('update', function (data) {
             var pos = this.containerTrans.get();
             pos += data.delta / 2;
-            //pos = pos < this.initScrollPos ? this.initScrollPos : pos;
-            //pos = pos > this.maxScrollPos ? this.maxScrollPos : pos;
-            pos > 0 ? 0 : pos;
+            pos = _restrict.call(this, pos);
             this.containerTrans.set(pos);
         }.bind(this));
 
@@ -51,17 +55,15 @@ define(function (require, exports, module) {
             }
             var pos = this.containerTrans.get();
 
-            var threshold = (window.innerHeight / 2);
-            var offsetY = Math.floor(pos / threshold);
-            offsetY *= threshold;
 
-            var duration = Math.abs(pos - offsetY) * 5;
-            this.containerTrans.halt();
 
-            var endState = this.dir * offsetY;
+            var endState = pos + data.delta;
+            endState = _restrict.call(this, endState);
+
+            var duration = (pos-endState)*10;
 
             this.containerTrans.set(endState, {
-                duration: duration, curve: "easeOut"
+                duration: duration, curve: 'linear'
             });
 
         }.bind(this));
@@ -122,18 +124,8 @@ define(function (require, exports, module) {
 
     ScrollDesk.DEFAULT_OPTIONS = {};
 
-    ScrollDesk.prototype.render = function () {
-        this.spec = [];
-
-
-        this.spec.push({
-            transform: Transform.translate(0, this.containerTrans.get(), 0),
-            target: this.renderNode.render()
-        });
-
-        //_updateListView.call(this, this.pageListViewPos.get());
-
-        return this.spec;
+    ScrollDesk.prototype.reflow = function () {
+        this.renderNode.render();
     };
     module.exports = ScrollDesk;
 });
