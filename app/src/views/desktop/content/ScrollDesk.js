@@ -31,20 +31,20 @@ define(function (require, exports, module) {
     function _init() {
         this.scrollview.setOptions({
             rails: true,
+            margin: 1000,       // mostly safe
             friction: 0.0007,
             drag: 0.0001,
             edgeGrip: 0.2,
             edgePeriod: 300,
             edgeDamp: 1,
-            margin: 1000,       // mostly safe
             paginated: false,
             pagePeriod: 500,
             pageDamp: 0.8,
-            pageStopSpeed: 1,
+            pageStopSpeed: 9,
             pageSwitchSpeed: 0.5,
             speedLimit: 5,
             groupScroll: false,
-            syncScale: 0.05
+            syncScale: 2
         })
     }
 
