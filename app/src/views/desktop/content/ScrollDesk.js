@@ -42,6 +42,7 @@ define(function (require, exports, module) {
         }.bind(this));
 
         this.sync.on('end', function (data) {
+            console.log(data.delta);
             if (data.delta > 0) {
                 this.dir = -1;
             } else {
@@ -58,10 +59,9 @@ define(function (require, exports, module) {
             this.containerTrans.halt();
 
             var endState = this.dir * offsetY;
-            endState > 0 ? 0 : endState;
 
             this.containerTrans.set(endState, {
-                duration: duration, curve: 'linear'
+                duration: duration, curve: "easeOut"
             });
 
         }.bind(this));
@@ -122,18 +122,18 @@ define(function (require, exports, module) {
 
     ScrollDesk.DEFAULT_OPTIONS = {};
 
-    //ScrollDesk.prototype.render = function () {
-    //    this.spec = [];
-    //
-    //
-    //    this.spec.push({
-    //        transform: Transform.translate(0, this.containerTrans.get(), 0),
-    //        target: this.renderNode.render()
-    //    });
-    //
-    //    //_updateListView.call(this, this.pageListViewPos.get());
-    //
-    //    return this.spec;
-    //};
+    ScrollDesk.prototype.render = function () {
+        this.spec = [];
+
+
+        this.spec.push({
+            transform: Transform.translate(0, this.containerTrans.get(), 0),
+            target: this.renderNode.render()
+        });
+
+        //_updateListView.call(this, this.pageListViewPos.get());
+
+        return this.spec;
+    };
     module.exports = ScrollDesk;
 });
