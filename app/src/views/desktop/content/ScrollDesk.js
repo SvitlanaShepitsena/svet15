@@ -44,7 +44,7 @@ define(function (require, exports, module) {
             pageSwitchSpeed: 0.5,
             speedLimit: 5,
             groupScroll: false,
-            syncScale: 0.05
+            syncScale: 0.5
         })
     }
 
@@ -90,10 +90,6 @@ define(function (require, exports, module) {
         this.scrollview.sync.on('end', function () {
             var absPos = this.scrollview.getAbsolutePosition();
             Timer.clear(this.scrollUtil);
-            if (this.headerFull && absPos < 140) {
-                this.scrollview.setPositionAnimated(-0.05);
-
-            }
         }.bind(this))
 
     }
@@ -123,9 +119,9 @@ define(function (require, exports, module) {
 
     ScrollDesk.prototype.tuneToShortHeader = function () {
         var currentPos = this.scrollview.getAbsolutePosition();
-        if (currentPos < 150) {
-            this.scrollview.setPositionAnimated.call(this.scrollview, 0.05);
-        }
+        //if (currentPos < 150) {
+        //    this.scrollview.setPositionAnimated.call(this.scrollview, 0.05);
+        //}
         this.homeDesk.tuneToShortView();
         this.aboutUsDesk.short();
 

@@ -108,7 +108,7 @@ define(function (require, exports, module) {
     HomeDesk.DEFAULT_OPTIONS = {};
 
     function _init() {
-        this.mapLayerTranf = new Transitionable(0);
+        this.mapLayerTranf = new Transitionable(-2);
         this.opacityMain = new Transitionable(1);
         this.contentTrans = new Transitionable(0);
 
