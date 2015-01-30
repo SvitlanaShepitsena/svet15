@@ -25,7 +25,6 @@ define(function (require, exports, module) {
 
     LogoDesk.prototype = Object.create(View.prototype);
     LogoDesk.prototype.constructor = LogoDesk;
-
     LogoDesk.DEFAULT_OPTIONS = {
         logoHeight: window.sv.sizing.headerHeight * .82,
         paperWidth: window.sv.sizing.logoContainerWidth * .87
@@ -33,9 +32,8 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            transform: function () {
-                return Transform.translate(0, 0, 0);
-            }.bind(this)
+            align: [0.5, 0],
+            origin: [0.5, 0]
         });
         this.rootNode = this.add(this.centerModifier);
     }
@@ -45,18 +43,19 @@ define(function (require, exports, module) {
         var paper = Raphael(div, window.innerWidth, this.options.logoHeight);
         var path = drawpath(paper, "M80,80 L20,80 L130,10 L240,80 L180,80", 2000, {
             fill: 'none',
-            stroke: 'red',
+            stroke: window.sv.scheme.logoColor,
             'stroke-width': 11,
             'fill-opacity': 0
         });
         var text = paper.text(129, 56, 'RUSSIAN MEDIA GROUP');
         text.attr({
             stroke: 'none',
-            fill: 'white',
+            fill: window.sv.scheme.textWhite,
             'font-size': 22,
             'line-height': '5em',
             'font-family': "Myriad Pro"
-        })
+        });
+
         var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
         this.svgLine = new Transitionable(shift);
         this.logoSvgMod = new Modifier({
@@ -87,7 +86,7 @@ define(function (require, exports, module) {
         var text = paper.text(129, 45, 'SVET');
         text.attr({
             stroke: 'none',
-            fill: 'white',
+            fill: window.sv.scheme.textWhite,
             'font-size': 32,
             'font-weight': 'bold',
             'line-height': '5em',
@@ -112,7 +111,6 @@ define(function (require, exports, module) {
         });
         this.rootNode.add(this.svetSvgMod).add(this.svetSvgSurf);
     }
-
 
     LogoDesk.prototype.increaseLogo = function () {
         var currentPosition = this.shiftTransitionable.get();
