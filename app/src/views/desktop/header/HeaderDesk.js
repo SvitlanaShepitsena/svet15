@@ -78,8 +78,9 @@ define(function (require, exports, module) {
             this.renderNode = new RenderNode();
 
             var mod = new Modifier({
-                align: [0.5, 0.5],
-                origin: [0.5, 0.5],
+                align: [0.5, 0],
+                origin: [0.5, 0],
+                size: [undefined, true],
                 transform: Transform.translate(0, 40, 0)
             });
             var surf = new Surface({
