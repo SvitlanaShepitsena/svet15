@@ -3,9 +3,10 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
+    /*Flipper*/
     var RenderNode = require('famous/core/RenderNode');
-
     var Flipper = require('famous/views/Flipper');
+
 
     function HomePart() {
         View.apply(this, arguments);
@@ -13,7 +14,7 @@ define(function (require, exports, module) {
         this.flipperFrontSide = true;
         this.on('click', function () {
             if (this.flipperFrontSide) {
-                this._eventOutput.emit('parts:info', {icon: this.options.icon});
+                this._eventOutput.emit('parts:info', {icon: this.options.flipIcon});
             } else {
                 this._eventOutput.emit('parts:info', {icon: 'hideAll'});
             }
@@ -35,11 +36,9 @@ define(function (require, exports, module) {
     HomePart.prototype.constructor = HomePart;
 
     HomePart.DEFAULT_OPTIONS = {
-        center: [0.5, 0, 5],
-        content: null,
+        frontContent: null,
         flipInfo: null,
-        spring: null,
-        icon: null,
+        flipIcon: null,
         period: 0,
         dampingRatio: 0,
         sign: 0,
@@ -59,40 +58,41 @@ define(function (require, exports, module) {
             dampingRatio: this.options.dampingRatio
         }
         this.centerModifier = new StateModifier({
-            align: this.options.center,
-            origin: this.options.center,
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
             transform: Transform.translate(this.options.sign * (this.sectionWidth), 0, 0)
-            //transform: Transform.translate(0, this.options.sign * (this.sectionWidth), 0)
         });
-
         this.rootNode = this.add(this.centerModifier);
         this.centerModifier.setTransform(Transform.translate(0, 0, 0), this.spring);
 
-        this.flipper = new Flipper();
-        this.flipInfo = new Surface({
+        this.flipper = new Flipper({
+            /*by default direction is 0*/
+            direction: 0
+        });
+        this.flipSurf = new Surface({
             size: [undefined, undefined],
             content: this.options.flipInfo,
-            classes: [],
             properties: {
                 cursor: 'pointer',
                 padding: '5px',
-                color: window.sv.scheme.textDark,
                 textAlign: 'center',
+                color: window.sv.scheme.textDark,
                 backgroundColor: window.sv.scheme.textWhite
             }
         });
-        this.flipInfo.pipe(this._eventOutput);
+        this.flipSurf.pipe(this._eventOutput);
+
+        this.flipper.setBack(this.flipSurf);
 
         this.renderNode = new RenderNode();
         this.flipper.setFront(this.renderNode);
-        this.flipper.setBack(this.flipInfo);
 
         this.rootNode.add(this.flipper);
     }
 
     function _contentParts() {
         this.surface = new Surface({
-            content: this.options.content,
+            content: this.options.frontContent,
             properties: this.options.sectionPop
         });
         this.surface.pipe(this._eventOutput);
@@ -108,7 +108,7 @@ define(function (require, exports, module) {
 
         this.sectionIconSurface = new Surface({
             size: [undefined, undefined],
-            content: "<img style='width:" + (this.sectionImgWidth) + "px; height: " + (this.sectionImgWidth) + "px; margin:" + this.iconImgMargin + "px;' src='img/home-page/icons-color/" + this.options.icon + ".png'/>",
+            content: "<img style='width:" + (this.sectionImgWidth) + "px; height: " + (this.sectionImgWidth) + "px; margin:" + this.iconImgMargin + "px;' src='img/home-page/icons-color/" + this.options.flipIcon + ".png'/>",
             properties: {
                 cursor: 'pointer',
                 textAlign: 'center',
