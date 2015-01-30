@@ -37,23 +37,24 @@ define(function (require, exports, module) {
     }
 
     function _handleScroll() {
-
+        this.syncEnabled = true;
         this.sync.on('start', function (data) {
 
             this.utilFunc = Timer.every(function () {
-               console.log(this.sync._syncs.scroll._payload);
-            }.bind(this),1);
+                console.log();
+            }.bind(this), 1);
         }.bind(this));
 
         this.sync.on('update', function (data) {
+
             var velocityNorm = Math.log(Math.abs(data.velocity));
-            velocityNorm = velocityNorm>1?velocityNorm:1;
+            velocityNorm = velocityNorm > 1 ? velocityNorm : 1;
             var pos = this.containerTrans.get();
-            pos += Math.floor(data.delta / 3.2)* velocityNorm;
+            pos += Math.floor(data.delta / 3.2) * velocityNorm;
 
             pos = _restrict.call(this, pos);
             this.containerTrans.halt();
-            this.containerTrans.set(pos,{duration:80});
+            this.containerTrans.set(pos, {duration: 80});
 
         }.bind(this));
 
@@ -68,11 +69,10 @@ define(function (require, exports, module) {
             var pos = this.containerTrans.get();
 
 
-
             var endState = pos + data.delta;
             endState = _restrict.call(this, endState);
 
-            var duration = Math.abs(pos-endState)*10;
+            var duration = Math.abs(pos - endState) * 10;
 
             this.containerTrans.set(endState, {
                 duration: duration, curve: 'linear'
@@ -86,7 +86,15 @@ define(function (require, exports, module) {
         this.surfaces = [];
 
         GenericSync.register({scroll: ScrollSync});
-        this.sync = new GenericSync({scroll: {direction: 1}});
+        this.sync = new GenericSync({
+            scroll: {
+                direction: 1,
+                rails: true,
+                minimunEndSpeed: 2,
+                scale: 2,
+                stallTime:10
+            }
+        });
 
         this.container = new ContainerSurface({
             size: [undefined, window.innerHeight],
@@ -114,7 +122,9 @@ define(function (require, exports, module) {
             this.surfaces.push(this.surf);
             this.surf.pipe(this.sync);
             this.surf.on('click', function () {
-               this.containerTrans.halt() ;
+                this.containerTrans.halt();
+                var opt = this.sync._syncs.scroll.getOptions();
+                console.log(opt);
             }.bind(this))
             this.renderNode.add(this.modSurf).add(this.surf);
         }
