@@ -59,12 +59,12 @@ define(function (require, exports, module) {
     }
 
     function _flex() {
-        var flexOptions = {
+        this.flexOptions = {
             ratios: this.options.flexOpts.ratios,
             direction: this.options.flexOpts.direction
         }
         this.logoDesk = new LogoDesk();
-        this.layout = new FlexibleLayout(flexOptions);
+        this.layout = new FlexibleLayout(this.flexOptions);
         var menuItems = ['Home', 'About Us', 'Logo', 'Radio', 'Contact Us'];
         this.contents = [];
         this.surfaces = [];
@@ -74,16 +74,15 @@ define(function (require, exports, module) {
                 continue;
             }
 
-
             this.renderNode = new RenderNode();
 
-            var mod = new Modifier({
+            this.navBtnMod = new Modifier({
                 align: [0.5, 0],
                 origin: [0.5, 0],
                 size: [undefined, true],
                 transform: Transform.translate(0, 40, 0)
             });
-            var surf = new Surface({
+            this.navBtnSurf = new Surface({
                 size: [undefined, undefined],
                 content: menuItems[i],
                 properties: {
@@ -93,14 +92,14 @@ define(function (require, exports, module) {
                     fontSize: '1.2em'
                 }
             });
-            this.surfaces.push(surf);
+            this.surfaces.push(this.navBtnSurf);
 
-            this.renderNode.add(mod).add(surf);
+            this.renderNode.add(this.navBtnMod).add(this.navBtnSurf);
             this.contents.push(this.renderNode);
         }
 
-        this.surfaces.forEach(function (surf, index) {
-            surf.on('click', function () {
+        this.surfaces.forEach(function (navBtnSurf, index) {
+            this.navBtnSurf.on('click', function () {
                 this._eventOutput.emit('navigateTo', {index: index});
             }.bind(this));
         }.bind(this))
