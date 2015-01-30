@@ -43,11 +43,11 @@ window.sv = {
     },
     options: {
         lightScheme: {
-            svYellow: {
-                headerColor: '#A65005',
-                navColor: '#A65005',
-                footerColor: '#FFDE9C'
-            }
+            //svYellow: {
+            //    headerColor: '#A65005',
+            //    navColor: '#A65005',
+            //    footerColor: '#FFDE9C'
+            //}
         },
         darkScheme: {
             textYellow: '#fafad2',
