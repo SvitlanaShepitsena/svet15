@@ -39,26 +39,30 @@ define(function (require, exports, module) {
     function _handleScroll() {
         this.syncEnabled = true;
         this.sync.on('start', function (data) {
-
+            this.syncEnabled = true;
             this.utilFunc = Timer.every(function () {
                 console.log();
             }.bind(this), 1);
         }.bind(this));
-
+        this.normCoef = 2;
         this.sync.on('update', function (data) {
 
-            var velocityNorm = Math.log(Math.abs(data.velocity));
+            var velocityNorm = this.normCoef*Math.log(Math.abs(data.velocity));
             velocityNorm = velocityNorm > 1 ? velocityNorm : 1;
             var pos = this.containerTrans.get();
             pos += Math.floor(data.delta / 3.2) * velocityNorm;
 
             pos = _restrict.call(this, pos);
             this.containerTrans.halt();
-            this.containerTrans.set(pos, {duration: 80});
+
+            if (this.syncEnabled) {
+                this.containerTrans.set(pos, {duration: 80});
+            }
 
         }.bind(this));
 
         this.sync.on('end', function (data) {
+            console.log('end');
             Timer.clear(this.utilFunc);
             if (data.delta > 0) {
                 this.dir = -1;
@@ -73,10 +77,12 @@ define(function (require, exports, module) {
             endState = _restrict.call(this, endState);
 
             var duration = Math.abs(pos - endState) * 10;
+            if (this.syncEnabled) {
 
-            this.containerTrans.set(endState, {
-                duration: duration, curve: 'linear'
-            });
+                this.containerTrans.set(endState, {
+                    duration: duration, curve: 'linear'
+                });
+            }
 
         }.bind(this));
 
@@ -90,9 +96,8 @@ define(function (require, exports, module) {
             scroll: {
                 direction: 1,
                 rails: true,
-                minimunEndSpeed: 2,
-                scale: 2,
-                stallTime:10
+                scale: 1,
+                stallTime: 150
             }
         });
 
@@ -123,8 +128,7 @@ define(function (require, exports, module) {
             this.surf.pipe(this.sync);
             this.surf.on('click', function () {
                 this.containerTrans.halt();
-                var opt = this.sync._syncs.scroll.getOptions();
-                console.log(opt);
+                this.syncEnabled = false;
             }.bind(this))
             this.renderNode.add(this.modSurf).add(this.surf);
         }
