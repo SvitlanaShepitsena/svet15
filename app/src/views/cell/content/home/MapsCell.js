@@ -11,21 +11,20 @@ define(function (require, exports, module) {
     var MapStateModifier = require('fmaps/MapStateModifier');
 
     var skokie = require('coord/Skokie');
+    var niles = require('coord/Niles');
 
 
     function MapsCell() {
         this.allowAnimation = true;
         View.apply(this, arguments);
+        _init.call(this);
+
+        _map.call(this);
         this.opacityLegendSvet = new Transitionable(0);
         this.opacityLegendYp = new Transitionable(0);
         this.geocoder = new google.maps.Geocoder();
 
-        _init.call(this);
-        _map.call(this);
     }
-
-    MapsCell.prototype = Object.create(View.prototype);
-    MapsCell.prototype.constructor = MapsCell;
 
     MapsCell.DEFAULT_OPTIONS = {
         colors: {
@@ -151,75 +150,6 @@ define(function (require, exports, module) {
              * 1.Buffalo Grove
              */
 
-            var buffaloGroveCoordinates = [
-                new google.maps.LatLng(42.205179, -87.979918),
-                new google.maps.LatLng(42.197167, -87.979574),
-                new google.maps.LatLng(42.197167, -87.972880),
-                new google.maps.LatLng(42.190681, -87.972708),
-                new google.maps.LatLng(42.190427, -87.978029),
-                new google.maps.LatLng(42.179742, -87.977514),
-                new google.maps.LatLng(42.179488, -87.985068),
-                new google.maps.LatLng(42.175671, -87.984896),
-                //Long Grove
-                new google.maps.LatLng(42.175671, -87.991934),
-                new google.maps.LatLng(42.167911, -87.993651),
-                new google.maps.LatLng(42.167784, -87.985239),
-                new google.maps.LatLng(42.146914, -87.985754),
-                new google.maps.LatLng(42.146532, -87.995196),
-                new google.maps.LatLng(42.146660, -87.994852),
-                new google.maps.LatLng(42.144114, -87.994681),
-                new google.maps.LatLng(42.144114, -87.985583),
-                new google.maps.LatLng(42.141950, -87.985583),
-                new google.maps.LatLng(42.141950, -87.990217),
-                new google.maps.LatLng(42.134695, -87.990217),
-                new google.maps.LatLng(42.135204, -87.985068),
-                new google.maps.LatLng(42.139023, -87.985068),
-                new google.maps.LatLng(42.139023, -87.980261),
-                //E Burr Oak Dr
-                new google.maps.LatLng(42.129220, -87.980433),
-                new google.maps.LatLng(42.129220, -87.980433),
-                new google.maps.LatLng(42.135204, -87.970476),
-                new google.maps.LatLng(42.135204, -87.961035),
-                new google.maps.LatLng(42.131767, -87.961035),
-                new google.maps.LatLng(42.131767, -87.951422),
-                new google.maps.LatLng(42.134949, -87.951250),
-                new google.maps.LatLng(42.135204, -87.949534),
-                //Wheeling
-                new google.maps.LatLng(42.139277, -87.949190),
-                new google.maps.LatLng(42.139277, -87.956228),
-                new google.maps.LatLng(42.152005, -87.957087),
-                new google.maps.LatLng(42.155441, -87.954683),
-                new google.maps.LatLng(42.155314, -87.948847),
-                new google.maps.LatLng(42.153405, -87.949019),
-                //E Lake Cook Road
-                new google.maps.LatLng(42.153277, -87.910566),
-                new google.maps.LatLng(42.159767, -87.914171),
-                new google.maps.LatLng(42.159767, -87.938204),
-                new google.maps.LatLng(42.167275, -87.940951),
-                new google.maps.LatLng(42.167275, -87.922068),
-                new google.maps.LatLng(42.171600, -87.923441),
-                new google.maps.LatLng(42.173382, -87.920523),
-                //Ryerson Conservation Area
-                new google.maps.LatLng(42.174654, -87.921553),
-                new google.maps.LatLng(42.174145, -87.928419),
-                new google.maps.LatLng(42.181396, -87.932882),
-                new google.maps.LatLng(42.182541, -87.940436),
-                new google.maps.LatLng(42.177198, -87.940951),
-                new google.maps.LatLng(42.176308, -87.944899),
-                new google.maps.LatLng(42.189791, -87.951250),
-                new google.maps.LatLng(42.189791, -87.942839),
-                new google.maps.LatLng(42.196532, -87.943869),
-                new google.maps.LatLng(42.196150, -87.951765),
-                new google.maps.LatLng(42.197549, -87.954683),
-                new google.maps.LatLng(42.207976, -87.955198),
-                new google.maps.LatLng(42.208103, -87.951250),
-                new google.maps.LatLng(42.210265, -87.952795),
-                new google.maps.LatLng(42.208866, -87.958117),
-                new google.maps.LatLng(42.204670, -87.957773),
-                new google.maps.LatLng(42.204670, -87.974081),
-                new google.maps.LatLng(42.206196, -87.974253),
-                new google.maps.LatLng(42.205179, -87.979918)
-            ];
 
             var buffaloGroveLayer = new google.maps.Polygon({
                 paths: buffaloGroveCoordinates,
@@ -807,58 +737,8 @@ define(function (require, exports, module) {
 
 
             /*Niles*/
-            var nilesCoordinates = [
-                new google.maps.LatLng(42.058624, -87.855539),
-                new google.maps.LatLng(42.058624, -87.849702),
-                new google.maps.LatLng(42.054609, -87.849702),
-                new google.maps.LatLng(42.054609, -87.840433),
-                new google.maps.LatLng(42.059452, -87.840433),
-                new google.maps.LatLng(42.059452, -87.835798),
-                new google.maps.LatLng(42.059452, -87.835798),
-                new google.maps.LatLng(42.059452, -87.835798),
-                new google.maps.LatLng(42.059452, -87.835798),
-                new google.maps.LatLng(42.059452, -87.835798),
-                new google.maps.LatLng(42.059452, -87.835798),
-                new google.maps.LatLng(42.059452, -87.835798),
-                new google.maps.LatLng(42.044156, -87.820091),
-                new google.maps.LatLng(42.044156, -87.820091),
-                new google.maps.LatLng(42.044156, -87.800865),
-                new google.maps.LatLng(42.033383, -87.796058),
-                new google.maps.LatLng(42.033383, -87.796058),
-                new google.maps.LatLng(42.033383, -87.796058),
-                new google.maps.LatLng(42.026506, -87.780949),
-                new google.maps.LatLng(42.019237, -87.777173),
-                new google.maps.LatLng(42.019237, -87.767216),
-                new google.maps.LatLng(42.004434, -87.768077),
-                //Touhu/Lehigh
-                new google.maps.LatLng(42.011832, -87.773571),
-                new google.maps.LatLng(42.012023, -87.789020),
-                new google.maps.LatLng(42.004498, -87.782154),
-                new google.maps.LatLng(42.000416, -87.790823),
-                //Devon/Harlem
-                new google.maps.LatLng(42.000734, -87.806787),
-                //Howard/Harlem
-                new google.maps.LatLng(42.018846, -87.806701),
-                new google.maps.LatLng(42.018846, -87.816743),
-                new google.maps.LatLng(42.025924, -87.816400),
-                new google.maps.LatLng(42.025924, -87.816400),
-                new google.maps.LatLng(42.028283, -87.836055),
-                new google.maps.LatLng(42.029048, -87.841119),
-                new google.maps.LatLng(42.029048, -87.841119),
-                new google.maps.LatLng(42.029048, -87.841119),
-                new google.maps.LatLng(42.036443, -87.840690),
-                new google.maps.LatLng(42.039886, -87.840776),
-                //Golf Mill Center
-                new google.maps.LatLng(42.049829, -87.840862),
-                new google.maps.LatLng(42.049765, -87.845583),
-                new google.maps.LatLng(42.051359, -87.846183),
-                new google.maps.LatLng(42.051295, -87.850561),
-                new google.maps.LatLng(42.054163, -87.850732),
-                new google.maps.LatLng(42.054163, -87.850732),
-                new google.maps.LatLng(42.058560, -87.855281),
-                //
-                new google.maps.LatLng(42.058624, -87.855539)
-            ];
+            var nilesCoordinates = niles.getCoordinates();
+
             var nilesLayer = new google.maps.Polygon({
                 paths: nilesCoordinates,
                 strokeColor: this.options.colors.niles,
@@ -891,6 +771,10 @@ define(function (require, exports, module) {
         });
         this.rootNode = this.add(this.centerModifier);
     }
+
+
+    MapsCell.prototype = Object.create(View.prototype);
+    MapsCell.prototype.constructor = MapsCell;
 
 
     MapsCell.prototype.hideEverything = function () {
