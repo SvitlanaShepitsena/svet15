@@ -73,7 +73,7 @@ define(function (require, exports, module) {
                 new google.maps.LatLng(42.206196, -87.974253),
                 new google.maps.LatLng(42.205179, -87.979918)
             ];
-            return nilesCoordinates;
+            return buffaloGroveCoordinates;
         }
     }
 });
