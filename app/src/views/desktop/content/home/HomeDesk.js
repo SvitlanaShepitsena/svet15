@@ -15,7 +15,6 @@ define(function (require, exports, module) {
     var VideoSurface = require('famous/surfaces/VideoSurface');
 
 
-
     function HomeDesk() {
         View.apply(this, arguments);
 
@@ -145,15 +144,17 @@ define(function (require, exports, module) {
 
     function _addColorBackground() {
         this.backdropMod = new Modifier({
+            align: [0.5, 0],
+            origin: [0.5, 0],
             opacity: function () {
                 return this.opacityBg.get();
             }.bind(this),
-            size: [undefined, undefined],
-            transform: Transform.translate(0, 46, 0)
+            size: [undefined, window.innerHeight],
+            transform: Transform.translate(0, -136, 0)
         });
         this.backdropSurf = new VideoSurface({
-            src:'img/sky.webm',
-            autoplay:true
+            src: 'img/sky.webm',
+            autoplay: true
         });
 
         this.backdropSurf.pipe(this._eventOutput);

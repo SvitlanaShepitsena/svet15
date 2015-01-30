@@ -39,6 +39,7 @@ define(function (require, exports, module) {
 
     function _handleScroll() {
         this.syncEnabled = true;
+
         this.sync.on('start', function (data) {
             this.syncEnabled = true;
         }.bind(this));
@@ -46,11 +47,12 @@ define(function (require, exports, module) {
         this.sync.on('update', function (data) {
             this.normCoef = data.velocity > 7 ? 5 : 3;
 
+
             var velocityNorm = this.normCoef * Math.log(Math.abs(data.velocity));
             velocityNorm = velocityNorm > 1 ? velocityNorm : 1;
             var pos = this.containerTrans.get();
             var shift = Math.floor(data.delta / 3.2) * velocityNorm;
-            pos += shift;
+            pos += 2*shift;
 
 
 
