@@ -4,7 +4,7 @@
  *
  * Owner: mark@famo.us
  * @license MPL 2.0
- * @copyright Famous Industries, Inc. 2014
+ * @copyright Famous Industries, Inc. 2015
  */
 define(function(require, exports, module) {
     var EventHandler = require('../core/EventHandler');
@@ -57,7 +57,6 @@ define(function(require, exports, module) {
             var history = this.touchHistory[touch.identifier];
             if (history) {
                 var data = _timestampTouch(touch, event, history);
-                this.touchHistory[touch.identifier].push(data);
                 this.eventOutput.emit('trackend', data);
                 delete this.touchHistory[touch.identifier];
             }

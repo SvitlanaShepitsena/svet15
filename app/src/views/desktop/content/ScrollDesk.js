@@ -12,6 +12,7 @@ define(function (require, exports, module) {
     var Easing = require('famous/transitions/Easing');
 
     var Timer = require('famous/utilities/Timer');
+    var HomeDesk = require('dviews/content/home/HomeDesk');
 
 
     function ScrollDesk() {
@@ -40,30 +41,30 @@ define(function (require, exports, module) {
         this.syncEnabled = true;
         this.sync.on('start', function (data) {
             this.syncEnabled = true;
-            this.utilFunc = Timer.every(function () {
-                console.log();
-            }.bind(this), 1);
         }.bind(this));
-        this.normCoef = 2;
-        this.sync.on('update', function (data) {
 
-            var velocityNorm = this.normCoef*Math.log(Math.abs(data.velocity));
+        this.sync.on('update', function (data) {
+            this.normCoef = data.velocity > 7 ? 5 : 3;
+
+            var velocityNorm = this.normCoef * Math.log(Math.abs(data.velocity));
             velocityNorm = velocityNorm > 1 ? velocityNorm : 1;
             var pos = this.containerTrans.get();
-            pos += Math.floor(data.delta / 3.2) * velocityNorm;
+            var shift = Math.floor(data.delta / 3.2) * velocityNorm;
+            pos += shift;
+
+
+
 
             pos = _restrict.call(this, pos);
             this.containerTrans.halt();
 
             if (this.syncEnabled) {
-                this.containerTrans.set(pos, {duration: 80});
+                this.containerTrans.set(pos, {duration: 80 });
             }
 
         }.bind(this));
 
         this.sync.on('end', function (data) {
-            console.log('end');
-            Timer.clear(this.utilFunc);
             if (data.delta > 0) {
                 this.dir = -1;
             } else {
@@ -76,7 +77,7 @@ define(function (require, exports, module) {
             var endState = pos + data.delta;
             endState = _restrict.call(this, endState);
 
-            var duration = Math.abs(pos - endState) * 10;
+            var duration = Math.abs(pos - endState) * 12;
             if (this.syncEnabled) {
 
                 this.containerTrans.set(endState, {
@@ -97,7 +98,7 @@ define(function (require, exports, module) {
                 direction: 1,
                 rails: true,
                 scale: 1,
-                stallTime: 150
+                stallTime: 50
             }
         });
 
@@ -108,10 +109,12 @@ define(function (require, exports, module) {
 
             }
         });
-        //this.rootNode.add(this.container);
         this.renderNode = new RenderNode();
+        this.homeDesk = new HomeDesk();
+        this.renderNode.add(this.homeDesk);
+        this.homeDesk.pipe(this.sync);
 
-        for (var i = 0; i < 8; i++) {
+        for (var i = 1; i < 7; i++) {
             this.modSurf = new Modifier({
                 transform: Transform.translate(0, i * this.shift, 0)
             });
