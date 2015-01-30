@@ -11,6 +11,8 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
     var Easing = require('famous/transitions/Easing');
 
+    var Timer = require('famous/utilities/Timer');
+
 
     function ScrollDesk() {
         this.shift = window.innerHeight;
@@ -34,19 +36,25 @@ define(function (require, exports, module) {
     }
 
     function _handleScroll() {
-        //console.log('here');
         this.sync.on('start', function (data) {
-        });
+            this.utilFunc = Timer.every(function () {
+               console.log(this.sync._syncs.scroll._payload);
+            }.bind(this),1);
+        }.bind(this));
 
         this.sync.on('update', function (data) {
+            console.log(data.delta);
             var pos = this.containerTrans.get();
-            pos += data.delta / 2;
+            pos += Math.floor(data.delta / 3.2);
+
             pos = _restrict.call(this, pos);
-            this.containerTrans.set(pos);
+            this.containerTrans.halt();
+            this.containerTrans.set(pos,{duration:80});
+
         }.bind(this));
 
         this.sync.on('end', function (data) {
-            console.log(data.delta);
+            Timer.clear(this.utilFunc);
             if (data.delta > 0) {
                 this.dir = -1;
             } else {
@@ -60,7 +68,7 @@ define(function (require, exports, module) {
             var endState = pos + data.delta;
             endState = _restrict.call(this, endState);
 
-            var duration = (pos-endState)*10;
+            var duration = Math.abs(pos-endState)*10;
 
             this.containerTrans.set(endState, {
                 duration: duration, curve: 'linear'
