@@ -6,17 +6,19 @@ define(function (require, exports, module) {
     var Transitionable = require('famous/transitions/Transitionable');
     var Easing = require('famous/transitions/Easing');
 
+    var MapsLegendCell = require('cviews/content/home/svetMap/MapsLegendCell');
+
+    /*Map Functionality*/
     var MapView = require('fmaps/MapView');
     var MapModifier = require('fmaps/MapModifier');
     var MapStateModifier = require('fmaps/MapStateModifier');
-
+    /*Map Coordinates for Cities*/
     var buffaloGrove = require('coord/BuffaloGrove');
     var highlandPark = require('coord/Highlandpark');
     var deerfield = require('coord/Deerfield');
     var glencoe = require('coord/Glencoe');
     var northbrook = require('coord/Northbrook');
     var glenview = require('coord/Glenview');
-
     var skokie = require('coord/Skokie');
     var vernonHills = require('coord/VernonHills');
     var wheeling = require('coord/Wheeling');
@@ -27,13 +29,14 @@ define(function (require, exports, module) {
     function MapsCell() {
         this.allowAnimation = true;
         View.apply(this, arguments);
-        _init.call(this);
 
-        _map.call(this);
         this.opacityLegendSvet = new Transitionable(0);
         this.opacityLegendYp = new Transitionable(0);
         this.geocoder = new google.maps.Geocoder();
 
+        _init.call(this);
+
+        _map.call(this);
     }
 
     MapsCell.DEFAULT_OPTIONS = {
@@ -55,7 +58,9 @@ define(function (require, exports, module) {
         strokeWeight: '2',
         fillOpacity: '0.35'
     };
-
+    /**
+     * Hide all overlays symbols.
+     */
     function _closeAllOverlays() {
         this.infoWindows.forEach(function (info) {
             info.close(this.gMap);
@@ -64,50 +69,40 @@ define(function (require, exports, module) {
             marker.setMap(null);
         });
 
-        this.opacityLegendSvet.set(0, {duration: 500, curve: 'easeInOut'});
         this.opacityLegendYp.set(0, {duration: 500, curve: 'easeInOut'});
+        this.mapsLegendCell.hide();
 
     }
 
-    function legendSvet() {
-
-        this.surface = new Surface({
-            size: [170, 50],
-            content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
-            properties: {
-                color: 'grey'
-            }
+    function _legendSvet() {
+        this.mapLegendSvetMod = new MapModifier({
+            mapView: this.mapView,
+            position:{lat: 42.131767, lng: -87.579624},
+            zoomBase: 9,
+            zoomScale: 0.3
         });
-        this.surface.pipe(this.mapView);
-        this.modifier = new Modifier({
-            align: [0, 0],
-            origin: [0.5, 0.5],
-            opacity: function () {
-                return this.opacityLegendSvet.get();
-            }.bind(this)
-
+        this.mapsLegendCell = new MapsLegendCell({
+            legendContent: '<p><img src="../../../../../../img/svet-icon.png">  Svet distribution points</p>'
         });
-        this.opacityLegendSvet.set(1, {duration: 500, curve: 'easeInOut'});
+        this.rootNode.add(this.mapLegendSvetMod).add(this.mapsLegendCell);
+    }
 
-        this.mapModifier = new MapModifier({
+
+    function legendYp() {
+        this.mapLegendYpMod = new MapModifier({
             mapView: this.mapView,
             position: this.legendPlace,
             zoomBase: 9,
             zoomScale: 0.3
         });
-        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
-    }
-
-    function legendYp() {
 
         this.surface = new Surface({
             size: [170, 50],
-            content: '<p><img src="img/google-icon.png">  Our current clients </p>',
+            content: '<p><img src="../../../../../../img/google-icon.png"> Our current clients </p>',
             properties: {
                 color: 'black'
             }
         });
-        this.surface.pipe(this.mapView);
         this.modifier = new Modifier({
             align: [0, 0],
             origin: [0.5, 0.5],
@@ -118,13 +113,8 @@ define(function (require, exports, module) {
         });
         this.opacityLegendYp.set(1, {duration: 500, curve: 'easeInOut'});
 
-        this.mapModifier = new MapModifier({
-            mapView: this.mapView,
-            position: this.legendPlace,
-            zoomBase: 9,
-            zoomScale: 0.3
-        });
-        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
+        this.surface.pipe(this.mapView);
+        this.rootNode.add(this.mapLegendYpMod).add(this.modifier).add(this.surface);
     }
 
     function _map() {
@@ -150,6 +140,7 @@ define(function (require, exports, module) {
 
         this.mapView.on('load', function () {
 
+            _legendSvet.call(this);
             this.mapView.setPosition(
                 this.northChicagoEnd,
                 {duration: 500, curve: Easing.outBack}
@@ -555,13 +546,14 @@ define(function (require, exports, module) {
 
     }
     MapsCell.prototype.showSvetPoints = function () {
+
         this.allowAnimation = true;
         var that = this;
         var baseLat = 42.04,
             baseLong = -87.85;
 
         _closeAllOverlays.call(this);
-
+        this.mapsLegendCell.show();
         var counter = 0;
 
         function dropSvetPoints() {
@@ -599,7 +591,6 @@ define(function (require, exports, module) {
                 dropSvetPoints.call(this);
             }.bind(this), i * 100);
         }
-        legendSvet.call(this);
 
     }
 

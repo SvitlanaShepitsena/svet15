@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var GridLayout = require("famous/views/GridLayout");
 
     var HomeSection = require('cviews/content/home/HomeSection');
-    var MapsCell = require('cviews/content/home/MapsCell');
+    var MapsCell = require('cviews/content/home/svetMap/MapsCell');
 
     var flipDailyNews = require('text!cviews/content/home/jade/flipDailyNews.html');
     var flipWeeklyNews = require('text!cviews/content/home/jade/flipWeeklyNews.html');
