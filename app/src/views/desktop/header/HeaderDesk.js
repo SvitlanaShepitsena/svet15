@@ -30,11 +30,21 @@ define(function (require, exports, module) {
             ratios: [1, 1, 2, 1, 1],
             direction: 0
         },
+        headerTransition: {
+            duration: 500,
+            curve: 'linear'
+        },
         backgroundOpts: {
             backgroundColor: 'black',
             opacity: 0.7,
             duration: 3000,
             curve: 'easeInOut'
+        },
+        navBtnOpts: {
+            color: 'white',
+            cursor: 'pointer',
+            textAlign: 'center',
+            fontSize: '1.2em'
         }
     };
     function _headerBackground() {
@@ -70,7 +80,16 @@ define(function (require, exports, module) {
         this.surfaces = [];
         for (var i = 0; i < menuItems.length; i++) {
             if (menuItems[i] === 'Logo') {
-                this.contents.push(this.logoDesk);
+                var renderNode = new RenderNode();
+
+                var logoMod = new Modifier({
+                    align: [0.5, 0],
+                    origin: [0.5, 0],
+                    size: [undefined, true],
+                    transform: Transform.translate(0, 48, 0)
+                });
+                renderNode.add(logoMod).add(this.logoDesk);
+                this.contents.push(renderNode);
                 continue;
             }
 
@@ -80,26 +99,20 @@ define(function (require, exports, module) {
                 align: [0.5, 0],
                 origin: [0.5, 0],
                 size: [undefined, true],
-                transform: Transform.translate(0, 40, 0)
+                transform: Transform.translate(0, 50, 0)
             });
             this.navBtnSurf = new Surface({
                 size: [undefined, undefined],
                 content: menuItems[i],
-                properties: {
-                    color: 'white',
-                    cursor: 'pointer',
-                    textAlign: 'center',
-                    fontSize: '1.2em'
-                }
+                properties: this.options.navBtnOpts
             });
             this.surfaces.push(this.navBtnSurf);
-
             this.renderNode.add(this.navBtnMod).add(this.navBtnSurf);
             this.contents.push(this.renderNode);
         }
 
-        this.surfaces.forEach(function (navBtnSurf, index) {
-            this.navBtnSurf.on('click', function () {
+        this.surfaces.forEach(function (surface, index) {
+            surface.on('click', function () {
                 this._eventOutput.emit('navigateTo', {index: index});
             }.bind(this));
         }.bind(this))
@@ -119,7 +132,7 @@ define(function (require, exports, module) {
             this.flexTransitionable.halt();
             this.flexTransitionable.set(30, {duration: 500});
             this.widthTransitionable.halt();
-            this.widthTransitionable.set(window.sv.sizing.headerHeight, {duration: 500, curve: "linear"});
+            this.widthTransitionable.set(window.sv.sizing.headerHeight, this.options.headerTransition);
             this.logoDesk.increaseLogo();
         }
     }
@@ -132,7 +145,7 @@ define(function (require, exports, module) {
             this.flexTransitionable.set(-25, {duration: 500});
 
             this.widthTransitionable.halt();
-            this.widthTransitionable.set(this.options.smallHeight, {duration: 500, curve: "linear"}, function () {
+            this.widthTransitionable.set(this.options.smallHeight, this.options.headerTransition, function () {
                 this._eventOutput.emit('header:decreased');
             }.bind(this));
             this.logoDesk.decreaseLogo();
