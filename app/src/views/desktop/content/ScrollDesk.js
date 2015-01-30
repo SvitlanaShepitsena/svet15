@@ -45,10 +45,11 @@ define(function (require, exports, module) {
         this.sync.on('update', function (data) {
             console.log(data.delta);
             var pos = this.containerTrans.get();
-            pos += data.delta / 2;
+            pos += Math.floor(data.delta / 3.2);
+
             pos = _restrict.call(this, pos);
             this.containerTrans.halt();
-            this.containerTrans.set(pos,{duration:100});
+            this.containerTrans.set(pos,{duration:80});
 
         }.bind(this));
 
@@ -67,7 +68,7 @@ define(function (require, exports, module) {
             var endState = pos + data.delta;
             endState = _restrict.call(this, endState);
 
-            var duration = (pos-endState)*10;
+            var duration = Math.abs(pos-endState)*10;
 
             this.containerTrans.set(endState, {
                 duration: duration, curve: 'linear'
