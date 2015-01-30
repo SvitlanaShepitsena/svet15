@@ -85,27 +85,25 @@ define(function (require, exports, module) {
             sign: this.options.fromLeft,
             period: '2000',
             dampingRatio: 0.3,
-            icon: 'news-daily',
-            content: '<h4 class="icon-text">Svet</br>Daily Newspaper</h4>',
+            flipIcon: 'news-daily',
+            frontContent: '<h4 class="icon-text">Svet</br>Daily Newspaper</h4>',
             flipInfo: flipDailyNews
         })
 
         this.topRightSection = new HomeSection({
-            //sign: this.options.fromLeft,
             sign: this.options.fromRight,
             period: '1000',
             dampingRatio: 0.5,
-            icon: 'weekly',
-            content: '<h4 class="icon-text">Saturday Plus</br>Weekly Newspaper</h4>',
+            flipIcon: 'weekly',
+            frontContent: '<h4 class="icon-text">Saturday Plus</br>Weekly Newspaper</h4>',
             flipInfo: flipWeeklyNews
         })
         this.bottomLeftSection = new HomeSection({
-            //sign: this.options.fromRight,
             sign: this.options.fromLeft,
             period: '1100',
             dampingRatio: 0.3,
-            icon: 'yp',
-            content: '<h4 class="icon-text"> Russian-American</br>Yellow Pages' +
+            flipIcon: 'yp',
+            frontContent: '<h4 class="icon-text"> Russian-American</br>Yellow Pages' +
             '</h4>',
             flipInfo: flipYellowPages
 
@@ -114,8 +112,8 @@ define(function (require, exports, module) {
             sign: this.options.fromRight,
             period: '800',
             dampingRatio: 0.3,
-            icon: 'radio',
-            content: '<h4 class="icon-text"> Radio-Program</br>"OSA"</h4>',
+            flipIcon: 'radio',
+            frontContent: '<h4 class="icon-text"> Radio-Program</br>"OSA"</h4>',
             flipInfo: flipRadioProgram
         })
 
