@@ -57,9 +57,6 @@ define(function (require, exports, module) {
 
     function _header() {
         this.headerDesk = new HeaderDesk();
-        this.headerDesk.on('header:decreased', function () {
-            this.scrolldesk.tuneToShortHeader();
-        }.bind(this));
 
         this.headerDesk.on('navigateTo', function (data) {
             if (data.index === 0) {
@@ -76,14 +73,14 @@ define(function (require, exports, module) {
     function _content() {
         this.scrolldesk = new ScrollDesk();
 
-        //this.scrolldesk.on('decrease:header', function () {
-        //    this.headerDesk.decreaseHeader.call(this.headerDesk);
-        //}.bind(this));
-        //
-        //this.scrolldesk.on('increase:header', function () {
-        //    this.headerDesk.increaseHeader.call(this.headerDesk);
+        this.scrolldesk.on('decrease:header', function () {
+            this.headerDesk.decreaseHeader.call(this.headerDesk);
+        }.bind(this));
 
-        //}.bind(this));
+        this.scrolldesk.on('increase:header', function () {
+            this.headerDesk.increaseHeader.call(this.headerDesk);
+        //
+        }.bind(this));
 
         this.rootNode.add(this.scrolldesk);
     }

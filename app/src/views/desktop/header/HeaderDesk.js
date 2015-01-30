@@ -54,7 +54,8 @@ define(function (require, exports, module) {
             }.bind(this),
             opacity: function () {
                 return this.opacityTransitionable.get();
-            }.bind(this)
+            }.bind(this),
+            transform:Transform.translate(0,0,5)
         });
         this.backgroundSurf = new Surface({
             size: [undefined, undefined],

@@ -31,37 +31,52 @@ define(function (require, exports, module) {
     }
 
     function _restrict(pos) {
+        // Does not allow modifier to move surfaces below 1st and higher than last element
         pos = pos > 0 ? 0 : pos;
-        pos = pos < -this.shift * 7 ? -this.shift * 7 : pos;
-
+        pos = pos < -this.shift * 1 ? -this.shift * 1 : pos;
         return pos;
     }
 
     function _handleScroll() {
         this.syncEnabled = true;
+        this.headerFull = true;
 
         this.sync.on('start', function (data) {
+
             this.syncEnabled = true;
         }.bind(this));
 
+        this.HEADERLIMIT = 42;
+
         this.sync.on('update', function (data) {
+            var initPos = this.containerTrans.get();
+
+
             this.normCoef = data.velocity > 7 ? 5 : 3;
 
 
             var velocityNorm = this.normCoef * Math.log(Math.abs(data.velocity));
             velocityNorm = velocityNorm > 1 ? velocityNorm : 1;
-            var pos = this.containerTrans.get();
             var shift = Math.floor(data.delta / 3.2) * velocityNorm;
-            pos += 2*shift;
+            var finalPos = initPos + 2 * shift;
 
 
-
-
-            pos = _restrict.call(this, pos);
+            finalPos = _restrict.call(this, finalPos);
             this.containerTrans.halt();
+            var absPos = Math.abs(initPos);
+            if (absPos>this.HEADERLIMIT && absPos < sv.sizing.headerHeight && initPos > finalPos && this.headerFull) {
+                console.log('dec header');
+                this._eventOutput.emit('decrease:header');
+                this.headerFull = false;
+            }
+            if ((absPos<this.HEADERLIMIT || absPos>sv.sizing.headerHeight) && initPos < finalPos && !this.headerFull) {
+                console.log('increase header');
+                this._eventOutput.emit('increase:header');
+                this.headerFull = true;
+            }
 
             if (this.syncEnabled) {
-                this.containerTrans.set(pos, {duration: 80 });
+                this.containerTrans.set(finalPos, {duration: 80});
             }
 
         }.bind(this));
@@ -108,7 +123,6 @@ define(function (require, exports, module) {
             size: [undefined, window.innerHeight],
             properties: {
                 overflow: 'hidden'
-
             }
         });
         this.renderNode = new RenderNode();
@@ -116,7 +130,7 @@ define(function (require, exports, module) {
         this.renderNode.add(this.homeDesk);
         this.homeDesk.pipe(this.sync);
 
-        for (var i = 1; i < 7; i++) {
+        for (var i = 1; i < 2; i++) {
             this.modSurf = new Modifier({
                 transform: Transform.translate(0, i * this.shift, 0)
             });
