@@ -43,9 +43,10 @@ define(function (require, exports, module) {
         }.bind(this));
 
         this.sync.on('update', function (data) {
-            console.log(data.delta);
+            var velocityNorm = Math.log(Math.abs(data.velocity));
+            velocityNorm = velocityNorm>1?velocityNorm:1;
             var pos = this.containerTrans.get();
-            pos += Math.floor(data.delta / 3.2);
+            pos += Math.floor(data.delta / 3.2)* velocityNorm;
 
             pos = _restrict.call(this, pos);
             this.containerTrans.halt();
@@ -109,6 +110,9 @@ define(function (require, exports, module) {
             });
             this.surfaces.push(this.surf);
             this.surf.pipe(this.sync);
+            this.surf.on('click', function () {
+               this.containerTrans.halt() ;
+            }.bind(this))
             this.renderNode.add(this.modSurf).add(this.surf);
         }
         this.rootNode.add(this.renderNode);
