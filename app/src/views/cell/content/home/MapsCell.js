@@ -16,14 +16,16 @@ define(function (require, exports, module) {
     function MapsCell() {
         this.allowAnimation = true;
         View.apply(this, arguments);
-        _init.call(this);
-
-        _map.call(this);
         this.opacityLegendSvet = new Transitionable(0);
         this.opacityLegendYp = new Transitionable(0);
         this.geocoder = new google.maps.Geocoder();
 
+        _init.call(this);
+        _map.call(this);
     }
+
+    MapsCell.prototype = Object.create(View.prototype);
+    MapsCell.prototype.constructor = MapsCell;
 
     MapsCell.DEFAULT_OPTIONS = {
         colors: {
@@ -889,10 +891,6 @@ define(function (require, exports, module) {
         });
         this.rootNode = this.add(this.centerModifier);
     }
-
-
-    MapsCell.prototype = Object.create(View.prototype);
-    MapsCell.prototype.constructor = MapsCell;
 
 
     MapsCell.prototype.hideEverything = function () {
