@@ -34,7 +34,7 @@ define(function (require, exports, module) {
     function _init() {
         this.centerModifier = new Modifier({
             transform: function () {
-                return Transform.translate(0, 40, 0);
+                return Transform.translate(0, 0, 0);
             }.bind(this)
         });
         this.rootNode = this.add(this.centerModifier);
