@@ -32,11 +32,14 @@ define(function (require, exports, module) {
     function _restrict(pos) {
         pos = pos > 0 ? 0 : pos;
         pos = pos < -this.shift * 7 ? -this.shift * 7 : pos;
+
         return pos;
     }
 
     function _handleScroll() {
+
         this.sync.on('start', function (data) {
+
             this.utilFunc = Timer.every(function () {
                console.log(this.sync._syncs.scroll._payload);
             }.bind(this),1);
