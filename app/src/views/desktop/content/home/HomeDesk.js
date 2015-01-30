@@ -11,9 +11,14 @@ define(function (require, exports, module) {
     var MapsDesk = require('dviews/content/home/MapsDesk');
     var Transitionable = require('famous/transitions/Transitionable');
     var ImageSurface = require('famous/surfaces/ImageSurface');
+    var Slider = require('famous/widgets/Slider');
+    var VideoSurface = require('famous/surfaces/VideoSurface');
+
+
 
     function HomeDesk() {
         View.apply(this, arguments);
+
         this.defaultOpacity = 0.85;
         this.opacityBg = new Transitionable(this.defaultOpacity);
 
@@ -144,14 +149,13 @@ define(function (require, exports, module) {
                 return this.opacityBg.get();
             }.bind(this),
             size: [undefined, undefined],
-            transform: Transform.translate(0, 0, 0)
+            transform: Transform.translate(0, 46, 0)
         });
-        this.backdropSurf = new Surface({
-            properties: {
-                textAlign: 'center',
-                backgroundColor: '#3D566E'
-            }
+        this.backdropSurf = new VideoSurface({
+            src:'img/sky.webm',
+            autoplay:true
         });
+
         this.backdropSurf.pipe(this._eventOutput);
         this.rootNode.add(this.backdropMod).add(this.backdropSurf);
     }
