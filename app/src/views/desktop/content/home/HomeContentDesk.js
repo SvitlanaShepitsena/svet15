@@ -59,7 +59,7 @@ define(function (require, exports, module) {
     HomeContentDesk.prototype.constructor = HomeContentDesk;
 
 
-    HomeContentDesk.prototype.contentInit = function () {
+    HomeContentDesk.prototype.contentInit1 = function () {
         this.motoTrans1.halt();
 
         this.motoOpacityTrans1.set(1, {duration: this.durationMoto});
@@ -68,13 +68,31 @@ define(function (require, exports, module) {
         }.bind(this));
     };
 
-    HomeContentDesk.prototype.contentShort = function () {
+    HomeContentDesk.prototype.contentShort1 = function () {
 
         this.motoTrans1.halt();
-        this.durationMoto = 300;
+        this.durationMoto = 450;
         this.motoTrans1.set(0.8, {duration: this.durationMoto}, function () {
             this.motoTrans1.set(1.2, {duration: this.durationMoto});
             this.motoOpacityTrans1.set(0, {duration: this.durationMoto});
+        }.bind(this));
+
+    };
+    HomeContentDesk.prototype.contentInit2 = function () {
+        this.motoTrans2.halt();
+
+        this.motoOpacityTrans2.set(1, {duration: this.durationMoto});
+        this.motoTrans2.set(0.8, {duration: this.durationMoto}, function () {
+            this.motoTrans2.set(1, {duration: this.durationMoto});
+        }.bind(this));
+    };
+
+    HomeContentDesk.prototype.contentShort2 = function () {
+
+        this.motoTrans2.halt();
+        this.motoTrans2.set(0.8, {duration: this.durationMoto}, function () {
+            this.motoTrans2.set(1.2, {duration: this.durationMoto});
+            this.motoOpacityTrans2.set(0, {duration: this.durationMoto});
         }.bind(this));
 
     };

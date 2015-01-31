@@ -75,11 +75,18 @@ define(function (require, exports, module) {
     }
 
     HomeDesk.prototype.tuneToShortView = function () {
-        this.homeContentDesk.contentShort();
+        this.homeContentDesk.contentShort1();
     }
 
     HomeDesk.prototype.tuneToDefaultView = function () {
-        this.homeContentDesk.contentInit();
+        this.homeContentDesk.contentInit1();
+    }
+    HomeDesk.prototype.tuneToShortMoto2 = function () {
+        this.homeContentDesk.contentShort2();
+    }
+
+    HomeDesk.prototype.tuneToDefaultMoto2 = function () {
+        this.homeContentDesk.contentInit2();
     }
     module.exports = HomeDesk;
 });

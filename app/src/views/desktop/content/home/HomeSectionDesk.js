@@ -128,6 +128,7 @@ define(function (require, exports, module) {
             }
         });
 
+        this.sectionIconSurface.pipe(this._eventOutput);
         this.sectionImgMod = new Modifier({
             size: function () {
                 _getIconSize.call(this);
@@ -147,6 +148,8 @@ define(function (require, exports, module) {
                 textAlign: 'center'
             }
         });
+        this.sectionImgSurface.pipe(this._eventOutput);
+
 
         this.sectionIconSurface.pipe(this._eventOutput);
         this.rootNode.add(this.sectionImgMod).add(this.sectionImgSurface);

@@ -12,6 +12,9 @@ define(function (require, exports, module) {
     var NavDesk = require('dviews/header/NavDesk');
 
     function HeaderDesk() {
+        this.flexShiftInit = 30;
+        this.flexShiftShort = -25;
+
         this.flexTransitionable = new Transitionable(30);
         this.opacityTransitionable = new Transitionable(0);
         this.widthTransitionable = new Transitionable(window.sv.sizing.headerHeight);
@@ -47,6 +50,7 @@ define(function (require, exports, module) {
             textAlign: 'center',
             fontSize: '1.2em'
         }
+
     };
     function _headerBackground() {
         this.backgroundMod = new Modifier({
@@ -86,8 +90,8 @@ define(function (require, exports, module) {
                 var renderNode = new RenderNode();
 
                 var logoMod = new Modifier({
-                    size: [window.sv.sizing.logoContainerWidth * .9, window.sv.sizing.headerHeight * .9],
-                    transform: Transform.translate(0, 50, 0)
+                    size: [window.sv.sizing.logoContainerWidth * .9, window.sv.sizing.headerHeight * .9]
+
                 });
                 renderNode.add(logoMod).add(this.logoDesk);
                 this.contents.push(renderNode);
@@ -132,7 +136,7 @@ define(function (require, exports, module) {
 
         if (this.currentHeaderHeight < window.sv.sizing.headerHeight) {
             this.flexTransitionable.halt();
-            this.flexTransitionable.set(20, {duration: 500});
+            this.flexTransitionable.set(this.flexShiftInit, {duration: 500});
             this.widthTransitionable.halt();
             this.widthTransitionable.set(window.sv.sizing.headerHeight, this.options.headerTransition);
             this.logoDesk.increaseLogo();
@@ -144,7 +148,7 @@ define(function (require, exports, module) {
 
         if (this.currentHeaderHeight > this.options.smallHeight) {
             this.flexTransitionable.halt();
-            this.flexTransitionable.set(-25, {duration: 500});
+            this.flexTransitionable.set(this.flexShiftShort, {duration: 500});
 
             this.widthTransitionable.halt();
             this.widthTransitionable.set(this.options.smallHeight, this.options.headerTransition, function () {
