@@ -24,9 +24,8 @@ define(function (require, exports, module) {
     AppViewDesk.DEFAULT_OPTIONS = {};
 
     AppViewDesk.prototype.resize = function (mainWidth) {
-
-
     }
+
     function _init() {
         this.mapDesk = new MapDesk();
         //this.add(this.mapDesk);
@@ -68,6 +67,8 @@ define(function (require, exports, module) {
                 this.scrolldesk.scrollview.goToPage(data.index);
         }.bind(this))
         this.rootNode.add(this.headerDesk);
+
+        this.scrolldesk.subscribe(this.headerDesk);
     }
 
     function _content() {
@@ -79,7 +80,7 @@ define(function (require, exports, module) {
 
         this.scrolldesk.on('increase:header', function () {
             this.headerDesk.increaseHeader.call(this.headerDesk);
-        //
+            //
         }.bind(this));
 
         this.rootNode.add(this.scrolldesk);

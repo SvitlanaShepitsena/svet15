@@ -61,6 +61,7 @@ define(function (require, exports, module) {
         this.backgroundSurf = new Surface({
             properties: this.options.backgroundOpts
         });
+        this.backgroundSurf.pipe(this._eventOutput);
         this.rootNode = this.add(this.backgroundMod);
         this.rootNode.add(this.backgroundSurf);
         this.opacityTransitionable.set(this.options.backgroundOpts.opacity, {
@@ -75,6 +76,7 @@ define(function (require, exports, module) {
             direction: this.options.flexOpts.direction
         }
         this.logoDesk = new LogoDesk();
+        this.logoDesk.pipe(this._eventOutput);
         this.layout = new FlexibleLayout(this.flexOptions);
         var menuItems = ['Home', 'About Us', 'Logo', 'Radio', 'Contact Us'];
         this.contents = [];
@@ -104,6 +106,8 @@ define(function (require, exports, module) {
                 content: menuItems[i],
                 properties: this.options.navBtnOpts
             });
+
+            this.navBtnSurf.pipe(this._eventOutput);
             this.surfaces.push(this.navBtnSurf);
             this.renderNode.add(this.navBtnMod).add(this.navBtnSurf);
             this.contents.push(this.renderNode);

@@ -46,7 +46,12 @@ define(function (require, exports, module) {
             this.syncEnabled = true;
         }.bind(this));
 
-        this.HEADERLIMIT = 42;
+        this.HEADERLIMIT = 46;
+        this.moto1Limit = 107;
+        this.moto2Limit = 178;
+
+        this.firstMotoShown = true;
+        this.secondMotoShown = true;
 
         this.sync.on('update', function (data) {
             var initPos = this.containerTrans.get();
@@ -64,6 +69,7 @@ define(function (require, exports, module) {
             finalPos = _restrict.call(this, finalPos);
             this.containerTrans.halt();
             var absPos = Math.abs(initPos);
+            console.log(absPos);
             if ((absPos > this.HEADERLIMIT || absPos > sv.sizing.headerHeight) && absPos < sv.sizing.headerHeight && initPos > finalPos && this.headerFull) {
                 this._eventOutput.emit('decrease:header');
                 this.headerFull = false;
@@ -71,6 +77,16 @@ define(function (require, exports, module) {
             if ((absPos < this.HEADERLIMIT || absPos > sv.sizing.headerHeight) && initPos < finalPos && !this.headerFull) {
                 this._eventOutput.emit('increase:header');
                 this.headerFull = true;
+            }
+
+
+            if ((absPos > this.moto1Limit) && initPos > finalPos && this.firstMotoShown) {
+                this.homeDesk.tuneToShortView();
+                this.firstMotoShown = false;
+            }
+            if ((absPos < this.moto1Limit) && initPos < finalPos && !this.firstMotoShown) {
+                this.homeDesk.tuneToDefaultView();
+                this.firstMotoShown = true;
             }
 
             if (this.syncEnabled) {
@@ -116,7 +132,7 @@ define(function (require, exports, module) {
                 stallTime: 50
             }
         });
-
+        this.sync.subscribe(this._eventInput);
         this.container = new ContainerSurface({
             size: [undefined, window.innerHeight],
             properties: {

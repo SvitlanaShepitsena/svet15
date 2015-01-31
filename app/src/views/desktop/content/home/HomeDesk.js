@@ -75,26 +75,10 @@ define(function (require, exports, module) {
     }
 
     HomeDesk.prototype.tuneToShortView = function () {
-        this.opacityBg.halt();
-        this.gridIconTrans.halt();
-        this.gridIconTrans.set(1, {duration: 500});
-        this.opacityBg.set(0, {duration: 500}, function () {
-        }.bind(this));
         this.homeContentDesk.contentShort();
     }
 
     HomeDesk.prototype.tuneToDefaultView = function () {
-        this.opacityBg.halt();
-        this.opacityBg.set(0);
-
-
-        this.gridIconTrans.halt();
-        this.gridIconTrans.set(0, {duration: 500});
-
-        this.contentTrans.halt();
-        this.contentTrans.set(0, function () {
-            this.opacityBg.set(this.defaultOpacity, {duration: 500});
-        }.bind(this));
         this.homeContentDesk.contentInit();
     }
     module.exports = HomeDesk;

@@ -79,6 +79,7 @@ define(function (require, exports, module) {
                 textAlign: 'center'
             }
         });
+        this.logoSvgSurf.pipe(this._eventOutput);
         this.rootNode.add(this.logoSvgMod).add(this.logoSvgSurf);
     }
 
