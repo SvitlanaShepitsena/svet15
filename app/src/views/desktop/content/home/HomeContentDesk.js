@@ -16,7 +16,10 @@ define(function (require, exports, module) {
     var radioProgram = require('text!dviews/content/home/jade/radioProgram.html');
     var Transitionable = require('famous/transitions/Transitionable');
 
+    var SpringTransition = require('famous/transitions/SpringTransition');
+
     function HomeContentDesk() {
+        Transitionable.registerMethod('spring', SpringTransition);
         View.apply(this, arguments);
 
         this.on('parts:info', function (data) {
@@ -38,7 +41,8 @@ define(function (require, exports, module) {
 
 
         _init.call(this);
-        _homeMoto.call(this);
+        _homeMoto1.call(this);
+        _homeMoto2.call(this);
         _gridParts.call(this);
     }
 
@@ -86,7 +90,9 @@ define(function (require, exports, module) {
         this.rootNode.add(this.flexibleLayout);
     }
 
-    function _homeMoto() {
+    function _homeMoto1() {
+        this.transitionableName = new Transitionable(1);
+
         this.motoRenderNode = new RenderNode();
 
         this.opacityMotoTrans = new Transitionable(1);
@@ -96,7 +102,38 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.opacityMotoTrans.get()
             }.bind(this),
-            transform: Transform.translate(0, window.sv.sizing.headerHeight, 0)
+            transform: function () {
+                var transform1 = Transform.multiply(Transform.translate(0, sv.sizing.headerHeight, 0), Transform.scale(this.transitionableName.get(), this.transitionableName.get(), 20));
+                return transform1;
+            }.bind(this)
+        });
+
+
+        this.transitionableName.set(2, {method: 'spring', dampingRatio: 0.5, period: 800, velocity: 0.00001});
+        this.motoTextSurf = new Surface({
+            content: 'WE MAKE YOUR BUSINESS',
+            properties: {
+                fontSize: "20px",
+                textAlign: 'center',
+                fontWeight: 'bold'
+            }
+        });
+        this.motoTextSurf.pipe(this._eventOutput);
+        this.motoRenderNode.add(this.motoTextMod).add(this.motoTextSurf);
+        this.flexContent.push(this.motoRenderNode);
+    }
+
+    function _homeMoto2() {
+        this.motoRenderNode2 = new RenderNode();
+
+        this.opacityMotoTrans = new Transitionable(1);
+        this.motoTextMod2 = new Modifier({
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            opacity: function () {
+                return this.opacityMotoTrans.get()
+            }.bind(this),
+            transform: Transform.translate(0, window.sv.sizing.headerHeight + 10, 0)
         });
 
 
@@ -104,9 +141,7 @@ define(function (require, exports, module) {
         //div.style.cssText = 'position:relative;';
         var paper = Raphael(div, 575, 150);
         var st = paper.set();
-        var t = paper.text(280, 40, 'WE MAKE YOUR BUSINESS');
         var t2 = paper.text(285, 70, 'KNOWN TO COMMUNITY');
-        st.push(t);
         st.push(t2);
 
         st.attr({
@@ -117,13 +152,13 @@ define(function (require, exports, module) {
             'font-family': "Myriad Pro"
         });
 
-        this.motoTextSurf = new Surface({
+        this.motoTextSurf2 = new Surface({
             content: div,
             properties: this.options.motoOpts
         });
-        this.motoTextSurf.pipe(this._eventOutput);
-        this.motoRenderNode.add(this.motoTextMod).add(this.motoTextSurf);
-        this.flexContent.push(this.motoRenderNode);
+        this.motoTextSurf2.pipe(this._eventOutput);
+        this.motoRenderNode2.add(this.motoTextMod2).add(this.motoTextSurf2);
+        this.motoRenderNode.add(this.motoRenderNode2);
     }
 
     function _getSectionHeight() {

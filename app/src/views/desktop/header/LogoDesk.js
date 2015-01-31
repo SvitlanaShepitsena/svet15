@@ -25,13 +25,15 @@ define(function (require, exports, module) {
 
     LogoDesk.prototype = Object.create(View.prototype);
     LogoDesk.prototype.constructor = LogoDesk;
+
     LogoDesk.DEFAULT_OPTIONS = {
-        logoHeight: window.sv.sizing.headerHeight * .82,
-        paperWidth: window.sv.sizing.logoContainerWidth * .87
+        paperWidth: window.sv.sizing.logoContainerWidth * .77,
+        paperHeight: window.sv.sizing.headerHeight * .9
     };
 
     function _init() {
         this.centerModifier = new Modifier({
+            size: [this.options.paperWidth, 115],
             align: [0.5, 0],
             origin: [0.5, 0]
         });
@@ -40,10 +42,11 @@ define(function (require, exports, module) {
 
     function _logoSvg() {
         var div = document.createElement('div');
-        var paper = Raphael(div, window.innerWidth, this.options.logoHeight);
-        var path = drawpath(paper, "M80,80 L20,80 L130,10 L240,80 L180,80", 2000, {
+        var paper = Raphael(div, this.options.paperWidth, this.options.paperHeight);
+        var path = drawpath(paper, "M80,80 L20,80 L130,10 L240,80 L180,80", this.options.paperWidth, {
             fill: 'none',
             stroke: window.sv.scheme.logoColor,
+            'text-align': 'center',
             'stroke-width': 11,
             'fill-opacity': 0
         });
@@ -52,6 +55,7 @@ define(function (require, exports, module) {
             stroke: 'none',
             fill: window.sv.scheme.textWhite,
             'font-size': 22,
+            'text-align': 'center',
             'line-height': '5em',
             'font-family': "Myriad Pro"
         });
@@ -59,8 +63,6 @@ define(function (require, exports, module) {
         var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
         this.svgLine = new Transitionable(shift);
         this.logoSvgMod = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
             opacity: function () {
                 return this.opacityTransitionable.get();
             }.bind(this),
@@ -82,20 +84,17 @@ define(function (require, exports, module) {
 
     function _svetSvg() {
         var div = document.createElement('div');
-        var paper = Raphael(div, window.innerWidth, this.options.logoHeight);
-        var text = paper.text(129, 45, 'SVET');
+        var paper = Raphael(div, this.options.paperWidth, this.options.paperHeight);
+        var text = paper.text(129, 44, 'SVET');
         text.attr({
             stroke: 'none',
             fill: window.sv.scheme.textWhite,
             'font-size': 32,
             'font-weight': 'bold',
-            'line-height': '5em',
             'font-family': "Myriad Pro"
         })
         var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
         this.svetSvgMod = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
             transform: function () {
                 shift = window.innerWidth > 1160 ? 84 : 10;
                 this.svgLine.halt();
@@ -104,10 +103,7 @@ define(function (require, exports, module) {
             }.bind(this)
         });
         this.svetSvgSurf = new Surface({
-            content: div,
-            properties: {
-                textAlign: 'center'
-            }
+            content: div
         });
         this.rootNode.add(this.svetSvgMod).add(this.svetSvgSurf);
     }

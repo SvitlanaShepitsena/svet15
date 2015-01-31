@@ -15,7 +15,8 @@ define(function (require, exports, module) {
         this.flexTransitionable = new Transitionable(30);
         this.opacityTransitionable = new Transitionable(0);
         this.widthTransitionable = new Transitionable(window.sv.sizing.headerHeight);
-
+        this.navBtnContainerWidth = (window.sv.sizing.contentWidth - window.sv.sizing.logoContainerWidth) / 4;
+        this.logoMargin = (window.sv.sizing.headerHeight * .6 ) / 2
         View.apply(this, arguments);
         _headerBackground.call(this);
         _flex.call(this);
@@ -25,7 +26,7 @@ define(function (require, exports, module) {
     HeaderDesk.prototype.constructor = HeaderDesk;
 
     HeaderDesk.DEFAULT_OPTIONS = {
-        smallHeight: window.sv.sizing.headerHeight / 2.8,
+        smallHeight: window.sv.sizing.headerHeight / 2.4,
         flexOpts: {
             ratios: [1, 1, 2, 1, 1],
             direction: 0
@@ -55,10 +56,9 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.opacityTransitionable.get();
             }.bind(this),
-            transform:Transform.translate(0,0,5)
+            transform: Transform.translate(0, 0, 5)
         });
         this.backgroundSurf = new Surface({
-            size: [undefined, undefined],
             properties: this.options.backgroundOpts
         });
         this.rootNode = this.add(this.backgroundMod);
@@ -84,10 +84,8 @@ define(function (require, exports, module) {
                 var renderNode = new RenderNode();
 
                 var logoMod = new Modifier({
-                    align: [0.5, 0],
-                    origin: [0.5, 0],
-                    size: [undefined, true],
-                    transform: Transform.translate(0, 48, 0)
+                    size: [window.sv.sizing.logoContainerWidth * .9, window.sv.sizing.headerHeight * .9],
+                    transform: Transform.translate(0, 50, 0)
                 });
                 renderNode.add(logoMod).add(this.logoDesk);
                 this.contents.push(renderNode);
@@ -99,11 +97,10 @@ define(function (require, exports, module) {
             this.navBtnMod = new Modifier({
                 align: [0.5, 0],
                 origin: [0.5, 0],
-                size: [undefined, true],
+                size: [this.navBtnContainerWidth, 20],
                 transform: Transform.translate(0, 50, 0)
             });
             this.navBtnSurf = new Surface({
-                size: [undefined, undefined],
                 content: menuItems[i],
                 properties: this.options.navBtnOpts
             });
@@ -131,7 +128,7 @@ define(function (require, exports, module) {
 
         if (this.currentHeaderHeight < window.sv.sizing.headerHeight) {
             this.flexTransitionable.halt();
-            this.flexTransitionable.set(30, {duration: 500});
+            this.flexTransitionable.set(20, {duration: 500});
             this.widthTransitionable.halt();
             this.widthTransitionable.set(window.sv.sizing.headerHeight, this.options.headerTransition);
             this.logoDesk.increaseLogo();

@@ -38,7 +38,7 @@ window.sv = {
 
         contentWidth: 1200,
         contentHeight: window.innerHeight,
-        logoContainerWidth: 300,
+        logoContainerWidth: 340,
         navContainerWidth: 500
     },
     options: {
