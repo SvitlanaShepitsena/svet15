@@ -58,15 +58,25 @@ define(function (require, exports, module) {
     HomeContentDesk.prototype = Object.create(View.prototype);
     HomeContentDesk.prototype.constructor = HomeContentDesk;
 
+
     HomeContentDesk.prototype.contentInit = function () {
-        this.opacityMotoTrans.halt();
-        this.opacityMotoTrans.set(1, {duration: 500});
+        this.motoTrans1.halt();
+
+        this.motoOpacityTrans1.set(1, {duration: this.durationMoto});
+        this.motoTrans1.set(0.8, {duration: this.durationMoto}, function () {
+            this.motoTrans1.set(1, {duration: this.durationMoto});
+        }.bind(this));
     };
 
     HomeContentDesk.prototype.contentShort = function () {
-        this.opacityMotoTrans.halt();
-        this.opacityMotoTrans.set(0, {duration: 500});
-        this.gridTrans.set(sv.sizing.headerHeightShift, {duration: 500, curve: "easeOut"});
+
+        this.motoTrans1.halt();
+        this.durationMoto = 300;
+        this.motoTrans1.set(0.8, {duration: this.durationMoto}, function () {
+            this.motoTrans1.set(1.2, {duration: this.durationMoto});
+            this.motoOpacityTrans1.set(0, {duration: this.durationMoto});
+        }.bind(this));
+
     };
 
     function _init() {
@@ -91,70 +101,66 @@ define(function (require, exports, module) {
     }
 
     function _homeMoto1() {
-        this.transitionableName = new Transitionable(1);
+        this.motoTrans1 = new Transitionable(1);
+        this.motoOpacityTrans1 = new Transitionable(1);
 
         this.motoRenderNode = new RenderNode();
 
-        this.opacityMotoTrans = new Transitionable(1);
         this.motoTextMod = new Modifier({
             align: [0.5, 0],
             origin: [0.5, 0],
             opacity: function () {
-                return this.opacityMotoTrans.get()
+                return this.motoOpacityTrans1.get()
             }.bind(this),
             transform: function () {
-                var transform1 = Transform.multiply(Transform.translate(0, sv.sizing.headerHeight, 0), Transform.scale(this.transitionableName.get(), this.transitionableName.get(), 20));
+                var transform1 = Transform.multiply(Transform.translate(0, sv.sizing.headerHeight + 40, 0), Transform.scale(this.motoTrans1.get(), this.motoTrans1.get(), 20));
                 return transform1;
             }.bind(this)
         });
 
 
-        this.transitionableName.set(2, {method: 'spring', dampingRatio: 0.5, period: 800, velocity: 0.00001});
-        this.motoTextSurf = new Surface({
+        this.motoTextSurf1 = new Surface({
             content: 'WE MAKE YOUR BUSINESS',
             properties: {
-                fontSize: "20px",
+                fontSize: "40px",
                 textAlign: 'center',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                color: window.sv.scheme.textWhite
             }
         });
-        this.motoTextSurf.pipe(this._eventOutput);
-        this.motoRenderNode.add(this.motoTextMod).add(this.motoTextSurf);
+        this.motoTextSurf1.pipe(this._eventOutput);
+        this.motoRenderNode.add(this.motoTextMod).add(this.motoTextSurf1);
         this.flexContent.push(this.motoRenderNode);
     }
 
     function _homeMoto2() {
+
+        this.motoTrans2 = new Transitionable(1);
+        this.motoOpacityTrans2 = new Transitionable(1);
         this.motoRenderNode2 = new RenderNode();
 
-        this.opacityMotoTrans = new Transitionable(1);
         this.motoTextMod2 = new Modifier({
             align: [0.5, 0],
             origin: [0.5, 0],
             opacity: function () {
-                return this.opacityMotoTrans.get()
+                return this.motoOpacityTrans2.get()
             }.bind(this),
-            transform: Transform.translate(0, window.sv.sizing.headerHeight + 10, 0)
+            transform: function () {
+                var transform1 = Transform.multiply(Transform.translate(0, sv.sizing.headerHeight + 100, 0), Transform.scale(this.motoTrans2.get(), this.motoTrans2.get(), 20));
+                return transform1;
+            }.bind(this)
+
         });
 
-
-        var div = document.createElement('div');
-        //div.style.cssText = 'position:relative;';
-        var paper = Raphael(div, 575, 150);
-        var st = paper.set();
-        var t2 = paper.text(285, 70, 'KNOWN TO COMMUNITY');
-        st.push(t2);
-
-        st.attr({
-            stroke: 'none',
-            fill: window.sv.scheme.textYellow,
-            'font-size': '40px',
-            'font-weight': 'bold',
-            'font-family': "Myriad Pro"
-        });
 
         this.motoTextSurf2 = new Surface({
-            content: div,
-            properties: this.options.motoOpts
+            content: 'KNOWN TO COMMUNITY',
+            properties: {
+                fontSize: "40px",
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: window.sv.scheme.textWhite
+            }
         });
         this.motoTextSurf2.pipe(this._eventOutput);
         this.motoRenderNode2.add(this.motoTextMod2).add(this.motoTextSurf2);

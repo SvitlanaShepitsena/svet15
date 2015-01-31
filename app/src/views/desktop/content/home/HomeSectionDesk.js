@@ -76,6 +76,7 @@ define(function (require, exports, module) {
                 textAlign: 'center'
             }
         });
+        this.bg.pipe(this._eventOutput);
         this.rootNode = this.add(this.centerModifier);
         this.add(this.bgMod).add(this.bg);
     };
