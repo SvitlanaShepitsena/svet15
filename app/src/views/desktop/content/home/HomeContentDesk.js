@@ -103,7 +103,7 @@ define(function (require, exports, module) {
                 return this.opacityMotoTrans.get()
             }.bind(this),
             transform: function () {
-                var transform1 = Transform.multiply(Transform.translate(0, sv.sizing.headerHeight, 0), Transform.scale(this.transitionableName.get(), this.transitionableName.get(), 6));
+                var transform1 = Transform.multiply(Transform.translate(0, sv.sizing.headerHeight, 0), Transform.scale(this.transitionableName.get(), this.transitionableName.get(), 20));
                 return transform1;
             }.bind(this)
         });
