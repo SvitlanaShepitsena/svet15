@@ -34,6 +34,7 @@ define(function (require, exports, module) {
     function _init() {
         this.centerModifier = new Modifier({
             size: [this.options.paperWidth, 115],
+            transform: Transform.translate(0, 50, 0),
             align: [0.5, 0],
             origin: [0.5, 0]
         });
@@ -114,7 +115,7 @@ define(function (require, exports, module) {
         if (currentPosition !== this.fullPosition) {
             this.shiftTransitionable.halt();
             this.opacityTransitionable.halt();
-            this.shiftTransitionable.set(this.fullPosition, {duration: 500, curve: "linear"});
+            this.shiftTransitionable.set(this.fullPosition+50, {duration: 500, curve: "linear"});
             this.opacityTransitionable.set(1, {duration: 500, curve: "linear"});
             this.changeColorHigh.call(this);
         }
