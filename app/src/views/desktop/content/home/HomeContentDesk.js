@@ -19,7 +19,7 @@ define(function (require, exports, module) {
     var SpringTransition = require('famous/transitions/SpringTransition');
 
     function HomeContentDesk() {
-    Transitionable.registerMethod('spring', SpringTransition);
+        Transitionable.registerMethod('spring', SpringTransition);
         View.apply(this, arguments);
 
         this.on('parts:info', function (data) {
@@ -103,33 +103,20 @@ define(function (require, exports, module) {
                 return this.opacityMotoTrans.get()
             }.bind(this),
             transform: function () {
-                var transform1 = Transform.multiply(Transform.translate(0,sv.sizing.headerHeight,0), Transform.scale(this.transitionableName.get(), this.transitionableName.get(),1));
+                var transform1 = Transform.multiply(Transform.translate(0, sv.sizing.headerHeight, 0), Transform.scale(this.transitionableName.get(), this.transitionableName.get(), 6));
                 return transform1;
             }.bind(this)
         });
 
-        this.transitionableName.set(2, {method : 'spring', dampingRatio : 0.1, period : 500});
 
-
-
-        var div = document.createElement('div');
-        //div.style.cssText = 'position:relative;';
-        var paper = Raphael(div, 575, 150);
-        var st = paper.set();
-        var t = paper.text(280, 40, 'WE MAKE YOUR BUSINESS');
-        st.push(t);
-
-        st.attr({
-            stroke: 'none',
-            fill: window.sv.scheme.textYellow,
-            'font-size': '40px',
-            'font-weight': 'bold',
-            'font-family': "Myriad Pro"
-        });
-
+        this.transitionableName.set(2, {method: 'spring', dampingRatio: 0.5, period: 800, velocity: 0.00001});
         this.motoTextSurf = new Surface({
             content: 'WE MAKE YOUR BUSINESS',
-            properties: this.options.motoOpts
+            properties: {
+                fontSize: "20px",
+                textAlign: 'center',
+                fontWeight: 'bold'
+            }
         });
         this.motoTextSurf.pipe(this._eventOutput);
         this.motoRenderNode.add(this.motoTextMod).add(this.motoTextSurf);
@@ -143,7 +130,6 @@ define(function (require, exports, module) {
         this.motoTextMod2 = new Modifier({
             align: [0.5, 0],
             origin: [0.5, 0],
-
             opacity: function () {
                 return this.opacityMotoTrans.get()
             }.bind(this),
