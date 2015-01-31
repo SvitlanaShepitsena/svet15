@@ -64,11 +64,11 @@ define(function (require, exports, module) {
             finalPos = _restrict.call(this, finalPos);
             this.containerTrans.halt();
             var absPos = Math.abs(initPos);
-            if ((absPos>this.HEADERLIMIT || absPos>sv.sizing.headerHeight) && absPos < sv.sizing.headerHeight && initPos > finalPos && this.headerFull) {
+            if ((absPos > this.HEADERLIMIT || absPos > sv.sizing.headerHeight) && absPos < sv.sizing.headerHeight && initPos > finalPos && this.headerFull) {
                 this._eventOutput.emit('decrease:header');
                 this.headerFull = false;
             }
-            if ((absPos<this.HEADERLIMIT || absPos>sv.sizing.headerHeight) && initPos < finalPos && !this.headerFull) {
+            if ((absPos < this.HEADERLIMIT || absPos > sv.sizing.headerHeight) && initPos < finalPos && !this.headerFull) {
                 this._eventOutput.emit('increase:header');
                 this.headerFull = true;
             }

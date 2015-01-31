@@ -33,7 +33,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [this.options.paperWidth, this.options.paperHeight],
+            size: [this.options.paperWidth, 115],
             align: [0.5, 0],
             origin: [0.5, 0]
         });
@@ -85,7 +85,7 @@ define(function (require, exports, module) {
     function _svetSvg() {
         var div = document.createElement('div');
         var paper = Raphael(div, this.options.paperWidth, this.options.paperHeight);
-        var text = paper.text(129, 45, 'SVET');
+        var text = paper.text(129, 44, 'SVET');
         text.attr({
             stroke: 'none',
             fill: window.sv.scheme.textWhite,
