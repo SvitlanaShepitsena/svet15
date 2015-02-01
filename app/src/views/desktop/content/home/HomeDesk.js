@@ -44,9 +44,7 @@ define(function (require, exports, module) {
 
     function _addColorBackground() {
         this.backdropMod = new Modifier({
-            size: [undefined, true],
-            align: [0.5, 0],
-            origin: [0.5, 0],
+            size: [window.sv.sizing.contentWidth, true],
             opacity: function () {
                 return this.opacityBg.get();
             }.bind(this),
@@ -62,8 +60,6 @@ define(function (require, exports, module) {
 
     function _fillHomeContent() {
         this.contentMod = new Modifier({
-            align: [0, 0],
-            origin: [0, 0],
             opacity: function () {
                 return this.opacityMain.get();
             }.bind(this),

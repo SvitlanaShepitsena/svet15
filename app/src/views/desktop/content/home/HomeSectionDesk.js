@@ -65,9 +65,7 @@ define(function (require, exports, module) {
             size: function () {
                 _getSectionHeight.call(this);
                 return [undefined, this.sectionHeight];
-            }.bind(this),
-            align: [0.5, 0],
-            origin: [0.5, 0]
+            }.bind(this)
         });
         this.bg = new Surface({
             properties: {
