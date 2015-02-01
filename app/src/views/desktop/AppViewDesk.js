@@ -29,7 +29,7 @@ define(function (require, exports, module) {
     function _init() {
         this.mapDesk = new MapDesk();
         //this.add(this.mapDesk);
-        var limitSize = 1280;
+        var limitSize = window.sv.sizing.contentWidth;
 
         this.contentSize = window.innerWidth > limitSize ? limitSize : window.innerWidth;
         this.widthTransitionable = new Transitionable(this.contentSize);
@@ -39,8 +39,8 @@ define(function (require, exports, module) {
             size: function () {
                 return [this.widthTransitionable.get(), this.heightTransitionable.get()]
             }.bind(this),
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5]
+            align: [0.5, 0],
+            origin: [0.5, 0]
         });
         this.rootNode = this.add(centerModifier);
         window.onresize = function () {

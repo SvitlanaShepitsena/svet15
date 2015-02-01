@@ -27,16 +27,14 @@ define(function (require, exports, module) {
     LogoDesk.prototype.constructor = LogoDesk;
 
     LogoDesk.DEFAULT_OPTIONS = {
+        logoHeight: null,
         paperWidth: window.sv.sizing.logoContainerWidth * .77,
         paperHeight: window.sv.sizing.headerHeight * .9
     };
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [this.options.paperWidth, 115],
-            transform: Transform.translate(0, 50, 0),
-            align: [0.5, 0],
-            origin: [0.5, 0]
+            size: [this.options.paperWidth, window.sv.sizing.headerHeight * .8]
         });
         this.rootNode = this.add(this.centerModifier);
     }
@@ -115,7 +113,7 @@ define(function (require, exports, module) {
         if (currentPosition !== this.fullPosition) {
             this.shiftTransitionable.halt();
             this.opacityTransitionable.halt();
-            this.shiftTransitionable.set(this.fullPosition+50, {duration: 500, curve: "linear"});
+            this.shiftTransitionable.set(this.fullPosition + 50, {duration: 500, curve: "linear"});
             this.opacityTransitionable.set(1, {duration: 500, curve: "linear"});
             this.changeColorHigh.call(this);
         }

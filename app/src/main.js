@@ -33,6 +33,7 @@ window.sv = {
         headerHeightCell: 0.08 * window.innerHeight,
         footerSize: 0 * window.innerHeight,
         headerHeight: 140,
+        headerWidth: 1280,
         headerSmallHeight: Math.ceil(140 / 2.8),
         headerHeightShift: Math.ceil(140 - 140 / 2.8),
 
