@@ -93,7 +93,6 @@ define(function (require, exports, module) {
 
 
         this.sync.on('update', function (data) {
-            console.log('update');
             var initPos = this.containerTrans.get();
             this.normCoef = data.velocity > 7 ? 5 : 3;
             var velocityNorm = this.normCoef * Math.log(Math.abs(data.velocity));
@@ -159,7 +158,7 @@ define(function (require, exports, module) {
         });
         this.homeDesk = new HomeDesk({sync: this.sync});
         this.homeDesk.pipe(this.sync);
-        this.homeShift = 1500;
+        this.homeShift = window.innerHeight+680;
 
         this.rootNode.add(this.homeDesk);
 

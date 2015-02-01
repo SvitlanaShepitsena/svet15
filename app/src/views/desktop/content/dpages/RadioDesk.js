@@ -12,8 +12,8 @@ define(function (require, exports, module) {
 
         this.centerModifier = new Modifier({
             size: [undefined, window.innerHeight],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
+            align: [0.5, 0],
+            origin: [0.5, 0],
             transform: Transform.translate(0, 0, 0)
         });
         this.surface = new Surface({
@@ -25,7 +25,7 @@ define(function (require, exports, module) {
                 paddingRight: '25px',
                 color: window.sv.scheme.textDark,
                 textAlign: 'center',
-                backgroundColor: window.sv.scheme.aboutDesk
+                backgroundColor: 'grey'
             }
         });
 
