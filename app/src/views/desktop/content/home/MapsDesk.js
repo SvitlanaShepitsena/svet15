@@ -125,6 +125,7 @@ define(function (require, exports, module) {
             mapOptions: {
                 zoom: 11,
                 center: this.northChicagoStart,
+                scrollwheel:false,
                 disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
