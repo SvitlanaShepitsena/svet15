@@ -25,6 +25,20 @@ define(function (require, exports, module) {
         _init.call(this);
         _addVideoBg.call(this);
         _fillHomeContent.call(this);
+        _map.call(this);
+    }
+
+    function _map() {
+        this.modMap = new Modifier({
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(0, 680, 0)
+        });
+
+        this.mapDesk = new MapDesk();
+        this.mapDesk.pipe(this._eventOutput);
+        this.rootNode.add(this.modMap).add(this.mapDesk);
+
     }
 
     HomeDesk.prototype = Object.create(View.prototype);
