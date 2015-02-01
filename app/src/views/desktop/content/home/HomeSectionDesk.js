@@ -82,7 +82,6 @@ define(function (require, exports, module) {
     function _contentParts() {
         this.sizeIcon;
         this.textMod = new Modifier({
-            opacity: '.8',
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             transform: function () {
