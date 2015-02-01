@@ -97,6 +97,7 @@ define(function (require, exports, module) {
             velocityNorm = velocityNorm > 1 ? velocityNorm : 1;
             var shift = Math.floor(data.delta / 3.2) * velocityNorm;
             var finalPos = initPos + 2 * shift;
+            console.log(shift);
 
 
             finalPos = _restrict.call(this, finalPos);
@@ -104,11 +105,9 @@ define(function (require, exports, module) {
             var absPos = Math.abs(initPos);
 
             _startAnimation.call(this, absPos);
-            if (this.syncEnabled) {
                 this.containerTrans.set(finalPos, {duration: 80}, function () {
                     _startAnimation.call(this,Math.abs(this.containerTrans.get()))
                 }.bind(this));
-            }
 
         }.bind(this));
 
@@ -147,11 +146,10 @@ define(function (require, exports, module) {
             scroll: {
                 direction: 1,
                 rails: true,
-                scale: 1,
+                scale: 0.4,
                 stallTime: 4
             }
         });
-        this.sync.subscribe(this._eventInput);
         this.container = new ContainerSurface({
             size: [undefined, window.innerHeight],
             properties: {
@@ -159,7 +157,7 @@ define(function (require, exports, module) {
             }
         });
         this.renderNode = new RenderNode();
-        this.homeDesk = new HomeDesk();
+        this.homeDesk = new HomeDesk({sync:this.sync});
         this.renderNode.add(this.homeDesk);
         this.homeDesk.pipe(this.sync);
 

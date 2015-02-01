@@ -115,13 +115,13 @@ define(function (require, exports, module) {
 
     function _map() {
         this.gMap;
-
         this.northChicagoStart = {lat: 41.011949, lng: -87.709012};
         this.legendPlace = {lat: 42.131767, lng: -87.579624};
         this.northChicagoEnd = {lat: 42.150571, lng: -87.710238};
 
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
+            syncS:this.options.sync,
             mapOptions: {
                 zoom: 11,
                 center: this.northChicagoStart,
@@ -130,6 +130,12 @@ define(function (require, exports, module) {
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
         });
+        this.mapSurf = this.mapView.getSurface();
+        this.mapSurf.on('scroll', function () {
+            console.log('ss');
+        })
+        this.mapSurf.pipe(this._eventOutput);
+
         this.infoWindows = [];
         this.markers = [];
 

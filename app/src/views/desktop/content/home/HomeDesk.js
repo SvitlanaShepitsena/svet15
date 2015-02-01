@@ -35,7 +35,8 @@ define(function (require, exports, module) {
             transform: Transform.translate(0, 680, 0)
         });
 
-        this.mapDesk = new MapDesk();
+        this.mapDesk = new MapDesk({sync:this.options.sync});
+
         this.mapDesk.pipe(this._eventOutput);
         this.rootNode.add(this.modMap).add(this.mapDesk);
 
