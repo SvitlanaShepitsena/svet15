@@ -10,6 +10,8 @@ define(function (require, exports, module) {
     var MapModifier = require('fmaps/MapModifier');
     var MapStateModifier = require('fmaps/MapStateModifier');
 
+    var MapIconsPanel = require('dviews/content/home/MapIconsPanel');
+
 
     /*Map Coordinates for Cities*/
     var buffaloGrove = require('coord/BuffaloGrove');
@@ -25,18 +27,6 @@ define(function (require, exports, module) {
     var niles = require('coord/Niles');
     var evanston = require('coord/Evanston');
 
-    function MapsDesk() {
-        this.highestLat = 42.223493;
-        this.allowAnimation = true;
-        View.apply(this, arguments);
-        _init.call(this);
-
-        _map.call(this);
-        this.opacityLegendSvet = new Transitionable(0);
-        this.opacityLegendYp = new Transitionable(0);
-        this.geocoder = new google.maps.Geocoder();
-
-    }
 
     MapsDesk.DEFAULT_OPTIONS = {
         colors: {
@@ -55,6 +45,31 @@ define(function (require, exports, module) {
         }
     };
 
+    function MapsDesk() {
+        this.highestLat = 42.223493;
+        this.allowAnimation = true;
+        View.apply(this, arguments);
+        _init.call(this);
+        _map.call(this);
+        _svetMapIcons.call(this);
+
+        this.opacityLegendSvet = new Transitionable(0);
+        this.opacityLegendYp = new Transitionable(0);
+        this.geocoder = new google.maps.Geocoder();
+    }
+
+    function _svetMapIcons() {
+        this.modMap = new Modifier({
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(0, 0, 0)
+        });
+        this.mapIconsPanel = new MapIconsPanel();
+        this.mapIconsPanel.pipe(this._eventOutput);
+
+        this.rootNode.add(this.modMap).add(this.mapIconsPanel);
+    }
+
     function _closeAllOverlays() {
         this.infoWindows.forEach(function (info) {
             info.close(this.gMap);
@@ -69,7 +84,6 @@ define(function (require, exports, module) {
     }
 
     function legendSvet() {
-
         this.surface = new Surface({
             size: [170, 50],
             content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
