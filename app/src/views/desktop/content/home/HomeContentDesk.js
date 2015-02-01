@@ -165,6 +165,7 @@ define(function (require, exports, module) {
             content: 'WE MAKE YOUR BUSINESS',
             properties: {
                 fontSize: "40px",
+                letterSpacing: '10px',
                 fontFamily: "Open Sans Condensed",
                 textAlign: 'center',
                 fontWeight: 'bold',
@@ -204,6 +205,7 @@ define(function (require, exports, module) {
             content: 'KNOWN TO COMMUNITY',
             properties: {
                 fontSize: "40px",
+                letterSpacing: '9px',
                 fontFamily: "Open Sans Condensed",
                 textAlign: 'center',
                 fontWeight: 'bold',
@@ -236,10 +238,7 @@ define(function (require, exports, module) {
                 return [undefined, this.sectionHeight];
             }.bind(this),
             transform: Transform.translate(0, 0, 0)
-
         });
-
-
         this.dailyNews = new HomeSectionDesk({
             icon: 'news-daily',
             content: dailyNews
