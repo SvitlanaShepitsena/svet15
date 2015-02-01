@@ -61,7 +61,7 @@ define(function (require, exports, module) {
             origin: [0.5, 0]
         });
         this.bgMod = new Modifier({
-            opacity: '.5',
+            opacity: '.3',
             size: function () {
                 _getSectionHeight.call(this);
                 return [undefined, this.sectionHeight];
@@ -92,6 +92,7 @@ define(function (require, exports, module) {
         this.surface = new Surface({
             content: this.options.content,
             properties: {
+                zIndex: 3,
                 color: window.sv.scheme.textWhite,
                 cursor: 'pointer',
                 textAlign: 'center'
