@@ -64,7 +64,7 @@ define(function (require, exports, module) {
             opacity: '.3',
             size: function () {
                 _getSectionHeight.call(this);
-                return [undefined, this.sectionHeight];
+                return [undefined, this.sectionHeight/1.8];
             }.bind(this)
         });
         this.bg = new Surface({
@@ -82,8 +82,7 @@ define(function (require, exports, module) {
     function _contentParts() {
         this.sizeIcon;
         this.textMod = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
+            size: [undefined, 210],
             transform: function () {
                 _getIconSize.call(this);
                 return Transform.translate(0, this.sizeIcon + 15, 0);

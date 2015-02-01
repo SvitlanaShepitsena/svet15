@@ -44,9 +44,14 @@
   }
 }
 .p-section,
+.a-yp-desktop {
+  color: #393939;
+}
+.p-section,
 .a-yp-desktop,
 .p-ad {
   font-size: 110%;
+  border-radius: 0px;
   line-height: 130%;
 }
 @media only screen and (max-width: 1050px) {
@@ -70,11 +75,6 @@
   margin-bottom: 5px;
   margin-top: 0px;
 }
-.p-section {
-  color: #393939 !important;
-  margin-bottom: 5px;
-  margin-top: 0px;
-}
 .a-yp-desktop {
   color: #fffaf0;
   text-decoration: underline;
@@ -86,8 +86,10 @@
   text-decoration: none;
 }
 .panel-section {
+  margin-bottom: 0px;
   background-color: #faebd7;
   border-radius: 0px;
+  border: 0px;
   padding: 15px;
   height: 150px;
 }
@@ -98,6 +100,25 @@
 }
 @media only screen and (max-width: 700px) {
   .panel-section {
+    height: 125px;
+  }
+}
+.panel-bottom {
+  margin-top: 0px;
+  opacity: 0.9;
+  background-color: #ff7f50;
+  border-radius: 0px;
+  border: 0px;
+  padding: 15px;
+  height: 50px;
+}
+@media only screen and (max-width: 1050px) {
+  .panel-bottom {
+    height: 135px;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .panel-bottom {
     height: 125px;
   }
 }

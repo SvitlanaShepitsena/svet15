@@ -40,8 +40,13 @@ size-xl-d = 1800px
 
 .p-section
 .a-yp-desktop
+    color #393939
+
+.p-section
+.a-yp-desktop
 .p-ad
     font-size 110%
+    border-radius 0px
     line-height 130%
     +below(size-lg-d)
         font-size 90%
@@ -55,11 +60,6 @@ size-xl-d = 1800px
     margin-bottom 5px
     margin-top 0px
 
-.p-section
-    color #393939 !important
-    margin-bottom 5px
-    margin-top 0px
-
 .a-yp-desktop
     color floralwhite
     text-decoration underline
@@ -70,10 +70,25 @@ size-xl-d = 1800px
         text-decoration none
 
 .panel-section
+    margin-bottom 0px
     background-color #faebd7
     border-radius 0px
+    border 0px
     padding 15px
     height 150px
+    +below(size-lg-d)
+        height 135px
+    +below(size-md-d)
+        height 125px
+
+.panel-bottom
+    margin-top 0px
+    opacity 0.9
+    background-color #ff7f50
+    border-radius 0px
+    border 0px
+    padding 15px
+    height 50px
     +below(size-lg-d)
         height 135px
     +below(size-md-d)
