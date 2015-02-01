@@ -116,6 +116,12 @@ define(function (require, exports, module) {
         this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
     }
 
+    function _getNormalizedCenter(mapInfo) {
+        var lat = this.northChicagoEnd.lat-0.1;
+        var lng = this.northChicagoEnd.lng;
+        return {lat:lat,lng:lng};
+    }
+
     function _map() {
         this.gMap;
         this.northChicagoStart = {lat: 41.011949, lng: -87.709012};
@@ -262,10 +268,9 @@ define(function (require, exports, module) {
 
 
             var mapInfo = this.mapView._getMapInfo();
-            console.log(mapInfo);
-
+            var endPoint = _getNormalizedCenter.call(this, mapInfo);
             this.mapView.setPosition(
-                this.northChicagoEnd,
+                endPoint,
                 {duration: 500, curve: Easing.outBack}
             );
             this.gMap = this.mapView.getMap();
