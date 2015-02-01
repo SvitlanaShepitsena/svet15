@@ -28,7 +28,8 @@ define(function (require, exports, module) {
     MapIconsPanel.prototype.constructor = MapIconsPanel;
 
     MapIconsPanel.DEFAULT_OPTIONS = {
-        iconsPanelSize: [200, 40],
+        iconsPanelSize: [150, 40],
+        iconsGridSize: [140, 40],
         mapIconProps: {
             cursor: 'pointer'
         }
@@ -47,18 +48,13 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.centerModifier);
     }
 
-
-    /**
-     * =Map Svet Icons
-     */
-
-    /*Raphael Icon Design*/
+    /*=Raphael Icon Design*/
 
     function _getRaphaelIcon(file) {
         var divDaily = document.createElement('div');
         var paper = Raphael(divDaily, 40, 40);
         var elDaily = paper.path(file).attr({fill: '#797979', stroke: 'none'});
-        elDaily.transform('t10,5, s.7');
+        elDaily.transform('t14,5, s.7');
         return divDaily;
     }
 
@@ -69,9 +65,9 @@ define(function (require, exports, module) {
             properties: {
                 border: '1px',
                 borderStyle: 'solid',
-                borderColor: '#999999',
-                color: 'white',
-                backgroundColor: 'floralwhite'
+                borderColor: '#797979',
+                color: '#393939',
+                backgroundColor: 'white'
             }
         });
 
@@ -81,10 +77,7 @@ define(function (require, exports, module) {
         this.gridIconTrans = new Transitionable(1);
 
         this.gridIconsMod = new Modifier({
-            size: [undefined, 40],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-
+            size: this.options.iconsGridSize,
             opacity: function () {
                 return this.gridIconTrans.get();
             }.bind(this),
@@ -92,7 +85,7 @@ define(function (require, exports, module) {
         });
 
         this.gridLayout = new GridLayout({
-            dimensions: [4, 1]
+            dimensions: [3, 1]
         });
         this.surfaces = [];
         this.gridLayout.sequenceFrom(this.surfaces);
@@ -116,11 +109,11 @@ define(function (require, exports, module) {
             content: _getRaphaelIcon(yPSvg)
         });
 
-        var radioSvg = 'M4.135,16.762c3.078,0,5.972,1.205,8.146,3.391c2.179,2.187,3.377,5.101,3.377,8.202h4.745c0-9.008-7.299-16.335-16.269-16.335V16.762zM4.141,8.354c10.973,0,19.898,8.975,19.898,20.006h4.743c0-13.646-11.054-24.749-24.642-24.749V8.354zM10.701,25.045c0,1.815-1.471,3.287-3.285,3.287s-3.285-1.472-3.285-3.287c0-1.813,1.471-3.285,3.285-3.285S10.701,23.231,10.701,25.045z';
-        this.radioIcon = new Surface({
-            properties: this.options.mapIconProps,
-            content: _getRaphaelIcon(radioSvg)
-        });
+        //var radioSvg = 'M4.135,16.762c3.078,0,5.972,1.205,8.146,3.391c2.179,2.187,3.377,5.101,3.377,8.202h4.745c0-9.008-7.299-16.335-16.269-16.335V16.762zM4.141,8.354c10.973,0,19.898,8.975,19.898,20.006h4.743c0-13.646-11.054-24.749-24.642-24.749V8.354zM10.701,25.045c0,1.815-1.471,3.287-3.285,3.287s-3.285-1.472-3.285-3.287c0-1.813,1.471-3.285,3.285-3.285S10.701,23.231,10.701,25.045z';
+        //this.radioIcon = new Surface({
+        //    properties: this.options.mapIconProps,
+        //    content: _getRaphaelIcon(radioSvg)
+        //})
 
         this.dailyNewsIcon.on('click', function () {
             this._eventOutput.emit('show:svetPoints')
