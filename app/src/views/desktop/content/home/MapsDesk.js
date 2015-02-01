@@ -130,8 +130,8 @@ define(function (require, exports, module) {
     }
 
     function _getNormalizedCenter(mapInfo) {
-        var latDifference = mapInfo.northEast.lat-this.highestLat;
-        lat = this.northChicagoEnd.lat + latDifference/20;
+        var latDifference = mapInfo.northEast.lat - this.highestLat;
+        lat = this.northChicagoEnd.lat + latDifference / 20;
         var lng = this.northChicagoEnd.lng;
         return {lat: lat, lng: lng};
     }
