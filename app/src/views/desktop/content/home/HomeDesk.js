@@ -13,7 +13,7 @@ define(function (require, exports, module) {
     var Slider = require('famous/widgets/Slider');
     var VideoSurface = require('famous/surfaces/VideoSurface');
 
-    var MapView = require('dviews/MapView');
+    var MapDesk = require('dviews/content/home/MapsDesk');
 
 
     function HomeDesk() {

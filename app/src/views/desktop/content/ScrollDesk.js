@@ -163,27 +163,27 @@ define(function (require, exports, module) {
         this.renderNode.add(this.homeDesk);
         this.homeDesk.pipe(this.sync);
 
-        for (var i = 1; i < 2; i++) {
-            this.modSurf = new Modifier({
-                size: [undefined, this.shift],
-                transform: Transform.translate(0, i * this.shift, 0)
-            });
-            this.surf = new Surface({
-                properties: {
-                    backgroundColor: "hsl(" + (i * 360 / 8) + ", 100%, 50%)",
-                    color: "#404040",
-                    lineHeight: '200px',
-                    textAlign: 'center'
-                }
-            });
-            this.surfaces.push(this.surf);
-            this.surf.pipe(this.sync);
-            this.surf.on('click', function () {
-                this.containerTrans.halt();
-                this.syncEnabled = false;
-            }.bind(this))
-            this.renderNode.add(this.modSurf).add(this.surf);
-        }
+        //for (var i = 1; i < 2; i++) {
+        //    this.modSurf = new Modifier({
+        //        size: [undefined, this.shift],
+        //        transform: Transform.translate(0, i * this.shift, 0)
+        //    });
+        //    this.surf = new Surface({
+        //        properties: {
+        //            backgroundColor: "hsl(" + (i * 360 / 8) + ", 100%, 50%)",
+        //            color: "#404040",
+        //            lineHeight: '200px',
+        //            textAlign: 'center'
+        //        }
+        //    });
+        //    this.surfaces.push(this.surf);
+        //    this.surf.pipe(this.sync);
+        //    this.surf.on('click', function () {
+        //        this.containerTrans.halt();
+        //        this.syncEnabled = false;
+        //    }.bind(this))
+        //    this.renderNode.add(this.modSurf).add(this.surf);
+        //}
         this.rootNode.add(this.renderNode);
 
 
@@ -192,7 +192,7 @@ define(function (require, exports, module) {
     function _init() {
 
         this.centerModifier = new Modifier({
-            size: [undefined, window.innerHeight],
+            size: [undefined, undefined],
             transform: function () {
                 return Transform.translate(0, this.containerTrans.get(), 0);
             }.bind(this)
