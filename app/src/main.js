@@ -43,13 +43,6 @@ window.sv = {
         navContainerWidth: 500
     },
     options: {
-        lightScheme: {
-            //svYellow: {
-            //    headerColor: '#A65005',
-            //    navColor: '#A65005',
-            //    footerColor: '#FFDE9C'
-            //}
-        },
         darkScheme: {
             textYellow: '#fafad2',
             textWhite: '#fffaf0',
