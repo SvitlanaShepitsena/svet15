@@ -37,9 +37,7 @@ define(function (require, exports, module) {
         this.centerModifier = new Modifier({
             size: [undefined, undefined]
         });
-
         this.rootNode = this.add(this.rootNodeMod);
-
     }
 
     function _addColorBackground() {
