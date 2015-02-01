@@ -35,9 +35,11 @@ define(function (require, exports, module) {
     }
 
     function _restrict(pos) {
+        var maxPos = this.radioShift;
+
         // Does not allow modifier to move surfaces below 1st and higher than last element
         pos = pos > 0 ? 0 : pos;
-        pos = pos < -this.shift * 3 ? -this.shift * 3 : pos;
+        pos = pos < -maxPos ? -maxPos : pos;
         return pos;
     }
 
@@ -103,9 +105,9 @@ define(function (require, exports, module) {
             var absPos = Math.abs(initPos);
 
             _startAnimation.call(this, absPos);
-                this.containerTrans.set(finalPos, {duration: 80}, function () {
-                    _startAnimation.call(this,Math.abs(this.containerTrans.get()))
-                }.bind(this));
+            this.containerTrans.set(finalPos, {duration: 80}, function () {
+                _startAnimation.call(this, Math.abs(this.containerTrans.get()))
+            }.bind(this));
 
         }.bind(this));
 
@@ -154,9 +156,9 @@ define(function (require, exports, module) {
                 overflow: 'hidden'
             }
         });
-        this.homeDesk = new HomeDesk({sync:this.sync});
+        this.homeDesk = new HomeDesk({sync: this.sync});
         this.homeDesk.pipe(this.sync);
-        this.homeShift = 1200;
+        this.homeShift = 1500;
 
         this.rootNode.add(this.homeDesk);
 
@@ -167,7 +169,7 @@ define(function (require, exports, module) {
         });
         this.aboutUsDesk = new AboutUsDesk();
         this.aboutUsDesk.pipe(this.sync);
-        this.aboutShift = this.homeShift+window.innerHeight;
+        this.aboutShift = this.homeShift + window.innerHeight;
 
         this.rootNode.add(this.aboutMod).add(this.aboutUsDesk);
 
@@ -178,20 +180,19 @@ define(function (require, exports, module) {
         });
         this.radioDesk = new RadioDesk();
         this.radioDesk.pipe(this.sync);
-        this.aboutShift = this.homeShift+window.innerHeight;
+        this.radioShift = this.aboutShift + window.innerHeight;
 
-        this.rootNode.add(this.aboutMod).add(this.aboutUsDesk);
+        this.rootNode.add(this.radioMod).add(this.radioDesk);
 
-        this.aboutMod = new Modifier({
+        this.contactMod = new Modifier({
             align: [0, 0],
             origin: [0, 0],
-            transform: Transform.translate(0, this.homeShift, 0)
+            transform: Transform.translate(0, this.radioShift, 0)
         });
-        this.aboutUsDesk = new AboutUsDesk();
-        this.aboutUsDesk.pipe(this.sync);
-        this.aboutShift = this.homeShift+window.innerHeight;
+        this.contactDesk = new ContactUsDesk();
+        this.contactDesk.pipe(this.sync);
 
-        this.rootNode.add(this.aboutMod).add(this.aboutUsDesk);
+        this.rootNode.add(this.contactMod).add(this.contactDesk);
 
 
     }
@@ -212,7 +213,29 @@ define(function (require, exports, module) {
 
     ScrollDesk.DEFAULT_OPTIONS = {};
 
-    ScrollDesk.prototype.reflow = function () {
+    ScrollDesk.prototype.goToPage = function (pageIndex) {
+        switch (pageIndex) {
+            case 0:
+                this.containerTrans.set(0, {duration: 500});
+
+                break;
+
+            case 1:
+                this.containerTrans.set(-this.homeShift, {duration: 500});
+
+                break;
+
+            case 2:
+
+                this.containerTrans.set(-this.aboutShift, {duration: 500});
+                break;
+
+            case 3:
+                this.containerTrans.set(-this.radioShift, {duration: 500});
+
+                break;
+
+        }
     };
     module.exports = ScrollDesk;
 });
