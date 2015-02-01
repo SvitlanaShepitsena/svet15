@@ -14,6 +14,7 @@ define(function (require, exports, module) {
 
 
     function MapsDesk() {
+        this.highestLat = 42.223493;
         this.allowAnimation = true;
         View.apply(this, arguments);
         _init.call(this);
@@ -117,9 +118,10 @@ define(function (require, exports, module) {
     }
 
     function _getNormalizedCenter(mapInfo) {
-        var lat = this.northChicagoEnd.lat-0.1;
+        var latDifference = mapInfo.northEast.lat-this.highestLat;
+        lat = this.northChicagoEnd.lat + latDifference/25;
         var lng = this.northChicagoEnd.lng;
-        return {lat:lat,lng:lng};
+        return {lat: lat, lng: lng};
     }
 
     function _map() {
