@@ -16,6 +16,8 @@ define(function (require, exports, module) {
         this.sectionImgWidth = this.sectionIconWidth * .7;
         this.centerImg = (this.sectionIconWidth - this.sectionImgWidth) / 2;
         this.contentPosition = this.sectionIconWidth * 1.1;
+        this.maxSize = 130;
+        this.maxSectionHeight = 445;
 
         _init.call(this);
         _contentParts.call(this);
@@ -34,9 +36,9 @@ define(function (require, exports, module) {
 
     function _getIconSize() {
         if (window.innerWidth < window.innerHeight) {
-            this.sizeIcon = window.innerWidth / 5.5;
+            this.sizeIcon = window.innerWidth / 7;
         } else {
-            this.sizeIcon = window.innerHeight / 5.5;
+            this.sizeIcon = window.innerHeight / 7;
         }
         this.sizeIcon = this.sizeIcon > this.maxSize ? this.maxSize : this.sizeIcon;
         return this.sizeIcon;
@@ -53,7 +55,6 @@ define(function (require, exports, module) {
     }
 
     function _init() {
-        this.maxSectionHeight = 480;
         this.sectionHeight;
         this.centerModifier = new StateModifier({
             align: [0.5, 0],
@@ -79,14 +80,13 @@ define(function (require, exports, module) {
     };
 
     function _contentParts() {
-        this.maxSize = 180;
         this.sizeIcon;
         this.textMod = new Modifier({
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             transform: function () {
                 _getIconSize.call(this);
-                return Transform.translate(0, this.sizeIcon, 0);
+                return Transform.translate(0, this.sizeIcon + 15, 0);
             }.bind(this)
         });
         this.surface = new Surface({
@@ -103,7 +103,6 @@ define(function (require, exports, module) {
 
 
     function _sectionIcon() {
-        this.maxSize = 180;
         this.sizeIcon;
 
         this.sectionIconMod = new Modifier({
@@ -112,7 +111,7 @@ define(function (require, exports, module) {
                 return [this.sizeIcon, this.sizeIcon];
 
             }.bind(this),
-            transform: Transform.translate(0, 10, 0),
+            transform: Transform.translate(0, 15, 0),
             align: [0.5, 0],
             origin: [0.5, 0]
         });
@@ -133,7 +132,7 @@ define(function (require, exports, module) {
             }.bind(this),
             transform: function () {
                 _getIconSize.call(this);
-                return Transform.translate(0, (this.sizeIcon * .3) / 1.5, 0);
+                return Transform.translate(0, (this.sizeIcon * .4) / 1.5, 0);
             }.bind(this),
             align: [0.5, 0],
             origin: [0.5, 0]
