@@ -110,10 +110,7 @@ define(function (require, exports, module) {
             });
             this.add(this.surface);
             if (this.sync) {
-
-                console.log(this.sync);
                 this.surface.pipe(this.sync);
-
             }
             //this.pipe(this.options.syncS);
         }

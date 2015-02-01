@@ -88,17 +88,11 @@ define(function (require, exports, module) {
 
         this.sync.on('update', function (data) {
             var initPos = this.containerTrans.get();
-
-
             this.normCoef = data.velocity > 7 ? 5 : 3;
-
-
             var velocityNorm = this.normCoef * Math.log(Math.abs(data.velocity));
             velocityNorm = velocityNorm > 1 ? velocityNorm : 1;
             var shift = Math.floor(data.delta / 3.2) * velocityNorm;
             var finalPos = initPos + 2 * shift;
-            console.log(shift);
-
 
             finalPos = _restrict.call(this, finalPos);
             this.containerTrans.halt();

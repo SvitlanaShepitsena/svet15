@@ -122,14 +122,48 @@ define(function (require, exports, module) {
         this.legendPlace = {lat: 42.131767, lng: -87.579624};
         this.northChicagoEnd = {lat: 42.150571, lng: -87.710238};
 
+
+        var styles = [
+            {
+                stylers: [
+                    { hue: "#00ffe6" },
+                    { saturation: -20 }
+                ]
+            },{
+                featureType: "road",
+                elementType: "geometry",
+                stylers: [
+                    { lightness: 100 },
+                    { visibility: "simplified" }
+                ]
+            },{
+                featureType: "road",
+                elementType: "labels",
+                stylers: [
+                    { visibility: "off" }
+                ]
+            }
+        ];
+        var styledMap = new google.maps.StyledMapType(styles,
+            {name: "Styled Map"});
+
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
             syncS:this.options.sync,
             mapOptions: {
                 zoom: 11,
                 center: this.northChicagoStart,
+                mapTypeControlOptions: {
+                    mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+                },
                 scrollwheel: false,
-                disableDefaultUI: true,
+                panControl: false,
+                scaleControl: false,
+                zoomControl: true,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.SMALL,
+                    position: google.maps.ControlPosition.LEFT_CENTER
+                },
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
         });
@@ -146,11 +180,19 @@ define(function (require, exports, module) {
 
         this.mapView.on('load', function () {
 
+
+            var mapInfo = this.mapView._getMapInfo();
+            console.log(mapInfo);
+
             this.mapView.setPosition(
                 this.northChicagoEnd,
                 {duration: 500, curve: Easing.outBack}
             );
             this.gMap = this.mapView.getMap();
+
+            this.gMap.mapTypes.set('map_style', styledMap);
+            this.gMap.setMapTypeId('map_style');
+
             /*********************************
              * Here are Svet Statistics by towns
              *********************************/
