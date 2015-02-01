@@ -58,44 +58,65 @@ define(function (require, exports, module) {
     HomeContentDesk.prototype = Object.create(View.prototype);
     HomeContentDesk.prototype.constructor = HomeContentDesk;
 
-
-    HomeContentDesk.prototype.contentInit1 = function () {
-        this.motoTrans1.halt();
-
-        this.motoOpacityTrans1.set(1, {duration: this.durationMoto});
-        this.motoTrans1.set(0.8, {duration: this.durationMoto}, function () {
-            this.motoTrans1.set(1, {duration: this.durationMoto});
-        }.bind(this));
-    };
-
     HomeContentDesk.prototype.contentShort1 = function () {
 
         this.motoTrans1.halt();
-        this.durationMoto = 450;
-        this.motoTrans1.set(0.8, {duration: this.durationMoto}, function () {
-            this.motoTrans1.set(1.2, {duration: this.durationMoto});
-            this.motoOpacityTrans1.set(0, {duration: this.durationMoto});
+        this.motoShiftTrans1.halt();
+        this.motoOpacityTrans1.halt();
+
+        this.durationMoto = 250;
+        this.motoTrans1.set(1.2, {duration: this.durationMoto}, function () {
+            this.motoTrans1.set(1, {duration: this.durationMoto}, function () {
+                this.motoOpacityTrans1.set(0, {duration: this.durationMoto});
+                this.motoShiftTrans1.set(110, {duration: this.durationMoto})
+            }.bind(this));
+
         }.bind(this));
 
     };
-    HomeContentDesk.prototype.contentInit2 = function () {
-        this.durationMoto = 500;
-        this.motoTrans2.halt();
 
-        this.motoOpacityTrans2.set(1, {duration: this.durationMoto});
-        this.motoTrans2.set(0.8, {duration: this.durationMoto}, function () {
-            this.motoTrans2.set(1, {duration: this.durationMoto});
+    HomeContentDesk.prototype.contentInit1 = function () {
+        this.motoTrans1.halt();
+        this.motoShiftTrans1.halt();
+        this.motoOpacityTrans1.halt();
+
+        this.motoOpacityTrans1.set(1, {duration: this.durationMoto});
+        this.motoShiftTrans1.set(this.y, {duration: this.durationMoto}, function () {
+            this.motoTrans1.set(1.2, {duration: this.durationMoto}, function () {
+                this.motoTrans1.set(1, {duration: this.durationMoto})
+            }.bind(this));
+
         }.bind(this));
     };
 
     HomeContentDesk.prototype.contentShort2 = function () {
 
         this.motoTrans2.halt();
-        this.motoTrans2.set(0.8, {duration: this.durationMoto}, function () {
-            this.motoTrans2.set(1.2, {duration: this.durationMoto});
-            this.motoOpacityTrans2.set(0, {duration: this.durationMoto});
+        this.motoShiftTrans2.halt();
+        this.motoOpacityTrans2.halt();
+
+        this.motoTrans2.set(1.2, {duration: this.durationMoto}, function () {
+            this.motoTrans2.set(1, {duration: this.durationMoto}, function () {
+                this.motoOpacityTrans2.set(0, {duration: this.durationMoto});
+                this.motoShiftTrans2.set(150, {duration: this.durationMoto})
+            }.bind(this));
+
         }.bind(this));
 
+    };
+
+    HomeContentDesk.prototype.contentInit2 = function () {
+        this.motoTrans2.halt();
+        this.motoShiftTrans2.halt();
+        this.motoOpacityTrans2.halt();
+
+        this.motoOpacityTrans2.set(1, {duration: this.durationMoto});
+        this.motoShiftTrans2.set(this.y+50, {duration: this.durationMoto}, function () {
+            this.motoTrans2.set(1.2, {duration: this.durationMoto}, function () {
+                this.motoTrans2.set(1, {duration: this.durationMoto})
+            }.bind(this));
+
+        }.bind(this));
     };
 
     function _init() {
@@ -121,6 +142,8 @@ define(function (require, exports, module) {
 
     function _homeMoto1() {
         this.motoTrans1 = new Transitionable(1);
+        this.y = sv.sizing.headerHeight + 40;
+        this.motoShiftTrans1 = new Transitionable(this.y);
         this.motoOpacityTrans1 = new Transitionable(1);
 
         this.motoRenderNode = new RenderNode();
@@ -132,7 +155,7 @@ define(function (require, exports, module) {
                 return this.motoOpacityTrans1.get()
             }.bind(this),
             transform: function () {
-                var transform1 = Transform.multiply(Transform.translate(0, sv.sizing.headerHeight + 40, 0), Transform.scale(this.motoTrans1.get(), this.motoTrans1.get(), 20));
+                var transform1 = Transform.multiply(Transform.translate(0, this.motoShiftTrans1.get(), 0), Transform.scale(this.motoTrans1.get(), this.motoTrans1.get(), 20));
                 return transform1;
             }.bind(this)
         });
@@ -156,6 +179,8 @@ define(function (require, exports, module) {
 
         this.motoTrans2 = new Transitionable(1);
         this.motoOpacityTrans2 = new Transitionable(1);
+        this.motoShiftTrans2 = new Transitionable(this.y+50);
+
         this.motoRenderNode2 = new RenderNode();
 
         this.motoTextMod2 = new Modifier({
@@ -165,7 +190,7 @@ define(function (require, exports, module) {
                 return this.motoOpacityTrans2.get()
             }.bind(this),
             transform: function () {
-                var transform1 = Transform.multiply(Transform.translate(0, sv.sizing.headerHeight + 100, 0), Transform.scale(this.motoTrans2.get(), this.motoTrans2.get(), 20));
+                var transform1 = Transform.multiply(Transform.translate(0, this.motoShiftTrans2.get(), 0), Transform.scale(this.motoTrans2.get(), this.motoTrans2.get(), 20));
                 return transform1;
             }.bind(this)
 
