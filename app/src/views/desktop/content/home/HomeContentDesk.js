@@ -98,7 +98,7 @@ define(function (require, exports, module) {
         this.motoTrans2.set(1.2, {duration: this.durationMoto}, function () {
             this.motoTrans2.set(1, {duration: this.durationMoto}, function () {
                 this.motoOpacityTrans2.set(0, {duration: this.durationMoto});
-                this.motoShiftTrans2.set(150, {duration: this.durationMoto})
+                this.motoShiftTrans2.set(this.finalShift2, {duration: this.durationMoto})
             }.bind(this));
 
         }.bind(this));
@@ -111,7 +111,7 @@ define(function (require, exports, module) {
         this.motoOpacityTrans2.halt();
 
         this.motoOpacityTrans2.set(1, {duration: this.durationMoto});
-        this.motoShiftTrans2.set(this.y+50, {duration: this.durationMoto}, function () {
+        this.motoShiftTrans2.set(this.initShift2, {duration: this.durationMoto}, function () {
             this.motoTrans2.set(1.2, {duration: this.durationMoto}, function () {
                 this.motoTrans2.set(1, {duration: this.durationMoto})
             }.bind(this));
@@ -165,6 +165,7 @@ define(function (require, exports, module) {
             content: 'WE MAKE YOUR BUSINESS',
             properties: {
                 fontSize: "40px",
+                fontFamily: "Open Sans Condensed",
                 textAlign: 'center',
                 fontWeight: 'bold',
                 color: window.sv.scheme.textWhite
@@ -177,9 +178,11 @@ define(function (require, exports, module) {
 
     function _homeMoto2() {
 
+        this.initShift2 = this.y + 69;
+        this.finalShift2 = this.y - 50;
         this.motoTrans2 = new Transitionable(1);
         this.motoOpacityTrans2 = new Transitionable(1);
-        this.motoShiftTrans2 = new Transitionable(this.y+50);
+        this.motoShiftTrans2 = new Transitionable(this.initShift2);
 
         this.motoRenderNode2 = new RenderNode();
 
@@ -201,6 +204,7 @@ define(function (require, exports, module) {
             content: 'KNOWN TO COMMUNITY',
             properties: {
                 fontSize: "40px",
+                fontFamily: "Open Sans Condensed",
                 textAlign: 'center',
                 fontWeight: 'bold',
                 color: window.sv.scheme.textWhite

@@ -79,7 +79,7 @@ define(function (require, exports, module) {
 
         this.HEADERLIMIT = 27;
         this.moto1Limit = 107;
-        this.moto2Limit = 170;
+        this.moto2Limit = 175;
         this.logoBackLimit = 40;
 
         this.firstMotoShown = true;
@@ -147,7 +147,7 @@ define(function (require, exports, module) {
             scroll: {
                 direction: 1,
                 rails: true,
-                scale: 0.7,
+                scale: 0.4,
                 stallTime: 4
             }
         });
