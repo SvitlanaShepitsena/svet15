@@ -10,9 +10,13 @@ define(function (require, exports, module) {
     var ScrollSync = require("famous/inputs/ScrollSync");
     var RenderNode = require('famous/core/RenderNode');
     var Easing = require('famous/transitions/Easing');
-
     var Timer = require('famous/utilities/Timer');
+    //
     var HomeDesk = require('dviews/content/home/HomeDesk');
+    var AboutUsDesk = require('dviews/content/dpages/AboutUsDesk');
+    var RadioDesk = require('dviews/content/dpages/RadioDesk');
+    var ContactUsDesk = require('dviews/content/dpages/ContactUsDesk');
+    //
 
 
     function ScrollDesk() {
@@ -33,7 +37,7 @@ define(function (require, exports, module) {
     function _restrict(pos) {
         // Does not allow modifier to move surfaces below 1st and higher than last element
         pos = pos > 0 ? 0 : pos;
-        pos = pos < -this.shift * 1 ? -this.shift * 1 : pos;
+        pos = pos < -this.shift * 3 ? -this.shift * 3 : pos;
         return pos;
     }
 
@@ -150,33 +154,44 @@ define(function (require, exports, module) {
                 overflow: 'hidden'
             }
         });
-        this.renderNode = new RenderNode();
         this.homeDesk = new HomeDesk({sync:this.sync});
-        this.renderNode.add(this.homeDesk);
         this.homeDesk.pipe(this.sync);
+        this.homeShift = 1200;
 
-        //for (var i = 1; i < 2; i++) {
-        //    this.modSurf = new Modifier({
-        //        size: [undefined, this.shift],
-        //        transform: Transform.translate(0, i * this.shift, 0)
-        //    });
-        //    this.surf = new Surface({
-        //        properties: {
-        //            backgroundColor: "hsl(" + (i * 360 / 8) + ", 100%, 50%)",
-        //            color: "#404040",
-        //            lineHeight: '200px',
-        //            textAlign: 'center'
-        //        }
-        //    });
-        //    this.surfaces.push(this.surf);
-        //    this.surf.pipe(this.sync);
-        //    this.surf.on('click', function () {
-        //        this.containerTrans.halt();
-        //        this.syncEnabled = false;
-        //    }.bind(this))
-        //    this.renderNode.add(this.modSurf).add(this.surf);
-        //}
-        this.rootNode.add(this.renderNode);
+        this.rootNode.add(this.homeDesk);
+
+        this.aboutMod = new Modifier({
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(0, this.homeShift, 0)
+        });
+        this.aboutUsDesk = new AboutUsDesk();
+        this.aboutUsDesk.pipe(this.sync);
+        this.aboutShift = this.homeShift+window.innerHeight;
+
+        this.rootNode.add(this.aboutMod).add(this.aboutUsDesk);
+
+        this.radioMod = new Modifier({
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(0, this.aboutShift, 0)
+        });
+        this.radioDesk = new RadioDesk();
+        this.radioDesk.pipe(this.sync);
+        this.aboutShift = this.homeShift+window.innerHeight;
+
+        this.rootNode.add(this.aboutMod).add(this.aboutUsDesk);
+
+        this.aboutMod = new Modifier({
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(0, this.homeShift, 0)
+        });
+        this.aboutUsDesk = new AboutUsDesk();
+        this.aboutUsDesk.pipe(this.sync);
+        this.aboutShift = this.homeShift+window.innerHeight;
+
+        this.rootNode.add(this.aboutMod).add(this.aboutUsDesk);
 
 
     }
@@ -198,7 +213,6 @@ define(function (require, exports, module) {
     ScrollDesk.DEFAULT_OPTIONS = {};
 
     ScrollDesk.prototype.reflow = function () {
-        this.renderNode.render();
     };
     module.exports = ScrollDesk;
 });
