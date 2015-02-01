@@ -70,29 +70,20 @@ define(function (require, exports, module) {
      * =Map Svet Icons
      */
 
+    /*Raphael Icon Design*/
+
     function _getRaphaelIcon(file) {
         var divDaily = document.createElement('div');
         var paper = Raphael(divDaily, 150, 150);
         var elDaily = paper.path(file).attr({fill: '#797979', stroke: 'none'});
-        elDaily.transform('t30,30,s');
+        elDaily.transform('t10,10');
         return divDaily;
     }
 
     function _shortViewIcons() {
-        this.gridIconTrans = new Transitionable(1);
-
-        this.gridIconsMod = new Modifier({
-            size: [200, 200],
-            align: [0.5, 0],
-            origin: [0.5, 0],
-            opacity: function () {
-                return this.gridIconTrans.get();
-            }.bind(this),
-            transform: Transform.translate(0, 900, 0)
-        });
-
+        /*Map Icons Panel*/
         this.mapIconsBgMod = new Modifier({
-            size: [200, 200],
+            size: [200, 50],
             align: [0.5, 0],
             origin: [0.5, 0],
             opacity: function () {
@@ -110,16 +101,24 @@ define(function (require, exports, module) {
                 backgroundColor: '#FA5C4F'
             }
         });
-        /**
-         *  Create the render node and add elements
-         */
+
         this.renderNode = new RenderNode();
         this.renderNode.add(this.mapIconsBgMod).add(this.mapIconsBg);
 
-        /**
-         *  Add my node to the render tree
-         */
         this.rootNode.add(this.renderNode);
+
+        /*Grid Layout for Map Icons*/
+        this.gridIconTrans = new Transitionable(1);
+
+        this.gridIconsMod = new Modifier({
+            size: [200, 200],
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            opacity: function () {
+                return this.gridIconTrans.get();
+            }.bind(this),
+            transform: Transform.translate(0, 900, 0)
+        });
 
         this.gridLayout = new GridLayout({
             dimensions: [4, 1]
