@@ -90,12 +90,14 @@ define(function (require, exports, module) {
             size: [170, 50],
             content: '<p><img src="img/google-icon.png">  Our current clients </p>',
             properties: {
+                zIndex: 1,
                 color: 'black'
             }
         });
         this.surface.pipe(this.mapView);
         this.modifier = new Modifier({
             align: [0, 0],
+            zIndex: 1,
             origin: [0.5, 0.5],
             opacity: function () {
                 return this.opacityLegendYp.get();
@@ -106,6 +108,7 @@ define(function (require, exports, module) {
 
         this.mapModifier = new MapModifier({
             mapView: this.mapView,
+            zIndex: 1,
             position: this.legendPlace,
             zoomBase: 9,
             zoomScale: 0.3
@@ -125,7 +128,7 @@ define(function (require, exports, module) {
             mapOptions: {
                 zoom: 11,
                 center: this.northChicagoStart,
-                scrollwheel:false,
+                scrollwheel: false,
                 disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }

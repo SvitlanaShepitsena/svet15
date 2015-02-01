@@ -57,7 +57,7 @@ window.sv = {
             textShadow: '1px 1px #BD8D46',
             headerColor: '#000000',
             navColor: '#0B0B0B',
-            homeIconColor: '#fffaf0',
+            homeIconColor: '#faebd7',
             logoColor: 'red',
             sectionColor: '#FF7F50',
             sectionFlipColor: '#F2CA80',

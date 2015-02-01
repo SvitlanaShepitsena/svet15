@@ -81,7 +81,7 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.opacityMain.get();
             }.bind(this),
-            transform: Transform.translate(0, 0, 2)
+            transform: Transform.translate(0, 0, 1)
         });
         this.homeContentDesk = new HomeContentDesk();
         this.homeContentDesk.pipe(this._eventOutput);
