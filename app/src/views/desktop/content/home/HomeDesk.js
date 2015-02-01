@@ -13,6 +13,8 @@ define(function (require, exports, module) {
     var Slider = require('famous/widgets/Slider');
     var VideoSurface = require('famous/surfaces/VideoSurface');
 
+    var MapView = require('dviews/MapView');
+
 
     function HomeDesk() {
         View.apply(this, arguments);
@@ -21,7 +23,7 @@ define(function (require, exports, module) {
         this.opacityBg = new Transitionable(this.defaultOpacity);
 
         _init.call(this);
-        _addColorBackground.call(this);
+        _addVideoBg.call(this);
         _fillHomeContent.call(this);
     }
 
@@ -40,7 +42,7 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.rootNodeMod);
     }
 
-    function _addColorBackground() {
+    function _addVideoBg() {
         this.backdropMod = new Modifier({
             size: [window.sv.sizing.contentWidth * 1.014, true],
             align: [0.5, 0],

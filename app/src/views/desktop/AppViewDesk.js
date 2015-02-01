@@ -27,8 +27,9 @@ define(function (require, exports, module) {
     }
 
     function _init() {
+
         this.mapDesk = new MapDesk();
-        //this.add(this.mapDesk);
+        this.add(this.mapDesk);
         var limitSize = window.sv.sizing.contentWidth;
 
         this.contentSize = window.innerWidth > limitSize ? limitSize : window.innerWidth;
