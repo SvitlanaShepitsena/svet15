@@ -124,15 +124,15 @@ define(function (require, exports, module) {
         });
 
         this.dailyNewsIcon.on('click', function () {
-            this.mapDesk.showSvetPoints()
+            this._eventOutput.emit('show:svetPoints')
         }.bind(this))
 
         this.weeklyNewsIcon.on('click', function () {
-            this.mapDesk.showSvetPoints()
+            this._eventOutput.emit('show:svetPoints')
         }.bind(this))
 
         this.yPIcon.on('click', function () {
-            this.mapDesk.showYpCompanies();
+            this._eventOutput.emit('show:ypCompanies')
         }.bind(this))
 
         this.weeklyNewsIcon.on('click', function () {

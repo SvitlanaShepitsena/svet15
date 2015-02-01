@@ -67,6 +67,15 @@ define(function (require, exports, module) {
         this.mapIconsPanel = new MapIconsPanel();
         this.mapIconsPanel.pipe(this._eventOutput);
 
+
+       this.mapIconsPanel.on('show:svetPoints', function () {
+          this.showSvetPoints() ;
+       }.bind(this)) ;
+
+       this.mapIconsPanel.on('show:ypCompanies', function () {
+          this.showYpCompanies();
+       }.bind(this)) ;
+
         this.rootNode.add(this.modMap).add(this.mapIconsPanel);
     }
 
