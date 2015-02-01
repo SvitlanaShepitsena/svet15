@@ -73,13 +73,12 @@ define(function (require, exports, module) {
         this.headerFull = true;
 
         this.sync.on('start', function (data) {
-
             this.syncEnabled = true;
         }.bind(this));
 
         this.HEADERLIMIT = 27;
         this.moto1Limit = 107;
-        this.moto2Limit = 170;
+        this.moto2Limit = 145;
         this.logoBackLimit = 40;
 
         this.firstMotoShown = true;
@@ -147,7 +146,7 @@ define(function (require, exports, module) {
             scroll: {
                 direction: 1,
                 rails: true,
-                scale: 1,
+                scale: 0.4,
                 stallTime: 4
             }
         });
