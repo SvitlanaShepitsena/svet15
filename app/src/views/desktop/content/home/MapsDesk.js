@@ -26,6 +26,7 @@ define(function (require, exports, module) {
     var evanston = require('coord/Evanston');
 
     function MapsDesk() {
+        this.highestLat = 42.223493;
         this.allowAnimation = true;
         View.apply(this, arguments);
         _init.call(this);
@@ -126,6 +127,13 @@ define(function (require, exports, module) {
             zoomScale: 0.3
         });
         this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
+    }
+
+    function _getNormalizedCenter(mapInfo) {
+        var latDifference = mapInfo.northEast.lat-this.highestLat;
+        lat = this.northChicagoEnd.lat + latDifference/25;
+        var lng = this.northChicagoEnd.lng;
+        return {lat: lat, lng: lng};
     }
 
     function _map() {
@@ -274,10 +282,9 @@ define(function (require, exports, module) {
 
 
             var mapInfo = this.mapView._getMapInfo();
-            console.log(mapInfo);
-
+            var endPoint = _getNormalizedCenter.call(this, mapInfo);
             this.mapView.setPosition(
-                this.northChicagoEnd,
+                endPoint,
                 {duration: 500, curve: Easing.outBack}
             );
             this.gMap = this.mapView.getMap();
