@@ -14,7 +14,7 @@ define(function (require, exports, module) {
     var MapStateModifier = require('fmaps/MapStateModifier');
     /*Map Coordinates for Cities*/
     var buffaloGrove = require('coord/BuffaloGrove');
-    var highlandPark = require('coord/Highlandpark');
+    var highlandPark = require('coord/HighlandPark');
     var deerfield = require('coord/Deerfield');
     var glencoe = require('coord/Glencoe');
     var northbrook = require('coord/Northbrook');
@@ -77,7 +77,7 @@ define(function (require, exports, module) {
     function _legendSvet() {
         this.mapLegendSvetMod = new MapModifier({
             mapView: this.mapView,
-            position:{lat: 42.131767, lng: -87.579624},
+            position: {lat: 42.131767, lng: -87.579624},
             zoomBase: 9,
             zoomScale: 0.3
         });
@@ -299,6 +299,7 @@ define(function (require, exports, module) {
             /*Vernon Hills*/
 
             var vernonHillsCoordinates = vernonHills.getCoordinates();
+
             var vernonHillsLayer = new google.maps.Polygon({
                 paths: vernonHillsCoordinates,
                 strokeColor: this.options.colors.vernonHills,
@@ -373,6 +374,7 @@ define(function (require, exports, module) {
 
             /*Wilmette*/
             var wilmetteCoordinates = wilmette.getCoordinates();
+
             var wilmetteLayer = new google.maps.Polygon({
                 paths: wilmetteCoordinates,
                 strokeColor: this.options.colors.wilmette,
