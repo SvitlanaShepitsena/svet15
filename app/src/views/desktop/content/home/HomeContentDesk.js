@@ -178,7 +178,7 @@ define(function (require, exports, module) {
 
     function _homeMoto2() {
 
-        this.initShift2 = this.y + 50;
+        this.initShift2 = this.y + 69;
         this.finalShift2 = this.y - 50;
         this.motoTrans2 = new Transitionable(1);
         this.motoOpacityTrans2 = new Transitionable(1);

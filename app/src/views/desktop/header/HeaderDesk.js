@@ -7,6 +7,7 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
     var Transform = require('famous/core/Transform');
     var Transitionable = require('famous/transitions/Transitionable');
+    var Easing = require('famous/transitions/Easing');
 
     var LogoDesk = require('dviews/header/LogoDesk');
     var NavDesk = require('dviews/header/NavDesk');
@@ -37,7 +38,7 @@ define(function (require, exports, module) {
         },
         headerTransition: {
             duration: 500,
-            curve: 'linear'
+            curve: Easing.inOutQuad
         },
         backgroundOpts: {
             backgroundColor: 'black',

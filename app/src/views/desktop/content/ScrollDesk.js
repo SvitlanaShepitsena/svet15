@@ -79,7 +79,7 @@ define(function (require, exports, module) {
 
         this.HEADERLIMIT = 27;
         this.moto1Limit = 107;
-        this.moto2Limit = 145;
+        this.moto2Limit = 175;
         this.logoBackLimit = 40;
 
         this.firstMotoShown = true;
