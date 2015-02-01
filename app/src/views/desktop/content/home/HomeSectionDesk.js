@@ -12,8 +12,6 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         this.sectionWidth = (window.sv.sizing.contentWidth / 4) * .9;
-        //this.sectionHeight = window.innerHeight * .38;
-
         this.sectionIconWidth = this.sectionWidth * .7;
         this.sectionImgWidth = this.sectionIconWidth * .7;
         this.centerImg = (this.sectionIconWidth - this.sectionImgWidth) / 2;
@@ -65,9 +63,7 @@ define(function (require, exports, module) {
             size: function () {
                 _getSectionHeight.call(this);
                 return [undefined, this.sectionHeight];
-            }.bind(this),
-            align: [0.5, 0],
-            origin: [0.5, 0]
+            }.bind(this)
         });
         this.bg = new Surface({
             properties: {

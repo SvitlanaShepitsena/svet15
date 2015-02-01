@@ -18,6 +18,7 @@ define(function (require, exports, module) {
         this.flexTransitionable = new Transitionable(30);
         this.opacityTransitionable = new Transitionable(0);
         this.heightTransitionable = new Transitionable(window.sv.sizing.headerHeight);
+        this.widthTransitionable = new Transitionable(this.contentSize);
         this.navBtnContainerWidth = (window.sv.sizing.contentWidth - window.sv.sizing.logoContainerWidth) / 4;
         this.logoMargin = (window.sv.sizing.headerHeight * .6 ) / 2
         View.apply(this, arguments);
@@ -55,7 +56,7 @@ define(function (require, exports, module) {
     function _headerBackground() {
         this.backgroundMod = new Modifier({
             size: function () {
-                return [undefined, this.heightTransitionable.get()]
+                return [this.widthTransitionable.get(), this.heightTransitionable.get()]
             }.bind(this),
             opacity: function () {
                 return this.opacityTransitionable.get();

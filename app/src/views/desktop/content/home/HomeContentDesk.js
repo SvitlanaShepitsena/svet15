@@ -231,12 +231,8 @@ define(function (require, exports, module) {
                 _getSectionHeight.call(this);
                 return [undefined, this.sectionHeight];
             }.bind(this),
-            align: [0.5, 0.8],
-            origin: [0.5, 0.8]
-            //size: [undefined, 600]
-            //transform: function () {
-            //    return Transform.translate(0, this.gridTrans.get(), 0);
-            //}.bind(this)
+            transform: Transform.translate(0, 0, 0)
+
         });
 
 

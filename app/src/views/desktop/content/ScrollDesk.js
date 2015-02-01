@@ -165,10 +165,10 @@ define(function (require, exports, module) {
 
         for (var i = 1; i < 2; i++) {
             this.modSurf = new Modifier({
+                size: [undefined, this.shift],
                 transform: Transform.translate(0, i * this.shift, 0)
             });
             this.surf = new Surface({
-                size: [undefined, this.shift],
                 properties: {
                     backgroundColor: "hsl(" + (i * 360 / 8) + ", 100%, 50%)",
                     color: "#404040",
