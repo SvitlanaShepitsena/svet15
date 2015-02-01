@@ -30,7 +30,6 @@ define(function (require, exports, module) {
     MapIconsPanel.DEFAULT_OPTIONS = {
         iconsPanelSize: [200, 40],
         mapIconProps: {
-            backroundColor: 'floralwhite',
             cursor: 'pointer'
         }
     };
@@ -72,7 +71,7 @@ define(function (require, exports, module) {
                 borderStyle: 'solid',
                 borderColor: '#999999',
                 color: 'white',
-                backgroundColor: 'antiquewhite'
+                backgroundColor: 'floralwhite'
             }
         });
 
