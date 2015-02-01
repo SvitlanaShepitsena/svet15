@@ -37,6 +37,37 @@ define(function (require, exports, module) {
         return pos;
     }
 
+    function _startAnimation(absPos) {
+        if (absPos > this.HEADERLIMIT && this.headerFull) {
+            this._eventOutput.emit('decrease:header');
+            this.headerFull = false;
+        }
+        if (absPos < this.logoBackLimit && !this.headerFull) {
+            this._eventOutput.emit('increase:header');
+            this.headerFull = true;
+        }
+
+
+        if ((absPos > this.moto1Limit) && this.firstMotoShown) {
+            this.homeDesk.tuneToShortView();
+            this.firstMotoShown = false;
+        }
+        if ((absPos < this.moto1Limit) && !this.firstMotoShown) {
+            this.homeDesk.tuneToDefaultView();
+            this.firstMotoShown = true;
+        }
+        if ((absPos > this.moto2Limit) && this.secondMotoShown) {
+            this.homeDesk.tuneToShortMoto2();
+            this.secondMotoShown = false;
+        }
+        if ((absPos < this.moto2Limit) && !this.secondMotoShown) {
+            this.homeDesk.tuneToDefaultMoto2();
+            this.secondMotoShown = true;
+
+        }
+    }
+
+
     function _handleScroll() {
         this.syncEnabled = true;
         this.headerFull = true;
@@ -46,13 +77,14 @@ define(function (require, exports, module) {
             this.syncEnabled = true;
         }.bind(this));
 
-        this.HEADERLIMIT = 37;
+        this.HEADERLIMIT = 27;
         this.moto1Limit = 107;
         this.moto2Limit = 170;
         this.logoBackLimit = 40;
 
         this.firstMotoShown = true;
         this.secondMotoShown = true;
+
 
         this.sync.on('update', function (data) {
             var initPos = this.containerTrans.get();
@@ -70,37 +102,12 @@ define(function (require, exports, module) {
             finalPos = _restrict.call(this, finalPos);
             this.containerTrans.halt();
             var absPos = Math.abs(initPos);
-            console.log(absPos);
-            if ((absPos > this.HEADERLIMIT || absPos > sv.sizing.headerHeight) && initPos > finalPos && this.headerFull) {
-                this._eventOutput.emit('decrease:header');
-                this.headerFull = false;
-            }
-            if (absPos < this.logoBackLimit && initPos < finalPos && !this.headerFull) {
-                this._eventOutput.emit('increase:header');
-                this.headerFull = true;
-            }
 
-
-            if ((absPos > this.moto1Limit) && initPos > finalPos && this.firstMotoShown) {
-                this.homeDesk.tuneToShortView();
-                this.firstMotoShown = false;
-            }
-            if ((absPos < this.moto1Limit) && initPos < finalPos && !this.firstMotoShown) {
-                this.homeDesk.tuneToDefaultView();
-                this.firstMotoShown = true;
-            }
-            if ((absPos > this.moto2Limit) && initPos > finalPos && this.secondMotoShown) {
-                this.homeDesk.tuneToShortMoto2();
-                this.secondMotoShown = false;
-            }
-            if ((absPos < this.moto2Limit) && initPos < finalPos && !this.secondMotoShown) {
-                this.homeDesk.tuneToDefaultMoto2();
-                this.secondMotoShown = true;
-
-            }
-
+            _startAnimation.call(this, absPos);
             if (this.syncEnabled) {
-                this.containerTrans.set(finalPos, {duration: 80});
+                this.containerTrans.set(finalPos, {duration: 80}, function () {
+                    _startAnimation.call(this,Math.abs(this.containerTrans.get()))
+                }.bind(this));
             }
 
         }.bind(this));
@@ -114,7 +121,6 @@ define(function (require, exports, module) {
             }
             var pos = this.containerTrans.get();
 
-
             var endState = pos + data.delta;
             endState = _restrict.call(this, endState);
 
@@ -123,7 +129,10 @@ define(function (require, exports, module) {
 
                 this.containerTrans.set(endState, {
                     duration: duration, curve: 'linear'
-                });
+                }, function () {
+                    pos = this.containerTrans.get();
+                    _startAnimation.call(this, Math.abs(pos));
+                }.bind(this));
             }
 
         }.bind(this));
@@ -139,7 +148,7 @@ define(function (require, exports, module) {
                 direction: 1,
                 rails: true,
                 scale: 1,
-                stallTime: 50
+                stallTime: 4
             }
         });
         this.sync.subscribe(this._eventInput);
