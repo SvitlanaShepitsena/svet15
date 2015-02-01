@@ -79,6 +79,7 @@ define(function (require, exports, module) {
 
     };
     HomeContentDesk.prototype.contentInit2 = function () {
+        this.durationMoto = 500;
         this.motoTrans2.halt();
 
         this.motoOpacityTrans2.set(1, {duration: this.durationMoto});
