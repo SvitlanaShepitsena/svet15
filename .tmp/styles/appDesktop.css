@@ -47,26 +47,40 @@
 .a-yp-desktop {
   color: #393939;
 }
-.p-section,
-.a-yp-desktop,
-.p-ad {
+.p-section {
   font-size: 110%;
   border-radius: 0px;
   line-height: 130%;
 }
 @media only screen and (max-width: 1050px) {
-  .p-section,
-  .a-yp-desktop,
-  .p-ad {
+  .p-section {
     font-size: 90%;
     line-height: 120%;
   }
 }
 @media only screen and (max-width: 700px) {
-  .p-section,
+  .p-section {
+    font-size: 80%;
+    line-height: 120%;
+  }
+}
+.a-yp-desktop,
+.p-ad {
+  font-size: 130%;
+  border-radius: 0px;
+  line-height: 130%;
+}
+@media only screen and (max-width: 1050px) {
   .a-yp-desktop,
   .p-ad {
-    font-size: 80%;
+    font-size: 100%;
+    line-height: 120%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .a-yp-desktop,
+  .p-ad {
+    font-size: 90%;
     line-height: 120%;
   }
 }
