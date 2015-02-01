@@ -73,6 +73,7 @@ define(function (require, exports, module) {
         this.headerFull = true;
 
         this.sync.on('start', function (data) {
+
             this.syncEnabled = true;
         }.bind(this));
 

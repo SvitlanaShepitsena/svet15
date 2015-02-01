@@ -44,7 +44,7 @@ define(function (require, exports, module) {
 
     function _addColorBackground() {
         this.backdropMod = new Modifier({
-            size: [window.sv.sizing.contentWidth*1.014, true],
+            size: [window.sv.sizing.contentWidth * 1.014, true],
             align: [0.5, 0],
             origin: [0.5, 0],
             opacity: function () {
@@ -53,7 +53,8 @@ define(function (require, exports, module) {
             transform: Transform.translate(0, 0, 0)
         });
         this.backdropSurf = new VideoSurface({
-            src: 'img/sky.webm',
+            //src: 'img/sky.webm',
+            src: 'img/chicago-sunset.mp4',
             autoplay: true
         });
         this.backdropSurf.pipe(this._eventOutput);
