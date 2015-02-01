@@ -68,13 +68,13 @@ define(function (require, exports, module) {
         this.mapIconsPanel.pipe(this._eventOutput);
 
 
-       this.mapIconsPanel.on('show:svetPoints', function () {
-          this.showSvetPoints() ;
-       }.bind(this)) ;
+        this.mapIconsPanel.on('show:svetPoints', function () {
+            this.showSvetPoints();
+        }.bind(this));
 
-       this.mapIconsPanel.on('show:ypCompanies', function () {
-          this.showYpCompanies();
-       }.bind(this)) ;
+        this.mapIconsPanel.on('show:ypCompanies', function () {
+            this.showYpCompanies();
+        }.bind(this));
 
         this.rootNode.add(this.modMap).add(this.mapIconsPanel);
     }
@@ -701,6 +701,7 @@ define(function (require, exports, module) {
     MapsDesk.prototype.showYpCompanies = function () {
         var that = this;
         that.allowAnimation = true;
+        that.allowSvetAnimation = false;
 
         var baseLat = 42.14,
 
@@ -740,15 +741,18 @@ define(function (require, exports, module) {
 
         for (var i = 1; i < 25; i++) {
             setTimeout(function () {
-
                 dropYpCompanies.call(this);
             }.bind(this), i * 100);
+            if (that.allowSvetAnimation) {
+                break;
+            }
         }
         legendYp.call(this);
 
     }
     MapsDesk.prototype.showSvetPoints = function () {
         this.allowAnimation = true;
+        this.allowSvetAnimation = true;
         var that = this;
         var baseLat = 42.14,
             baseLong = -87.9;
