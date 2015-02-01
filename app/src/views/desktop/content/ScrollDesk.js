@@ -192,7 +192,7 @@ define(function (require, exports, module) {
     function _init() {
 
         this.centerModifier = new Modifier({
-            size: [window.sv.sizing.contentWidth, window.innerHeight],
+            size: [undefined, window.innerHeight],
             transform: function () {
                 return Transform.translate(0, this.containerTrans.get(), 0);
             }.bind(this)

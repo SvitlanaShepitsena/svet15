@@ -12,8 +12,6 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         this.sectionWidth = (window.sv.sizing.contentWidth / 4) * .9;
-        //this.sectionHeight = window.innerHeight * .38;
-
         this.sectionIconWidth = this.sectionWidth * .7;
         this.sectionImgWidth = this.sectionIconWidth * .7;
         this.centerImg = (this.sectionIconWidth - this.sectionImgWidth) / 2;
