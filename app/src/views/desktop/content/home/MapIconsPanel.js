@@ -30,20 +30,18 @@ define(function (require, exports, module) {
     MapIconsPanel.DEFAULT_OPTIONS = {
         iconsPanelSize: [200, 40],
         mapIconProps: {
-            backroundColor: 'antiquewhite',
+            backroundColor: 'floralwhite',
             cursor: 'pointer'
         }
     };
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [200, 40],
-            align: [0.5, 0],
-            origin: [0.5, 0],
+            size: this.options.iconsPanelSize,
             opacity: function () {
                 return this.gridIconTrans.get();
             }.bind(this),
-            transform: Transform.translate(0, 0, 9)
+            transform: Transform.translate(470, 210, 9)
 
         });
 
