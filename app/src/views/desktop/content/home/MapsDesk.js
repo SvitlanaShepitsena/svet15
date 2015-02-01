@@ -69,7 +69,6 @@ define(function (require, exports, module) {
     }
 
     function legendSvet() {
-
         this.surface = new Surface({
             size: [170, 50],
             content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
@@ -84,7 +83,6 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.opacityLegendSvet.get();
             }.bind(this)
-
         });
         this.opacityLegendSvet.set(1, {duration: 500, curve: 'easeInOut'});
 
@@ -130,8 +128,8 @@ define(function (require, exports, module) {
     }
 
     function _getNormalizedCenter(mapInfo) {
-        var latDifference = mapInfo.northEast.lat-this.highestLat;
-        lat = this.northChicagoEnd.lat + latDifference/25;
+        var latDifference = mapInfo.northEast.lat - this.highestLat;
+        lat = this.northChicagoEnd.lat + latDifference / 25;
         var lng = this.northChicagoEnd.lng;
         return {lat: lat, lng: lng};
     }
@@ -321,7 +319,7 @@ define(function (require, exports, module) {
                 this.buffaloGroveInfo.open(this.gMap);
 
             }.bind(this));
-
+            /*Buffalo Grove Ends*/
 
             /**
              * 2. =Highland Park
@@ -348,10 +346,7 @@ define(function (require, exports, module) {
                 this.infoHighlandPark.open(this.gMap);
 
             }.bind(this));
-
-            /*Highland Park end*/
-            //
-            /*Deerfield starts*/
+            /*Highland Park ends*/
 
             /**
              * 3. =Derrfield
@@ -404,7 +399,7 @@ define(function (require, exports, module) {
                 this.infoGlencoe.open(this.gMap);
 
             }.bind(this));
-            /*=Glencoe End*/
+            /*=Glencoe Ends*/
 
             /**
              * 5. =Northbrook
@@ -469,9 +464,11 @@ define(function (require, exports, module) {
                 this.infoGlencoe.open(this.gMap);
 
             }.bind(this));
+            /*Glencoe Ends*/
 
-            //
-            /*Vernon Hills*/
+            /**
+             * 7. Vernon Hills
+             */
 
             var vernonHillsCoordinates = vernonHills.getCoordinates();
 
@@ -494,9 +491,12 @@ define(function (require, exports, module) {
                 this.vernonHillsInfo.open(this.gMap);
 
             }.bind(this));
+            /* Vernon Hills Ends*/
 
+            /**
+             * 8. Skokie
+             */
 
-            /*Skokie*/
             var skokieCoordinates = skokie.getCoordinates();
 
             var skokieLayer = new google.maps.Polygon({
@@ -520,9 +520,12 @@ define(function (require, exports, module) {
                 this.infoSkokie.open(this.gMap);
 
             }.bind(this));
+            /*Skokie Ends*/
 
+            /**
+             * 9. Evanston
+             */
 
-            /*Evanston*/
             var evanstonCoordinates = evanston.getCoordinates();
 
             var evanstonLayer = new google.maps.Polygon({
@@ -544,9 +547,13 @@ define(function (require, exports, module) {
                 this.evanstonInfo.open(this.gMap);
 
             }.bind(this));
+            /*Evanston Ends*/
 
 
-            /*Wilmette*/
+            /**
+             * 10. Wilmette
+             */
+
             var wilmetteCoordinates = wilmette.getCoordinates();
 
             var wilmetteLayer = new google.maps.Polygon({
@@ -568,9 +575,11 @@ define(function (require, exports, module) {
                 this.wilmetteInfo.open(this.gMap);
 
             }.bind(this));
+            /*Wilmette Ends*/
 
-
-            /*Glenview*/
+            /**
+             * 11. Glenview
+             */
 
             var glenviewCoordinates = glenview.getCoordinates();
 
@@ -593,9 +602,12 @@ define(function (require, exports, module) {
                 this.glenviewInfo.open(this.gMap);
 
             }.bind(this));
+            /*Glenview Ends*/
 
+            /**
+             * 12. Wheeling
+             */
 
-            /*Wheeling*/
             var wheelingCoordinates = wheeling.getCoordinates();
 
             var wheelingLayer = new google.maps.Polygon({
@@ -617,9 +629,12 @@ define(function (require, exports, module) {
                 this.wheelingInfo.open(this.gMap);
 
             }.bind(this));
+            /*Wheeling Ends*/
 
+            /**
+             * 13. Niles
+             */
 
-            /*Niles*/
             var nilesCoordinates = niles.getCoordinates();
 
             var nilesLayer = new google.maps.Polygon({
@@ -640,7 +655,7 @@ define(function (require, exports, module) {
                 this.nilesInfo.open(this.gMap);
 
             }.bind(this));
-
+            /*Niles Ends*/
 
             //_difier.call(this);
         }.bind(this));
@@ -680,12 +695,9 @@ define(function (require, exports, module) {
         that.allowAnimation = true;
 
         var baseLat = 42.14,
-
             baseLong = -87.9;
 
         _closeAllOverlays.call(this);
-
-
         var counter = 100;
 
         function dropYpCompanies() {
@@ -755,8 +767,6 @@ define(function (require, exports, module) {
                     this.markerInfo.setPosition(e.latLng);
                     this.markerInfo.open(this.gMap);
                 }.bind(this));
-
-
             }.bind(this));
 
             this.markers.push(this.svetMarker);
@@ -765,7 +775,6 @@ define(function (require, exports, module) {
 
         for (var i = 1; i < 40; i++) {
             setTimeout(function () {
-
                 dropSvetPoints.call(this);
             }.bind(this), i * 100);
         }
