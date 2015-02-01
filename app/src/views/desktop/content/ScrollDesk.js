@@ -93,6 +93,7 @@ define(function (require, exports, module) {
 
 
         this.sync.on('update', function (data) {
+            console.log('update');
             var initPos = this.containerTrans.get();
             this.normCoef = data.velocity > 7 ? 5 : 3;
             var velocityNorm = this.normCoef * Math.log(Math.abs(data.velocity));
@@ -217,21 +218,32 @@ define(function (require, exports, module) {
         switch (pageIndex) {
             case 0:
                 this.containerTrans.set(0, {duration: 500});
+                this.homeDesk.tuneToDefaultView();
+                this.homeDesk.tuneToDefaultMoto2();
 
+                this._eventOutput.emit('increase:header');
+                this.headerFull = true;
                 break;
 
             case 1:
                 this.containerTrans.set(-this.homeShift, {duration: 500});
 
+                this._eventOutput.emit('decrease:header');
+                this.headerFull = false;
                 break;
 
             case 2:
 
                 this.containerTrans.set(-this.aboutShift, {duration: 500});
+                this._eventOutput.emit('decrease:header');
+                this.headerFull = false;
                 break;
 
             case 3:
                 this.containerTrans.set(-this.radioShift, {duration: 500});
+                this._eventOutput.emit('decrease:header');
+                this.headerFull = false;
+
 
                 break;
 
