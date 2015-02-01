@@ -126,6 +126,7 @@ define(function (require, exports, module) {
                 zoom: 11,
                 center: this.northChicagoStart,
                 disableDefaultUI: true,
+                scrollwheel:false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
         });
