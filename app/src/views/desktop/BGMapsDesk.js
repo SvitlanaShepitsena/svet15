@@ -13,7 +13,7 @@ define(function (require, exports, module) {
     var skokie = require('coord/Skokie');
 
 
-    function MapsDesk() {
+    function BgMapsDesk() {
         this.allowAnimation = true;
         View.apply(this, arguments);
         _init.call(this);
@@ -25,7 +25,7 @@ define(function (require, exports, module) {
 
     }
 
-    MapsDesk.DEFAULT_OPTIONS = {
+    BgMapsDesk.DEFAULT_OPTIONS = {
         colors: {
             buffaloGrove: 'coral',
             highlandpark: '#D98982',
@@ -893,16 +893,16 @@ define(function (require, exports, module) {
     }
 
 
-    MapsDesk.prototype = Object.create(View.prototype);
-    MapsDesk.prototype.constructor = MapsDesk;
+    BgMapsDesk.prototype = Object.create(View.prototype);
+    BgMapsDesk.prototype.constructor = BgMapsDesk;
 
 
-    MapsDesk.prototype.hideEverything = function () {
+    BgMapsDesk.prototype.hideEverything = function () {
         this.allowAnimation = false;
         _closeAllOverlays.call(this);
 
     }
-    MapsDesk.prototype.randomPoint = function (x) {
+    BgMapsDesk.prototype.randomPoint = function (x) {
         var maxRandomDisp = .1;
 
         x = (x << 13) ^ x;
@@ -912,7 +912,7 @@ define(function (require, exports, module) {
     }
 
 
-    MapsDesk.prototype.showYpCompanies = function () {
+    BgMapsDesk.prototype.showYpCompanies = function () {
         var that = this;
         that.allowAnimation = true;
 
@@ -960,7 +960,7 @@ define(function (require, exports, module) {
         legendYp.call(this);
 
     }
-    MapsDesk.prototype.showSvetPoints = function () {
+    BgMapsDesk.prototype.showSvetPoints = function () {
         this.allowAnimation = true;
         var that = this;
         var baseLat = 42.04,
@@ -1009,6 +1009,6 @@ define(function (require, exports, module) {
 
     }
 
-    module.exports = MapsDesk;
+    module.exports = BgMapsDesk;
 })
 ;
