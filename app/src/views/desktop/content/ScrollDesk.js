@@ -147,7 +147,7 @@ define(function (require, exports, module) {
             scroll: {
                 direction: 1,
                 rails: true,
-                scale: 1,
+                scale: 0.7,
                 stallTime: 4
             }
         });
