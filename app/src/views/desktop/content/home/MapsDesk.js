@@ -235,7 +235,7 @@ define(function (require, exports, module) {
             }
         ];
         var styledMap = new google.maps.StyledMapType(styles,
-            {name: "Styled Map"});
+            {name: "Svet Media Group"});
 
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
