@@ -122,7 +122,6 @@ define(function (require, exports, module) {
         this.legendPlace = {lat: 42.131767, lng: -87.579624};
         this.northChicagoEnd = {lat: 42.150571, lng: -87.710238};
 
-
         var styles = [
             {
                 stylers: [
@@ -149,8 +148,18 @@ define(function (require, exports, module) {
 
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
-            syncS:this.options.sync,
+            syncS: this.options.sync,
             mapOptions: {
+                featureType: "water",
+                elementType: "all",
+                stylers: [
+                    {
+                        visibility: "on"
+                    },
+                    {
+                        color: "#acbcc9"
+                    }
+                ],
                 zoom: 11,
                 center: this.northChicagoStart,
                 mapTypeControlOptions: {
