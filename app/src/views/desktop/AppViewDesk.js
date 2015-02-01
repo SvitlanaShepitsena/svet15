@@ -64,7 +64,7 @@ define(function (require, exports, module) {
             //    this.scrolldesk.scrollview.setPosition(0);
             //
             //} else
-                this.scrolldesk.goToPage(data.index);
+                this.scrolldesk.goToPage.call(this.scrolldesk,data.index);
         }.bind(this))
         this.rootNode.add(this.headerDesk);
 
