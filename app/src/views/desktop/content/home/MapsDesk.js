@@ -702,6 +702,7 @@ define(function (require, exports, module) {
         var that = this;
         that.allowAnimation = true;
         that.allowSvetAnimation = false;
+        that.allowYpAnimation = true;
 
         var baseLat = 42.14,
 
@@ -713,7 +714,7 @@ define(function (require, exports, module) {
         var counter = 100;
 
         function dropYpCompanies() {
-            if (!that.allowAnimation) {
+            if (!that.allowAnimation || that.allowSvetAnimation) {
                 return;
             }
             counter++;
@@ -744,6 +745,7 @@ define(function (require, exports, module) {
                 dropYpCompanies.call(this);
             }.bind(this), i * 100);
             if (that.allowSvetAnimation) {
+                i=25;
                 break;
             }
         }
@@ -753,6 +755,7 @@ define(function (require, exports, module) {
     MapsDesk.prototype.showSvetPoints = function () {
         this.allowAnimation = true;
         this.allowSvetAnimation = true;
+        this.allowYpAnimation = false;
         var that = this;
         var baseLat = 42.14,
             baseLong = -87.9;
@@ -763,7 +766,7 @@ define(function (require, exports, module) {
 
         function dropSvetPoints() {
 
-            if (!that.allowAnimation) {
+            if (!that.allowAnimation || that.allowYpAnimation) {
                 return;
             }
             counter++;
@@ -795,6 +798,9 @@ define(function (require, exports, module) {
 
                 dropSvetPoints.call(this);
             }.bind(this), i * 100);
+            if (this.allowYpAnimation) {
+                i=41;
+            }
         }
         legendSvet.call(this);
 
