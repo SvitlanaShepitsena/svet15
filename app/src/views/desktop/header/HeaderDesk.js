@@ -17,7 +17,7 @@ define(function (require, exports, module) {
 
         this.flexTransitionable = new Transitionable(30);
         this.opacityTransitionable = new Transitionable(0);
-        this.widthTransitionable = new Transitionable(window.sv.sizing.headerHeight);
+        this.heightTransitionable = new Transitionable(window.sv.sizing.headerHeight);
         this.navBtnContainerWidth = (window.sv.sizing.contentWidth - window.sv.sizing.logoContainerWidth) / 4;
         this.logoMargin = (window.sv.sizing.headerHeight * .6 ) / 2
         View.apply(this, arguments);
@@ -55,7 +55,7 @@ define(function (require, exports, module) {
     function _headerBackground() {
         this.backgroundMod = new Modifier({
             size: function () {
-                return [undefined, this.widthTransitionable.get()]
+                return [undefined, this.heightTransitionable.get()]
             }.bind(this),
             opacity: function () {
                 return this.opacityTransitionable.get();
@@ -90,8 +90,8 @@ define(function (require, exports, module) {
                 var renderNode = new RenderNode();
 
                 var logoMod = new Modifier({
-                    size: [window.sv.sizing.logoContainerWidth * .9, window.sv.sizing.headerHeight * .9]
-
+                    size: [window.sv.sizing.logoContainerWidth * .9, window.sv.sizing.headerHeight * .8],
+                    transform: Transform.translate(0, 50, 0)
                 });
                 renderNode.add(logoMod).add(this.logoDesk);
                 this.contents.push(renderNode);
@@ -101,9 +101,7 @@ define(function (require, exports, module) {
             this.renderNode = new RenderNode();
 
             this.navBtnMod = new Modifier({
-                align: [0.5, 0],
-                origin: [0.5, 0],
-                size: [this.navBtnContainerWidth, 20],
+                size: [undefined, 20],
                 transform: Transform.translate(0, 50, 0)
             });
             this.navBtnSurf = new Surface({
@@ -132,26 +130,26 @@ define(function (require, exports, module) {
     }
 
     HeaderDesk.prototype.increaseHeader = function () {
-        this.currentHeaderHeight = this.widthTransitionable.get();
+        this.currentHeaderHeight = this.heightTransitionable.get();
 
         if (this.currentHeaderHeight < window.sv.sizing.headerHeight) {
             this.flexTransitionable.halt();
             this.flexTransitionable.set(this.flexShiftInit, {duration: 500});
-            this.widthTransitionable.halt();
-            this.widthTransitionable.set(window.sv.sizing.headerHeight, this.options.headerTransition);
+            this.heightTransitionable.halt();
+            this.heightTransitionable.set(window.sv.sizing.headerHeight, this.options.headerTransition);
             this.logoDesk.increaseLogo();
         }
     }
 
     HeaderDesk.prototype.decreaseHeader = function () {
-        this.currentHeaderHeight = this.widthTransitionable.get();
+        this.currentHeaderHeight = this.heightTransitionable.get();
 
         if (this.currentHeaderHeight > this.options.smallHeight) {
             this.flexTransitionable.halt();
             this.flexTransitionable.set(this.flexShiftShort, {duration: 500});
 
-            this.widthTransitionable.halt();
-            this.widthTransitionable.set(this.options.smallHeight, this.options.headerTransition, function () {
+            this.heightTransitionable.halt();
+            this.heightTransitionable.set(this.options.smallHeight, this.options.headerTransition, function () {
                 this._eventOutput.emit('header:decreased');
             }.bind(this));
             this.logoDesk.decreaseLogo();
