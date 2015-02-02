@@ -16,7 +16,6 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerMod = new Modifier({
-            // proportions: [.5, .25],
             align: [0, 0],
             origin: [0, 0],
             transform: Transform.translate(0, 0, 0)
@@ -81,23 +80,22 @@ define(function (require, exports, module) {
         })
         this.container.scrollview.sequenceFrom(surfaces);
 
+        var n = 4;
 
-        var n = 5;
+        for (var i = 4; i < 30; i+=7) {
+            var programSurface= new RadioProgram({
+                mp3:'01'+i+'.mp3',
+                bg:"hsl(" + (i * 360 / 4) + ", 100%, 50%)"
 
-        for (var i = 0, appSurface; i < n; i++) {
-            appSurface = new Surface({
-                content: "Surface: " + (i + 1),
-                size: [500, 350],
-                properties: {
-                    backgroundColor: "hsl(" + (i * 360 / n) + ", 70%, 75%)",
-                    textAlign: "center"
-                }
             });
 
-            appSurface.pipe(this.container.scrollview);
-            appSurface.pipe(this._eventOutput);
-            surfaces.push(appSurface);
+            programSurface.pipe(this.container.scrollview);
+            programSurface.pipe(this._eventOutput);
+            surfaces.push(programSurface);
         }
+
+
+
         this.rootNode.add(this.container);
         this.container.scrollview.goToPage(4);
     }

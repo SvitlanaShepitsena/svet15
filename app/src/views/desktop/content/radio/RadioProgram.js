@@ -4,23 +4,55 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
 
-    var VideoSurface = require("famous/surfaces/VideoSurface");
+    var VideoExtraSurface = require('dviews/content/radio/VideoExtraSurface');
 
     function RadioProgram() {
         View.apply(this, arguments);
         _init.call(this);
+        _bg.call(this);
         _programContent.call(this);
+        _playStop.call(this);
+    }
+        function _playStop() {
+
+
+        }
+
+    function _bg() {
+        this.bgMod = new Modifier({
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(0, 0, 0)
+        });
+        this.bgSurface = new Surface({
+            size: [undefined, undefined],
+            content: '',
+            classes: [],
+            properties: {
+                color: 'white',
+                textAlign: 'center',
+                backgroundColor: this.options.bg
+            }
+        });
+        this.rootNode.add(this.bgMod).add(this.bgSurface);
+
+        this.bgSurface.pipe(this._eventOutput);
     }
 
     function _programContent() {
-        this.surface = new VideoSurface({
-            size: [undefined, undefined],
-            content: 'radio/' + this.options.mp3
+        var content = 'img/audio/' + this.options.mp3;
+        this.progSurface = new VideoExtraSurface({
+            autoplay: false,
+            controls: true
         });
+        this.progSurface.setContent(content);
+        this.rootNode.add(this.progSurface);
+        this.progSurface.pipe(this._eventOutput);
     }
 
     function _init() {
         this.centerModifier = new Modifier({
+            size: [500, undefined],
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             transform: Transform.translate(0, 0, 0)
