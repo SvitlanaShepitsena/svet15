@@ -122,14 +122,12 @@ define(function (require, exports, module) {
     function _init() {
         this.contentMod = new Modifier({
             size: [undefined, undefined],
-            transform: Transform.translate(0, 0, 0),
-            align: [0.5, 0],
-            origin: [0.5, 0]
+            transform: Transform.translate(0, 0, 0)
         });
         this.rootNode = this.add(this.contentMod);
 
         this.flexContent = [];
-        var ratios = [1, 1];
+        var ratios = [1,1];
 
         this.flexibleLayout = new FlexibleLayout({
             ratios: window.innerHeight < 960 ? ratios : [1, 2],

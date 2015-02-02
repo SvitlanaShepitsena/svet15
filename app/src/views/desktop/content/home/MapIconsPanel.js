@@ -73,7 +73,7 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.gridIconTrans.get();
             }.bind(this),
-            transform: Transform.translate(470, 210, 9)
+            transform: Transform.translate(0, 0, 9)
 
         });
 
@@ -112,7 +112,7 @@ define(function (require, exports, module) {
         this.rootNode.add(this.mapIconsBg);
 
         /*Grid Layout for Map Icons*/
-        this.gridIconTrans = new Transitionable(1);
+        this.gridIconTrans = new Transitionable(0);
 
         this.gridIconsMod = new Modifier({
             size: [undefined, 40],

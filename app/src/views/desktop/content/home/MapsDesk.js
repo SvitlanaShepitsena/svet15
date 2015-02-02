@@ -60,8 +60,8 @@ define(function (require, exports, module) {
 
     function _svetMapIcons() {
         this.modMap = new Modifier({
-            align: [0, 0],
-            origin: [0, 0],
+            align: [0.5, 0],
+            origin: [0.5, 0],
             transform: Transform.translate(0, 0, 0)
         });
         this.mapIconsPanel = new MapIconsPanel();
@@ -154,7 +154,7 @@ define(function (require, exports, module) {
 
     function _getNormalizedCenter(mapInfo) {
         var latDifference = mapInfo.northEast.lat - this.highestLat;
-        lat = this.northChicagoEnd.lat + latDifference / 20;
+        lat = this.northChicagoEnd.lat + latDifference / 7;
         var lng = this.northChicagoEnd.lng;
         return {lat: lat, lng: lng};
     }
