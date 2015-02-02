@@ -30,6 +30,9 @@ define(function (require, exports, module) {
             properties: {
                 color: 'white',
                 textAlign: 'center',
+                borderStyle: 'groove',
+                borderRadius: '9px',
+                borderColor: '#595959',
                 backgroundColor: this.options.bg
             }
         });

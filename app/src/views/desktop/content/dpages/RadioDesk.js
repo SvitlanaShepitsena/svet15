@@ -24,7 +24,7 @@ define(function (require, exports, module) {
                 paddingRight: '25px',
                 color: window.sv.scheme.textDark,
                 textAlign: 'center',
-                backgroundColor: 'grey'
+                backgroundColor: window.sv.scheme.textWhite
             }
         });
 
@@ -58,7 +58,7 @@ define(function (require, exports, module) {
             size: [undefined, undefined],
             content: radioDesk,
             properties: {
-                color: 'white',
+                color: window.sv.scheme.textDark,
                 textAlign: 'center'
             }
         });

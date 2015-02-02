@@ -28,7 +28,7 @@ define(function (require, exports, module) {
     function _getRaphaelRadioIcon(file) {
         var divDaily = document.createElement('div');
         var paper = Raphael(divDaily, 40, 50);
-        var element = paper.path(file).attr({fill: window.sv.scheme.lightRed, stroke: 'none'});
+        var element = paper.path(file).attr({fill: window.sv.scheme.textDark, stroke: 'none', opacity:'.6'});
         element.transform('t5 15, s2');
         this.iconElements.push(element);
         return divDaily;
@@ -77,10 +77,11 @@ define(function (require, exports, module) {
     }
 
     function _scrollRadio() {
-        var bgLight = window.sv.scheme.textWhite;
-        var bgDark = window.sv.scheme.lightGrey;
-        this.container = new ScrollContainer();
+        var bgLight = window.sv.scheme.lightGrey;
+        var bgDark = window.sv.scheme.darkGrey;
+
         var surfaces = [];
+        this.container = new ScrollContainer();
         this.container.scrollview.setOptions({
             direction: 0
         })
@@ -91,14 +92,13 @@ define(function (require, exports, module) {
         for (var i = 4; i < 30; i += 7) {
             var programSurface = new RadioProgram({
                 mp3: '01' + i + '.mp3',
-                bg: n % 2 === 0 ? bgLight : bgDark
+                bg: n % 2 === 0 ? bgDark : bgLight
             });
             n++;
             programSurface.pipe(this.container.scrollview);
             programSurface.pipe(this._eventOutput);
             surfaces.push(programSurface);
         }
-
 
         this.rootNode.add(this.container);
         this.container.scrollview.goToPage(4);
