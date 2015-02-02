@@ -57,7 +57,6 @@ define(function (require, exports, module) {
         this.radivoSurf = new Surface({
             size: [undefined, undefined],
             content: radioDesk,
-            classes: [],
             properties: {
                 color: 'white',
                 textAlign: 'center'
