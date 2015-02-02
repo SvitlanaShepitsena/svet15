@@ -18,6 +18,10 @@ define(function (require, exports, module) {
     var ContactUsDesk = require('dviews/content/dpages/ContactUsDesk');
     //
 
+    ScrollDesk.prototype = Object.create(View.prototype);
+    ScrollDesk.prototype.constructor = ScrollDesk;
+
+    ScrollDesk.DEFAULT_OPTIONS = {};
 
     function ScrollDesk() {
         this.mapIconLimit = 680;
@@ -35,6 +39,16 @@ define(function (require, exports, module) {
 
         _content.call(this);
         _handleScroll.call(this);
+    }
+
+    function _init() {
+        this.centerModifier = new Modifier({
+            size: [undefined, undefined],
+            transform: function () {
+                return Transform.translate(0, this.containerTrans.get(), 0);
+            }.bind(this)
+        });
+        this.rootNode = this.add(this.centerModifier);
     }
 
     function _restrict(pos) {
@@ -166,7 +180,7 @@ define(function (require, exports, module) {
         });
         this.homeDesk = new HomeDesk({sync: this.sync});
         this.homeDesk.pipe(this.sync);
-        this.homeShift = window.innerHeight+680;
+        this.homeShift = window.innerHeight + 680;
 
         this.rootNode.add(this.homeDesk);
 
@@ -205,21 +219,6 @@ define(function (require, exports, module) {
 
     }
 
-    function _init() {
-
-        this.centerModifier = new Modifier({
-            size: [undefined, undefined],
-            transform: function () {
-                return Transform.translate(0, this.containerTrans.get(), 0);
-            }.bind(this)
-        });
-        this.rootNode = this.add(this.centerModifier);
-    }
-
-    ScrollDesk.prototype = Object.create(View.prototype);
-    ScrollDesk.prototype.constructor = ScrollDesk;
-
-    ScrollDesk.DEFAULT_OPTIONS = {};
 
     ScrollDesk.prototype.goToPage = function (pageIndex) {
         switch (pageIndex) {
