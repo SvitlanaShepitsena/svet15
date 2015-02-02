@@ -63,8 +63,8 @@ define(function (require, exports, module) {
 
     function _svetMapIcons() {
         this.modMap = new Modifier({
-            align: [0.5, 0],
-            origin: [0.5, 0],
+            align: [0.5, 0.3],
+            origin: [0.5, 0.2],
             transform: Transform.translate(0, 0, 0)
         });
         this.mapIconsPanel = new MapIconsPanel();

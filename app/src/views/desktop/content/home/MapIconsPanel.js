@@ -16,40 +16,39 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
 
 
-    MapIconsPanel.prototype = Object.create(View.prototype);
-    MapIconsPanel.prototype.constructor = MapIconsPanel;
-
-    MapIconsPanel.DEFAULT_OPTIONS = {
-        iconsPanelSize: [150, 40],
-        iconsGridSize: [140, 40],
-        mapIconProps: {
-            cursor: 'pointer'
-        }
-    };
-
     function MapIconsPanel() {
         View.apply(this, arguments);
         this.iconElements = [];
 
         _init.call(this);
         _mapIcons.call(this);
+
     }
 
 
+    MapIconsPanel.prototype = Object.create(View.prototype);
+    MapIconsPanel.prototype.constructor = MapIconsPanel;
+
     MapIconsPanel.prototype.animateUp = function () {
+        this.gridIconTrans.set(1, {duration:400, curve: "easeOutBounce"});
         var n = 0;
         var interval = setInterval(function () {
-            var el = this.iconElements[n++];
+            var el = this.iconElements[n];
+            n++;
             // animation in Raphael.js
             el.animate({transform: 's.7'}, 800, '>');
 
-            if (n == 4) {
+            if (n == 3) {
                 clearInterval(interval)
             }
         }.bind(this), 500);
+
+
     }
 
     MapIconsPanel.prototype.animateDown = function () {
+
+        this.gridIconTrans.set(0, {duration:400, curve: "easeOutBounce"});
         var n = 4;
         var interval = setInterval(function () {
             var el = this.iconElements[n--];
@@ -64,6 +63,13 @@ define(function (require, exports, module) {
 
     }
 
+    MapIconsPanel.DEFAULT_OPTIONS = {
+        iconsPanelSize: [90, 40],
+        iconsGridSize: [100, 40],
+        mapIconProps: {
+            cursor: 'pointer'
+        }
+    };
 
     function _init() {
         this.centerModifier = new Modifier({
@@ -87,9 +93,9 @@ define(function (require, exports, module) {
 
     function _getRaphaelIcon(file) {
         var divDaily = document.createElement('div');
-        var paper = Raphael(divDaily, 40, 40);
+        var paper = Raphael(divDaily, 50, 50);
         var element = paper.path(file).attr({fill: '#797979', stroke: 'none'});
-        element.transform('t10,5, s0');
+        element.transform('t33 43, s0');
         this.iconElements.push(element);
         return divDaily;
     }
@@ -114,7 +120,7 @@ define(function (require, exports, module) {
 
         this.gridIconsMod = new Modifier({
             size: this.options.iconsGridSize,
-            align: [0.5, 0.5],
+            align: [0.6, 0.6],
             origin: [0.5, 0.5],
 
             opacity: function () {
@@ -124,7 +130,8 @@ define(function (require, exports, module) {
         });
 
         this.gridLayout = new GridLayout({
-            dimensions: [4, 1]
+            dimensions: [4, 1],
+            gutterSize:[2,2]
         });
         this.surfaces = [];
         this.gridLayout.sequenceFrom(this.surfaces);
