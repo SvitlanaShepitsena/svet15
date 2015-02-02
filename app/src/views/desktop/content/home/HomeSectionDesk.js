@@ -97,6 +97,12 @@ define(function (require, exports, module) {
                 textAlign: 'center'
             }
         });
+        this.surfaceBg.on('click', function () {
+            if (this.options.icon === 'radio') {
+                this._eventOutput.emit('navigateTo:radio')
+            }
+
+        }.bind(this));
         this.surfaceBg.pipe(this._eventOutput);
         this.rootNode.add(this.textMod).add(this.surfaceBg);
     }

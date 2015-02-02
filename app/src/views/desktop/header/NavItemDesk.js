@@ -35,14 +35,12 @@ define(function (require, exports, module) {
         var div = document.createElement('div');
         var paper = Raphael(div, 200, 32);
         var t = paper.text(10, 20, this.options.title);
-        t.attr({stroke:'white',
-            'font-size':18
+        t.attr({
+            stroke: 'white',
+            'font-size': 18
         });
 
-        this.centerModifier = new Modifier({
-
-
-        });
+        this.centerModifier = new Modifier({});
         this.itemSurface = new Surface({
             content: div,
             properties: this.options.navBtnOpts

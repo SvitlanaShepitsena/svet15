@@ -9,6 +9,7 @@ define(function (require, exports, module) {
 
     function RadioScrollDesk() {
         View.apply(this, arguments);
+        this.iconElements = [];
         _init.call(this);
         _scrollRadio.call(this);
         _buttonsScroll.call(this);
@@ -16,28 +17,36 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerMod = new Modifier({
+            size: [undefined, undefined],
             align: [0, 0],
             origin: [0, 0],
             transform: Transform.translate(0, 0, 0)
         });
         this.rootNode = this.add(this.centerMod);
+    }
 
+    function _getRaphaelRadioIcon(file) {
+        var divDaily = document.createElement('div');
+        var paper = Raphael(divDaily, 40, 50);
+        var element = paper.path(file).attr({fill: window.sv.scheme.lightRed, stroke: 'none'});
+        element.transform('t5 15, s2');
+        this.iconElements.push(element);
+        return divDaily;
     }
 
     function _buttonsScroll() {
+        var navBackIcon = 'M21.871,9.814 15.684,16.001 21.871,22.188 18.335,25.725 8.612,16.001 18.335,6.276z'
+        var navForwardIcon = 'M10.129,22.186 16.316,15.999 10.129,9.812 13.665,6.276 23.389,15.999 13.665,25.725z'
+
         this.backMod = new Modifier({
+            size: [50, 70],
             align: [0, 0.5],
-            origin: [0, 0.7],
+            origin: [0, 0.5],
             transform: Transform.translate(0, 0, 0)
         });
         this.backSurf = new Surface({
-            size: [100, 100],
-            content: 'Back',
-            classes: [],
+            content: _getRaphaelRadioIcon.call(this, navBackIcon),
             properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: '#FA5C4F',
                 cursor: 'pointer'
             }
         });
@@ -48,31 +57,28 @@ define(function (require, exports, module) {
 
 
         this.forwardMod = new Modifier({
+            size: [50, 70],
             align: [1, 0.5],
-            origin: [1, 0.7],
+            origin: [1, 0.5],
             transform: Transform.translate(0, 0, 0)
         });
         this.forwartSurf = new Surface({
-            size: [100, 100],
-            content: 'Forward',
-            classes: [],
+            content: _getRaphaelRadioIcon.call(this, navForwardIcon),
             properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: '#FA5C4F',
                 cursor: 'pointer'
             }
         });
         this.forwartSurf.on('click', function () {
             this.container.scrollview.goToNextPage();
         }.bind(this))
+
         this.rootNode.add(this.forwardMod).add(this.forwartSurf);
-
         this.rootNode.add(this.backMod).add(this.backSurf);
-
     }
 
     function _scrollRadio() {
+        var bgLight = window.sv.scheme.textWhite;
+        var bgDark = window.sv.scheme.lightGrey;
         this.container = new ScrollContainer();
         var surfaces = [];
         this.container.scrollview.setOptions({
@@ -80,20 +86,18 @@ define(function (require, exports, module) {
         })
         this.container.scrollview.sequenceFrom(surfaces);
 
-        var n = 4;
+        var n = 1;
 
-        for (var i = 4; i < 30; i+=7) {
-            var programSurface= new RadioProgram({
-                mp3:'01'+i+'.mp3',
-                bg:"hsl(" + (i * 360 / 4) + ", 100%, 50%)"
-
+        for (var i = 4; i < 30; i += 7) {
+            var programSurface = new RadioProgram({
+                mp3: '01' + i + '.mp3',
+                bg: n % 2 === 0 ? bgLight : bgDark
             });
-
+            n++;
             programSurface.pipe(this.container.scrollview);
             programSurface.pipe(this._eventOutput);
             surfaces.push(programSurface);
         }
-
 
 
         this.rootNode.add(this.container);

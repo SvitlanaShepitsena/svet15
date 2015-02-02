@@ -28,8 +28,9 @@ define(function (require, exports, module) {
         this.mapIconShown = false;
 
         this.shift = window.innerHeight;
-        this.initScrollPos = -3400;
-        //this.initScrollPos = 0;
+        //this.initScrollPos = -3400;
+        this.initScrollPos = 0;
+
         this.maxScrollPos = 8 / (window.innerHeight / this.shift);
         this.dir;
         this.containerTrans = new Transitionable(this.initScrollPos);
@@ -40,6 +41,13 @@ define(function (require, exports, module) {
 
         _content.call(this);
         _handleScroll.call(this);
+        _handleTilesClick.call(this);
+    }
+
+    function _handleTilesClick() {
+        this.homeDesk.on('navigateTo:radio', function () {
+            this.goToPage.call(this, 2);
+        }.bind(this))
     }
 
     function _init() {

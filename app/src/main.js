@@ -77,6 +77,8 @@ window.sv = {
             textWhite: '#fffaf0',
             textDark: '#393939',
             textShadow: '1px 1px #BD8D46',
+            lightRed: '#FA5C4F',
+            lightGrey: '#F2EDE4',
             headerColor: '#000000',
             navColor: '#0B0B0B',
             homeIconColor: '#faebd7',

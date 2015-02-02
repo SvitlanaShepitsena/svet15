@@ -13,10 +13,9 @@ define(function (require, exports, module) {
         _programContent.call(this);
         _playStop.call(this);
     }
-        function _playStop() {
 
-
-        }
+    function _playStop() {
+    }
 
     function _bg() {
         this.bgMod = new Modifier({
@@ -52,7 +51,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [500, undefined],
+            size: [600, undefined],
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             transform: Transform.translate(0, 0, 0)
