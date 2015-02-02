@@ -16,18 +16,25 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
 
 
+    MapIconsPanel.prototype = Object.create(View.prototype);
+    MapIconsPanel.prototype.constructor = MapIconsPanel;
+
+    MapIconsPanel.DEFAULT_OPTIONS = {
+        iconsPanelSize: [150, 40],
+        iconsGridSize: [140, 40],
+        mapIconProps: {
+            cursor: 'pointer'
+        }
+    };
+
     function MapIconsPanel() {
         View.apply(this, arguments);
         this.iconElements = [];
 
         _init.call(this);
         _mapIcons.call(this);
-
     }
 
-
-    MapIconsPanel.prototype = Object.create(View.prototype);
-    MapIconsPanel.prototype.constructor = MapIconsPanel;
 
     MapIconsPanel.prototype.animateUp = function () {
         var n = 0;
@@ -40,8 +47,6 @@ define(function (require, exports, module) {
                 clearInterval(interval)
             }
         }.bind(this), 500);
-
-
     }
 
     MapIconsPanel.prototype.animateDown = function () {
@@ -59,13 +64,6 @@ define(function (require, exports, module) {
 
     }
 
-    MapIconsPanel.DEFAULT_OPTIONS = {
-        iconsPanelSize: [150, 40],
-        iconsGridSize: [140, 40],
-        mapIconProps: {
-            cursor: 'pointer'
-        }
-    };
 
     function _init() {
         this.centerModifier = new Modifier({
