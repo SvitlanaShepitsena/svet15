@@ -85,8 +85,7 @@ define(function (require, exports, module) {
     }
 
 
-    /**
-     * =Map Svet Icons
+    /** =Map Svet Icons
      */
 
     /*Raphael Icon Design*/
