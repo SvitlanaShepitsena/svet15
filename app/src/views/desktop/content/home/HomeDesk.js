@@ -49,7 +49,7 @@ define(function (require, exports, module) {
 
     HomeDesk.DEFAULT_OPTIONS = {
         mapIconProps: {
-            backroundColor: 'antiquewhite',
+            backroundColor: window.sv.scheme.sectionColor,
             cursor: 'pointer'
         }
     };
@@ -58,11 +58,9 @@ define(function (require, exports, module) {
         this.opacityMain = new Transitionable(1);
         this.contentTrans = new Transitionable(0);
 
-        this.centerModifier = new Modifier({
-            size: [undefined, undefined]
-        });
-        this.rootNode = this.add(this.rootNodeMod);
+        this.centerModifier = new Modifier({});
 
+        this.rootNode = this.add(this.rootNodeMod);
     }
 
 
@@ -90,7 +88,7 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.opacityMain.get();
             }.bind(this),
-            transform: Transform.translate(0, 0, 1)
+            transform: Transform.translate(0, 0, 0)
         });
         this.homeContentDesk = new HomeContentDesk();
         this.homeContentDesk.pipe(this._eventOutput);
