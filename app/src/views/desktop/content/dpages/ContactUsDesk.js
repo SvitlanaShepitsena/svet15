@@ -24,7 +24,7 @@ define(function (require, exports, module) {
                 paddingRight: '25px',
                 color: window.sv.scheme.textDark,
                 textAlign: 'center',
-                backgroundColor: window.sv.scheme.aboutDesk
+                backgroundColor: window.sv.scheme.darkGrey
             }
         });
 
