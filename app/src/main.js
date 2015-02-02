@@ -45,6 +45,20 @@ window.sv = {
         niles: 'Niles',
         evanston: 'Evanston'
     },
+    cityMapColors: {
+        buffaloGrove: 'coral',
+        highlandpark: '#D98982',
+        deerfield: '#EB8986',
+        glencoe: '#FFC0A3',
+        northbrook: '#9CDBAD',
+        glenview: '#EB8986',
+        skokie: '#61AEAE',
+        vernonHills: '#D4E5FF',
+        wheeling: '#B2A5B6',
+        wilmette: '#89BF7A',
+        niles: 'coral',
+        evanston: '#FFBFA3'
+    },
     sizing: {
         headerHeightCell: 0.08 * window.innerHeight,
         footerSize: 0 * window.innerHeight,
@@ -74,7 +88,100 @@ window.sv = {
             aboutDesk: '#FFFAF0', radioDesk: '#FFFBE3',
             contactDesk: '#FFFAF0'
         }
-    }
+    },
+
+    mapPalette: [
+        {
+            "featureType": "administrative",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "visibility": "on"
+                },
+                {
+                    "lightness": 33
+                }
+            ]
+        },
+        {
+            "featureType": "landscape",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "color": "#f2e5d4"
+                }
+            ]
+        },
+        {
+            "featureType": "poi.park",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#c5dac6"
+                }
+            ]
+        },
+        {
+            "featureType": "poi.park",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "visibility": "on"
+                },
+                {
+                    "lightness": 20
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "lightness": 20
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#c5c6c6"
+                }
+            ]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#e4d7c6"
+                }
+            ]
+        },
+        {
+            "featureType": "road.local",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#fbfaf7"
+                }
+            ]
+        },
+        {
+            "featureType": "water",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "visibility": "on"
+                },
+                {
+                    "color": "#acbcc9"
+                }
+            ]
+        }
+    ]
 }
 
 window.sv.scheme = window.sv.options.darkScheme;

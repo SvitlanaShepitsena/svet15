@@ -32,20 +32,6 @@ define(function (require, exports, module) {
             strokeOpacity: 0.8,
             strokeWeight: 2,
             fillOpacity: 0.35
-        },
-        colors: {
-            buffaloGrove: 'coral',
-            highlandpark: '#D98982',
-            deerfield: '#EB8986',
-            glencoe: '#FFC0A3',
-            northbrook: '#9CDBAD',
-            glenview: '#EB8986',
-            skokie: '#61AEAE',
-            vernonHills: '#D4E5FF',
-            wheeling: '#B2A5B6',
-            wilmette: '#89BF7A',
-            niles: 'coral',
-            evanston: '#FFBFA3'
         }
     };
 
@@ -53,14 +39,14 @@ define(function (require, exports, module) {
         this.highestLat = 42.223493;
         this.allowAnimation = true;
 
+        this.opacityLegendSvet = new Transitionable(0);
+        this.opacityLegendYp = new Transitionable(0);
+        this.geocoder = new google.maps.Geocoder();
+
         View.apply(this, arguments);
         _init.call(this);
         _map.call(this);
         _svetMapIcons.call(this);
-
-        this.opacityLegendSvet = new Transitionable(0);
-        this.opacityLegendYp = new Transitionable(0);
-        this.geocoder = new google.maps.Geocoder();
     }
 
     function _getCityInfo(cityName, ruSpeakingNum) {
@@ -103,13 +89,13 @@ define(function (require, exports, module) {
     }
 
     function legendSvet() {
-        this.surface = new Surface({
-            content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
-            properties: {
-                color: 'grey'
-            }
+        this.mapModifier = new MapModifier({
+            mapView: this.mapView,
+            position: this.legendPlace,
+            zoomBase: 9,
+            zoomScale: 0.3
         });
-        this.surface.pipe(this.mapView);
+
         this.modifier = new Modifier({
             size: [170, 50],
             align: [0, 0],
@@ -119,28 +105,28 @@ define(function (require, exports, module) {
             }.bind(this)
 
         });
+
+        this.surface = new Surface({
+            content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
+            properties: {
+                color: window.sv.scheme.textDark
+            }
+        });
+        this.surface.pipe(this.mapView);
         this.opacityLegendSvet.set(1, {duration: 500, curve: 'easeInOut'});
 
-        this.mapModifier = new MapModifier({
-            mapView: this.mapView,
-            position: this.legendPlace,
-            zoomBase: 9,
-            zoomScale: 0.3
-        });
         this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
     }
 
     function legendYp() {
-
-        this.surface = new Surface({
-            size: [170, 50],
-            content: '<p><img src="img/google-icon.png">  Our current clients </p>',
-            properties: {
-                zIndex: 1,
-                color: 'black'
-            }
+        this.mapModifier = new MapModifier({
+            mapView: this.mapView,
+            zIndex: 1,
+            position: this.legendPlace,
+            zoomBase: 9,
+            zoomScale: 0.3
         });
-        this.surface.pipe(this.mapView);
+
         this.modifier = new Modifier({
             align: [0, 0],
             zIndex: 1,
@@ -150,15 +136,18 @@ define(function (require, exports, module) {
             }.bind(this)
 
         });
+
+        this.surface = new Surface({
+            size: [170, 50],
+            content: '<p><img src="img/google-icon.png">  Our current clients </p>',
+            properties: {
+                zIndex: 1,
+                color: window.sv.scheme.textDark
+            }
+        });
+        this.surface.pipe(this.mapView);
         this.opacityLegendYp.set(1, {duration: 500, curve: 'easeInOut'});
 
-        this.mapModifier = new MapModifier({
-            mapView: this.mapView,
-            zIndex: 1,
-            position: this.legendPlace,
-            zoomBase: 9,
-            zoomScale: 0.3
-        });
         this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
     }
 
@@ -175,99 +164,7 @@ define(function (require, exports, module) {
         this.legendPlace = {lat: 42.131767, lng: -87.579624};
         this.northChicagoEnd = {lat: 42.150571, lng: -87.710238};
 
-        var styles = [
-            {
-                "featureType": "administrative",
-                "elementType": "all",
-                "stylers": [
-                    {
-                        "visibility": "on"
-                    },
-                    {
-                        "lightness": 33
-                    }
-                ]
-            },
-            {
-                "featureType": "landscape",
-                "elementType": "all",
-                "stylers": [
-                    {
-                        "color": "#f2e5d4"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi.park",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#c5dac6"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi.park",
-                "elementType": "labels",
-                "stylers": [
-                    {
-                        "visibility": "on"
-                    },
-                    {
-                        "lightness": 20
-                    }
-                ]
-            },
-            {
-                "featureType": "road",
-                "elementType": "all",
-                "stylers": [
-                    {
-                        "lightness": 20
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#c5c6c6"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.arterial",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#e4d7c6"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.local",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#fbfaf7"
-                    }
-                ]
-            },
-            {
-                "featureType": "water",
-                "elementType": "all",
-                "stylers": [
-                    {
-                        "visibility": "on"
-                    },
-                    {
-                        "color": "#acbcc9"
-                    }
-                ]
-            }
-        ];
-        var styledMap = new google.maps.StyledMapType(styles,
+        var styledMap = new google.maps.StyledMapType(window.sv.mapPalette,
             {name: "Svet Media Group"});
 
         this.mapView = new MapView({
@@ -337,10 +234,10 @@ define(function (require, exports, module) {
 
             var buffaloGroveLayer = new google.maps.Polygon({
                 paths: buffaloGroveCoordinates,
-                strokeColor: this.options.colors.buffaloGrove,
+                strokeColor: window.sv.cityMapColors.buffaloGrove,
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: this.options.colors.buffaloGrove,
+                fillColor: window.sv.cityMapColors.buffaloGrove,
                 fillOpacity: 0.35
             });
             buffaloGroveLayer.setMap(this.gMap);
@@ -364,10 +261,10 @@ define(function (require, exports, module) {
 
             var highlandParkLayer = new google.maps.Polygon({
                 paths: highlandParkCoordinates,
-                strokeColor: this.options.colors.highlandpark,
+                strokeColor: window.sv.cityMapColors.highlandpark,
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: this.options.colors.highlandpark,
+                fillColor: window.sv.cityMapColors.highlandpark,
                 fillOpacity: 0.35
             });
             highlandParkLayer.setMap(this.gMap);
@@ -392,8 +289,8 @@ define(function (require, exports, module) {
 
             var deerfieldLayer = new google.maps.Polygon({
                 paths: deerfieldCoordinates,
-                strokeColor: this.options.colors.deerfield,
-                fillColor: this.options.colors.deerfield,
+                strokeColor: window.sv.cityMapColors.deerfield,
+                fillColor: window.sv.cityMapColors.deerfield,
                 strokeOpacity: this.options.mapCityOpts.strokeOpacity,
                 strokeWeight: this.options.mapCityOpts.strokeWeight,
                 fillOpacity: this.options.mapCityOpts.fillOpacity
@@ -418,8 +315,8 @@ define(function (require, exports, module) {
 
             var glencoeLayer = new google.maps.Polygon({
                 paths: glencoeCoordinates,
-                strokeColor: this.options.colors.glencoe,
-                fillColor: this.options.colors.glencoe,
+                strokeColor: window.sv.cityMapColors.glencoe,
+                fillColor: window.sv.cityMapColors.glencoe,
                 strokeOpacity: this.options.mapCityOpts.strokeOpacity,
                 strokeWeight: this.options.mapCityOpts.strokeWeight,
                 fillOpacity: this.options.mapCityOpts.fillOpacity
@@ -445,8 +342,8 @@ define(function (require, exports, module) {
 
             var northbrookLayer = new google.maps.Polygon({
                 paths: northbrookCoordinates,
-                strokeColor: this.options.colors.northbrook,
-                fillColor: this.options.colors.northbrook,
+                strokeColor: window.sv.cityMapColors.northbrook,
+                fillColor: window.sv.cityMapColors.northbrook,
                 strokeOpacity: this.options.mapCityOpts.strokeOpacity,
                 strokeWeight: this.options.mapCityOpts.strokeWeight,
                 fillOpacity: this.options.mapCityOpts.fillOpacity
@@ -473,8 +370,8 @@ define(function (require, exports, module) {
 
             var vernonHillsLayer = new google.maps.Polygon({
                 paths: vernonHillsCoordinates,
-                strokeColor: this.options.colors.vernonHills,
-                fillColor: this.options.colors.vernonHills,
+                strokeColor: window.sv.cityMapColors.vernonHills,
+                fillColor: window.sv.cityMapColors.vernonHills,
                 strokeOpacity: this.options.mapCityOpts.strokeOpacity,
                 strokeWeight: this.options.mapCityOpts.strokeWeight,
                 fillOpacity: this.options.mapCityOpts.fillOpacity
@@ -501,8 +398,8 @@ define(function (require, exports, module) {
             var skokieLayer = new google.maps.Polygon({
                 paths: skokieCoordinates,
                 title: 'Skokie',
-                strokeColor: this.options.colors.skokie,
-                fillColor: this.options.colors.skokie,
+                strokeColor: window.sv.cityMapColors.skokie,
+                fillColor: window.sv.cityMapColors.skokie,
                 strokeOpacity: this.options.mapCityOpts.strokeOpacity,
                 strokeWeight: this.options.mapCityOpts.strokeWeight,
                 fillOpacity: this.options.mapCityOpts.fillOpacity
@@ -528,8 +425,8 @@ define(function (require, exports, module) {
 
             var evanstonLayer = new google.maps.Polygon({
                 paths: evanstonCoordinates,
-                strokeColor: this.options.colors.evanston,
-                fillColor: this.options.colors.evanston,
+                strokeColor: window.sv.cityMapColors.evanston,
+                fillColor: window.sv.cityMapColors.evanston,
                 strokeOpacity: this.options.mapCityOpts.strokeOpacity,
                 strokeWeight: this.options.mapCityOpts.strokeWeight,
                 fillOpacity: this.options.mapCityOpts.fillOpacity
@@ -556,8 +453,8 @@ define(function (require, exports, module) {
 
             var wilmetteLayer = new google.maps.Polygon({
                 paths: wilmetteCoordinates,
-                strokeColor: this.options.colors.wilmette,
-                fillColor: this.options.colors.wilmette,
+                strokeColor: window.sv.cityMapColors.wilmette,
+                fillColor: window.sv.cityMapColors.wilmette,
                 strokeOpacity: this.options.mapCityOpts.strokeOpacity,
                 strokeWeight: this.options.mapCityOpts.strokeWeight,
                 fillOpacity: this.options.mapCityOpts.fillOpacity
@@ -583,8 +480,8 @@ define(function (require, exports, module) {
 
             var glenviewLayer = new google.maps.Polygon({
                 paths: glenviewCoordinates,
-                strokeColor: this.options.colors.glenview,
-                fillColor: this.options.colors.glenview,
+                strokeColor: window.sv.cityMapColors.glenview,
+                fillColor: window.sv.cityMapColors.glenview,
                 strokeOpacity: this.options.mapCityOpts.strokeOpacity,
                 strokeWeight: this.options.mapCityOpts.strokeWeight,
                 fillOpacity: this.options.mapCityOpts.fillOpacity
@@ -610,8 +507,8 @@ define(function (require, exports, module) {
 
             var wheelingLayer = new google.maps.Polygon({
                 paths: wheelingCoordinates,
-                strokeColor: this.options.colors.wheeling,
-                fillColor: this.options.colors.wheeling,
+                strokeColor: window.sv.cityMapColors.wheeling,
+                fillColor: window.sv.cityMapColors.wheeling,
                 strokeOpacity: this.options.mapCityOpts.strokeOpacity,
                 strokeWeight: this.options.mapCityOpts.strokeWeight,
                 fillOpacity: this.options.mapCityOpts.fillOpacity
@@ -636,8 +533,8 @@ define(function (require, exports, module) {
 
             var nilesLayer = new google.maps.Polygon({
                 paths: nilesCoordinates,
-                strokeColor: this.options.colors.niles,
-                fillColor: this.options.colors.niles,
+                strokeColor: window.sv.cityMapColors.niles,
+                fillColor: window.sv.cityMapColors.niles,
                 strokeOpacity: this.options.mapCityOpts.strokeOpacity,
                 strokeWeight: this.options.mapCityOpts.strokeWeight,
                 fillOpacity: this.options.mapCityOpts.fillOpacity
@@ -660,7 +557,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            transform: Transform.translate(0, 0, 0)
+            transform: Transform.translate(0, 0, 1)
         });
         this.rootNode = this.add(this.centerModifier);
     }
