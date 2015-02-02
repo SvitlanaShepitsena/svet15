@@ -25,7 +25,7 @@ define(function (require, exports, module) {
                 paddingRight: '25px',
                 color: window.sv.scheme.textDark,
                 textAlign: 'center',
-                backgroundColor: window.sv.scheme.textWhite
+                background: "#595153 url('img/bg/radio-desk.jpg')"
             }
         });
 
@@ -64,7 +64,6 @@ define(function (require, exports, module) {
     }
 
     function _svRadio() {
-
         this.radivoMod = new Modifier({
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
