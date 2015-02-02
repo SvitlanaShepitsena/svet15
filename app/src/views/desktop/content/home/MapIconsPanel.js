@@ -30,7 +30,8 @@ define(function (require, exports, module) {
     MapIconsPanel.prototype.constructor = MapIconsPanel;
 
     MapIconsPanel.prototype.animateUp = function () {
-        this.gridIconTrans.set(1, {duration: 400, curve: "easeOutBounce"});
+         this.gridIconTrans.halt();
+        this.gridIconTrans.set(1, {duration:400, curve: "easeOutBounce"});
         var n = 0;
         var interval = setInterval(function () {
             var el = this.iconElements[n];
@@ -41,24 +42,29 @@ define(function (require, exports, module) {
             if (n == 3) {
                 clearInterval(interval)
             }
-        }.bind(this), 500);
+        }.bind(this), 800);
 
 
     }
 
     MapIconsPanel.prototype.animateDown = function () {
 
-        this.gridIconTrans.set(0, {duration: 400, curve: "easeOutBounce"});
-        var n = 4;
+        this.gridIconTrans.halt();
+        var n = 2;
         var interval = setInterval(function () {
-            var el = this.iconElements[n--];
+            var el = this.iconElements[n];
+            n--;
             // animation in Raphael.js
-            el.animate({transform: '0'}, 800, '>');
+            el.animate({transform: 's0'}, 800, '>', function () {
+                if (n < 0) {
+                    this.gridIconTrans.set(0, {duration:1000, curve: "easeOutBounce"});
+                }
+            }.bind(this));
 
             if (n < 0) {
                 clearInterval(interval)
             }
-        }.bind(this), 500);
+        }.bind(this), 800);
 
 
     }
@@ -131,7 +137,7 @@ define(function (require, exports, module) {
 
         this.gridLayout = new GridLayout({
             dimensions: [4, 1],
-            gutterSize: [2, 2]
+            gutterSize:[2,2]
         });
         this.surfaces = [];
         this.gridLayout.sequenceFrom(this.surfaces);

@@ -93,6 +93,11 @@ define(function (require, exports, module) {
             this.mapIconShown = true;
 
         }
+        if ((absPos < this.mapIconLimit-200) && this.mapIconShown) {
+            this.homeDesk.hideMapIcons();
+            this.mapIconShown = false;
+
+        }
     }
 
 
@@ -168,7 +173,7 @@ define(function (require, exports, module) {
             scroll: {
                 direction: 1,
                 rails: true,
-                scale: 0.4,
+                scale: 0.3,
                 stallTime: 4
             }
         });

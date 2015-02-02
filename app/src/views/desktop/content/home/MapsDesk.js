@@ -578,9 +578,10 @@ define(function (require, exports, module) {
 
     }
     MapsDesk.prototype.showMapIcons = function () {
-
         this.mapIconsPanel.animateUp();
-
+    }
+    MapsDesk.prototype.hideMapIcons = function () {
+        this.mapIconsPanel.animateDown();
     }
     MapsDesk.prototype.randomPoint = function (x) {
         var maxRandomDisp = .1;
