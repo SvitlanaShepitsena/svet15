@@ -28,7 +28,8 @@ define(function (require, exports, module) {
         this.mapIconShown = false;
 
         this.shift = window.innerHeight;
-        this.initScrollPos = 0;
+        this.initScrollPos = -2400;
+        //this.initScrollPos = 0;
         this.maxScrollPos = 8 / (window.innerHeight / this.shift);
         this.dir;
         this.containerTrans = new Transitionable(this.initScrollPos);
@@ -93,8 +94,12 @@ define(function (require, exports, module) {
             this.mapIconShown = true;
 
         }
-    }
+        if ((absPos < this.mapIconLimit-200) && this.mapIconShown) {
+            this.homeDesk.hideMapIcons();
+            this.mapIconShown = false;
 
+        }
+    }
 
     function _handleScroll() {
         this.syncEnabled = true;
@@ -168,7 +173,7 @@ define(function (require, exports, module) {
             scroll: {
                 direction: 1,
                 rails: true,
-                scale: 0.4,
+                scale: 0.3,
                 stallTime: 4
             }
         });

@@ -16,7 +16,7 @@ define(function (require, exports, module) {
             origin: [0.5, 0.5],
             transform: Transform.translate(0, 0, 0)
         });
-        this.surface = new Surface({
+        this.surfaceBg = new Surface({
             content: contactDesk,
             classes: [],
             properties: {
@@ -29,9 +29,9 @@ define(function (require, exports, module) {
             }
         });
 
-        this.surface.pipe(this._eventOutput);
+        this.surfaceBg.pipe(this._eventOutput);
         this.rootNode = this.add(this.centerModifier);
-        this.rootNode.add(this.surface);
+        this.rootNode.add(this.surfaceBg);
     }
 
     ContactUsDesk.prototype = Object.create(View.prototype);

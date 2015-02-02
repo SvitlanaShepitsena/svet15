@@ -57,14 +57,14 @@ define(function (require, exports, module) {
 
     function legendSvet() {
 
-        this.surface = new Surface({
+        this.surfaceBg = new Surface({
             size: [170, 50],
             content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
             properties: {
                 color: 'grey'
             }
         });
-        this.surface.pipe(this.mapView);
+        this.surfaceBg.pipe(this.mapView);
         this.modifier = new Modifier({
             align: [0, 0],
             origin: [0.5, 0.5],
@@ -81,19 +81,19 @@ define(function (require, exports, module) {
             zoomBase: 9,
             zoomScale: 0.3
         });
-        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
+        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surfaceBg);
     }
 
     function legendYp() {
 
-        this.surface = new Surface({
+        this.surfaceBg = new Surface({
             size: [170, 50],
             content: '<p><img src="img/google-icon.png">  Our current clients </p>',
             properties: {
                 color: 'black'
             }
         });
-        this.surface.pipe(this.mapView);
+        this.surfaceBg.pipe(this.mapView);
         this.modifier = new Modifier({
             align: [0, 0],
             origin: [0.5, 0.5],
@@ -110,7 +110,7 @@ define(function (require, exports, module) {
             zoomBase: 9,
             zoomScale: 0.3
         });
-        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
+        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surfaceBg);
     }
 
     function _map() {

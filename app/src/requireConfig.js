@@ -8,6 +8,7 @@ require.config({
         dviews: "views/desktop",
         cviews: "views/cell",
         jade: "../jade",
+        radio: "views/desktop/content/radio/audio",
         almond: "../lib/almond/almond"
     }
 });

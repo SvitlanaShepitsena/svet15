@@ -96,7 +96,7 @@ define(function (require, exports, module) {
             zoomScale: 0.3
         });
 
-        this.surface = new Surface({
+        this.surfaceBg = new Surface({
             size: [170, 50],
             content: '<p><img src="../../../../../../img/google-icon.png"> Our current clients </p>',
             properties: {
@@ -113,8 +113,8 @@ define(function (require, exports, module) {
         });
         this.opacityLegendYp.set(1, {duration: 500, curve: 'easeInOut'});
 
-        this.surface.pipe(this.mapView);
-        this.rootNode.add(this.mapLegendYpMod).add(this.modifier).add(this.surface);
+        this.surfaceBg.pipe(this.mapView);
+        this.rootNode.add(this.mapLegendYpMod).add(this.modifier).add(this.surfaceBg);
     }
 
     function _map() {

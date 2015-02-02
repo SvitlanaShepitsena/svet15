@@ -113,16 +113,16 @@ define(function (require, exports, module) {
 
         });
 
-        this.surface = new Surface({
+        this.surfaceBg = new Surface({
             content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
             properties: {
                 color: window.sv.scheme.textDark
             }
         });
-        this.surface.pipe(this.mapView);
+        this.surfaceBg.pipe(this.mapView);
         this.opacityLegendSvet.set(1, {duration: 500, curve: 'easeInOut'});
 
-        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
+        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surfaceBg);
     }
 
     function legendYp() {
@@ -144,7 +144,7 @@ define(function (require, exports, module) {
 
         });
 
-        this.surface = new Surface({
+        this.surfaceBg = new Surface({
             size: [170, 50],
             content: '<p><img src="img/google-icon.png">  Our current clients </p>',
             properties: {
@@ -152,10 +152,10 @@ define(function (require, exports, module) {
                 color: window.sv.scheme.textDark
             }
         });
-        this.surface.pipe(this.mapView);
+        this.surfaceBg.pipe(this.mapView);
         this.opacityLegendYp.set(1, {duration: 500, curve: 'easeInOut'});
 
-        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surface);
+        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surfaceBg);
     }
 
     function _getNormalizedCenter(mapInfo) {
@@ -578,9 +578,10 @@ define(function (require, exports, module) {
 
     }
     MapsDesk.prototype.showMapIcons = function () {
-
         this.mapIconsPanel.animateUp();
-
+    }
+    MapsDesk.prototype.hideMapIcons = function () {
+        this.mapIconsPanel.animateDown();
     }
     MapsDesk.prototype.randomPoint = function (x) {
         var maxRandomDisp = .1;

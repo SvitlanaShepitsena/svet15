@@ -109,8 +109,12 @@ define(function (require, exports, module) {
     HomeDesk.prototype.tuneToDefaultMoto2 = function () {
         this.homeContentDesk.contentInit2();
     }
+
     HomeDesk.prototype.showMapIcons = function () {
         this.mapDesk.showMapIcons();
+    }
+    HomeDesk.prototype.hideMapIcons = function () {
+        this.mapDesk.hideMapIcons();
     }
     module.exports = HomeDesk;
 });
