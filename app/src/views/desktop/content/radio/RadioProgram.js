@@ -56,7 +56,7 @@ define(function (require, exports, module) {
     function _radioProgramContent() {
 
         this.contentMod = new Modifier({
-            size: [200, 100],
+            size: [500, 50],
             align: [0.5, 0],
             origin: [0.5, 0],
             transform: Transform.translate(0, 30, 0)
@@ -67,6 +67,7 @@ define(function (require, exports, module) {
             classes: ['panel', 'panel-default'],
             properties: {
                 fontSize: "20px",
+                padding: '15px',
                 letterSpacing: '10px',
                 fontFamily: "Open Sans Condensed",
                 textAlign: 'center',

@@ -32,7 +32,7 @@ define(function (require, exports, module) {
         this.surfaceBg.pipe(this._eventOutput);
         this.rootNode = this.add(this.centerModifier);
         this.rootNode.add(this.surfaceBg);
-        _pic.call(this);
+        //_pic.call(this);
         _svRadio.call(this);
         _scrollPrograms.call(this);
     }
@@ -56,7 +56,7 @@ define(function (require, exports, module) {
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             size: [600, 400],
-            transform: Transform.translate(0, 200, 0)
+            transform: Transform.translate(0, 90, 0)
         });
         this.radioScrollDesk = new RadioScrollDesk();
         this.rootNode.add(this.scrollMod).add(this.radioScrollDesk);
