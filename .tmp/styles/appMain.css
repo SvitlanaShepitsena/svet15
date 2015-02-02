@@ -146,6 +146,11 @@
 .h-radio-desk {
   line-height: 36px;
 }
+.img-contact {
+  display: inline-block;
+  height: 100%;
+  widht: 100%;
+}
 .text-warning {
   color: #ff7f50;
 }
