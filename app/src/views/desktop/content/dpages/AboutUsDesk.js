@@ -32,16 +32,17 @@ define(function (require, exports, module) {
         _addContent.call(this);
         _addContent2.call(this);
     }
+
     function _getRaphaelIcon(text) {
         var divText = document.createElement('div');
         var paper = Raphael(divText, 500, 500);
-        var element = paper.text(10,10, text).attr({fill: 'white', stroke: 'none', 'font-size':25});
+        var element = paper.text(10, 10, text).attr({fill: 'white', stroke: 'none', 'font-size': 25});
         //element.transform('t33 43, s0');
         //this.iconElements.push(element);
         return divText;
     }
-    function _addContent() {
 
+    function _addContent() {
 
 
         this.whoMod = new Modifier({
@@ -54,20 +55,19 @@ define(function (require, exports, module) {
             content: aboutDesk,
             properties: {
                 fontSize: "20px",
-                lineHeight:'1.3em',
+                lineHeight: '1.3em',
                 fontFamily: "Open Sans Condensed",
-                float:'left',
-                textAlign:'justify',
+                float: 'left',
+                textAlign: 'justify',
                 color: window.sv.scheme.textWhite
             }
         });
-
+        this.whoSurf.pipe(this._eventOutput);
         this.rootNode.add(this.whoMod).add(this.whoSurf);
 
     }
 
     function _addContent2() {
-
 
 
         this.whoMod2 = new Modifier({
@@ -80,14 +80,14 @@ define(function (require, exports, module) {
             content: aboutDesk2,
             properties: {
                 fontSize: "20px",
-                lineHeight:'1.3em',
+                lineHeight: '1.3em',
                 fontFamily: "Open Sans Condensed",
-                float:'left',
-                textAlign:'justify',
+                float: 'left',
+                textAlign: 'justify',
                 color: window.sv.scheme.textWhite
             }
         });
-
+        this.whoSurf2.pipe(this._eventOutput);
         this.rootNode.add(this.whoMod2).add(this.whoSurf2);
 
     }

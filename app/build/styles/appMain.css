@@ -143,6 +143,9 @@
 .contact-map-desk {
   width: 100%;
 }
+.h-radio-desk {
+  line-height: 36px;
+}
 .text-warning {
   color: #ff7f50;
 }
