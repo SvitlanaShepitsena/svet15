@@ -99,7 +99,7 @@ define(function (require, exports, module) {
     function _getRaphaelIcon(file) {
         var divDaily = document.createElement('div');
         var paper = Raphael(divDaily, 50, 50);
-        var element = paper.path(file).attr({fill: window.sv.scheme.sectionColor, stroke: 'none'});
+        var element = paper.path(file).attr({fill: window.sv.scheme.lightRed, stroke: 'none'});
         element.transform('t33 43, s0');
         this.iconElements.push(element);
         return divDaily;
