@@ -116,6 +116,7 @@ define(function (require, exports, module) {
         this.surfaceBg = new Surface({
             content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
             properties: {
+                fontSize: '12px',
                 color: window.sv.scheme.textDark
             }
         });

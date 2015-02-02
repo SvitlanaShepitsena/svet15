@@ -58,9 +58,10 @@ define(function (require, exports, module) {
     function legendSvet() {
 
         this.surfaceBg = new Surface({
-            size: [170, 50],
-            content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
+            size: [200, 50],
+            content: '<span><img src="img/svet-icon.png">  Svet distribution points</span>',
             properties: {
+                fontSize: '12px',
                 color: 'grey'
             }
         });
