@@ -34,10 +34,10 @@ define(function (require, exports, module) {
         var interval = setInterval(function () {
             var el = this.iconElements[n++];
             // animation in Raphael.js
-            el.animate({transform: 's.7'}, 800,'>');
+            el.animate({transform: 's.7'}, 800, '>');
 
             if (n == 4) {
-            clearInterval(interval)
+                clearInterval(interval)
             }
         }.bind(this), 500);
 
@@ -49,10 +49,10 @@ define(function (require, exports, module) {
         var interval = setInterval(function () {
             var el = this.iconElements[n--];
             // animation in Raphael.js
-            el.animate({transform: '0'}, 800,'>');
+            el.animate({transform: '0'}, 800, '>');
 
-            if (n <0) {
-            clearInterval(interval)
+            if (n < 0) {
+                clearInterval(interval)
             }
         }.bind(this), 500);
 
@@ -115,7 +115,7 @@ define(function (require, exports, module) {
         this.gridIconTrans = new Transitionable(0);
 
         this.gridIconsMod = new Modifier({
-            size: [undefined, 40],
+            size: this.options.iconsGridSize,
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
 

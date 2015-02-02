@@ -154,7 +154,7 @@ define(function (require, exports, module) {
 
     function _getNormalizedCenter(mapInfo) {
         var latDifference = mapInfo.northEast.lat - this.highestLat;
-        lat = this.northChicagoEnd.lat + latDifference / 7;
+        lat = this.northChicagoEnd.lat + latDifference / 15;
         var lng = this.northChicagoEnd.lng;
         return {lat: lat, lng: lng};
     }

@@ -127,7 +127,7 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.contentMod);
 
         this.flexContent = [];
-        var ratios = [1,1];
+        var ratios = [1, 1];
 
         this.flexibleLayout = new FlexibleLayout({
             ratios: window.innerHeight < 960 ? ratios : [1, 2],
