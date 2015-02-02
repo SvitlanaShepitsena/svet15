@@ -126,16 +126,16 @@ define(function (require, exports, module) {
         });
         this.rootNode = this.add(this.contentMod);
 
-        this.flexContent = [];
-        var ratios = [1, 1];
-
-        this.flexibleLayout = new FlexibleLayout({
-            ratios: window.innerHeight < 960 ? ratios : [1, 2],
-            direction: 1
-        });
-
-        this.flexibleLayout.sequenceFrom(this.flexContent);
-        this.rootNode.add(this.flexibleLayout);
+        //this.flexContent = [];
+        //var ratios = [1, 1];
+        //
+        //this.flexibleLayout = new FlexibleLayout({
+        //    ratios: window.innerHeight < 960 ? ratios : [1, 2],
+        //    direction: 1
+        //});
+        //
+        //this.flexibleLayout.sequenceFrom(this.flexContent);
+        //this.rootNode.add(this.flexibleLayout);
     }
 
     function _homeMoto1() {
@@ -172,7 +172,8 @@ define(function (require, exports, module) {
         });
         this.motoTextSurf1.pipe(this._eventOutput);
         this.motoRenderNode.add(this.motoTextMod).add(this.motoTextSurf1);
-        this.flexContent.push(this.motoRenderNode);
+        //this.flexContent.push(this.motoRenderNode);
+        this.rootNode.add(this.motoRenderNode);
     }
 
     function _homeMoto2() {
@@ -235,7 +236,7 @@ define(function (require, exports, module) {
                 _getSectionHeight.call(this);
                 return [undefined, this.sectionHeight];
             }.bind(this),
-            transform: Transform.translate(0, 0, 0)
+            transform: Transform.translate(0, 450, 0)
         });
         this.dailyNews = new HomeSectionDesk({
             icon: 'news-daily',
@@ -276,7 +277,8 @@ define(function (require, exports, module) {
 
 
         this.gridRenderNode.add(this.gridMod).add(this.gridContentTop);
-        this.flexContent.push(this.gridRenderNode);
+        this.rootNode.add(this.gridRenderNode);
+        //this.flexContent.push(this.gridRenderNode);
         //this.emptySurface = new Surface({
         //    //size: [undefined, window.innerHeight - 960],
         //    size: [undefined, undefined],
