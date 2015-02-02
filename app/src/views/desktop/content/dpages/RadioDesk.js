@@ -3,6 +3,7 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
+    var ImageSurface = require('famous/surfaces/ImageSurface');
     var RadioScrollDesk = require('dviews/content/radio/RadioScrollDesk');
 
     var radioDesk = require('text!dviews/jade/radio/radio-desk.html');
@@ -31,8 +32,23 @@ define(function (require, exports, module) {
         this.surfaceBg.pipe(this._eventOutput);
         this.rootNode = this.add(this.centerModifier);
         this.rootNode.add(this.surfaceBg);
+        _pic.call(this);
         _radivo.call(this);
         _scrollPrograms.call(this);
+    }
+
+    function _pic() {
+        this.picMod = new Modifier({
+            size: [130, 130],
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            transform: Transform.translate(0, 200, 0)
+        });
+        this.picImgSurf = new ImageSurface({
+            size: [true, true],
+            content: "img/alex.jpg"
+        });
+        this.rootNode.add(this.picMod).add(this.picImgSurf);
     }
 
     function _scrollPrograms() {
@@ -55,9 +71,9 @@ define(function (require, exports, module) {
         });
 
         this.radivoSurf = new Surface({
-            size: [undefined, undefined],
             content: radioDesk,
             properties: {
+                marginTop: '30px',
                 color: window.sv.scheme.textDark,
                 textAlign: 'center'
             }

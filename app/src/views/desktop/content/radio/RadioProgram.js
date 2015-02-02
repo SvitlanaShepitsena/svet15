@@ -14,6 +14,18 @@ define(function (require, exports, module) {
         _playStop.call(this);
     }
 
+    function _init() {
+        this.centerModifier = new Modifier({
+            size: [600, undefined],
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            transform: Transform.translate(0, 0, 0)
+        });
+        this.rootNode = this.add(this.centerModifier);
+    }
+
+
+
     function _playStop() {
     }
 
@@ -24,7 +36,6 @@ define(function (require, exports, module) {
             transform: Transform.translate(0, 0, 0)
         });
         this.bgSurface = new Surface({
-            size: [undefined, undefined],
             content: '',
             classes: [],
             properties: {
@@ -32,6 +43,7 @@ define(function (require, exports, module) {
                 textAlign: 'center',
                 borderStyle: 'groove',
                 borderRadius: '9px',
+                borderWidth: '3px',
                 borderColor: '#595959',
                 backgroundColor: this.options.bg
             }
@@ -52,15 +64,6 @@ define(function (require, exports, module) {
         this.progSurface.pipe(this._eventOutput);
     }
 
-    function _init() {
-        this.centerModifier = new Modifier({
-            size: [600, undefined],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            transform: Transform.translate(0, 0, 0)
-        });
-        this.rootNode = this.add(this.centerModifier);
-    }
 
     RadioProgram.prototype = Object.create(View.prototype);
     RadioProgram.prototype.constructor = RadioProgram;
