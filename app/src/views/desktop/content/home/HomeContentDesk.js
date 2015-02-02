@@ -147,6 +147,7 @@ define(function (require, exports, module) {
         this.motoRenderNode = new RenderNode();
 
         this.motoTextMod = new Modifier({
+            size: [undefined, true],
             align: [0.5, 0],
             origin: [0.5, 0],
             opacity: function () {
@@ -187,6 +188,7 @@ define(function (require, exports, module) {
         this.motoRenderNode2 = new RenderNode();
 
         this.motoTextMod2 = new Modifier({
+            size: [undefined, true],
             align: [0.5, 0],
             origin: [0.5, 0],
             opacity: function () {

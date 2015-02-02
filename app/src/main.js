@@ -16,7 +16,8 @@ define(['require', 'famous/core/Engine', 'views/cell/AppViewCell', 'views/deskto
 });
 
 window.responsive = function responsive() {
-    var MOBILEWIDTH = 490; var device;
+    var MOBILEWIDTH = 490;
+    var device;
     switch (true) {
         case window.innerWidth <= MOBILEWIDTH:
             device = 'cell';
@@ -29,6 +30,21 @@ window.responsive = function responsive() {
 }
 
 window.sv = {
+    cities: {
+        northbrook: 'Northbrook',
+        buffaloGrove: 'Buffalo Grove',
+        highlandPark: 'Highland Park',
+        deerfield: 'Deerfield',
+        glencoe: "Glencoe",
+        northbrook: 'Northbrook',
+        glenview: 'Glenview',
+        skokie: 'Skokie',
+        vernonHills: 'VernonHills',
+        wheeling: 'Wheeling',
+        wilmette: 'Wilmette',
+        niles: 'Niles',
+        evanston: 'Evanston'
+    },
     sizing: {
         headerHeightCell: 0.08 * window.innerHeight,
         footerSize: 0 * window.innerHeight,

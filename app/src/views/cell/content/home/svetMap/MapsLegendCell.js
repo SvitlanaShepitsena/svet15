@@ -31,7 +31,7 @@ define(function (require, exports, module) {
             align: [0, 0],
             origin: [0.5, 0.5],
             opacity: function () {
-              return  this.legendTrans.get();
+                return this.legendTrans.get();
             }.bind(this)
         });
         this.legendSurf = new Surface({
