@@ -28,7 +28,7 @@ define(function (require, exports, module) {
     function _getRaphaelRadioIcon(file) {
         var divDaily = document.createElement('div');
         var paper = Raphael(divDaily, 40, 50);
-        var element = paper.path(file).attr({fill: window.sv.scheme.textDark, stroke: 'none', opacity:'.6'});
+        var element = paper.path(file).attr({fill: window.sv.scheme.textDark, stroke: 'none', opacity: '.6'});
         element.transform('t5 15, s2');
         this.iconElements.push(element);
         return divDaily;
@@ -89,10 +89,13 @@ define(function (require, exports, module) {
 
         var n = 1;
 
+        var dates = ['01.04.2015', '01.11.2015', '01.18.2015', '01.25.2015'];
+
         for (var i = 4; i < 30; i += 7) {
             var programSurface = new RadioProgram({
                 mp3: '01' + i + '.mp3',
-                bg: n % 2 === 0 ? bgDark : bgLight
+                bg: n % 2 === 0 ? bgDark : bgLight,
+                date:dates[n - 1]
             });
             n++;
             programSurface.pipe(this.container.scrollview);

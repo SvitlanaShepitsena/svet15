@@ -12,6 +12,7 @@ define(function (require, exports, module) {
         _bg.call(this);
         _programContent.call(this);
         _playStop.call(this);
+        _radioProgramContent.call(this);
     }
 
     function _init() {
@@ -23,7 +24,6 @@ define(function (require, exports, module) {
         });
         this.rootNode = this.add(this.centerModifier);
     }
-
 
 
     function _playStop() {
@@ -51,6 +51,30 @@ define(function (require, exports, module) {
         this.rootNode.add(this.bgMod).add(this.bgSurface);
 
         this.bgSurface.pipe(this._eventOutput);
+    }
+
+    function _radioProgramContent() {
+
+        this.contentMod = new Modifier({
+            size: [200, 100],
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            transform: Transform.translate(0, 30, 0)
+        });
+
+        this.contentSurf = new Surface({
+            content: this.options.date,
+            classes: ['panel', 'panel-default'],
+            properties: {
+                fontSize: "20px",
+                letterSpacing: '10px',
+                fontFamily: "Open Sans Condensed",
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: window.sv.scheme.textDark
+            }
+        });
+        this.rootNode.add(this.contentMod).add(this.contentSurf);
     }
 
     function _programContent() {
