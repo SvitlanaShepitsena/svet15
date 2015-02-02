@@ -19,7 +19,7 @@ define(function (require, exports, module) {
             transform: Transform.translate(0, 0, 0)
         });
 
-        this.surface = new Surface({
+        this.surfaceBg = new Surface({
             content: aboutDesk,
             classes: [],
             properties: {
@@ -32,9 +32,9 @@ define(function (require, exports, module) {
             }
         });
 
-        this.surface.pipe(this._eventOutput);
+        this.surfaceBg.pipe(this._eventOutput);
         this.rootNode = this.add(this.centerModifier);
-        this.rootNode.add(this.surface);
+        this.rootNode.add(this.surfaceBg);
         _raphael1994.call(this);
         _raphael1991.call(this);
     }

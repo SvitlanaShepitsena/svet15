@@ -88,7 +88,7 @@ define(function (require, exports, module) {
                 return Transform.translate(0, this.sizeIcon + 15, 0);
             }.bind(this)
         });
-        this.surface = new Surface({
+        this.surfaceBg = new Surface({
             content: this.options.content,
             properties: {
                 zIndex: 3,
@@ -97,8 +97,8 @@ define(function (require, exports, module) {
                 textAlign: 'center'
             }
         });
-        this.surface.pipe(this._eventOutput);
-        this.rootNode.add(this.textMod).add(this.surface);
+        this.surfaceBg.pipe(this._eventOutput);
+        this.rootNode.add(this.textMod).add(this.surfaceBg);
     }
 
 

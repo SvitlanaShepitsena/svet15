@@ -28,7 +28,8 @@ define(function (require, exports, module) {
         this.mapIconShown = false;
 
         this.shift = window.innerHeight;
-        this.initScrollPos = 0;
+        this.initScrollPos = -2400;
+        //this.initScrollPos = 0;
         this.maxScrollPos = 8 / (window.innerHeight / this.shift);
         this.dir;
         this.containerTrans = new Transitionable(this.initScrollPos);
@@ -99,7 +100,6 @@ define(function (require, exports, module) {
 
         }
     }
-
 
     function _handleScroll() {
         this.syncEnabled = true;
