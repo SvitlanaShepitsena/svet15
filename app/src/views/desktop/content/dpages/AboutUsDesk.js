@@ -14,6 +14,7 @@ define(function (require, exports, module) {
 
         this.centerModifier = new Modifier({
             size: [undefined, window.innerHeight],
+            opacity:0.5,
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             transform: Transform.translate(0, 0, 0)
@@ -28,7 +29,7 @@ define(function (require, exports, module) {
                 paddingRight: '25px',
                 color: window.sv.scheme.textDark,
                 textAlign: 'center',
-                backgroundColor: 'orange'
+                backgroundColor: sv.scheme.sectionColor
             }
         });
 
