@@ -24,7 +24,7 @@ define(function (require, exports, module) {
                 paddingRight: '25px',
                 color: window.sv.scheme.textDark,
                 textAlign: 'center',
-                backgroundColor: window.sv.scheme.aboutDesk
+                background: "#595153 url('img/bg/bg-contact.jpg')"
             }
         });
 
