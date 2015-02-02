@@ -62,7 +62,7 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.opacityTransitionable.get();
             }.bind(this),
-            transform: Transform.translate(0, 0, 7)
+            transform: Transform.translate(0, 0, 6)
         });
         this.backgroundSurf = new Surface({
             properties: this.options.backgroundOpts

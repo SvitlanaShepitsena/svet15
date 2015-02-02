@@ -36,7 +36,6 @@ window.sv = {
         highlandPark: 'Highland Park',
         deerfield: 'Deerfield',
         glencoe: "Glencoe",
-        northbrook: 'Northbrook',
         glenview: 'Glenview',
         skokie: 'Skokie',
         vernonHills: 'Vernon Hills',

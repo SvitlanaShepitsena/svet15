@@ -209,8 +209,6 @@ define(function (require, exports, module) {
         this.rootNode.add(this.mapView);
 
         this.mapView.on('load', function () {
-
-
             var mapInfo = this.mapView._getMapInfo();
             var endPoint = _getNormalizedCenter.call(this, mapInfo);
             this.mapView.setPosition(
@@ -235,10 +233,10 @@ define(function (require, exports, module) {
             var buffaloGroveLayer = new google.maps.Polygon({
                 paths: buffaloGroveCoordinates,
                 strokeColor: window.sv.cityMapColors.buffaloGrove,
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
                 fillColor: window.sv.cityMapColors.buffaloGrove,
-                fillOpacity: 0.35
+                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+                strokeWeight: this.options.mapCityOpts.strokeWeight,
+                fillOpacity: this.options.mapCityOpts.fillOpacity
             });
             buffaloGroveLayer.setMap(this.gMap);
 
@@ -262,10 +260,10 @@ define(function (require, exports, module) {
             var highlandParkLayer = new google.maps.Polygon({
                 paths: highlandParkCoordinates,
                 strokeColor: window.sv.cityMapColors.highlandpark,
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
                 fillColor: window.sv.cityMapColors.highlandpark,
-                fillOpacity: 0.35
+                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+                strokeWeight: this.options.mapCityOpts.strokeWeight,
+                fillOpacity: this.options.mapCityOpts.fillOpacity
             });
             highlandParkLayer.setMap(this.gMap);
 
