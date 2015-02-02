@@ -23,7 +23,6 @@ define(function (require, exports, module) {
         _init.call(this);
         _mapIcons.call(this);
 
-        this.animateUp();
     }
 
 
@@ -34,17 +33,35 @@ define(function (require, exports, module) {
         var n = 0;
         var interval = setInterval(function () {
             var el = this.iconElements[n++];
-            el.animate({transform: 's1 1'}, 500);
+            // animation in Raphael.js
+            el.animate({transform: 's.7'}, 800,'>');
 
             if (n == 4) {
             clearInterval(interval)
             }
         }.bind(this), 500);
 
+
+    }
+
+    MapIconsPanel.prototype.animateDown = function () {
+        var n = 4;
+        var interval = setInterval(function () {
+            var el = this.iconElements[n--];
+            // animation in Raphael.js
+            el.animate({transform: '0'}, 800,'>');
+
+            if (n <0) {
+            clearInterval(interval)
+            }
+        }.bind(this), 500);
+
+
     }
 
     MapIconsPanel.DEFAULT_OPTIONS = {
-        iconsPanelSize: [200, 40],
+        iconsPanelSize: [150, 40],
+        iconsGridSize: [140, 40],
         mapIconProps: {
             cursor: 'pointer'
         }
@@ -74,7 +91,7 @@ define(function (require, exports, module) {
         var divDaily = document.createElement('div');
         var paper = Raphael(divDaily, 40, 40);
         var element = paper.path(file).attr({fill: '#797979', stroke: 'none'});
-        element.transform('t10,5, s 0.1');
+        element.transform('t10,5, s0');
         this.iconElements.push(element);
         return divDaily;
     }
@@ -132,12 +149,12 @@ define(function (require, exports, module) {
             properties: this.options.mapIconProps,
             content: _getRaphaelIcon.call(this, yPSvg)
         });
-
-        var radioSvg = 'M4.135,16.762c3.078,0,5.972,1.205,8.146,3.391c2.179,2.187,3.377,5.101,3.377,8.202h4.745c0-9.008-7.299-16.335-16.269-16.335V16.762zM4.141,8.354c10.973,0,19.898,8.975,19.898,20.006h4.743c0-13.646-11.054-24.749-24.642-24.749V8.354zM10.701,25.045c0,1.815-1.471,3.287-3.285,3.287s-3.285-1.472-3.285-3.287c0-1.813,1.471-3.285,3.285-3.285S10.701,23.231,10.701,25.045z';
-        this.radioIcon = new Surface({
-            properties: this.options.mapIconProps,
-            content: _getRaphaelIcon.call(this, radioSvg)
-        });
+        //
+        //var radioSvg = 'M4.135,16.762c3.078,0,5.972,1.205,8.146,3.391c2.179,2.187,3.377,5.101,3.377,8.202h4.745c0-9.008-7.299-16.335-16.269-16.335V16.762zM4.141,8.354c10.973,0,19.898,8.975,19.898,20.006h4.743c0-13.646-11.054-24.749-24.642-24.749V8.354zM10.701,25.045c0,1.815-1.471,3.287-3.285,3.287s-3.285-1.472-3.285-3.287c0-1.813,1.471-3.285,3.285-3.285S10.701,23.231,10.701,25.045z';
+        //this.radioIcon = new Surface({
+        //    properties: this.options.mapIconProps,
+        //    content: _getRaphaelIcon.call(this, radioSvg)
+        //});
 
         this.dailyNewsIcon.on('click', function () {
             this._eventOutput.emit('show:svetPoints')

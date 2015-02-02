@@ -20,6 +20,9 @@ define(function (require, exports, module) {
 
 
     function ScrollDesk() {
+        this.mapIconLimit = 680;
+        this.mapIconShown = false;
+
         this.shift = window.innerHeight;
         this.initScrollPos = 0;
         this.maxScrollPos = 8 / (window.innerHeight / this.shift);
@@ -69,6 +72,11 @@ define(function (require, exports, module) {
         if ((absPos < this.moto2Limit) && !this.secondMotoShown) {
             this.homeDesk.tuneToDefaultMoto2();
             this.secondMotoShown = true;
+
+        }
+        if ((absPos > this.mapIconLimit) && !this.mapIconShown) {
+            this.homeDesk.showMapIcons();
+            this.mapIconShown = true;
 
         }
     }

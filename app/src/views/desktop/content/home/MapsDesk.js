@@ -688,6 +688,11 @@ define(function (require, exports, module) {
         _closeAllOverlays.call(this);
 
     }
+    MapsDesk.prototype.showMapIcons = function () {
+
+       this.mapIconsPanel.animateUp();
+
+    }
     MapsDesk.prototype.randomPoint = function (x) {
         var maxRandomDisp = .1;
 
