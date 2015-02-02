@@ -28,7 +28,7 @@ define(function (require, exports, module) {
         this.mapIconShown = false;
 
         this.shift = window.innerHeight;
-        this.initScrollPos = -2400;
+        this.initScrollPos = -3400;
         //this.initScrollPos = 0;
         this.maxScrollPos = 8 / (window.innerHeight / this.shift);
         this.dir;
@@ -94,7 +94,7 @@ define(function (require, exports, module) {
             this.mapIconShown = true;
 
         }
-        if ((absPos < this.mapIconLimit-200) && this.mapIconShown) {
+        if ((absPos < this.mapIconLimit - 200) && this.mapIconShown) {
             this.homeDesk.hideMapIcons();
             this.mapIconShown = false;
 
@@ -220,8 +220,6 @@ define(function (require, exports, module) {
         this.contactDesk.pipe(this.sync);
 
         this.rootNode.add(this.contactMod).add(this.contactDesk);
-
-
     }
 
 

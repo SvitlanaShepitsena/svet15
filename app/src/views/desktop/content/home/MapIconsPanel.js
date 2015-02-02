@@ -30,8 +30,8 @@ define(function (require, exports, module) {
     MapIconsPanel.prototype.constructor = MapIconsPanel;
 
     MapIconsPanel.prototype.animateUp = function () {
-         this.gridIconTrans.halt();
-        this.gridIconTrans.set(1, {duration:400, curve: "easeOutBounce"});
+        this.gridIconTrans.halt();
+        this.gridIconTrans.set(1, {duration: 400, curve: "easeOutBounce"});
         var n = 0;
         var interval = setInterval(function () {
             var el = this.iconElements[n];
@@ -57,7 +57,7 @@ define(function (require, exports, module) {
             // animation in Raphael.js
             el.animate({transform: 's0'}, 800, '>', function () {
                 if (n < 0) {
-                    this.gridIconTrans.set(0, {duration:1000, curve: "easeOutBounce"});
+                    this.gridIconTrans.set(0, {duration: 1000, curve: "easeOutBounce"});
                 }
             }.bind(this));
 
@@ -94,12 +94,12 @@ define(function (require, exports, module) {
     /** =Map Svet Icons
      */
 
-    /*Raphael Icon Design*/
+    /*=Raphael Icon Design*/
 
     function _getRaphaelIcon(file) {
         var divDaily = document.createElement('div');
         var paper = Raphael(divDaily, 50, 50);
-        var element = paper.path(file).attr({fill: '#797979', stroke: 'none'});
+        var element = paper.path(file).attr({fill: window.sv.scheme.sectionColor, stroke: 'none'});
         element.transform('t33 43, s0');
         this.iconElements.push(element);
         return divDaily;
@@ -136,7 +136,7 @@ define(function (require, exports, module) {
 
         this.gridLayout = new GridLayout({
             dimensions: [4, 1],
-            gutterSize:[2,2]
+            gutterSize: [2, 2]
         });
         this.surfaces = [];
         this.gridLayout.sequenceFrom(this.surfaces);
