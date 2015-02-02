@@ -33,7 +33,7 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.centerModifier);
         this.rootNode.add(this.surfaceBg);
         _pic.call(this);
-        _radivo.call(this);
+        _svRadio.call(this);
         _scrollPrograms.call(this);
     }
 
@@ -62,7 +62,7 @@ define(function (require, exports, module) {
 
     }
 
-    function _radivo() {
+    function _svRadio() {
 
         this.radivoMod = new Modifier({
             align: [0.5, 0.5],
