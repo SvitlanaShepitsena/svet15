@@ -61,7 +61,7 @@ define(function (require, exports, module) {
             origin: [0.5, 0],
             transform: Transform.translate(0, 30, 0)
         });
-
+        console.log(this.options.date);
         this.contentSurf = new Surface({
             content: this.options.date,
             classes: ['panel', 'panel-default'],
