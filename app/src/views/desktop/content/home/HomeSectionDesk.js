@@ -64,7 +64,7 @@ define(function (require, exports, module) {
             opacity: '.3',
             size: function () {
                 _getSectionHeight.call(this);
-                return [undefined, this.sectionHeight/1.8];
+                return [undefined, this.sectionHeight / 1.8];
             }.bind(this)
         });
         this.bg = new Surface({

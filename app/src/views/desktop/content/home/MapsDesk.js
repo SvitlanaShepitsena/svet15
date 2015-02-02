@@ -256,6 +256,7 @@ define(function (require, exports, module) {
                 this.buffaloGroveInfo.open(this.gMap);
 
             }.bind(this));
+            /*Buffalo Grove Ends*/
 
 
             /**
@@ -311,6 +312,7 @@ define(function (require, exports, module) {
                 this.infoDeerfield.open(this.gMap);
 
             }.bind(this));
+            /*Deerfield Ends*/
 
             /**
              * 4. =Glencoe
@@ -337,7 +339,7 @@ define(function (require, exports, module) {
                 this.infoGlencoe.open(this.gMap);
 
             }.bind(this));
-            /*=Glencoe ends*/
+            /*=Glencoe Ends*/
 
             /**
              * 5. =Northbrook
@@ -368,7 +370,7 @@ define(function (require, exports, module) {
 
 
             /**
-             * 6. =VernonHills
+             * 6. =Vernon Hills
              */
 
             var vernonHillsCoordinates = vernonHills.getCoordinates();
@@ -392,6 +394,7 @@ define(function (require, exports, module) {
                 this.vernonHillsInfo.open(this.gMap);
 
             }.bind(this));
+            /*Vernon Hills Ends*/
 
 
             /**
@@ -421,6 +424,7 @@ define(function (require, exports, module) {
                 this.infoSkokie.open(this.gMap);
 
             }.bind(this));
+            /*Skokie Ends*/
 
             /**
              * 8. =Evanston
@@ -448,6 +452,7 @@ define(function (require, exports, module) {
                 this.evanstonInfo.open(this.gMap);
 
             }.bind(this));
+            /*Evanston Ends*/
 
 
             /**
@@ -475,7 +480,7 @@ define(function (require, exports, module) {
                 this.wilmetteInfo.open(this.gMap);
 
             }.bind(this));
-
+            /*Wilmette Ends*/
 
             /**
              * 10. =Glenview
@@ -502,6 +507,7 @@ define(function (require, exports, module) {
                 this.glenviewInfo.open(this.gMap);
 
             }.bind(this));
+            /*Glenview Ends*/
 
 
             /**
@@ -529,6 +535,7 @@ define(function (require, exports, module) {
                 this.wheelingInfo.open(this.gMap);
 
             }.bind(this));
+            /*Wheeling Ends*/
 
             /**
              * 12. =Niles
