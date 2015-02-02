@@ -34,10 +34,10 @@ define(function (require, exports, module) {
         var interval = setInterval(function () {
             var el = this.iconElements[n++];
             // animation in Raphael.js
-            el.animate({transform: 's.7'}, 800,'>');
+            el.animate({transform: 's.7'}, 800, '>');
 
             if (n == 4) {
-            clearInterval(interval)
+                clearInterval(interval)
             }
         }.bind(this), 500);
 
@@ -49,10 +49,10 @@ define(function (require, exports, module) {
         var interval = setInterval(function () {
             var el = this.iconElements[n--];
             // animation in Raphael.js
-            el.animate({transform: '0'}, 800,'>');
+            el.animate({transform: '0'}, 800, '>');
 
-            if (n <0) {
-            clearInterval(interval)
+            if (n < 0) {
+                clearInterval(interval)
             }
         }.bind(this), 500);
 
@@ -73,7 +73,7 @@ define(function (require, exports, module) {
             opacity: function () {
                 return this.gridIconTrans.get();
             }.bind(this),
-            transform: Transform.translate(470, 210, 9)
+            transform: Transform.translate(0, 0, 9)
 
         });
 
@@ -112,10 +112,10 @@ define(function (require, exports, module) {
         this.rootNode.add(this.mapIconsBg);
 
         /*Grid Layout for Map Icons*/
-        this.gridIconTrans = new Transitionable(1);
+        this.gridIconTrans = new Transitionable(0);
 
         this.gridIconsMod = new Modifier({
-            size: [undefined, 40],
+            size: this.options.iconsGridSize,
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
 

@@ -1,17 +1,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 //var person = {
 //    name: 'John',
 //    lastName: 'Doe',

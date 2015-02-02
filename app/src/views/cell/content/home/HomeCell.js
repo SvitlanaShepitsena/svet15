@@ -83,7 +83,7 @@ define(function (require, exports, module) {
 
         this.topLeftSection = new HomeSection({
             sign: this.options.fromLeft,
-            period: '2000',
+            period: '1200',
             dampingRatio: 0.3,
             flipIcon: 'news-daily',
             frontContent: '<h4 class="icon-text">Svet</br>Daily Newspaper</h4>',
@@ -101,7 +101,7 @@ define(function (require, exports, module) {
         this.bottomLeftSection = new HomeSection({
             sign: this.options.fromLeft,
             period: '1100',
-            dampingRatio: 0.3,
+            dampingRatio: 0.5,
             flipIcon: 'yp',
             frontContent: '<h4 class="icon-text"> Russian-American</br>Yellow Pages' +
             '</h4>',
