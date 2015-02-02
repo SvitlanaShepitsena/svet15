@@ -195,6 +195,7 @@ gulp.task('js', function () {
                     views: "views",
                     dviews: "views/desktop",
                     cviews: "views/cell",
+                    radio: "views/desktop/content/radio/audio",
                     jade: "../jade",
                     almond: "../lib/almond/almond"
                 },
