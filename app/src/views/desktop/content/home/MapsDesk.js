@@ -49,6 +49,13 @@ define(function (require, exports, module) {
         _svetMapIcons.call(this);
     }
 
+    function _init() {
+        this.centerModifier = new Modifier({
+            transform: Transform.translate(0, 0, 0)
+        });
+        this.rootNode = this.add(this.centerModifier);
+    }
+
     function _getCityInfo(cityName, ruSpeakingNum) {
         this.mapCityInfo = '<p class="map-info" > <span class="town-name">' + cityName + '.</span> <span class = "text-info">' + ruSpeakingNum + ' %</span> of Russian speaking customers</p>';
         return this.mapCityInfo;
@@ -277,7 +284,7 @@ define(function (require, exports, module) {
 
             }.bind(this));
 
-            /*Highland Park end*/
+            /*Highland Park Ends*/
 
             /**
              * 3. =Derrfield
@@ -551,13 +558,6 @@ define(function (require, exports, module) {
 
             //_difier.call(this);
         }.bind(this));
-    }
-
-    function _init() {
-        this.centerModifier = new Modifier({
-            transform: Transform.translate(0, 0, 1)
-        });
-        this.rootNode = this.add(this.centerModifier);
     }
 
 
