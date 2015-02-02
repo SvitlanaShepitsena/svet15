@@ -690,7 +690,7 @@ define(function (require, exports, module) {
     }
     MapsDesk.prototype.showMapIcons = function () {
 
-       this.mapIconsPanel.animateUp();
+        this.mapIconsPanel.animateUp();
 
     }
     MapsDesk.prototype.randomPoint = function (x) {
@@ -750,7 +750,7 @@ define(function (require, exports, module) {
                 dropYpCompanies.call(this);
             }.bind(this), i * 100);
             if (that.allowSvetAnimation) {
-                i=25;
+                i = 25;
                 break;
             }
         }
@@ -804,7 +804,7 @@ define(function (require, exports, module) {
                 dropSvetPoints.call(this);
             }.bind(this), i * 100);
             if (this.allowYpAnimation) {
-                i=41;
+                i = 41;
             }
         }
         legendSvet.call(this);
