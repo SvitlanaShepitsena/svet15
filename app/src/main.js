@@ -39,7 +39,7 @@ window.sv = {
         northbrook: 'Northbrook',
         glenview: 'Glenview',
         skokie: 'Skokie',
-        vernonHills: 'VernonHills',
+        vernonHills: 'Vernon Hills',
         wheeling: 'Wheeling',
         wilmette: 'Wilmette',
         niles: 'Niles',

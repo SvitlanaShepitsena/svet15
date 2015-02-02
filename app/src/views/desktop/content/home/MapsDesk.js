@@ -61,7 +61,6 @@ define(function (require, exports, module) {
         this.opacityLegendSvet = new Transitionable(0);
         this.opacityLegendYp = new Transitionable(0);
         this.geocoder = new google.maps.Geocoder();
-        this.cts = ['BuffaloGrove', 'Northbrook'];
     }
 
     function _getCityInfo(cityName, ruSpeakingNum) {
@@ -105,7 +104,6 @@ define(function (require, exports, module) {
 
     function legendSvet() {
         this.surface = new Surface({
-            size: [170, 50],
             content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
             properties: {
                 color: 'grey'
@@ -113,6 +111,7 @@ define(function (require, exports, module) {
         });
         this.surface.pipe(this.mapView);
         this.modifier = new Modifier({
+            size: [170, 50],
             align: [0, 0],
             origin: [0.5, 0.5],
             opacity: function () {
@@ -331,7 +330,7 @@ define(function (require, exports, module) {
              *********************************/
 
             /**
-             * 1.Buffalo Grove
+             * 1. =Buffalo Grove
              */
 
             var buffaloGroveCoordinates = buffaloGrove.getCoordinates();
@@ -350,7 +349,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.buffaloGroveInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.buffaloGroveInfo);
-                this.buffaloGroveInfo.setContent(_getCityInfo('Buffalo Grove', 18.7));
+                this.buffaloGroveInfo.setContent(_getCityInfo(window.sv.cities.buffaloGrove, 18.7));
                 this.buffaloGroveInfo.setPosition(e.latLng);
                 this.buffaloGroveInfo.open(this.gMap);
 
@@ -377,7 +376,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoHighlandPark = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoHighlandPark);
-                this.infoHighlandPark.setContent(_getCityInfo('Highland Park', 18.2));
+                this.infoHighlandPark.setContent(_getCityInfo(window.sv.cities.highlandPark, 18.2));
                 this.infoHighlandPark.setPosition(e.latLng);
                 this.infoHighlandPark.open(this.gMap);
 
@@ -405,7 +404,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoDeerfield = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoDeerfield);
-                this.infoDeeerfield.setContent(_getCityInfo('Deerfield', 16.1));
+                this.infoDeerfield.setContent(_getCityInfo(window.sv.cities.deerfield, 16.1));
                 this.infoDeerfield.setPosition(e.latLng);
                 this.infoDeerfield.open(this.gMap);
 
@@ -431,12 +430,12 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoGlencoe = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoGlencoe);
-                this.infoGlencoe.setContent(_getCityInfo('Glencoe', 14.4));
+                this.infoGlencoe.setContent(_getCityInfo(window.sv.cities.glencoe, 14.4));
                 this.infoGlencoe.setPosition(e.latLng);
                 this.infoGlencoe.open(this.gMap);
 
             }.bind(this));
-            /*=Glencoe End*/
+            /*=Glencoe ends*/
 
             /**
              * 5. =Northbrook
@@ -466,8 +465,9 @@ define(function (require, exports, module) {
             /*Northbrook ends*/
 
 
-            //
-            /*Vernon Hills*/
+            /**
+             * 6. =VernonHills
+             */
 
             var vernonHillsCoordinates = vernonHills.getCoordinates();
 
@@ -485,14 +485,17 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.vernonHillsInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.vernonHillsInfo);
-                this.vernonHillsInfo.setContent(_getCityInfo('Vernon Hills', 9.1));
+                this.vernonHillsInfo.setContent(_getCityInfo(window.sv.cities.vernonHills, 9.1));
                 this.vernonHillsInfo.setPosition(e.latLng);
                 this.vernonHillsInfo.open(this.gMap);
 
             }.bind(this));
 
 
-            /*Skokie*/
+            /**
+             * 7. =Skokie
+             */
+
             var skokieCoordinates = skokie.getCoordinates();
 
             var skokieLayer = new google.maps.Polygon({
@@ -511,14 +514,16 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoSkokie = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoSkokie);
-                this.infoSkokie.setContent(_getCityInfo('Northbrook', 20));
+                this.infoSkokie.setContent(_getCityInfo(window.sv.cities.skokie, 20));
                 this.infoSkokie.setPosition(e.latLng);
                 this.infoSkokie.open(this.gMap);
 
             }.bind(this));
 
+            /**
+             * 8. =Evanston
+             */
 
-            /*Evanston*/
             var evanstonCoordinates = evanston.getCoordinates();
 
             var evanstonLayer = new google.maps.Polygon({
@@ -536,14 +541,17 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.evanstonInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.evanstonInfo);
-                this.evanstonInfo.setContent(_getCityInfo('Evanston', 7.2));
+                this.evanstonInfo.setContent(_getCityInfo(window.sv.cities.evanston, 7.2));
                 this.evanstonInfo.setPosition(e.latLng);
                 this.evanstonInfo.open(this.gMap);
 
             }.bind(this));
 
 
-            /*Wilmette*/
+            /**
+             * 9. =Wilmette
+             */
+
             var wilmetteCoordinates = wilmette.getCoordinates();
 
             var wilmetteLayer = new google.maps.Polygon({
@@ -560,14 +568,16 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.wilmetteInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.wilmetteInfo);
-                this.wilmetteInfo.setContent(_getCityInfo('Wilmette', 7.2));
+                this.wilmetteInfo.setContent(_getCityInfo(window.sv.cities.wilmette, 7.2));
                 this.wilmetteInfo.setPosition(e.latLng);
                 this.wilmetteInfo.open(this.gMap);
 
             }.bind(this));
 
 
-            /*Glenview*/
+            /**
+             * 10. =Glenview
+             */
 
             var glenviewCoordinates = glenview.getCoordinates();
 
@@ -585,14 +595,17 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.glenviewInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.glenviewInfo);
-                this.glenviewInfo.setContent(_getCityInfo('Glenview', 13.8));
+                this.glenviewInfo.setContent(_getCityInfo(window.sv.cities.glenview, 13.8));
                 this.glenviewInfo.setPosition(e.latLng);
                 this.glenviewInfo.open(this.gMap);
 
             }.bind(this));
 
 
-            /*Wheeling*/
+            /**
+             * 11. =Wheeling
+             */
+
             var wheelingCoordinates = wheeling.getCoordinates();
 
             var wheelingLayer = new google.maps.Polygon({
@@ -609,14 +622,16 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.wheelingInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.wheelingInfo);
-                this.wheelingInfo.setContent('<p class="map-info"><span class="town-name">Wheeling.</span> <span class = "text-info">8.9%</span>  of Russian speaking customers</p>');
+                this.wheelingInfo.setContent(_getCityInfo(window.sv.cities.wheeling, 8.9));
                 this.wheelingInfo.setPosition(e.latLng);
                 this.wheelingInfo.open(this.gMap);
 
             }.bind(this));
 
+            /**
+             * 12. =Niles
+             */
 
-            /*Niles*/
             var nilesCoordinates = niles.getCoordinates();
 
             var nilesLayer = new google.maps.Polygon({
@@ -632,7 +647,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.nilesInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.nilesInfo);
-                this.nilesInfo.setContent('<p class="map-info"><span class="town-name">Niles.</span> <span class = "text-info">7.2%</span>  of Russian speaking customers</p>');
+                this.nilesInfo.setContent(_getCityInfo(window.sv.cities.niles, 7.2));
                 this.nilesInfo.setPosition(e.latLng);
                 this.nilesInfo.open(this.gMap);
 
@@ -645,8 +660,6 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
             transform: Transform.translate(0, 0, 0)
         });
         this.rootNode = this.add(this.centerModifier);
