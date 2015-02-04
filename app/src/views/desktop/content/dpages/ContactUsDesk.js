@@ -22,9 +22,10 @@ define(function (require, exports, module) {
                 paddingTop: '50px',
                 paddingLeft: '25px',
                 paddingRight: '25px',
-                color: window.sv.scheme.textDark,
+                color: window.sv.scheme.textLight,
                 textAlign: 'center',
-                background: "#595153 url('img/bg/bg-contact.jpg')"
+                //background: "#595153 url('img/bg/bg-contact.jpg')"
+                background: "#174C70"
             }
         });
 

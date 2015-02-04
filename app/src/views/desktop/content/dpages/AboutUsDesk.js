@@ -8,7 +8,6 @@ define(function (require, exports, module) {
 
     var aboutDesk = require('text!dviews/jade/about/aboutUsPage.html');
     var aboutDesk2 = require('text!dviews/jade/about/about-desk.html');
-
     function AboutUsDesk() {
         View.apply(this, arguments);
         this.contentHeight = window.innerWidth / 2;
@@ -22,8 +21,11 @@ define(function (require, exports, module) {
         });
 
         this.surfaceBg = new ImageSurface({
-            size: [undefined, true],
-            content: 'img/svetBg.svg'
+            size: [undefined, window.innerHeight],
+            content: '',
+            properties:{
+                backgroundColor: '#174C70'
+            }
         });
 
         this.surfaceBg.pipe(this._eventOutput);
