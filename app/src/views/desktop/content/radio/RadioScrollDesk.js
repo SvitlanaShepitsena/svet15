@@ -52,11 +52,6 @@ define(function (require, exports, module) {
         });
 
         this.backSurf.on('click', function () {
-
-            if (this.container.scrollview.getCurrentIndex() === 1) {
-                return;
-            }
-
             this.container.scrollview.goToPreviousPage();
         }.bind(this))
 
@@ -88,13 +83,11 @@ define(function (require, exports, module) {
         var surfaces = [];
         this.container = new ScrollContainer();
         this.container.scrollview.setOptions({
-            direction: 0,
-            paginated:true
+            direction: 0
         })
         this.container.scrollview.sequenceFrom(surfaces);
 
         var n = 1;
-        var counter = 0;
 
         var dates = ['01.04.2015', '01.11.2015', '01.18.2015', '01.25.2015'];
 
@@ -102,7 +95,7 @@ define(function (require, exports, module) {
             var programSurface = new RadioProgram({
                 mp3: '01' + i + '.mp3',
                 bg: n % 2 === 0 ? bgDark : bgLight,
-                date:dates[counter++]
+                date:dates[n - 1]
             });
             n++;
             programSurface.pipe(this.container.scrollview);

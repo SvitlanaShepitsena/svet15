@@ -3,7 +3,7 @@ var app = express();
 var path = require('path');
 
 var dev = '/app/build/',
-    dist = '/app/';
+    dist = '/app/dist/';
 
 var currentMode = dist;
 
