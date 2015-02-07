@@ -5,6 +5,8 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var Transitionable = require('famous/transitions/Transitionable');
     var ImageSurface = require('famous/surfaces/ImageSurface');
+
+    var BkImageSurface = require("famousimg/BkImageSurface");
     /*html*/
     var aboutDesk = require('text!dviews/jade/about/aboutUsDesk.html');
 
@@ -17,9 +19,8 @@ define(function (require, exports, module) {
             backgroundColor: window.sv.scheme.textWhite
         },
         contentProps: {
-            fontSize: "20px",
+            paddingTop: '50px',
             lineHeight: '1.7em',
-            fontFamily: "Open Sans Condensed",
             float: 'left',
             textAlign: 'justify',
             color: window.sv.scheme.textDark
@@ -41,7 +42,26 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.viwMod);
         this.rootNode.add(this.bgSurf);
 
+        //_addImg.call(this);
         _addContent.call(this);
+    }
+
+    function _addImg() {
+        this.imgMod = new Modifier({
+            size: [200, undefined],
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            transform: Transform.translate(0, 0, 0)
+        });
+
+        var imageSurface = new BkImageSurface({
+            content: 'img/aboutUs/aboutus_1.jpg',
+            sizeMode: BkImageSurface.SizeMode.ASPECTFIT,
+            positionMode: BkImageSurface.PositionMode.TOP,
+            repeatMode: BkImageSurface.RepeatMode.NONE
+        });
+        this.rootNode.add(this.imgMod).add(imageSurface);
+
     }
 
     function _addContent() {
@@ -55,6 +75,7 @@ define(function (require, exports, module) {
             content: aboutDesk,
             properties: this.options.contentProps
         });
+
         this.aboutContSurf.pipe(this._eventOutput);
         this.rootNode.add(this.aboutContMod).add(this.aboutContSurf);
     };

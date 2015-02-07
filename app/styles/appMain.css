@@ -3,6 +3,9 @@
 /*background-color #F0EDE5*/
   background-color: #e9e5dc;
 }
+.h1-desk {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 .icon-text-desk {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -162,6 +165,7 @@
 }
 body {
   padding-bottom: 44px !important;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 @media only screen and (max-width: 500px) {
   h1 {
