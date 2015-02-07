@@ -6,6 +6,11 @@
 .h1-desk {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+@media screen and (max-width: 992px) {
+  .h1-desk {
+    font-size: 14px;
+  }
+}
 .icon-text-desk {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -141,7 +146,10 @@
   }
 }
 .img-about-desk {
-  width: true;
+  text-align: center;
+}
+.img-about-desk img {
+  display: block;
 }
 .contact-map-desk {
   width: 100%;
@@ -150,7 +158,12 @@
   padding: 50px;
 }
 .about-col p {
-  margin-top: 20px;
+  margin-top: 15px;
+}
+@media screen and (max-width: 992px) {
+  .about-col {
+    font-size: 12px !important;
+  }
 }
 .h-radio-desk {
   line-height: 36px;
