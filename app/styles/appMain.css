@@ -157,6 +157,9 @@
   height: 100%;
   widht: 100%;
 }
+.text-color {
+  color: #fffaf0;
+}
 .text-warning {
   color: #ff7f50;
 }

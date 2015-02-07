@@ -8,6 +8,9 @@ define(function (require, exports, module) {
     var GenericSync = require("famous/inputs/GenericSync");
     var MouseSync = require('famous/inputs/MouseSync');
     var ScrollSync = require("famous/inputs/ScrollSync");
+    var TouchSync = require("famous/inputs/TouchSync");
+
+
     var RenderNode = require('famous/core/RenderNode');
     var Easing = require('famous/transitions/Easing');
     var Timer = require('famous/utilities/Timer');
@@ -176,13 +179,17 @@ define(function (require, exports, module) {
     function _content() {
         this.surfaces = [];
 
-        GenericSync.register({scroll: ScrollSync});
+        GenericSync.register({scroll: ScrollSync, touch: TouchSync});
         this.sync = new GenericSync({
             scroll: {
                 direction: 1,
                 rails: true,
                 scale: 0.3,
                 stallTime: 4
+            },
+            touch: {
+                direction: 1,
+                scale:3
             }
         });
 
