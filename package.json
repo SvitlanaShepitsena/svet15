@@ -112,6 +112,7 @@
     "express": "^4.10.6",
     "express-jade": "0.0.3",
     "express-logger": "0.0.3",
+    "git": "^0.1.5",
     "glob": "^4.3.2",
     "glob-stream": "^4.0.0",
     "gulp": "^3.8.10",
