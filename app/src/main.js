@@ -4,7 +4,7 @@ define(['require', 'famous/core/Engine', 'views/cell/AppViewCell', 'views/deskto
     mainContext.setPerspective(500);
 
     var initialDevice = window.responsive();
-    var appView = initialDevice === 'cell' ? new AppViewCell() : new AppViewDesk();
+    var appView = initialDevice === 'cell' ? new AppViewCell() : new AppViewDesk({ctx: mainContext});
 
     mainContext.on('resize', function () {
         var newDevice = window.responsive();
@@ -65,6 +65,7 @@ window.sv = {
         headerWidth: 1280,
         headerSmallHeight: Math.ceil(140 / 2.8),
         headerHeightShift: Math.ceil(140 - 140 / 2.8),
+        viewHeight: (window.innerHeight - Math.ceil(140 / 2.8)) * .94,
 
         contentWidth: 1200,
         contentHeight: window.innerHeight,

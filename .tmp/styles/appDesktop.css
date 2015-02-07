@@ -146,6 +146,12 @@
 .contact-map-desk {
   width: 100%;
 }
+.about-col {
+  padding: 50px;
+}
+.about-col p {
+  margin-top: 20px;
+}
 /**********************
     =Radio
 **********************/
