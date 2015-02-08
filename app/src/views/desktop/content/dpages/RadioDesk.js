@@ -8,47 +8,44 @@ define(function (require, exports, module) {
 
     var radioDesk = require('text!dviews/jade/radio/radio-desk.html');
 
+    RadioDesk.prototype = Object.create(View.prototype);
+    RadioDesk.prototype.constructor = RadioDesk;
+
+    RadioDesk.DEFAULT_OPTIONS = {
+        viewProps: {
+            boxShadow: '-1px 1px 2px 2px lightgrey',
+            paddingLeft: '25px',
+            paddingRight: '25px',
+            color: window.sv.scheme.textDark,
+            textAlign: 'center',
+            background: "#595153 url('img/bg/radio-desk.jpg')"
+        },
+        radioProps: {
+            marginTop: '30px',
+            color: window.sv.scheme.textDark,
+            textAlign: 'center'
+        }
+    };
+
     function RadioDesk() {
         View.apply(this, arguments);
-        this.contentHeight = window.innerWidth / 2;
 
-        this.centerModifier = new Modifier({
-            size: [undefined, window.innerHeight],
-            align: [0.5, 0],
-            origin: [0.5, 0],
+        this.viewMod = new Modifier({
+            size: [undefined, window.sv.sizing.viewHeight],
+            align: [0.5, 0.6],
+            origin: [0.5, 0.6],
             transform: Transform.translate(0, 0, 0)
         });
         this.surfaceBg = new Surface({
-            classes: [],
-            properties: {
-                paddingLeft: '25px',
-                paddingRight: '25px',
-                color: window.sv.scheme.textDark,
-                textAlign: 'center',
-                background: "#595153 url('img/bg/radio-desk.jpg')"
-            }
+            properties: this.options.viewProps
         });
 
         this.surfaceBg.pipe(this._eventOutput);
-        this.rootNode = this.add(this.centerModifier);
+        this.rootNode = this.add(this.viewMod);
         this.rootNode.add(this.surfaceBg);
-        //_pic.call(this);
+
         _svRadio.call(this);
         _scrollPrograms.call(this);
-    }
-
-    function _pic() {
-        this.picMod = new Modifier({
-            size: [130, 130],
-            align: [0.5, 0],
-            origin: [0.5, 0],
-            transform: Transform.translate(0, 200, 0)
-        });
-        this.picImgSurf = new ImageSurface({
-            size: [true, true],
-            content: "img/alex.jpg"
-        });
-        this.rootNode.add(this.picMod).add(this.picImgSurf);
     }
 
     function _scrollPrograms() {
@@ -60,7 +57,6 @@ define(function (require, exports, module) {
         });
         this.radioScrollDesk = new RadioScrollDesk();
         this.rootNode.add(this.scrollMod).add(this.radioScrollDesk);
-
     }
 
     function _svRadio() {
@@ -71,21 +67,11 @@ define(function (require, exports, module) {
 
         this.radivoSurf = new Surface({
             content: radioDesk,
-            properties: {
-                marginTop: '30px',
-                color: window.sv.scheme.textDark,
-                textAlign: 'center'
-            }
+            properties: this.options.radioProps
         });
         this.radivoSurf.pipe(this._eventOutput);
         this.rootNode.add(this.radivoMod).add(this.radivoSurf);
-
     }
-
-    RadioDesk.prototype = Object.create(View.prototype);
-    RadioDesk.prototype.constructor = RadioDesk;
-
-    RadioDesk.DEFAULT_OPTIONS = {};
 
     module.exports = RadioDesk;
 });

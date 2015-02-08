@@ -112,7 +112,7 @@ define(function (require, exports, module) {
     function _handleScroll() {
         this.syncEnabled = true;
         this.headerFull = true;
-
+        this.options.ctx.pipe(this.sync);
         this.sync.on('start', function (data) {
 
             this.syncEnabled = true;
@@ -185,6 +185,10 @@ define(function (require, exports, module) {
                 stallTime: 4
             }
         });
+
+        var ctx = this.options.ctx;
+        ctx.pipe(this.sync);
+
         this.container = new ContainerSurface({
             size: [undefined, window.innerHeight],
             properties: {

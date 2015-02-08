@@ -3,6 +3,14 @@
 /*background-color #F0EDE5*/
   background-color: #e9e5dc;
 }
+.h1-desk {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+@media screen and (max-width: 992px) {
+  .h1-desk {
+    font-size: 14px;
+  }
+}
 .icon-text-desk {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -141,10 +149,24 @@
     =About Us
 ***********************/
 .img-about-desk {
-  width: true;
+  text-align: center;
+}
+.img-about-desk img {
+  display: block;
 }
 .contact-map-desk {
   width: 100%;
+}
+.about-col {
+  padding: 50px;
+}
+.about-col p {
+  margin-top: 15px;
+}
+@media screen and (max-width: 992px) {
+  .about-col {
+    font-size: 12px !important;
+  }
 }
 /**********************
     =Radio

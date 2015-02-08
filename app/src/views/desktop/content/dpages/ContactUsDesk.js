@@ -11,19 +11,17 @@ define(function (require, exports, module) {
         this.contentHeight = window.innerWidth / 2;
 
         this.centerModifier = new Modifier({
-            size: [undefined, window.innerHeight],
-            align: [0.5, 0],
-            origin: [0.5, 0],
+            size: [undefined, window.sv.sizing.viewHeight],
+            align: [0.5, 0.6],
+            origin: [0.5, 0.6],
             transform: Transform.translate(0, 0, 0)
         });
         this.surfaceBg = new Surface({
             content: contactDesk,
             properties: {
-                paddingTop: '50px',
-                paddingLeft: '25px',
-                paddingRight: '25px',
                 color: window.sv.scheme.textDark,
                 textAlign: 'center',
+                boxShadow: '-1px 1px 2px 2px lightgrey',
                 background: "#595153 url('img/bg/bg-contact.jpg')"
             }
         });

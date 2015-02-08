@@ -64,7 +64,7 @@ define(function (require, exports, module) {
             //    this.scrolldesk.scrollview.setPosition(0);
             //
             //} else
-                this.scrolldesk.goToPage.call(this.scrolldesk,data.index);
+            this.scrolldesk.goToPage.call(this.scrolldesk, data.index);
         }.bind(this))
         this.rootNode.add(this.headerDesk);
 
@@ -72,7 +72,7 @@ define(function (require, exports, module) {
     }
 
     function _content() {
-        this.scrolldesk = new ScrollDesk();
+        this.scrolldesk = new ScrollDesk({ctx: this.options.ctx});
 
         this.scrolldesk.on('decrease:header', function () {
             this.headerDesk.decreaseHeader.call(this.headerDesk);
