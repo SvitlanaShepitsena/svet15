@@ -13,15 +13,11 @@ define(function (require, exports, module) {
 
     RadioDesk.DEFAULT_OPTIONS = {
         viewProps: {
-            boxShadow: '-1px 1px 2px 2px lightgrey',
-            paddingLeft: '25px',
-            paddingRight: '25px',
-            color: window.sv.scheme.textDark,
-            textAlign: 'center',
+            boxShadow: window.sv.scheme.boxShadow,
             background: "#595153 url('img/bg/radio-desk.jpg')"
         },
         radioProps: {
-            marginTop: '30px',
+            paddingTop: '50px',
             color: window.sv.scheme.textDark,
             textAlign: 'center'
         }
@@ -60,11 +56,7 @@ define(function (require, exports, module) {
     }
 
     function _svRadio() {
-        this.radivoMod = new Modifier({
-            align: [0.5, 0.5], origin: [0.5, 0.5],
-            transform: Transform.translate(0, sv.sizing.headerSmallHeight, 0)
-        });
-
+        this.radivoMod = new Modifier({});
         this.radivoSurf = new Surface({
             content: radioDesk,
             properties: this.options.radioProps

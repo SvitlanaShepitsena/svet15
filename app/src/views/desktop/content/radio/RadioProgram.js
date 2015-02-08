@@ -6,6 +6,21 @@ define(function (require, exports, module) {
 
     var VideoExtraSurface = require('dviews/content/radio/VideoExtraSurface');
 
+    RadioProgram.prototype = Object.create(View.prototype);
+    RadioProgram.prototype.constructor = RadioProgram;
+
+    RadioProgram.DEFAULT_OPTIONS = {
+        contentProps: {
+            fontSize: "20px",
+            padding: '15px',
+            letterSpacing: '10px',
+            fontFamily: "Open Sans Condensed",
+            textAlign: 'center',
+            fontWeight: 'bold',
+            color: window.sv.scheme.textDark
+        }
+    };
+
     function RadioProgram() {
         View.apply(this, arguments);
         _init.call(this);
@@ -46,7 +61,8 @@ define(function (require, exports, module) {
                 borderWidth: '3px',
                 borderColor: '#595959',
                 backgroundColor: this.options.bg
-            } });
+            }
+        });
         this.rootNode.add(this.bgMod).add(this.bgSurface);
 
         this.bgSurface.pipe(this._eventOutput);
@@ -64,15 +80,8 @@ define(function (require, exports, module) {
         this.contentSurf = new Surface({
             content: this.options.date,
             classes: ['panel', 'panel-default'],
-            properties: {
-                fontSize: "20px",
-                padding: '15px',
-                letterSpacing: '10px',
-                fontFamily: "Open Sans Condensed",
-                textAlign: 'center',
-                fontWeight: 'bold',
-                color: window.sv.scheme.textDark
-            }
+            properties: this.options.contentProps
+
         });
         this.rootNode.add(this.contentMod).add(this.contentSurf);
     }
@@ -88,11 +97,6 @@ define(function (require, exports, module) {
         this.progSurface.pipe(this._eventOutput);
     }
 
-
-    RadioProgram.prototype = Object.create(View.prototype);
-    RadioProgram.prototype.constructor = RadioProgram;
-
-    RadioProgram.DEFAULT_OPTIONS = {};
 
     module.exports = RadioProgram;
 });

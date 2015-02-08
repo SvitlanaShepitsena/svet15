@@ -15,7 +15,7 @@ define(function (require, exports, module) {
 
     AboutUsDesk.DEFAULT_OPTIONS = {
         viewProps: {
-            boxShadow: '-1px 1px 2px 2px lightgrey',
+            boxShadow: window.sv.scheme.boxShadow,
             backgroundColor: window.sv.scheme.textWhite
         },
         contentProps: {
@@ -42,27 +42,9 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.viwMod);
         this.rootNode.add(this.bgSurf);
 
-        //_addImg.call(this);
         _addContent.call(this);
     }
 
-    function _addImg() {
-        this.imgMod = new Modifier({
-            size: [200, undefined],
-            align: [0.5, 0],
-            origin: [0.5, 0],
-            transform: Transform.translate(0, 0, 0)
-        });
-
-        var imageSurface = new BkImageSurface({
-            content: 'img/aboutUs/aboutus_1.jpg',
-            sizeMode: BkImageSurface.SizeMode.ASPECTFIT,
-            positionMode: BkImageSurface.PositionMode.TOP,
-            repeatMode: BkImageSurface.RepeatMode.NONE
-        });
-        this.rootNode.add(this.imgMod).add(imageSurface);
-
-    }
 
     function _addContent() {
         this.aboutContMod = new Modifier({
