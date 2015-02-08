@@ -120,6 +120,7 @@
     "lru-cache": "^2.5.0",
     "method-override": "^2.3.0",
     "mime-db": "^1.4.0",
+    "minimatch": "^2.0.1",
     "nodemon": "^1.2.1",
     "pngquant": "^0.4.0",
     "readable-stream": "^1.0.33",
