@@ -46,8 +46,7 @@ define(function (require, exports, module) {
                 borderWidth: '3px',
                 borderColor: '#595959',
                 backgroundColor: this.options.bg
-            }
-        });
+            } });
         this.rootNode.add(this.bgMod).add(this.bgSurface);
 
         this.bgSurface.pipe(this._eventOutput);
