@@ -91,12 +91,12 @@ define(function (require, exports, module) {
     }
 
     function _contentParts() {
-        this.surfaceBg = new Surface({
+        this.mapSurface = new Surface({
             content: this.options.frontContent,
             properties: this.options.sectionPop
         });
-        this.surfaceBg.pipe(this._eventOutput);
-        this.renderNode.add(this.surfaceBg);
+        this.mapSurface.pipe(this._eventOutput);
+        this.renderNode.add(this.mapSurface);
     }
 
     function _sectionIcon() {

@@ -103,14 +103,14 @@ define(function (require, exports, module) {
             _globalMapViewId++;
 
             // Insert div into the DOM
-            this.surfaceBg = new Surface({
+            this.mapSurface = new Surface({
                 classes: ['mapview'],
                 content: '<div id="' + this.mapId + '" style="width: 100%; height: 100%;"></div>',
                 size: [undefined, undefined]
             });
-            this.add(this.surfaceBg);
+            this.add(this.mapSurface);
             if (this.sync) {
-                this.surfaceBg.pipe(this.sync);
+                this.mapSurface.pipe(this.sync);
             }
             //this.pipe(this.options.syncS);
         }
@@ -229,7 +229,7 @@ define(function (require, exports, module) {
     };
 
     MapView.prototype.getSurface = function () {
-        return this.surfaceBg;
+        return this.mapSurface;
     };
 
     /**

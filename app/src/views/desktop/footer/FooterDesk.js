@@ -12,7 +12,7 @@ define(function (require, exports, module) {
     }
 
     function _footer() {
-        this.surfaceBg = new Surface({
+        this.mapSurface = new Surface({
             size: [undefined, undefined],
             content: "Footer Surface",
             properties: {
@@ -20,7 +20,7 @@ define(function (require, exports, module) {
                 textAlign: "center"
             }
         });
-        this.rootNode.add(this.surfaceBg);
+        this.rootNode.add(this.mapSurface);
     }
 
     function _init() {

@@ -32,13 +32,13 @@ define(function (require, exports, module) {
             origin: [0.5, 0.6],
             transform: Transform.translate(0, 0, 0)
         });
-        this.surfaceBg = new Surface({
+        this.mapSurface = new Surface({
             properties: this.options.viewProps
         });
 
-        this.surfaceBg.pipe(this._eventOutput);
+        this.mapSurface.pipe(this._eventOutput);
         this.rootNode = this.add(this.viewMod);
-        this.rootNode.add(this.surfaceBg);
+        this.rootNode.add(this.mapSurface);
 
         _svRadio.call(this);
         _scrollPrograms.call(this);

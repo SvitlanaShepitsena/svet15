@@ -31,17 +31,17 @@ define(function (require, exports, module) {
             origin: [0.5, 0.6],
             transform: Transform.translate(0, 0, 0)
         });
-        this.surfaceBg = new Surface({
+        this.mapSurface = new Surface({
             //content: contactDesk,
             properties: this.options.viewProps
 
         });
 
-        this.surfaceBg.pipe(this._eventOutput);
+        this.mapSurface.pipe(this._eventOutput);
         this.rootNode = this.add(this.viewMod);
-        this.rootNode.add(this.surfaceBg);
+        this.rootNode.add(this.mapSurface);
 
-        _addImg.call(this);
+        _addMap.call(this);
         _addContent.call(this);
     }
 
@@ -71,23 +71,41 @@ define(function (require, exports, module) {
         this.rootNode.add(this.contentMod).add(this.contentSurf);
     }
 
-    function _addImg() {
-        this.imgMod = new Modifier({
-            //size: [window.sv.sizing.contentWidth / 1.3, window.sv.sizing.viewHeight / 1.3],
-            size: [undefined, undefined],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5]
+    function _addMap() {
+        this.mapId = 'map-canvas';
+
+
+        this.mapSurface = new Surface({
+            classes: ['mapview'],
+            content: '<div id="map-canvas" style="width: 100%; height: 100%;">Test</div>',
+            size: [undefined, undefined]
         });
 
-        this.imageSurface = new BkImageSurface({
-            content: 'img/contact/address-map.jpg',
-            sizeMode: BkImageSurface.SizeMode.ASPECTFIT,
-            positionMode: BkImageSurface.PositionMode.TOP,
-            repeatMode: BkImageSurface.RepeatMode.NONE
-        });
-        this.imageSurface.pipe(this._eventOutput);
-        this.rootNode.add(this.imgMod).add(this.imageSurface);
+
+        this.mapSurface.pipe(this._eventOutput);
+        this.rootNode.add(this.imgMod).add(this.mapSurface);
     }
 
     module.exports = ContactUsDesk;
+
+
+    ContactUsDesk.prototype.render = function () {
+        if (!this.map) {
+
+
+            var elm = document.getElementById(this.mapId);
+
+            if (elm) {
+                var mapOptions = {
+                    center: {lat: -34.397, lng: 150.644},
+                    zoom: 8
+                };
+
+                this.map = new google.maps.Map(elm,
+                    mapOptions);
+            }
+        }
+
+        return this._node.render();
+    };
 });

@@ -88,7 +88,7 @@ define(function (require, exports, module) {
                 return Transform.translate(0, this.sizeIcon + 15, 0);
             }.bind(this)
         });
-        this.surfaceBg = new Surface({
+        this.mapSurface = new Surface({
             content: this.options.content,
             properties: {
                 zIndex: 3,
@@ -97,14 +97,14 @@ define(function (require, exports, module) {
                 textAlign: 'center'
             }
         });
-        this.surfaceBg.on('click', function () {
+        this.mapSurface.on('click', function () {
             if (this.options.icon === 'radio') {
                 this._eventOutput.emit('navigateTo:radio')
             }
 
         }.bind(this));
-        this.surfaceBg.pipe(this._eventOutput);
-        this.rootNode.add(this.textMod).add(this.surfaceBg);
+        this.mapSurface.pipe(this._eventOutput);
+        this.rootNode.add(this.textMod).add(this.mapSurface);
     }
 
 

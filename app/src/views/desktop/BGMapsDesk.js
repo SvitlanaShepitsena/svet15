@@ -57,7 +57,7 @@ define(function (require, exports, module) {
 
     function legendSvet() {
 
-        this.surfaceBg = new Surface({
+        this.mapSurface = new Surface({
             size: [200, 50],
             content: '<span><img src="img/svet-icon.png">  Svet distribution points</span>',
             properties: {
@@ -65,7 +65,7 @@ define(function (require, exports, module) {
                 color: 'grey'
             }
         });
-        this.surfaceBg.pipe(this.mapView);
+        this.mapSurface.pipe(this.mapView);
         this.modifier = new Modifier({
             align: [0, 0],
             origin: [0.5, 0.5],
@@ -82,19 +82,19 @@ define(function (require, exports, module) {
             zoomBase: 9,
             zoomScale: 0.3
         });
-        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surfaceBg);
+        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.mapSurface);
     }
 
     function legendYp() {
 
-        this.surfaceBg = new Surface({
+        this.mapSurface = new Surface({
             size: [170, 50],
             content: '<p><img src="img/google-icon.png">  Our current clients </p>',
             properties: {
                 color: 'black'
             }
         });
-        this.surfaceBg.pipe(this.mapView);
+        this.mapSurface.pipe(this.mapView);
         this.modifier = new Modifier({
             align: [0, 0],
             origin: [0.5, 0.5],
@@ -111,7 +111,7 @@ define(function (require, exports, module) {
             zoomBase: 9,
             zoomScale: 0.3
         });
-        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.surfaceBg);
+        this.rootNode.add(this.mapModifier).add(this.modifier).add(this.mapSurface);
     }
 
     function _map() {

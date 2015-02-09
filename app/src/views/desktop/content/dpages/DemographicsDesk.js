@@ -9,7 +9,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
         _init.call(this);
 
-        this.surfaceBg = new Surface({
+        this.mapSurface = new Surface({
             size: [undefined, undefined],
             content: 'Demographics',
             classes: [],
@@ -19,8 +19,8 @@ define(function (require, exports, module) {
                 backgroundColor: '#FA5C4F'
             }
         });
-        this.surfaceBg.pipe(this._eventOutput);
-        this.rootNode.add(this.surfaceBg);
+        this.mapSurface.pipe(this._eventOutput);
+        this.rootNode.add(this.mapSurface);
     }
 
     function _init() {
