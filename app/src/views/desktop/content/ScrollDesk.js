@@ -42,6 +42,8 @@ define(function (require, exports, module) {
         _content.call(this);
         _handleScroll.call(this);
         _handleTilesClick.call(this);
+
+        this.goToPage(3);
     }
 
     function _handleTilesClick() {

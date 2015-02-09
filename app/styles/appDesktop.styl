@@ -13,7 +13,7 @@ size-xl-d = 1800px
 
 .h1-desk
     font-family "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
-    @media screen and (max-width: 992px)
+    @media screen and (max-width 992px)
         font-size 14px
 
 .icon-text-desk
@@ -23,9 +23,9 @@ size-xl-d = 1800px
     line-height 130%
     display block
     font-size 1.6em !important
-    &:hover
-    &:active
-    &:focus
+    &hover
+    &active
+    &focus
         text-decoration none
         color navajowhite
     +below(size-lg-d)
@@ -78,9 +78,9 @@ size-xl-d = 1800px
 .a-yp-desktop
     color floralwhite
     text-decoration underline
-    &:hover
-    &:active
-    &:focus
+    &hover
+    &active
+    &focus
         color antiquewhite
         text-decoration none
 
@@ -125,7 +125,7 @@ size-xl-d = 1800px
     padding 50px
     p
         margin-top 15px
-    @media screen and (max-width: 992px)
+    @media screen and (max-width 992px)
         font-size 12px !important
 
 /**********************
@@ -139,6 +139,26 @@ size-xl-d = 1800px
 **********************/
 .img-contact
     display inline-block
-    height: 100%
-    widht: 100%
+    height 100%
+    width 100%
+
+#map-canvas
+    height 100%
+    margin 0px
+    padding 0px
+
+.panel-destination
+    padding 10px
+    height 44px
+
+#start
+    margin-right 15px
+#panel
+    position absolute
+    top 13%
+    left 17.6%
+    margin-left -180px
+    z-index 5
+    background-color #fff
+    border 1px solid #999
 

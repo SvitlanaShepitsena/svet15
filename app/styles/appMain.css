@@ -19,9 +19,9 @@
   display: block;
   font-size: 1.6em !important;
 }
-.icon-text-desk:hover,
-.icon-text-desk:active,
-.icon-text-desk:focus {
+.icon-text-deskhover,
+.icon-text-deskactive,
+.icon-text-deskfocus {
   text-decoration: none;
   color: #ffdead;
 }
@@ -101,9 +101,9 @@
   color: #fffaf0;
   text-decoration: underline;
 }
-.a-yp-desktop:hover,
-.a-yp-desktop:active,
-.a-yp-desktop:focus {
+.a-yp-desktophover,
+.a-yp-desktopactive,
+.a-yp-desktopfocus {
   color: #faebd7;
   text-decoration: none;
 }
@@ -171,7 +171,28 @@
 .img-contact {
   display: inline-block;
   height: 100%;
-  widht: 100%;
+  width: 100%;
+}
+#map-canvas {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+.panel-destination {
+  padding: 10px;
+  height: 44px;
+}
+#start {
+  margin-right: 15px;
+}
+#panel {
+  position: absolute;
+  top: 13%;
+  left: 17.6%;
+  margin-left: -180px;
+  z-index: 5;
+  background-color: #fff;
+  border: 1px solid #999;
 }
 .text-warning {
   color: #ff7f50;
