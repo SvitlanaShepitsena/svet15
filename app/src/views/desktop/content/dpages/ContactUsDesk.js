@@ -119,7 +119,7 @@ define(function (require, exports, module) {
                 var that = this;
                 that.transportType = google.maps.TravelMode.DRIVING;
 
-                var svetMarker = new google.maps.Marker({
+                that.svetMarker = new google.maps.Marker({
                     position: this.officeCoord,
                     map: this.map,
                     title: "Svet Office"
@@ -184,7 +184,7 @@ define(function (require, exports, module) {
                 }
 
                 function calcRoute() {
-
+                    that.svetMarker.setMap(null);
                     for (var i = 0; i < markerArray.length; i++) {
                         markerArray[i].setMap(null);
                     }
@@ -197,7 +197,7 @@ define(function (require, exports, module) {
                     var request = {
                         origin: start,
                         destination: end,
-                        travelMode:that.transportType
+                        travelMode: that.transportType
                     };
 
                     // Route the directions and pass the response to a

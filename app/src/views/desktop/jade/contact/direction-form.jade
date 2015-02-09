@@ -1,17 +1,19 @@
 .panel-destination(id='panel')
-    b Start:
-        input#start
-        b Destination:
-        select#end(onchange='calcRoute();')
-            option(value='900 Skokie Blvd., Northbrook, IL 60062') SVET Media Group
-        button.btn.btn-primary.search-dest#searchRoute
-            i.fa.fa-search.fa-fw
-        div
-            button.btn.btn-ddefault.search-dest#byCar
+    b
+        .map-form-group
+            button.btn.btn-default.search-dest#byCar
                 i.fa.fa-car
-            button.btn.btn-ddefault.search-dest#byPublic
+            button.btn.btn-default.search-dest#byPublic
                 i.fa.fa-bus
-
+        .map-form-group
+            i.fa.fa-circle-o.fa-fw
+            input#start
+        .map-form-group
+            i.fa.fa-map-marker.fa-fw
+            select#end(onchange='calcRoute();')
+                option(value='900 Skokie Blvd., Northbrook, IL 60062') SVET Media Group
+            button.btn.btn-primary.search-dest#searchRoute
+                i.fa.fa-search.fa-fw
     #map-canvas
     | &nbsp;
     #warnings_panel(style='width:100%;height:10%;text-align:center')
