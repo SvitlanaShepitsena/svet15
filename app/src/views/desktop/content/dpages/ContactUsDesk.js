@@ -106,6 +106,7 @@ define(function (require, exports, module) {
                     zoom: 12,
                     panControl: false,
                     zoomControl: true,
+                    minZoom: 9,
                     zoomControlOptions: {
                         style: google.maps.ZoomControlStyle.SMALL,
                         position: google.maps.ControlPosition.LEFT_BOTTOM
