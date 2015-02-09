@@ -1,18 +1,35 @@
 
-<div id="panel" class="panel-destination"><b>
-    <div class="map-form-group">
-      <button id="byCar" class="btn btn-default search-dest"><i class="fa fa-car"></i></button>
-      <button id="byPublic" class="btn btn-default search-dest"><i class="fa fa-bus"></i></button>
-    </div>
-    <div class="map-form-group"><i class="fa fa-circle-o fa-fw"></i>
-      <input id="start"/>
-    </div>
-    <div class="map-form-group"><i class="fa fa-map-marker fa-fw"></i>
-      <select id="end" onchange="calcRoute();">
-        <option value="900 Skokie Blvd., Northbrook, IL 60062">SVET Media Group</option>
-      </select>
+<div class="panel-wrapper">
+  <ul class="list-inline ul-contact-map">
+    <li class="li-panel">
+      <div id="panel" class="panel-destination"><b>
+          <div class="map-form-group">
+            <button id="byCar" class="btn btn-default search-dest"><i class="fa fa-car"></i></button>
+            <button id="byPublic" class="btn btn-default search-dest"><i class="fa fa-bus"></i></button>
+          </div>
+          <div class="map-form-group"><i class="fa fa-circle-o fa-fw"></i>
+            <input id="start" class="svet-start"/>
+          </div>
+          <div class="map-form-group"><i class="fa fa-map-marker fa-fw"></i>
+            <select id="end" onchange="calcRoute();" class="svet-end">
+              <option value="900 Skokie Blvd., Northbrook, IL 60062">SVET Media Group</option>
+            </select>
+          </div></b>
+        <hr/>
+        <div class="address address-svet">
+          <h4>SVET Media Group</h4>
+          <div class="street">900 Skokie Blvd., Suite 103,</div>
+          <div class="city">Northbrook, IL 60062</div>
+          <div class="abbr"><i class="fa fa-phone fa-fw"></i>(847)715-9407</div>
+          <div class="phone"><i class="fa fa-fax fa-fw"></i>(847)715-9677</div>
+          <div class="phone"><a href="mailto:#"><i class="fa fa-envelope fa-fw"></i>manager@svet.com</a></div>
+        </div>
+        <div id="map-canvas"></div>&nbsp;
+        <div id="warnings_panel" style="width:100%;height:10%;text-align:center"></div>
+      </div>
+    </li>
+    <li class="li-button">
       <button id="searchRoute" class="btn btn-primary search-dest"><i class="fa fa-search fa-fw"></i></button>
-    </div></b>
-  <div id="map-canvas"></div>&nbsp;
-  <div id="warnings_panel" style="width:100%;height:10%;text-align:center"></div>
+    </li>
+  </ul>
 </div>

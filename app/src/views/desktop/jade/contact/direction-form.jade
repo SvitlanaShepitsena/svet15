@@ -1,19 +1,38 @@
-.panel-destination(id='panel')
-    b
-        .map-form-group
-            button.btn.btn-default.search-dest#byCar
-                i.fa.fa-car
-            button.btn.btn-default.search-dest#byPublic
-                i.fa.fa-bus
-        .map-form-group
-            i.fa.fa-circle-o.fa-fw
-            input#start
-        .map-form-group
-            i.fa.fa-map-marker.fa-fw
-            select#end(onchange='calcRoute();')
-                option(value='900 Skokie Blvd., Northbrook, IL 60062') SVET Media Group
+.panel-wrapper
+    ul.list-inline.ul-contact-map
+        li.li-panel
+            .panel-destination(id='panel')
+                b
+                    .map-form-group
+                        button.btn.btn-default.search-dest#byCar
+                            i.fa.fa-car
+                        button.btn.btn-default.search-dest#byPublic
+                            i.fa.fa-bus
+                    .map-form-group
+                        i.fa.fa-circle-o.fa-fw
+                        input.svet-start#start
+                    .map-form-group
+                        i.fa.fa-map-marker.fa-fw
+                        select.svet-end(id='end')(onchange='calcRoute();')
+                            option(value='900 Skokie Blvd., Northbrook, IL 60062') SVET Media Group
+                hr
+                .address.address-svet
+                    h4 SVET Media Group
+                    .street 900 Skokie Blvd., Suite 103,
+                    .city Northbrook, IL 60062
+                    .abbr
+                        i.fa.fa-phone.fa-fw
+                        | (847)715-9407
+                    .phone
+                        i.fa.fa-fax.fa-fw
+                        | (847)715-9677
+                    .phone
+                        a(href="mailto:#")
+                            i.fa.fa-envelope.fa-fw
+                            | manager@svet.com
+                #map-canvas
+                | &nbsp;
+                #warnings_panel(style='width:100%;height:10%;text-align:center')
+        li.li-button
             button.btn.btn-primary.search-dest#searchRoute
                 i.fa.fa-search.fa-fw
-    #map-canvas
-    | &nbsp;
-    #warnings_panel(style='width:100%;height:10%;text-align:center')

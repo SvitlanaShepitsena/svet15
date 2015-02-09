@@ -7,8 +7,6 @@ size-lg-d = 1050px
 size-xl-d = 1800px
 
 .body-desktop
-    /*background-color #334559*/
-    /*background-color #F0EDE5*/
     background-color #E9E5DC
 
 .h1-desk
@@ -27,7 +25,7 @@ size-xl-d = 1800px
     &active
     &focus
         text-decoration none
-        color navajowhite
+        color white
     +below(size-lg-d)
         font-size 1.5em !important
     +below(size-md-d)
@@ -118,8 +116,6 @@ size-xl-d = 1800px
     img
         display block
 
-.contact-map-desk
-    width 100%
 
 .about-col
     padding 50px
@@ -137,6 +133,10 @@ size-xl-d = 1800px
 /**********************
     =Contact Us
 **********************/
+
+.contact-map-desk
+    width 100%
+
 .img-contact
     display inline-block
     height 100%
@@ -154,13 +154,17 @@ size-xl-d = 1800px
     margin-bottom 20px !important
 
 #start
-#end
     margin-right 15px
     padding 5px !important
-    border-bottom 1px solid
-    border-top #999999 0px solid
-    border-right #999999 0px solid
-    border-left #999999 0px solid
+    border-bottom lightgrey 1px solid
+    border-top 0px
+    border-right 0px
+    border-left 0px
+
+#end
+    @extend #start
+    width 199px
+    color red
 
 .fa-map-marker
     color red
@@ -168,22 +172,43 @@ size-xl-d = 1800px
 b
     width 300px
 
-#panel
+.panel-wrapper
+    width 400px
     padding-top 15px
-    width 300px
     position absolute
-    top 8%
+    top 3%
     left 2%
     z-index 5
+
+#panel
+    text-align left !important
+    width 300px
     background-color #fff
     border 1px solid #999
 
+.ul-contact-map
+    text-align center
+
+.li-button
+    margin 0px
+    padding 0px !important
+    height auto
+    vertical-align top
+    display block
+
+.li-panel
+    display block
+    margin 0px
+    padding 0px !important
+
+
 .search-dest
-    margin-left 10px
-    margin-right 10px
+    padding-left 25px
+    padding-right 25px
+    margin 0px
 
-
-
+.address
+    padding-left 10px
 
 
 
