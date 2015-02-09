@@ -6,6 +6,7 @@ define(['require', 'famous/core/Engine', 'views/cell/AppViewCell', 'views/deskto
     var initialDevice = window.responsive();
     var appView = initialDevice === 'cell' ? new AppViewCell() : new AppViewDesk({ctx: mainContext});
 
+
     mainContext.on('resize', function () {
         var newDevice = window.responsive();
         if (newDevice !== initialDevice) {
