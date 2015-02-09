@@ -180,7 +180,6 @@
 }
 .panel-destination {
   padding: 10px;
-  height: 44px;
 }
 #start {
   margin-right: 15px;
@@ -193,6 +192,10 @@
   z-index: 5;
   background-color: #fff;
   border: 1px solid #999;
+}
+.search-dest {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .text-warning {
   color: #ff7f50;

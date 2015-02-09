@@ -1,14 +1,16 @@
 .panel-destination(id='panel')
     b Start:
-        select#start
-            option(value='penn station, new york, ny') Penn Station
-            option(value='grand central station, new york, ny') Grand Central Station
-            option(value='625 8th Avenue, New York, NY, 10018') Port Authority Bus Terminal
-            option(value='staten island ferry terminal, new york, ny') Staten Island Ferry Terminal
-            option(value='101 E 125th Street, New York, NY') Harlem - 125th St Station
+        input#start
         b Destination:
         select#end(onchange='calcRoute();')
             option(value='900 Skokie Blvd., Northbrook, IL 60062') SVET Media Group
+        button.btn.btn-primary.search-dest#searchRoute
+            i.fa.fa-search.fa-fw
+        div
+            button.btn.btn-ddefault.search-dest#byCar
+                i.fa.fa-car
+            button.btn.btn-ddefault.search-dest#byPublic
+                i.fa.fa-bus
 
     #map-canvas
     | &nbsp;
