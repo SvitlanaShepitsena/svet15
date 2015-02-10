@@ -95,7 +95,7 @@ window.sv = {
         }
     },
 
-    mapPalette: [
+    mapPalettePale: [
         {
             "featureType": "administrative",
             "elementType": "all",

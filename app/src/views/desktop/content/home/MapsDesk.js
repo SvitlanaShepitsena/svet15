@@ -5,8 +5,9 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var Transitionable = require('famous/transitions/Transitionable');
     var Easing = require('famous/transitions/Easing');
-
+    /*Famous map*/
     var MapView = require('fmaps/MapView');
+    /*App Require*/
     var MapModifier = require('fmaps/MapModifier');
     var MapStateModifier = require('fmaps/MapStateModifier');
     var MapIconsPanel = require('dviews/content/home/MapIconsPanel');
@@ -172,7 +173,7 @@ define(function (require, exports, module) {
         this.legendPlace = {lat: 42.131767, lng: -87.579624};
         this.northChicagoEnd = {lat: 42.150571, lng: -87.710238};
 
-        var styledMap = new google.maps.StyledMapType(window.sv.mapPalette,
+        var styledMap = new google.maps.StyledMapType(window.sv.mapPalettePale,
             {name: "Svet Media Group"});
 
         this.mapView = new MapView({

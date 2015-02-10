@@ -63,6 +63,7 @@ define(function (require, exports, module) {
             content: '<div id="map-canvas" style="width: 100%; height: 100%;">Test</div>'
         });
 
+
         this.mapSurface.pipe(this._eventOutput);
         this.rootNode.add(this.imgMod).add(this.mapSurface);
     }
@@ -79,6 +80,7 @@ define(function (require, exports, module) {
             if (elm) {
                 var mapOptions = {
                     center: this.centerCoord,
+                    styles: window.sv.mapPalettePale,
                     zoom: 12,
                     minZoom: 9,
                     zoomControl: true,
@@ -88,7 +90,6 @@ define(function (require, exports, module) {
                     },
                     panControl: true
                 };
-
                 this.map = new google.maps.Map(elm, mapOptions);
                 map = this.map;
 

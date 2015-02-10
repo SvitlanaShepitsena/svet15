@@ -2,18 +2,19 @@
 define(function (require, exports, module) {
     var View = require('famous/core/View');
     var Surface = require('famous/core/Surface');
-    var Transform = require('famous/core/Transform');
+    var ImageSurface = require('famous/surfaces/ImageSurface');
+    var VideoSurface = require('famous/surfaces/VideoSurface');
     var Modifier = require("famous/core/Modifier");
     var GridLayout = require("famous/views/GridLayout");
 
+    var Transform = require('famous/core/Transform');
+    var Transitionable = require('famous/transitions/Transitionable');
+    var Slider = require('famous/widgets/Slider');
+    var RenderNode = require('famous/core/RenderNode');
+
+    /*App Require*/
     var HomeContentDesk = require('dviews/content/home/HomeContentDesk');
     var MapsDesk = require('dviews/content/home/MapsDesk');
-    var Transitionable = require('famous/transitions/Transitionable');
-    var ImageSurface = require('famous/surfaces/ImageSurface');
-    var Slider = require('famous/widgets/Slider');
-    var VideoSurface = require('famous/surfaces/VideoSurface');
-
-    var RenderNode = require('famous/core/RenderNode');
     var MapDesk = require('dviews/content/home/MapsDesk');
 
 
@@ -36,6 +37,9 @@ define(function (require, exports, module) {
             origin: [0, 0],
             transform: Transform.translate(0, 680, 0)
         });
+
+        var styledMap = new google.maps.StyledMapType(window.sv.mapPalette,
+            {name: "Svet Media Group"});
 
         this.mapDesk = new MapDesk({sync: this.options.sync});
 

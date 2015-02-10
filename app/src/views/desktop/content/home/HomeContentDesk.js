@@ -7,16 +7,17 @@ define(function (require, exports, module) {
     var FlexibleLayout = require('famous/views/FlexibleLayout');
     var GridLayout = require("famous/views/GridLayout");
     var RenderNode = require('famous/core/RenderNode');
+    var SpringTransition = require('famous/transitions/SpringTransition');
 
+    /*App Require*/
     var HomeSectionDesk = require('dviews/content/home/HomeSectionDesk');
-
+    /*Html*/
     var dailyNews = require('text!dviews/content/home/jade/dailyNews.html');
     var weeklyNews = require('text!dviews/content/home/jade/weeklyNews.html');
     var yellowPages = require('text!dviews/content/home/jade/yellowPages.html');
     var radioProgram = require('text!dviews/content/home/jade/radioProgram.html');
     var Transitionable = require('famous/transitions/Transitionable');
 
-    var SpringTransition = require('famous/transitions/SpringTransition');
 
     function HomeContentDesk() {
         Transitionable.registerMethod('spring', SpringTransition);
