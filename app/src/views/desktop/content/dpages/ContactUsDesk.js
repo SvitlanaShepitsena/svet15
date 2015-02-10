@@ -97,7 +97,7 @@ define(function (require, exports, module) {
 
                 that.svetMarker = new google.maps.Marker({
                     position: this.officeCoord,
-                    map: this.map,
+                    map: map,
                     title: "Svet Office"
                 });
 
