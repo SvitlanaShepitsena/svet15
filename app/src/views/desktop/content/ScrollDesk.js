@@ -11,12 +11,11 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
     var Easing = require('famous/transitions/Easing');
     var Timer = require('famous/utilities/Timer');
-    //
+    /*App Require*/
     var HomeDesk = require('dviews/content/home/HomeDesk');
     var AboutUsDesk = require('dviews/content/dpages/AboutUsDesk');
     var RadioDesk = require('dviews/content/dpages/RadioDesk');
     var ContactUsDesk = require('dviews/content/dpages/ContactUsDesk');
-    //
 
     ScrollDesk.prototype = Object.create(View.prototype);
     ScrollDesk.prototype.constructor = ScrollDesk;
@@ -118,7 +117,6 @@ define(function (require, exports, module) {
         this.headerFull = true;
         this.options.ctx.pipe(this.sync);
         this.sync.on('start', function (data) {
-
             this.syncEnabled = true;
         }.bind(this));
 
@@ -194,47 +192,44 @@ define(function (require, exports, module) {
         ctx.pipe(this.sync);
 
         this.container = new ContainerSurface({
-            size: [undefined, window.innerHeight],
+            //size: [undefined, window.innerHeight],
             properties: {
                 overflow: 'hidden'
             }
         });
+        /*=Home Page*/
         this.homeDesk = new HomeDesk({sync: this.sync});
         this.homeDesk.pipe(this.sync);
         this.homeShift = window.innerHeight + 680;
-
         this.rootNode.add(this.homeDesk);
 
+
+        /*=About Page*/
         this.aboutMod = new Modifier({
-            align: [0, 0],
-            origin: [0, 0],
             transform: Transform.translate(0, this.homeShift, 0)
         });
         this.aboutUsDesk = new AboutUsDesk();
         this.aboutUsDesk.pipe(this.sync);
         this.aboutShift = this.homeShift + window.innerHeight;
-
         this.rootNode.add(this.aboutMod).add(this.aboutUsDesk);
 
+
+        /*=Radio Page*/
         this.radioMod = new Modifier({
-            align: [0, 0],
-            origin: [0, 0],
             transform: Transform.translate(0, this.aboutShift, 0)
         });
         this.radioDesk = new RadioDesk();
         this.radioDesk.pipe(this.sync);
         this.radioShift = this.aboutShift + window.innerHeight;
-
         this.rootNode.add(this.radioMod).add(this.radioDesk);
 
+
+        /*=Contact Page*/
         this.contactMod = new Modifier({
-            align: [0, 0],
-            origin: [0, 0],
             transform: Transform.translate(0, this.radioShift, 0)
         });
         this.contactDesk = new ContactUsDesk();
         this.contactDesk.pipe(this.sync);
-
         this.rootNode.add(this.contactMod).add(this.contactDesk);
     }
 
@@ -268,10 +263,7 @@ define(function (require, exports, module) {
                 this.containerTrans.set(-this.radioShift, {duration: 500});
                 this._eventOutput.emit('decrease:header');
                 this.headerFull = false;
-
-
                 break;
-
         }
     };
     module.exports = ScrollDesk;

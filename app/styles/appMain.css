@@ -226,8 +226,7 @@ b {
   vertical-align: top;
   display: block;
 }
-.li-panel {
-  display: block;
+.li-panel display block {
   margin: 0px;
   padding: 0px !important;
 }
