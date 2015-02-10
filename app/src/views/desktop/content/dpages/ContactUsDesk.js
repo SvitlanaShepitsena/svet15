@@ -8,6 +8,8 @@ define(function (require, exports, module) {
     /*html*/
     var contactDesk = require('text!dviews/jade/contact/contact-desk.html');
     var directionForm = require('text!dviews/jade/contact/direction-form.html');
+    var contentString = require('text!dviews/jade/contact/svet-map-info.html');
+
 
     ContactUsDesk.prototype = Object.create(View.prototype);
     ContactUsDesk.prototype.constructor = ContactUsDesk;
@@ -62,6 +64,19 @@ define(function (require, exports, module) {
             classes: ['mapview'],
             content: '<div id="map-canvas" style="width: 100%; height: 100%;">Test</div>'
         });
+        this.mapOptions = {
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: this.centerCoord,
+            styles: window.sv.mapPalettePale,
+            zoom: 12,
+            minZoom: 9,
+            zoomControl: true,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL,
+                position: google.maps.ControlPosition.LEFT_BOTTOM
+            },
+            panControl: true
+        };
 
 
         this.mapSurface.pipe(this._eventOutput);
@@ -75,25 +90,18 @@ define(function (require, exports, module) {
             var directionsService;
             var stepDisplay;
 
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
             var elm = document.getElementById(this.mapId);
 
             if (elm) {
-                var mapOptions = {
-                    center: this.centerCoord,
-                    styles: window.sv.mapPalettePale,
-                    zoom: 12,
-                    minZoom: 9,
-                    zoomControl: true,
-                    zoomControlOptions: {
-                        style: google.maps.ZoomControlStyle.SMALL,
-                        position: google.maps.ControlPosition.LEFT_BOTTOM
-                    },
-                    panControl: true
-                };
-                this.map = new google.maps.Map(elm, mapOptions);
+                var that = this;
+
+                this.map = new google.maps.Map(elm, this.mapOptions);
                 map = this.map;
 
-                var that = this;
                 that.transportType = google.maps.TravelMode.DRIVING;
 
                 that.svetMarker = new google.maps.Marker({
@@ -101,6 +109,9 @@ define(function (require, exports, module) {
                     map: map,
                     title: "Svet Office"
                 });
+                infowindow.open(map, that.svetMarker);
+                //google.maps.event.addListener(that.svetMarker, 'click', function () {
+                //});
 
                 directionsService = new google.maps.DirectionsService();
 
@@ -116,6 +127,7 @@ define(function (require, exports, module) {
                 elm.innerHTML = elm.innerHTML + directionForm;
 
                 var markerArray = [];
+
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function (pos) {
 
