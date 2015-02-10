@@ -3,9 +3,10 @@ var app = express();
 var path = require('path');
 
 var dev = '/app/build/',
+    root = '/app/',
     dist = '/app/dist/';
 
-var currentMode = dist;
+var currentMode = root;
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + currentMode));
