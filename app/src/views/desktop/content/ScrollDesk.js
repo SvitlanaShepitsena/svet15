@@ -43,7 +43,7 @@ define(function (require, exports, module) {
         _handleTilesClick.call(this);
         //this._eventOutput.emit('decrease:header');
         //this.headerFull = false;
-        this.goToPage(3);
+        //this.goToPage(3);
 
     }
 

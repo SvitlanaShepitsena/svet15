@@ -37,6 +37,7 @@ define(function (require, exports, module) {
 
     function ContactUsDesk() {
         View.apply(this, arguments);
+
         this.viewMod = new Modifier({
             size: [undefined, window.sv.sizing.viewHeight],
             align: [0.5, 0.6],
@@ -52,6 +53,9 @@ define(function (require, exports, module) {
         this.mapSurface.pipe(this._eventOutput);
         this.rootNode = this.add(this.viewMod);
         this.rootNode.add(this.mapSurface);
+        this.svetMarkerInfo = new google.maps.InfoWindow({
+            content: contentString
+        });
 
         _addMap.call(this);
     }
@@ -68,7 +72,7 @@ define(function (require, exports, module) {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             center: this.centerCoord,
             styles: window.sv.mapPalettePale,
-            zoom: 12,
+            zoom: 11,
             minZoom: 9,
             zoomControl: true,
             zoomControlOptions: {
@@ -90,9 +94,6 @@ define(function (require, exports, module) {
             var directionsService;
             var stepDisplay;
 
-            this.infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
 
             var elm = document.getElementById(this.mapId);
 
@@ -109,7 +110,7 @@ define(function (require, exports, module) {
                     map: map,
                     title: "Svet Office"
                 });
-                this.infowindow.open(map, that.svetMarker);
+                this.svetMarkerInfo.open(map, that.svetMarker);
 
                 directionsService = new google.maps.DirectionsService();
 
@@ -135,10 +136,12 @@ define(function (require, exports, module) {
                             if (status == google.maps.GeocoderStatus.OK) {
                                 if (results[0]) {
                                     map.setZoom(11);
-                                    marker = new google.maps.Marker({
+                                    var userLocationMarker = new google.maps.Marker({
                                         position: userLatLng,
-                                        map: map
+                                        map: map,
+                                        title: "Your approximate location"
                                     });
+
                                     var address = results[0].formatted_address;
 
                                     var startDirection = document.getElementById('start');
@@ -151,21 +154,22 @@ define(function (require, exports, module) {
 
                                     var bus = document.getElementById('byPublic');
                                     bus.onclick = function () {
-                                        that.transportType = google.maps.TravelMode.TRANSIT;
+                                        this.transportType = google.maps.TravelMode.TRANSIT;
                                         calcRoute();
-
-                                        this.infowindow.open(map, that.svetMarker);
+                                        this.svetMarkerInfo.open(map, this.svetMarker);
                                     }.bind(this);
                                     var car = document.getElementById('byCar');
                                     car.onclick = function () {
-                                        that.transportType = google.maps.TravelMode.DRIVING;
+                                        this.transportType = google.maps.TravelMode.DRIVING;
                                         calcRoute();
-                                    };
+                                        this.svetMarkerInfo.open(map, this.svetMarker);
+                                    }.bind(this);
                                     var bike = document.getElementById('byBicicle');
                                     bike.onclick = function () {
-                                        that.transportType = google.maps.TravelMode.BICYCLING;
+                                        this.transportType = google.maps.TravelMode.BICYCLING;
                                         calcRoute();
-                                    };
+                                        this.svetMarkerInfo.open(map, this.svetMarker);
+                                    }.bind(this);
                                 }
                             } else {
                                 alert("Geocoder failed due to: " + status);
