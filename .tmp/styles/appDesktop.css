@@ -254,3 +254,12 @@ b {
 .address {
   padding-left: 10px;
 }
+.address-marker {
+  padding-left: 0px;
+  font-size: 12px;
+  line-height: 17px;
+}
+.address-marker h5 {
+  font-size: 14px !important;
+  margin-bottom: 5px !important;
+}
