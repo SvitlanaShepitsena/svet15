@@ -52,22 +52,6 @@ define(function (require, exports, module) {
         this.rootNode.add(this.mapSurface);
 
         _addMap.call(this);
-        //_addContent.call(this);
-    }
-
-    function _addContent() {
-        this.contentMod = new Modifier({
-            size: [280, 180],
-            transform: Transform.translate(30, 150, 0)
-        });
-        this.contentSurf = new Surface({
-            content: contactDesk,
-            classes: ['panel', 'panel-default'],
-            properties: this.options.contentProps
-
-        });
-        this.contentSurf.pipe(this._eventOutput);
-        this.rootNode.add(this.contentMod).add(this.contentSurf);
     }
 
     function _addMap() {
