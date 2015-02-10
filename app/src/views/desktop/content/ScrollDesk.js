@@ -41,9 +41,9 @@ define(function (require, exports, module) {
         _content.call(this);
         _handleScroll.call(this);
         _handleTilesClick.call(this);
-        this._eventOutput.emit('decrease:header');
-        this.headerFull = false;
-        this.goToPage(3);
+        //this._eventOutput.emit('decrease:header');
+        //this.headerFull = false;
+        //this.goToPage(3);
 
     }
 
