@@ -54,8 +54,8 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.viewMod);
         this.rootNode.add(this.mapSurface);
         this.svetMarkerInfo = new google.maps.InfoWindow({
-            //disableAutoPan: true,
-            content: contentString
+            content: contentString,
+            disableAutoPan: true
         });
 
         _addMap.call(this);

@@ -16,7 +16,6 @@ define(function (require, exports, module) {
     var AboutUsDesk = require('dviews/content/dpages/AboutUsDesk');
     var RadioDesk = require('dviews/content/dpages/RadioDesk');
     var ContactUsDesk = require('dviews/content/dpages/ContactUsDesk');
-    var FlexScrollView = require('flex/FlexScrollView');
 
     ScrollDesk.prototype = Object.create(View.prototype);
     ScrollDesk.prototype.constructor = ScrollDesk;
@@ -39,88 +38,13 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
         _init.call(this);
 
-        //_content.call(this);
-        //_handleScroll.call(this);
-        //_handleTilesClick.call(this);
+        _content.call(this);
+        _handleScroll.call(this);
+        _handleTilesClick.call(this);
         //this._eventOutput.emit('decrease:header');
         //this.headerFull = false;
         //this.goToPage(3);
-        _flex.call(this);
-    }
 
-    function _flex() {
-        var scrollView = new FlexScrollView({
-            autoPipeEvents: true
-        });
-
-
-        this.homeDesk = new HomeDesk({sync: this.sync});
-        this.aboutUsDesk = new AboutUsDesk();
-        this.radioDesk = new RadioDesk();
-        this.contactDesk = new ContactUsDesk();
-
-        this.surface1 = new Surface({
-            size:[undefined,400],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: '#FA5C4F'
-            }
-        });
-
-        this.surface2 = new Surface({
-            size:[undefined,400],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: 'black'
-            }
-        });
-
-        this.surface3 = new Surface({
-            size:[undefined,400],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: 'red'
-            }
-        });
-        this.surface4 = new Surface({
-            size:[undefined,400],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: 'green'
-            }
-        });
-
-        this.surface5 = new Surface({
-            size:[undefined,400],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: 'yellow'
-            }
-        });
-
-        scrollView.push(this.homeDesk);
-        scrollView.push(this.aboutUsDesk);
-        scrollView.push(this.radioDesk);
-        scrollView.push(this.contactDesk);
-
-
-
-        this.rootNode.add(scrollView);
     }
 
     function _handleTilesClick() {
