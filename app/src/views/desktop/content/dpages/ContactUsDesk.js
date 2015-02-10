@@ -90,7 +90,7 @@ define(function (require, exports, module) {
             var directionsService;
             var stepDisplay;
 
-            var infowindow = new google.maps.InfoWindow({
+            this.infowindow = new google.maps.InfoWindow({
                 content: contentString
             });
 
@@ -109,9 +109,7 @@ define(function (require, exports, module) {
                     map: map,
                     title: "Svet Office"
                 });
-                infowindow.open(map, that.svetMarker);
-                //google.maps.event.addListener(that.svetMarker, 'click', function () {
-                //});
+                this.infowindow.open(map, that.svetMarker);
 
                 directionsService = new google.maps.DirectionsService();
 
@@ -134,7 +132,6 @@ define(function (require, exports, module) {
                         var geocoder = new google.maps.Geocoder();
                         var userLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
                         geocoder.geocode({'latLng': userLatLng}, function (results, status) {
-                            var infowindow = new google.maps.InfoWindow();
                             if (status == google.maps.GeocoderStatus.OK) {
                                 if (results[0]) {
                                     map.setZoom(11);
@@ -156,7 +153,9 @@ define(function (require, exports, module) {
                                     bus.onclick = function () {
                                         that.transportType = google.maps.TravelMode.TRANSIT;
                                         calcRoute();
-                                    };
+
+                                        this.infowindow.open(map, that.svetMarker);
+                                    }.bind(this);
                                     var car = document.getElementById('byCar');
                                     car.onclick = function () {
                                         that.transportType = google.maps.TravelMode.DRIVING;
@@ -171,8 +170,8 @@ define(function (require, exports, module) {
                             } else {
                                 alert("Geocoder failed due to: " + status);
                             }
-                        });
-                    });
+                        }.bind(this));
+                    }.bind(this));
                 } else {
                     error('not supported');
                 }
@@ -180,7 +179,7 @@ define(function (require, exports, module) {
                 function calcRoute() {
                     that.svetMarker.setMap(null);
                     for (var i = 0; i < markerArray.length; i++) {
-                        markerArray[i].setMap(null);
+                        //markerArray[i].setMap(null);
                     }
 
                     // Retrieve the start and end locations and create
