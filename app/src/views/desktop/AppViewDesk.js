@@ -6,7 +6,7 @@ define(function (require, exports, module) {
 
     var ScrollDesk = require('dviews/content/ScrollDesk');
     var HeaderDesk = require('dviews/header/HeaderDesk');
-    var MapDesk = require('dviews/BgMapsDesk');
+    //var MapDesk = require('dviews/BgMapsDesk');
 
     var Transitionable = require('famous/transitions/Transitionable');
 
