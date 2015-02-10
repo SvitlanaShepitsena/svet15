@@ -55,12 +55,12 @@ define(function (require, exports, module) {
     }
 
     function _addMap() {
-        this.officeCoord = {lat: 42.136286, lng: -87.791914};
         this.mapId = 'map-canvas';
+        this.centerCoord = {lat: 42.059773, lng: -87.886823};
+        this.officeCoord = {lat: 42.136286, lng: -87.791914};
         this.mapSurface = new Surface({
             classes: ['mapview'],
-            content: '<div id="map-canvas" style="width: 100%; height: 100%;">Test</div>',
-            size: [undefined, undefined]
+            content: '<div id="map-canvas" style="width: 100%; height: 100%;">Test</div>'
         });
 
         this.mapSurface.pipe(this._eventOutput);
@@ -68,10 +68,7 @@ define(function (require, exports, module) {
     }
 
     ContactUsDesk.prototype.render = function () {
-
-
         if (!this.map) {
-
             var map;
             var directionsDisplay;
             var directionsService;
@@ -79,23 +76,17 @@ define(function (require, exports, module) {
 
             var elm = document.getElementById(this.mapId);
 
-            function setTransportType() {
-                console.log('findWhere');
-
-            }
-
             if (elm) {
                 var mapOptions = {
-                    center: this.officeCoord,
+                    center: this.centerCoord,
                     zoom: 12,
-                    panControl: false,
-                    zoomControl: true,
                     minZoom: 9,
+                    zoomControl: true,
                     zoomControlOptions: {
                         style: google.maps.ZoomControlStyle.SMALL,
                         position: google.maps.ControlPosition.LEFT_BOTTOM
-                    }
-
+                    },
+                    panControl: true
                 };
 
                 this.map = new google.maps.Map(elm, mapOptions);
@@ -158,6 +149,11 @@ define(function (require, exports, module) {
                                         that.transportType = google.maps.TravelMode.DRIVING;
                                         calcRoute();
                                     };
+                                    var bike = document.getElementById('byBicicle');
+                                    bike.onclick = function () {
+                                        that.transportType = google.maps.TravelMode.BICYCLING;
+                                        calcRoute();
+                                    };
                                 }
                             } else {
                                 alert("Geocoder failed due to: " + status);
@@ -195,10 +191,7 @@ define(function (require, exports, module) {
                         }
                     });
                 }
-
-
             }
-
         }
         return this._node.render();
     };
