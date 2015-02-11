@@ -110,6 +110,7 @@ define(function (require, exports, module) {
                 color: 'white',
                 textAlign: 'center',
                 backgroundColor: 'yellow'
+
             }
         });
 
