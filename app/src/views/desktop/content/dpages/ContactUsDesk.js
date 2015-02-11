@@ -82,7 +82,7 @@ define(function (require, exports, module) {
         }
 
     function _addMap() {
-        this.mapId = 'map-canvas';
+        this.mapId = 'map-canvas2';
         this.centerCoord = {lat: 42.059773, lng: -87.886823};
         this.officeCoord = {lat: 42.136286, lng: -87.791914};
 
@@ -95,13 +95,14 @@ define(function (require, exports, module) {
 
         this.mapSurface = new Surface({
             classes: ['mapview'],
-            content: '<div id="map-canvas" style="width: 100%; height: 100%;">Test</div>'
+            content: '<div id="'+this.mapId+'" style="width: 100%; height: 100%;"></div>'
         });
         this.mapOptions = {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             center: this.centerCoord,
             styles: window.sv.mapPalettePale,
             zoom: 11,
+            scrollwheel:false,
             minZoom: 9,
             zoomControl: true,
             zoomControlOptions: {
