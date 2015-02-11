@@ -83,6 +83,7 @@ define(function (require, exports, module) {
             properties: this.options.contentProps
 
         });
+        this.contentSurf.pipe(this._eventOutput);
         this.rootNode.add(this.contentMod).add(this.contentSurf);
     }
 

@@ -71,7 +71,7 @@ define(function (require, exports, module) {
         this.contactDesk = new ContactUsDesk();
 
 
-        this.scrollView.push(this.homeDesk);
+        //this.scrollView.push(this.homeDesk);
         this.scrollView.push(this.aboutUsDesk);
         this.scrollView.push(this.radioDesk);
         this.scrollView.push(this.contactDesk);
