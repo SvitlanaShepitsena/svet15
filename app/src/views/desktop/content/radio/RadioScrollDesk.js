@@ -50,7 +50,6 @@ define(function (require, exports, module) {
                 cursor: 'pointer'
             }
         });
-        this.backSurf.pipe(this._eventOutput);
 
         this.backSurf.on('click', function () {
             this.container.scrollview.goToPreviousPage();
@@ -63,19 +62,17 @@ define(function (require, exports, module) {
             origin: [1, 0.5],
             transform: Transform.translate(0, 0, 0)
         });
-        this.forwardSurf = new Surface({
+        this.forwartSurf = new Surface({
             content: _getRaphaelRadioIcon.call(this, navForwardIcon),
             properties: {
                 cursor: 'pointer'
             }
         });
-
-        this.forwardSurf.pipe(this._eventOutput);
-        this.forwardSurf.on('click', function () {
+        this.forwartSurf.on('click', function () {
             this.container.scrollview.goToNextPage();
         }.bind(this))
 
-        this.rootNode.add(this.forwardMod).add(this.forwardSurf);
+        this.rootNode.add(this.forwardMod).add(this.forwartSurf);
         this.rootNode.add(this.backMod).add(this.backSurf);
     }
 
