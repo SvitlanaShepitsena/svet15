@@ -49,7 +49,18 @@ define(function (require, exports, module) {
     }
 
     function _flex() {
-        var scrollView = new FlexScrollView({
+        this.scrollView = new FlexScrollView({
+            flow: true,             // enable flow-mode (can only be enabled from the constructor)
+            insertSpec: {           // render-spec used when inserting renderables
+                opacity: 0          // start opacity is 0, causing a fade-in effect,
+                //size: [0, 0],     // uncommented to create a grow-effect
+                //transform: Transform.translate(-300, 0, 0) // uncomment for slide-in effect
+            },
+            //removeSpec: {...},    // render-spec used when removing renderables
+            nodeSpring: {           // spring-options used when transitioning between states
+                dampingRatio: 0.8,  // spring damping ratio
+                period: 1000        // duration of the animation
+            },
             autoPipeEvents: true
         });
 
@@ -59,69 +70,14 @@ define(function (require, exports, module) {
         this.radioDesk = new RadioDesk();
         this.contactDesk = new ContactUsDesk();
 
-        this.surface1 = new Surface({
-            size:[undefined,400],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: '#FA5C4F'
-            }
-        });
 
-        this.surface2 = new Surface({
-            size:[undefined,400],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: 'black'
-            }
-        });
-
-        this.surface3 = new Surface({
-            size:[undefined,400],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: 'red'
-            }
-        });
-        this.surface4 = new Surface({
-            size:[undefined,400],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: 'green'
-            }
-        });
-
-        this.surface5 = new Surface({
-            size:[undefined,400],
-            content: '',
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: 'yellow'
-
-            }
-        });
-
-        scrollView.push(this.homeDesk);
-        scrollView.push(this.aboutUsDesk);
-        scrollView.push(this.radioDesk);
-        scrollView.push(this.contactDesk);
+        this.scrollView.push(this.homeDesk);
+        this.scrollView.push(this.aboutUsDesk);
+        this.scrollView.push(this.radioDesk);
+        this.scrollView.push(this.contactDesk);
 
 
-
-        this.rootNode.add(scrollView);
+        this.rootNode.add(this.scrollView);
     }
 
     function _handleTilesClick() {
@@ -317,7 +273,6 @@ define(function (require, exports, module) {
                 this.containerTrans.set(0, {duration: 500});
                 this.homeDesk.tuneToDefaultView();
                 this.homeDesk.tuneToDefaultMoto2();
-
                 this._eventOutput.emit('increase:header');
                 this.headerFull = true;
                 break;
@@ -342,6 +297,7 @@ define(function (require, exports, module) {
                 this.headerFull = false;
                 break;
         }
+        this.scrollView.goToPage(pageIndex);
     };
     module.exports = ScrollDesk;
 });

@@ -61,9 +61,13 @@ define(function (require, exports, module) {
         this.opacityMain = new Transitionable(1);
         this.contentTrans = new Transitionable(0);
 
-        this.centerModifier = new Modifier({});
+        var height = 1.1*window.innerHeight;
+        this.centerModifier = new Modifier({
+            size: [undefined, height]
 
-        this.rootNode = this.add(this.rootNodeMod);
+        });
+
+        this.rootNode = this.add(this.centerModifier);
     }
 
 

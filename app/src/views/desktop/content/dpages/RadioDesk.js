@@ -49,9 +49,10 @@ define(function (require, exports, module) {
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
             size: [600, 400],
-            transform: Transform.translate(0, 90, 0)
+            transform: Transform.translate(0, 0, 0)
         });
         this.radioScrollDesk = new RadioScrollDesk();
+        this.radioScrollDesk.pipe(this._eventOutput);
         this.rootNode.add(this.scrollMod).add(this.radioScrollDesk);
     }
 

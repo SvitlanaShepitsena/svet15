@@ -58,13 +58,41 @@ define(function (require, exports, module) {
             disableAutoPan: true
         });
 
-        _addMap.call(this);
+        //_addMap.call(this);
+        _test.call(this);
     }
+        function _test() {
+            this.mod = new Modifier({
+                size: [undefined, 1000],
+                align: [0, 0],
+                origin: [0, 0],
+                transform: Transform.translate(0, 0, 101)
+            });
+            this.surface = new Surface({
+                content: '',
+                classes: [],
+                properties: {
+                    color: 'white',
+                    textAlign: 'center',
+                    backgroundColor: '#FA5C4F'
+                }
+            });
+            this.rootNode.add(this.mod).add(this.surface);
+
+        }
 
     function _addMap() {
         this.mapId = 'map-canvas';
         this.centerCoord = {lat: 42.059773, lng: -87.886823};
         this.officeCoord = {lat: 42.136286, lng: -87.791914};
+
+        this.mapMod = new Modifier({
+            size: [undefined, 1000],
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(0, 0, 10)
+        });
+
         this.mapSurface = new Surface({
             classes: ['mapview'],
             content: '<div id="map-canvas" style="width: 100%; height: 100%;">Test</div>'
@@ -85,7 +113,7 @@ define(function (require, exports, module) {
 
 
         this.mapSurface.pipe(this._eventOutput);
-        this.rootNode.add(this.imgMod).add(this.mapSurface);
+        this.rootNode.add(this.mapMod).add(this.mapSurface);
     }
 
     ContactUsDesk.prototype.render = function () {
