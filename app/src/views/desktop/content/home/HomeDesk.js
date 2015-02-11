@@ -6,7 +6,6 @@ define(function (require, exports, module) {
     var VideoSurface = require('famous/surfaces/VideoSurface');
     var Modifier = require("famous/core/Modifier");
     var GridLayout = require("famous/views/GridLayout");
-
     var Transform = require('famous/core/Transform');
     var Transitionable = require('famous/transitions/Transitionable');
     var Slider = require('famous/widgets/Slider');
