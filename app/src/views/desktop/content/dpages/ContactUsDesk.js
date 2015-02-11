@@ -16,22 +16,8 @@ define(function (require, exports, module) {
 
     ContactUsDesk.DEFAULT_OPTIONS = {
         viewProps: {
-            paddingTop: '50px',
-            lineHeight: '1.7em',
             color: window.sv.scheme.textDark,
-            textAlign: 'center',
-            boxShadow: window.sv.scheme.boxShadow,
-            background: "#595153 url('img/bg/bg-contact.jpg')"
-        },
-        contentProps: {
-            boxShadow: window.sv.scheme.boxShadow,
-            backgroundColor: window.sv.scheme.textWhite,
-            paddingLeft: '20px',
-            paddingBottom: '15px',
-            color: '#393939',
-            fontSize: '100%',
-            lineHeight: '130%',
-            textAlign: 'left'
+            textAlign: 'center'
         }
     };
 
@@ -76,7 +62,7 @@ define(function (require, exports, module) {
                 position: google.maps.ControlPosition.LEFT_BOTTOM
             },
             panControl: true,
-            scrollwheel:false
+            scrollwheel: false
         };
 
 
