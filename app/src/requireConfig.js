@@ -4,7 +4,7 @@ require.config({
         famousimg: "../lib/famous-bkimagesurface",
         coord: "../src/views/misc/map",
         fmaps: "../lib/famous-map/",
-        flex: "../lib/famous-flex/src",
+        flex: "../lib/famous-flex/",
         requirejs: "../lib/requirejs/require",
         views: "views",
         dviews: "views/desktop",
