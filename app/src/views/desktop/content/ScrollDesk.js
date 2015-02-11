@@ -16,6 +16,7 @@ define(function (require, exports, module) {
     var AboutUsDesk = require('dviews/content/dpages/AboutUsDesk');
     var RadioDesk = require('dviews/content/dpages/RadioDesk');
     var ContactUsDesk = require('dviews/content/dpages/ContactUsDesk');
+    var FlexScrollView = require('flex/FlexScrollView');
 
     ScrollDesk.prototype = Object.create(View.prototype);
     ScrollDesk.prototype.constructor = ScrollDesk;
@@ -38,13 +39,45 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
         _init.call(this);
 
-        _content.call(this);
-        _handleScroll.call(this);
-        _handleTilesClick.call(this);
+        //_content.call(this);
+        //_handleScroll.call(this);
+        //_handleTilesClick.call(this);
         //this._eventOutput.emit('decrease:header');
         //this.headerFull = false;
         //this.goToPage(3);
+        _flex.call(this);
+    }
 
+    function _flex() {
+        this.scrollView = new FlexScrollView({
+            flow: true,             // enable flow-mode (can only be enabled from the constructor)
+            insertSpec: {           // render-spec used when inserting renderables
+                opacity: 0          // start opacity is 0, causing a fade-in effect,
+                //size: [0, 0],     // uncommented to create a grow-effect
+                //transform: Transform.translate(-300, 0, 0) // uncomment for slide-in effect
+            },
+            //removeSpec: {...},    // render-spec used when removing renderables
+            nodeSpring: {           // spring-options used when transitioning between states
+                dampingRatio: 0.8,  // spring damping ratio
+                period: 1000        // duration of the animation
+            },
+            autoPipeEvents: true
+        });
+
+
+        this.homeDesk = new HomeDesk({sync: this.sync});
+        this.aboutUsDesk = new AboutUsDesk();
+        this.radioDesk = new RadioDesk();
+        this.contactDesk = new ContactUsDesk();
+
+
+        this.scrollView.push(this.homeDesk);
+        this.scrollView.push(this.aboutUsDesk);
+        this.scrollView.push(this.radioDesk);
+        this.scrollView.push(this.contactDesk);
+
+
+        this.rootNode.add(this.scrollView);
     }
 
     function _handleTilesClick() {
@@ -240,7 +273,6 @@ define(function (require, exports, module) {
                 this.containerTrans.set(0, {duration: 500});
                 this.homeDesk.tuneToDefaultView();
                 this.homeDesk.tuneToDefaultMoto2();
-
                 this._eventOutput.emit('increase:header');
                 this.headerFull = true;
                 break;
@@ -265,6 +297,7 @@ define(function (require, exports, module) {
                 this.headerFull = false;
                 break;
         }
+        this.scrollView.goToPage(pageIndex);
     };
     module.exports = ScrollDesk;
 });

@@ -80,6 +80,7 @@ define(function (require, exports, module) {
 
         this.scrolldesk.on('increase:header', function () {
             this.headerDesk.increaseHeader.call(this.headerDesk);
+
             //
         }.bind(this));
 

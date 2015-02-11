@@ -16,22 +16,10 @@ define(function (require, exports, module) {
 
     ContactUsDesk.DEFAULT_OPTIONS = {
         viewProps: {
-            paddingTop: '50px',
-            lineHeight: '1.7em',
+            marginTop: '50px',
             color: window.sv.scheme.textDark,
-            textAlign: 'center',
             boxShadow: window.sv.scheme.boxShadow,
-            background: "#595153 url('img/bg/bg-contact.jpg')"
-        },
-        contentProps: {
-            boxShadow: window.sv.scheme.boxShadow,
-            backgroundColor: window.sv.scheme.textWhite,
-            paddingLeft: '20px',
-            paddingBottom: '15px',
-            color: '#393939',
-            fontSize: '100%',
-            lineHeight: '130%',
-            textAlign: 'left'
+            backgroundColor: window.sv.scheme.textWhite
         }
     };
 
@@ -44,26 +32,36 @@ define(function (require, exports, module) {
             origin: [0.5, 0.6],
             transform: Transform.translate(0, 0, 0)
         });
-        this.mapSurface = new Surface({
-            //content: contactDesk,
+        this.viewSurf = new Surface({
             properties: this.options.viewProps
 
         });
 
-        this.mapSurface.pipe(this._eventOutput);
+        this.viewSurf.pipe(this._eventOutput);
         this.rootNode = this.add(this.viewMod);
-        this.rootNode.add(this.mapSurface);
+        this.rootNode.add(this.viewSurf);
+
         this.svetMarkerInfo = new google.maps.InfoWindow({
-            content: contentString
+            content: contentString,
+            disableAutoPan: true
         });
 
-        _addMap.call(this);
+        //_addMap.call(this);
+        //_test.call(this);
     }
+
 
     function _addMap() {
         this.mapId = 'map-canvas';
         this.centerCoord = {lat: 42.059773, lng: -87.886823};
         this.officeCoord = {lat: 42.136286, lng: -87.791914};
+        this.mapMod = new Modifier({
+            size: [undefined, window.innerHeight],
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            transform: Transform.translate(0, 0, 20)
+        });
+
         this.mapSurface = new Surface({
             classes: ['mapview'],
             content: '<div id="map-canvas" style="width: 100%; height: 100%;">Test</div>'
@@ -83,8 +81,8 @@ define(function (require, exports, module) {
         };
 
 
-        this.mapSurface.pipe(this._eventOutput);
-        this.rootNode.add(this.imgMod).add(this.mapSurface);
+        //this.mapSurface.pipe(this._eventOutput);
+        this.rootNode.add(this.mapMod).add(this.mapSurface);
     }
 
     ContactUsDesk.prototype.render = function () {
@@ -182,10 +180,6 @@ define(function (require, exports, module) {
 
                 function calcRoute() {
                     that.svetMarker.setMap(null);
-                    for (var i = 0; i < markerArray.length; i++) {
-                        //markerArray[i].setMap(null);
-                    }
-
                     // Retrieve the start and end locations and create
                     // a DirectionsRequest using WALKING directions.
 
