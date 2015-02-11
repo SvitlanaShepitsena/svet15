@@ -50,17 +50,17 @@ define(function (require, exports, module) {
 
     function _flex() {
         this.scrollView = new FlexScrollView({
-            flow: true,             // enable flow-mode (can only be enabled from the constructor)
-            insertSpec: {           // render-spec used when inserting renderables
-                opacity: 0          // start opacity is 0, causing a fade-in effect,
-                //size: [0, 0],     // uncommented to create a grow-effect
-                //transform: Transform.translate(-300, 0, 0) // uncomment for slide-in effect
-            },
-            //removeSpec: {...},    // render-spec used when removing renderables
-            nodeSpring: {           // spring-options used when transitioning between states
-                dampingRatio: 0.8,  // spring damping ratio
-                period: 1000        // duration of the animation
-            },
+            //flow: true,             // enable flow-mode (can only be enabled from the constructor)
+            //insertSpec: {           // render-spec used when inserting renderables
+            //    opacity: 0          // start opacity is 0, causing a fade-in effect,
+            //    //size: [0, 0],     // uncommented to create a grow-effect
+            //    //transform: Transform.translate(-300, 0, 0) // uncomment for slide-in effect
+            //},
+            ////removeSpec: {...},    // render-spec used when removing renderables
+            //nodeSpring: {           // spring-options used when transitioning between states
+            //    dampingRatio: 0.8,  // spring damping ratio
+            //    period: 1000        // duration of the animation
+            //},
             autoPipeEvents: true
         });
 

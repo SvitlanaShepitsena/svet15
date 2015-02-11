@@ -58,8 +58,8 @@ define(function (require, exports, module) {
             disableAutoPan: true
         });
 
-        //_addMap.call(this);
-        _test.call(this);
+        _addMap.call(this);
+        //_test.call(this);
     }
         function _test() {
             this.mod = new Modifier({
@@ -130,6 +130,7 @@ define(function (require, exports, module) {
                 var that = this;
 
                 this.map = new google.maps.Map(elm, this.mapOptions);
+                console.log(this.map);
                 map = this.map;
 
                 that.transportType = google.maps.TravelMode.DRIVING;
