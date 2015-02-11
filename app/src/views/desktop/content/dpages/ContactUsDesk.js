@@ -61,25 +61,26 @@ define(function (require, exports, module) {
         _addMap.call(this);
         //_test.call(this);
     }
-        function _test() {
-            this.mod = new Modifier({
-                size: [undefined, 1000],
-                align: [0, 0],
-                origin: [0, 0],
-                transform: Transform.translate(0, 0, 101)
-            });
-            this.surface = new Surface({
-                content: '',
-                classes: [],
-                properties: {
-                    color: 'white',
-                    textAlign: 'center',
-                    backgroundColor: '#FA5C4F'
-                }
-            });
-            this.rootNode.add(this.mod).add(this.surface);
 
-        }
+    function _test() {
+        this.mod = new Modifier({
+            size: [undefined, 1000],
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(0, 0, 101)
+        });
+        this.surface = new Surface({
+            content: '',
+            classes: [],
+            properties: {
+                color: 'white',
+                textAlign: 'center',
+                backgroundColor: '#FA5C4F'
+            }
+        });
+        this.rootNode.add(this.mod).add(this.surface);
+
+    }
 
     function _addMap() {
         this.mapId = 'map-canvas2';
@@ -95,14 +96,14 @@ define(function (require, exports, module) {
 
         this.mapSurface = new Surface({
             classes: ['mapview'],
-            content: '<div id="'+this.mapId+'" style="width: 100%; height: 100%;"></div>'
+            content: '<div id="map-canvas2" style="width: 100%; height: 1000px;"></div>'
         });
         this.mapOptions = {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             center: this.centerCoord,
             styles: window.sv.mapPalettePale,
             zoom: 11,
-            scrollwheel:false,
+            scrollwheel: false,
             minZoom: 9,
             zoomControl: true,
             zoomControlOptions: {

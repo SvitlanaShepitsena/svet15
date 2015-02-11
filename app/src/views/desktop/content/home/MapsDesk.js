@@ -49,7 +49,6 @@ define(function (require, exports, module) {
         _init.call(this);
         //_map.call(this);
         _svetMapIcons.call(this);
-
         _googleMap.call(this);
     }
 
@@ -66,7 +65,6 @@ define(function (require, exports, module) {
         });
 
         this.mapSurface = new Surface({
-            classes: ['mapview'],
             content: '<div id="home-map" style="width: 100%; height: 100%;"></div>'
         });
         this.mapOptions = {
@@ -207,404 +205,403 @@ define(function (require, exports, module) {
         return {lat: lat, lng: lng};
     }
 
-    function _map() {
-        this.gMap;
-        this.northChicagoStart = {lat: 41.011949, lng: -87.709012};
-        this.legendPlace = {lat: 42.131767, lng: -87.579624};
-        this.northChicagoEnd = {lat: 42.050571, lng: -87.710238};
-
-        var styledMap = new google.maps.StyledMapType(window.sv.mapPalettePale,
-            {name: "Svet Media Group"});
-
-        this.mapView = new MapView({
-            type: MapView.MapType.GOOGLEMAPS,
-            syncS: this.options.sync,
-            mapOptions: {
-                featureType: "water",
-                elementType: "all",
-                stylers: [
-                    {
-                        visibility: "on"
-                    },
-                    {
                         color: "#acbcc9"
-                    }
-                ],
-                zoom: 11,
-                center: this.northChicagoStart,
-                mapTypeControlOptions: {
-                    mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-                },
-                scrollwheel: false,
-                panControl: false,
-                scaleControl: false,
-                zoomControl: true,
-                zoomControlOptions: {
-                    style: google.maps.ZoomControlStyle.SMALL,
-                    position: google.maps.ControlPosition.LEFT_CENTER
-                },
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            }
-        });
-        this.mapSurf = this.mapView.getSurface();
-        this.mapSurf.pipe(this._eventOutput);
-
-        this.infoWindows = [];
-        this.markers = [];
-
-        this.rootNode.add(this.mapView);
-
-        this.mapView.on('load', function () {
-            var mapInfo = this.mapView._getMapInfo();
-            var endPoint = _getNormalizedCenter.call(this, mapInfo);
-            this.mapView.setPosition(
-                endPoint,
-                {duration: 500, curve: Easing.outBack}
-            );
-            this.gMap = this.mapView.getMap();
-
-            this.gMap.mapTypes.set('map_style', styledMap);
-            this.gMap.setMapTypeId('map_style');
-
-            /*********************************
-             * Here are Svet Statistics by towns
-             *********************************/
-
-            /**
-             * 1. =Buffalo Grove
-             */
-
-            var buffaloGroveCoordinates = buffaloGrove.getCoordinates();
-
-            var buffaloGroveLayer = new google.maps.Polygon({
-                paths: buffaloGroveCoordinates,
-                strokeColor: window.sv.cityMapColors.buffaloGrove,
-                fillColor: window.sv.cityMapColors.buffaloGrove,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-            buffaloGroveLayer.setMap(this.gMap);
-
-            google.maps.event.addListener(buffaloGroveLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.buffaloGroveInfo = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.buffaloGroveInfo);
-                this.buffaloGroveInfo.setContent(_getCityInfo(window.sv.cities.buffaloGrove, 18.7));
-                this.buffaloGroveInfo.setPosition(e.latLng);
-                this.buffaloGroveInfo.open(this.gMap);
-
-            }.bind(this));
-            /*Buffalo Grove Ends*/
-
-
-            /**
-             * 2. =Highland Park
-             */
-
-            var highlandParkCoordinates = highlandPark.getCoordinates();
-
-            var highlandParkLayer = new google.maps.Polygon({
-                paths: highlandParkCoordinates,
-                strokeColor: window.sv.cityMapColors.highlandpark,
-                fillColor: window.sv.cityMapColors.highlandpark,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-            highlandParkLayer.setMap(this.gMap);
-
-            google.maps.event.addListener(highlandParkLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.infoHighlandPark = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.infoHighlandPark);
-                this.infoHighlandPark.setContent(_getCityInfo(window.sv.cities.highlandPark, 18.2));
-                this.infoHighlandPark.setPosition(e.latLng);
-                this.infoHighlandPark.open(this.gMap);
-
-            }.bind(this));
-
-            /*Highland Park Ends*/
-
-            /**
-             * 3. =Derrfield
-             */
-
-            var deerfieldCoordinates = deerfield.getCoordinates();
-
-            var deerfieldLayer = new google.maps.Polygon({
-                paths: deerfieldCoordinates,
-                strokeColor: window.sv.cityMapColors.deerfield,
-                fillColor: window.sv.cityMapColors.deerfield,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-            deerfieldLayer.setMap(this.gMap);
-
-            google.maps.event.addListener(deerfieldLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.infoDeerfield = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.infoDeerfield);
-                this.infoDeerfield.setContent(_getCityInfo(window.sv.cities.deerfield, 16.1));
-                this.infoDeerfield.setPosition(e.latLng);
-                this.infoDeerfield.open(this.gMap);
-
-            }.bind(this));
-            /*Deerfield Ends*/
-
-            /**
-             * 4. =Glencoe
-             */
-
-            var glencoeCoordinates = glencoe.getCoordinates();
-
-            var glencoeLayer = new google.maps.Polygon({
-                paths: glencoeCoordinates,
-                strokeColor: window.sv.cityMapColors.glencoe,
-                fillColor: window.sv.cityMapColors.glencoe,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-            glencoeLayer.setMap(this.gMap);
-
-            google.maps.event.addListener(glencoeLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.infoGlencoe = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.infoGlencoe);
-                this.infoGlencoe.setContent(_getCityInfo(window.sv.cities.glencoe, 14.4));
-                this.infoGlencoe.setPosition(e.latLng);
-                this.infoGlencoe.open(this.gMap);
-
-            }.bind(this));
-            /*=Glencoe Ends*/
-
-            /**
-             * 5. =Northbrook
-             */
-
-            var northbrookCoordinates = northbrook.getCoordinates();
-
-            var northbrookLayer = new google.maps.Polygon({
-                paths: northbrookCoordinates,
-                strokeColor: window.sv.cityMapColors.northbrook,
-                fillColor: window.sv.cityMapColors.northbrook,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-            northbrookLayer.setMap(this.gMap);
-
-            google.maps.event.addListener(northbrookLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.infoNorthbrook = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.infoNorthbrook);
-                this.infoNorthbrook.setContent(_getCityInfo(window.sv.cities.northbrook, 14.3));
-                this.infoNorthbrook.setPosition(e.latLng);
-                this.infoNorthbrook.open(this.gMap);
-
-            }.bind(this));
-            /*Northbrook ends*/
-
-
-            /**
-             * 6. =Vernon Hills
-             */
-
-            var vernonHillsCoordinates = vernonHills.getCoordinates();
-
-            var vernonHillsLayer = new google.maps.Polygon({
-                paths: vernonHillsCoordinates,
-                strokeColor: window.sv.cityMapColors.vernonHills,
-                fillColor: window.sv.cityMapColors.vernonHills,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-            vernonHillsLayer.setMap(this.gMap);
-
-            google.maps.event.addListener(vernonHillsLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.vernonHillsInfo = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.vernonHillsInfo);
-                this.vernonHillsInfo.setContent(_getCityInfo(window.sv.cities.vernonHills, 9.1));
-                this.vernonHillsInfo.setPosition(e.latLng);
-                this.vernonHillsInfo.open(this.gMap);
-
-            }.bind(this));
-            /*Vernon Hills Ends*/
-
-
-            /**
-             * 7. =Skokie
-             */
-
-            var skokieCoordinates = skokie.getCoordinates();
-
-            var skokieLayer = new google.maps.Polygon({
-                paths: skokieCoordinates,
-                title: 'Skokie',
-                strokeColor: window.sv.cityMapColors.skokie,
-                fillColor: window.sv.cityMapColors.skokie,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-            skokieLayer.setMap(this.gMap);
-
-
-            google.maps.event.addListener(skokieLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.infoSkokie = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.infoSkokie);
-                this.infoSkokie.setContent(_getCityInfo(window.sv.cities.skokie, 20));
-                this.infoSkokie.setPosition(e.latLng);
-                this.infoSkokie.open(this.gMap);
-
-            }.bind(this));
-            /*Skokie Ends*/
-
-            /**
-             * 8. =Evanston
-             */
-
-            var evanstonCoordinates = evanston.getCoordinates();
-
-            var evanstonLayer = new google.maps.Polygon({
-                paths: evanstonCoordinates,
-                strokeColor: window.sv.cityMapColors.evanston,
-                fillColor: window.sv.cityMapColors.evanston,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-
-            evanstonLayer.setMap(this.gMap);
-            google.maps.event.addListener(evanstonLayer, 'click', function (e) {
-
-                _closeAllOverlays.call(this);
-                this.evanstonInfo = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.evanstonInfo);
-                this.evanstonInfo.setContent(_getCityInfo(window.sv.cities.evanston, 7.2));
-                this.evanstonInfo.setPosition(e.latLng);
-                this.evanstonInfo.open(this.gMap);
-
-            }.bind(this));
-            /*Evanston Ends*/
-
-
-            /**
-             * 9. =Wilmette
-             */
-
-            var wilmetteCoordinates = wilmette.getCoordinates();
-
-            var wilmetteLayer = new google.maps.Polygon({
-                paths: wilmetteCoordinates,
-                strokeColor: window.sv.cityMapColors.wilmette,
-                fillColor: window.sv.cityMapColors.wilmette,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-            wilmetteLayer.setMap(this.gMap);
-
-            google.maps.event.addListener(wilmetteLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.wilmetteInfo = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.wilmetteInfo);
-                this.wilmetteInfo.setContent(_getCityInfo(window.sv.cities.wilmette, 7.2));
-                this.wilmetteInfo.setPosition(e.latLng);
-                this.wilmetteInfo.open(this.gMap);
-
-            }.bind(this));
-            /*Wilmette Ends*/
-
-            /**
-             * 10. =Glenview
-             */
-
-            var glenviewCoordinates = glenview.getCoordinates();
-
-            var glenviewLayer = new google.maps.Polygon({
-                paths: glenviewCoordinates,
-                strokeColor: window.sv.cityMapColors.glenview,
-                fillColor: window.sv.cityMapColors.glenview,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-            glenviewLayer.setMap(this.gMap);
-
-            google.maps.event.addListener(glenviewLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.glenviewInfo = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.glenviewInfo);
-                this.glenviewInfo.setContent(_getCityInfo(window.sv.cities.glenview, 13.8));
-                this.glenviewInfo.setPosition(e.latLng);
-                this.glenviewInfo.open(this.gMap);
-
-            }.bind(this));
-            /*Glenview Ends*/
-
-
-            /**
-             * 11. =Wheeling
-             */
-
-            var wheelingCoordinates = wheeling.getCoordinates();
-
-            var wheelingLayer = new google.maps.Polygon({
-                paths: wheelingCoordinates,
-                strokeColor: window.sv.cityMapColors.wheeling,
-                fillColor: window.sv.cityMapColors.wheeling,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-            wheelingLayer.setMap(this.gMap);
-
-            google.maps.event.addListener(wheelingLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.wheelingInfo = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.wheelingInfo);
-                this.wheelingInfo.setContent(_getCityInfo(window.sv.cities.wheeling, 8.9));
-                this.wheelingInfo.setPosition(e.latLng);
-                this.wheelingInfo.open(this.gMap);
-
-            }.bind(this));
-            /*Wheeling Ends*/
-
-            /**
-             * 12. =Niles
-             */
-
-            var nilesCoordinates = niles.getCoordinates();
-
-            var nilesLayer = new google.maps.Polygon({
-                paths: nilesCoordinates,
-                strokeColor: window.sv.cityMapColors.niles,
-                fillColor: window.sv.cityMapColors.niles,
-                strokeOpacity: this.options.mapCityOpts.strokeOpacity,
-                strokeWeight: this.options.mapCityOpts.strokeWeight,
-                fillOpacity: this.options.mapCityOpts.fillOpacity
-            });
-            nilesLayer.setMap(this.gMap);
-            google.maps.event.addListener(nilesLayer, 'click', function (e) {
-                _closeAllOverlays.call(this);
-                this.nilesInfo = new google.maps.InfoWindow({});
-                this.infoWindows.push(this.nilesInfo);
-                this.nilesInfo.setContent(_getCityInfo(window.sv.cities.niles, 7.2));
-                this.nilesInfo.setPosition(e.latLng);
-                this.nilesInfo.open(this.gMap);
-
-            }.bind(this));
-
-
-            //_difier.call(this);
-        }.bind(this));
-    }
+    //function _map() {
+    //    this.gMap;
+    //    this.northChicagoStart = {lat: 41.011949, lng: -87.709012};
+    //    this.legendPlace = {lat: 42.131767, lng: -87.579624};
+    //    this.northChicagoEnd = {lat: 42.050571, lng: -87.710238};
+    //
+    //    var styledMap = new google.maps.StyledMapType(window.sv.mapPalettePale,
+    //        {name: "Svet Media Group"});
+    //
+    //    this.mapView = new MapView({
+    //        type: MapView.MapType.GOOGLEMAPS,
+    //        syncS: this.options.sync,
+    //        mapOptions: {
+    //            featureType: "water",
+    //            elementType: "all",
+    //            stylers: [
+    //                {
+    //                    visibility: "on"
+    //                },
+    //                {
+    //                }
+    //            ],
+    //            zoom: 11,
+    //            center: this.northChicagoStart,
+    //            mapTypeControlOptions: {
+    //                mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+    //            },
+    //            scrollwheel: false,
+    //            panControl: false,
+    //            scaleControl: false,
+    //            zoomControl: true,
+    //            zoomControlOptions: {
+    //                style: google.maps.ZoomControlStyle.SMALL,
+    //                position: google.maps.ControlPosition.LEFT_CENTER
+    //            }
+    //        }
+    //    });
+    //    this.mapSurf = this.mapView.getSurface();
+    //    this.mapSurf.pipe(this._eventOutput);
+    //
+    //    this.infoWindows = [];
+    //    this.markers = [];
+    //
+    //    this.rootNode.add(this.mapView);
+    //
+    //    this.mapView.on('load', function () {
+    //        var mapInfo = this.mapView._getMapInfo();
+    //        var endPoint = _getNormalizedCenter.call(this, mapInfo);
+    //        this.mapView.setPosition(
+    //            endPoint,
+    //            {duration: 500, curve: Easing.outBack}
+    //        );
+    //        this.gMap = this.mapView.getMap();
+    //
+    //        this.gMap.mapTypes.set('map_style', styledMap);
+    //        this.gMap.setMapTypeId('map_style');
+    //
+    //        /*********************************
+    //         * Here are Svet Statistics by towns
+    //         *********************************/
+    //
+    //        /**
+    //         * 1. =Buffalo Grove
+    //         */
+    //
+    //        var buffaloGroveCoordinates = buffaloGrove.getCoordinates();
+    //
+    //        var buffaloGroveLayer = new google.maps.Polygon({
+    //            paths: buffaloGroveCoordinates,
+    //            strokeColor: window.sv.cityMapColors.buffaloGrove,
+    //            fillColor: window.sv.cityMapColors.buffaloGrove,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //        buffaloGroveLayer.setMap(this.gMap);
+    //
+    //        google.maps.event.addListener(buffaloGroveLayer, 'click', function (e) {
+    //            _closeAllOverlays.call(this);
+    //            this.buffaloGroveInfo = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.buffaloGroveInfo);
+    //            this.buffaloGroveInfo.setContent(_getCityInfo(window.sv.cities.buffaloGrove, 18.7));
+    //            this.buffaloGroveInfo.setPosition(e.latLng);
+    //            this.buffaloGroveInfo.open(this.gMap);
+    //
+    //        }.bind(this));
+    //        /*Buffalo Grove Ends*/
+    //
+    //
+    //        /**
+    //         * 2. =Highland Park
+    //         */
+    //
+    //        var highlandParkCoordinates = highlandPark.getCoordinates();
+    //
+    //        var highlandParkLayer = new google.maps.Polygon({
+    //            paths: highlandParkCoordinates,
+    //            strokeColor: window.sv.cityMapColors.highlandpark,
+    //            fillColor: window.sv.cityMapColors.highlandpark,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //        highlandParkLayer.setMap(this.gMap);
+    //
+    //        google.maps.event.addListener(highlandParkLayer, 'click', function (e) {
+    //            _closeAllOverlays.call(this);
+    //            this.infoHighlandPark = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.infoHighlandPark);
+    //            this.infoHighlandPark.setContent(_getCityInfo(window.sv.cities.highlandPark, 18.2));
+    //            this.infoHighlandPark.setPosition(e.latLng);
+    //            this.infoHighlandPark.open(this.gMap);
+    //
+    //        }.bind(this));
+    //
+    //        /*Highland Park Ends*/
+    //
+    //        /**
+    //         * 3. =Derrfield
+    //         */
+    //
+    //        var deerfieldCoordinates = deerfield.getCoordinates();
+    //
+    //        var deerfieldLayer = new google.maps.Polygon({
+    //            paths: deerfieldCoordinates,
+    //            strokeColor: window.sv.cityMapColors.deerfield,
+    //            fillColor: window.sv.cityMapColors.deerfield,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //        deerfieldLayer.setMap(this.gMap);
+    //
+    //        google.maps.event.addListener(deerfieldLayer, 'click', function (e) {
+    //            _closeAllOverlays.call(this);
+    //            this.infoDeerfield = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.infoDeerfield);
+    //            this.infoDeerfield.setContent(_getCityInfo(window.sv.cities.deerfield, 16.1));
+    //            this.infoDeerfield.setPosition(e.latLng);
+    //            this.infoDeerfield.open(this.gMap);
+    //
+    //        }.bind(this));
+    //        /*Deerfield Ends*/
+    //
+    //        /**
+    //         * 4. =Glencoe
+    //         */
+    //
+    //        var glencoeCoordinates = glencoe.getCoordinates();
+    //
+    //        var glencoeLayer = new google.maps.Polygon({
+    //            paths: glencoeCoordinates,
+    //            strokeColor: window.sv.cityMapColors.glencoe,
+    //            fillColor: window.sv.cityMapColors.glencoe,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //        glencoeLayer.setMap(this.gMap);
+    //
+    //        google.maps.event.addListener(glencoeLayer, 'click', function (e) {
+    //            _closeAllOverlays.call(this);
+    //            this.infoGlencoe = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.infoGlencoe);
+    //            this.infoGlencoe.setContent(_getCityInfo(window.sv.cities.glencoe, 14.4));
+    //            this.infoGlencoe.setPosition(e.latLng);
+    //            this.infoGlencoe.open(this.gMap);
+    //
+    //        }.bind(this));
+    //        /*=Glencoe Ends*/
+    //
+    //        /**
+    //         * 5. =Northbrook
+    //         */
+    //
+    //        var northbrookCoordinates = northbrook.getCoordinates();
+    //
+    //        var northbrookLayer = new google.maps.Polygon({
+    //            paths: northbrookCoordinates,
+    //            strokeColor: window.sv.cityMapColors.northbrook,
+    //            fillColor: window.sv.cityMapColors.northbrook,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //        northbrookLayer.setMap(this.gMap);
+    //
+    //        google.maps.event.addListener(northbrookLayer, 'click', function (e) {
+    //            _closeAllOverlays.call(this);
+    //            this.infoNorthbrook = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.infoNorthbrook);
+    //            this.infoNorthbrook.setContent(_getCityInfo(window.sv.cities.northbrook, 14.3));
+    //            this.infoNorthbrook.setPosition(e.latLng);
+    //            this.infoNorthbrook.open(this.gMap);
+    //
+    //        }.bind(this));
+    //        /*Northbrook ends*/
+    //
+    //
+    //        /**
+    //         * 6. =Vernon Hills
+    //         */
+    //
+    //        var vernonHillsCoordinates = vernonHills.getCoordinates();
+    //
+    //        var vernonHillsLayer = new google.maps.Polygon({
+    //            paths: vernonHillsCoordinates,
+    //            strokeColor: window.sv.cityMapColors.vernonHills,
+    //            fillColor: window.sv.cityMapColors.vernonHills,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //        vernonHillsLayer.setMap(this.gMap);
+    //
+    //        google.maps.event.addListener(vernonHillsLayer, 'click', function (e) {
+    //            _closeAllOverlays.call(this);
+    //            this.vernonHillsInfo = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.vernonHillsInfo);
+    //            this.vernonHillsInfo.setContent(_getCityInfo(window.sv.cities.vernonHills, 9.1));
+    //            this.vernonHillsInfo.setPosition(e.latLng);
+    //            this.vernonHillsInfo.open(this.gMap);
+    //
+    //        }.bind(this));
+    //        /*Vernon Hills Ends*/
+    //
+    //
+    //        /**
+    //         * 7. =Skokie
+    //         */
+    //
+    //        var skokieCoordinates = skokie.getCoordinates();
+    //
+    //        var skokieLayer = new google.maps.Polygon({
+    //            paths: skokieCoordinates,
+    //            title: 'Skokie',
+    //            strokeColor: window.sv.cityMapColors.skokie,
+    //            fillColor: window.sv.cityMapColors.skokie,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //        skokieLayer.setMap(this.gMap);
+    //
+    //
+    //        google.maps.event.addListener(skokieLayer, 'click', function (e) {
+    //            _closeAllOverlays.call(this);
+    //            this.infoSkokie = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.infoSkokie);
+    //            this.infoSkokie.setContent(_getCityInfo(window.sv.cities.skokie, 20));
+    //            this.infoSkokie.setPosition(e.latLng);
+    //            this.infoSkokie.open(this.gMap);
+    //
+    //        }.bind(this));
+    //        /*Skokie Ends*/
+    //
+    //        /**
+    //         * 8. =Evanston
+    //         */
+    //
+    //        var evanstonCoordinates = evanston.getCoordinates();
+    //
+    //        var evanstonLayer = new google.maps.Polygon({
+    //            paths: evanstonCoordinates,
+    //            strokeColor: window.sv.cityMapColors.evanston,
+    //            fillColor: window.sv.cityMapColors.evanston,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //
+    //        evanstonLayer.setMap(this.gMap);
+    //        google.maps.event.addListener(evanstonLayer, 'click', function (e) {
+    //
+    //            _closeAllOverlays.call(this);
+    //            this.evanstonInfo = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.evanstonInfo);
+    //            this.evanstonInfo.setContent(_getCityInfo(window.sv.cities.evanston, 7.2));
+    //            this.evanstonInfo.setPosition(e.latLng);
+    //            this.evanstonInfo.open(this.gMap);
+    //
+    //        }.bind(this));
+    //        /*Evanston Ends*/
+    //
+    //
+    //        /**
+    //         * 9. =Wilmette
+    //         */
+    //
+    //        var wilmetteCoordinates = wilmette.getCoordinates();
+    //
+    //        var wilmetteLayer = new google.maps.Polygon({
+    //            paths: wilmetteCoordinates,
+    //            strokeColor: window.sv.cityMapColors.wilmette,
+    //            fillColor: window.sv.cityMapColors.wilmette,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //        wilmetteLayer.setMap(this.gMap);
+    //
+    //        google.maps.event.addListener(wilmetteLayer, 'click', function (e) {
+    //            _closeAllOverlays.call(this);
+    //            this.wilmetteInfo = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.wilmetteInfo);
+    //            this.wilmetteInfo.setContent(_getCityInfo(window.sv.cities.wilmette, 7.2));
+    //            this.wilmetteInfo.setPosition(e.latLng);
+    //            this.wilmetteInfo.open(this.gMap);
+    //
+    //        }.bind(this));
+    //        /*Wilmette Ends*/
+    //
+    //        /**
+    //         * 10. =Glenview
+    //         */
+    //
+    //        var glenviewCoordinates = glenview.getCoordinates();
+    //
+    //        var glenviewLayer = new google.maps.Polygon({
+    //            paths: glenviewCoordinates,
+    //            strokeColor: window.sv.cityMapColors.glenview,
+    //            fillColor: window.sv.cityMapColors.glenview,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //        glenviewLayer.setMap(this.gMap);
+    //
+    //        google.maps.event.addListener(glenviewLayer, 'click', function (e) {
+    //            _closeAllOverlays.call(this);
+    //            this.glenviewInfo = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.glenviewInfo);
+    //            this.glenviewInfo.setContent(_getCityInfo(window.sv.cities.glenview, 13.8));
+    //            this.glenviewInfo.setPosition(e.latLng);
+    //            this.glenviewInfo.open(this.gMap);
+    //
+    //        }.bind(this));
+    //        /*Glenview Ends*/
+    //
+    //
+    //        /**
+    //         * 11. =Wheeling
+    //         */
+    //
+    //        var wheelingCoordinates = wheeling.getCoordinates();
+    //
+    //        var wheelingLayer = new google.maps.Polygon({
+    //            paths: wheelingCoordinates,
+    //            strokeColor: window.sv.cityMapColors.wheeling,
+    //            fillColor: window.sv.cityMapColors.wheeling,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //        wheelingLayer.setMap(this.gMap);
+    //
+    //        google.maps.event.addListener(wheelingLayer, 'click', function (e) {
+    //            _closeAllOverlays.call(this);
+    //            this.wheelingInfo = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.wheelingInfo);
+    //            this.wheelingInfo.setContent(_getCityInfo(window.sv.cities.wheeling, 8.9));
+    //            this.wheelingInfo.setPosition(e.latLng);
+    //            this.wheelingInfo.open(this.gMap);
+    //
+    //        }.bind(this));
+    //        /*Wheeling Ends*/
+    //
+    //        /**
+    //         * 12. =Niles
+    //         */
+    //
+    //        var nilesCoordinates = niles.getCoordinates();
+    //
+    //        var nilesLayer = new google.maps.Polygon({
+    //            paths: nilesCoordinates,
+    //            strokeColor: window.sv.cityMapColors.niles,
+    //            fillColor: window.sv.cityMapColors.niles,
+    //            strokeOpacity: this.options.mapCityOpts.strokeOpacity,
+    //            strokeWeight: this.options.mapCityOpts.strokeWeight,
+    //            fillOpacity: this.options.mapCityOpts.fillOpacity
+    //        });
+    //        nilesLayer.setMap(this.gMap);
+    //        google.maps.event.addListener(nilesLayer, 'click', function (e) {
+    //            _closeAllOverlays.call(this);
+    //            this.nilesInfo = new google.maps.InfoWindow({});
+    //            this.infoWindows.push(this.nilesInfo);
+    //            this.nilesInfo.setContent(_getCityInfo(window.sv.cities.niles, 7.2));
+    //            this.nilesInfo.setPosition(e.latLng);
+    //            this.nilesInfo.open(this.gMap);
+    //
+    //        }.bind(this));
+    //
+    //
+    //        //_difier.call(this);
+    //    }.bind(this));
+    //}
 
 
     MapsDesk.prototype = Object.create(View.prototype);
