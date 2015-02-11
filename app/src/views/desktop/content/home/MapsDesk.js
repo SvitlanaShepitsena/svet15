@@ -172,7 +172,7 @@ define(function (require, exports, module) {
         this.gMap;
         this.northChicagoStart = {lat: 41.011949, lng: -87.709012};
         this.legendPlace = {lat: 42.131767, lng: -87.579624};
-        this.northChicagoEnd = {lat: 42.050571, lng: -87.710238};
+        this.northChicagoEnd = {lat: 42.150571, lng: -87.710238};
 
         var styledMap = new google.maps.StyledMapType(window.sv.mapPalettePale,
             {name: "Svet Media Group"});

@@ -6,6 +6,7 @@ define(function (require, exports, module) {
     var VideoSurface = require('famous/surfaces/VideoSurface');
     var Modifier = require("famous/core/Modifier");
     var GridLayout = require("famous/views/GridLayout");
+
     var Transform = require('famous/core/Transform');
     var Transitionable = require('famous/transitions/Transitionable');
     var Slider = require('famous/widgets/Slider');
@@ -60,13 +61,9 @@ define(function (require, exports, module) {
         this.opacityMain = new Transitionable(1);
         this.contentTrans = new Transitionable(0);
 
-        var height = 1.1*window.innerHeight;
-        this.centerModifier = new Modifier({
-            size: [undefined, height]
+        this.centerModifier = new Modifier({});
 
-        });
-
-        this.rootNode = this.add(this.centerModifier);
+        this.rootNode = this.add(this.rootNodeMod);
     }
 
 
