@@ -7,6 +7,7 @@ define(function (require, exports, module) {
     var Easing = require('famous/transitions/Easing');
     /*Famous map*/
     var MapView = require('fmaps/MapView');
+
     /*App Require*/
     var MapModifier = require('fmaps/MapModifier');
     var MapStateModifier = require('fmaps/MapStateModifier');

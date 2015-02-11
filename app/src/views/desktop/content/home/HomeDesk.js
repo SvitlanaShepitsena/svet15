@@ -13,7 +13,6 @@ define(function (require, exports, module) {
 
     /*App Require*/
     var HomeContentDesk = require('dviews/content/home/HomeContentDesk');
-    var MapsDesk = require('dviews/content/home/MapsDesk');
     var MapDesk = require('dviews/content/home/MapsDesk');
 
 

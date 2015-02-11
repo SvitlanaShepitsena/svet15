@@ -16,10 +16,22 @@ define(function (require, exports, module) {
 
     ContactUsDesk.DEFAULT_OPTIONS = {
         viewProps: {
-            marginTop: '50px',
+            paddingTop: '50px',
+            lineHeight: '1.7em',
             color: window.sv.scheme.textDark,
+            textAlign: 'center',
             boxShadow: window.sv.scheme.boxShadow,
-            backgroundColor: window.sv.scheme.textWhite
+            background: "#595153 url('img/bg/bg-contact.jpg')"
+        },
+        contentProps: {
+            boxShadow: window.sv.scheme.boxShadow,
+            backgroundColor: window.sv.scheme.textWhite,
+            paddingLeft: '20px',
+            paddingBottom: '15px',
+            color: '#393939',
+            fontSize: '100%',
+            lineHeight: '130%',
+            textAlign: 'left'
         }
     };
 
@@ -32,34 +44,53 @@ define(function (require, exports, module) {
             origin: [0.5, 0.6],
             transform: Transform.translate(0, 0, 0)
         });
-        this.viewSurf = new Surface({
+        this.mapSurface = new Surface({
+            //content: contactDesk,
             properties: this.options.viewProps
 
         });
 
-        this.viewSurf.pipe(this._eventOutput);
+        this.mapSurface.pipe(this._eventOutput);
         this.rootNode = this.add(this.viewMod);
-        this.rootNode.add(this.viewSurf);
-
+        this.rootNode.add(this.mapSurface);
         this.svetMarkerInfo = new google.maps.InfoWindow({
             content: contentString,
             disableAutoPan: true
         });
 
-        //_addMap.call(this);
+        _addMap.call(this);
         //_test.call(this);
     }
+        function _test() {
+            this.mod = new Modifier({
+                size: [undefined, 1000],
+                align: [0, 0],
+                origin: [0, 0],
+                transform: Transform.translate(0, 0, 101)
+            });
+            this.surface = new Surface({
+                content: '',
+                classes: [],
+                properties: {
+                    color: 'white',
+                    textAlign: 'center',
+                    backgroundColor: '#FA5C4F'
+                }
+            });
+            this.rootNode.add(this.mod).add(this.surface);
 
+        }
 
     function _addMap() {
         this.mapId = 'map-canvas';
         this.centerCoord = {lat: 42.059773, lng: -87.886823};
         this.officeCoord = {lat: 42.136286, lng: -87.791914};
+
         this.mapMod = new Modifier({
-            size: [undefined, window.innerHeight],
-            align: [0.5, 0],
-            origin: [0.5, 0],
-            transform: Transform.translate(0, 0, 20)
+            size: [undefined, 1000],
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(0, 0, 10)
         });
 
         this.mapSurface = new Surface({
@@ -81,7 +112,7 @@ define(function (require, exports, module) {
         };
 
 
-        //this.mapSurface.pipe(this._eventOutput);
+        this.mapSurface.pipe(this._eventOutput);
         this.rootNode.add(this.mapMod).add(this.mapSurface);
     }
 
@@ -99,6 +130,7 @@ define(function (require, exports, module) {
                 var that = this;
 
                 this.map = new google.maps.Map(elm, this.mapOptions);
+                console.log(this.map);
                 map = this.map;
 
                 that.transportType = google.maps.TravelMode.DRIVING;
