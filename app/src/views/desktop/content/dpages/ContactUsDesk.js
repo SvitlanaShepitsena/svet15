@@ -165,9 +165,6 @@ define(function (require, exports, module) {
 
                 function calcRoute() {
                     that.svetMarker.setMap(null);
-                    for (var i = 0; i < markerArray.length; i++) {
-                        //markerArray[i].setMap(null);
-                    }
 
                     // Retrieve the start and end locations and create
                     // a DirectionsRequest using WALKING directions.

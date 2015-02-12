@@ -21,7 +21,6 @@ define(function (require, exports, module) {
         contentProps: {
             paddingTop: '50px',
             lineHeight: '1.7em',
-            float: 'left',
             textAlign: 'justify',
             color: window.sv.scheme.textDark
         }
@@ -31,9 +30,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         this.viwMod = new Modifier({
-            size: [undefined, window.sv.sizing.viewHeight],
-            align: [0.5, 0.6],
-            origin: [0.5, 0.6]
+            size: [undefined, window.sv.sizing.viewHeight]
         });
         this.bgSurf = new Surface({
             properties: this.options.viewProps

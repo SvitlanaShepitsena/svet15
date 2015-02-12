@@ -11,13 +11,15 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
     var Easing = require('famous/transitions/Easing');
     var Timer = require('famous/utilities/Timer');
+    /*Flex Scroll*/
+    var FlexScrollView = require('flex/FlexScrollView');
+    var ScrollController = require('flex/ScrollController');
+    var CollectionLayout = require('flex/layouts/CollectionLayout');
     /*App Require*/
     var HomeDesk = require('dviews/content/home/HomeDesk');
     var AboutUsDesk = require('dviews/content/dpages/AboutUsDesk');
     var RadioDesk = require('dviews/content/dpages/RadioDesk');
     var ContactMap = require('dviews/content/contact/ContactMap');
-    var FlexScrollView = require('flex/FlexScrollView');
-    var CollectionLayout = require('flex/layouts/CollectionLayout');
     var StateModifier = require('famous/modifiers/StateModifier');
 
     ScrollDesk.prototype = Object.create(View.prototype);
@@ -27,28 +29,31 @@ define(function (require, exports, module) {
 
     function ScrollDesk() {
         View.apply(this, arguments);
+
         _init.call(this);
         _pages.call(this);
-
     }
 
     function _init() {
         this.centerModifier = new Modifier({
-            align: [0.5, 0],
-            origin: [0.5, 0],
+            align: [0.5, .5],
+            origin: [0.5, .5],
             transform: Transform.translate(0, 0, 0)
         });
 
         this.rootNode = this.add(this.centerModifier);
     }
 
-
     function _pages() {
         this.scrollView = new FlexScrollView({
-            //layout: ListLayout,       // sequential layout, uses width/height from renderable
+            layoutOptions: {
+                spacing: window.sv.sizing.headerHeight / 1.5
+            },
+            paginated: false,
+            paginationMode: ScrollController.PaginationMode.PAGE,
+            paginationEnergyThresshold: 0.01,
             direction: 1,       // 0 = X, 1 = Y, undefined = use default from layout
-            paginated: false,           // pagination on/off
-            alignment: 0,               // 0 = top/left, 1 = bottom/right
+            alignment: 1,               // 0 = top/left, 1 = bottom/right
             flow: true,                // allow renderables to flow between layouts when not scrolling
             mouseMove: false,           // allow mouse to hold and move the view
             useContainer: false,        // embeds inside a ContainerSurface for clipping and capturing input events
@@ -59,28 +64,20 @@ define(function (require, exports, module) {
             autoPipeEvents: true
         });
         this.rootNode.add(this.scrollView);
-        this.elements = ['1', '2', '3', '4'];
-
 
         this.surfaces = [];
-        this.counter = 0;
-
         this.homeDesk = new HomeDesk();
         this.contactMap = new ContactMap();
         this.aboutDesk = new AboutUsDesk();
         this.radioDesk = new RadioDesk();
 
-
         this.surfaces.push(this.homeDesk);
         this.surfaces.push(this.aboutDesk);
+        this.surfaces.push(this.radioDesk);
         this.surfaces.push(this.contactMap);
         //this.surfaces.push(this.contactUsDesk);
-        //this.surfaces.push(this.radioDesk);
-
 
         this.scrollView.sequenceFrom(this.surfaces);
-
-
     }
 
     module.exports = ScrollDesk;

@@ -31,7 +31,7 @@ define(function (require, exports, module) {
     HeaderDesk.prototype.constructor = HeaderDesk;
 
     HeaderDesk.DEFAULT_OPTIONS = {
-        smallHeight: window.sv.sizing.headerHeight / 2.4,
+        smallHeight: window.sv.sizing.headerHeightSm,
         flexOpts: {
             ratios: [1, 1, 2, 1, 1],
             direction: 0

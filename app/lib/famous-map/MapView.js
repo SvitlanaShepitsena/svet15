@@ -186,6 +186,10 @@ define(function (require, exports, module) {
         return this.map;
     };
 
+    MapView.prototype.getMapId = function () {
+        return this.mapId;
+    };
+
     /**
      * Set the center of the map to the given geographical coordinates.
      *

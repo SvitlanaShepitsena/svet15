@@ -27,10 +27,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         this.viewMod = new Modifier({
-            size: [undefined, window.sv.sizing.viewHeight],
-            align: [0.5, 0.6],
-            origin: [0.5, 0.6],
-            transform: Transform.translate(0, 0, 0)
+            size: [undefined, window.sv.sizing.viewHeight]
         });
         this.mapSurface = new Surface({
             properties: this.options.viewProps
