@@ -76,8 +76,6 @@ define(function (require, exports, module) {
             this.map = this.mapView.getMap();
 
 
-            var homeMap2 = this.mapView.getMapId();
-            console.log("contact map: "+homeMap2);
 
             var directionsService = new google.maps.DirectionsService();
 
@@ -151,7 +149,6 @@ define(function (require, exports, module) {
                                     this.infowindow.open(this.map, that.svetMarker);
                                 }.bind(this);
                                 var car = document.getElementById('byCar');
-                                console.log(car);
                                 car.onclick = function () {
                                     that.transportType = google.maps.TravelMode.DRIVING;
                                     calcRoute();
