@@ -21,6 +21,7 @@ define(function (require, exports, module) {
     var RadioDesk = require('dviews/content/dpages/RadioDesk');
     var ContactMap = require('dviews/content/contact/ContactMap');
     var StateModifier = require('famous/modifiers/StateModifier');
+    var Engine = require("famous/core/Engine");
 
     ScrollDesk.prototype = Object.create(View.prototype);
     ScrollDesk.prototype.constructor = ScrollDesk;
@@ -48,13 +49,13 @@ define(function (require, exports, module) {
     function _scrollHandle() {
         var absolutePos = 0;
         var scroll = new ScrollSync({direction: 1});
+
         this.scrollView.pipe(scroll);
 
 
 
         scroll.on('update', function (data) {
             absolutePos = absolutePos + data.position > 0 ? 0 : absolutePos + data.position;
-            console.log(absolutePos);
         })
 
         var scrollPosition, currentIndex;
@@ -87,6 +88,7 @@ define(function (require, exports, module) {
         this.scrollView.setOptions({
             overscroll: false   // disable overscroll
         });
+        Engine.pipe(this.scrollView);
         this.rootNode.add(this.scrollView);
 
         this.surfaces = [];

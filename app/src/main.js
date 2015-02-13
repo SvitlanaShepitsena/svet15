@@ -13,7 +13,9 @@ define(['require', 'famous/core/Engine', 'views/cell/AppViewCell', 'views/deskto
             window.location.reload();
         }
     });
+
     mainContext.add(appView);
+
 });
 
 window.responsive = function responsive() {
