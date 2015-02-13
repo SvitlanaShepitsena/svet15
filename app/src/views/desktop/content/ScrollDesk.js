@@ -11,6 +11,7 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
     var Easing = require('famous/transitions/Easing');
     var Timer = require('famous/utilities/Timer');
+    var Engine = require("famous/core/Engine");
     /*Flex Scroll*/
     var FlexScrollView = require('flex/FlexScrollView');
     var ScrollController = require('flex/ScrollController');
@@ -21,7 +22,6 @@ define(function (require, exports, module) {
     var RadioDesk = require('dviews/content/dpages/RadioDesk');
     var ContactMap = require('dviews/content/contact/ContactMap');
     var StateModifier = require('famous/modifiers/StateModifier');
-    var Engine = require("famous/core/Engine");
 
     ScrollDesk.prototype = Object.create(View.prototype);
     ScrollDesk.prototype.constructor = ScrollDesk;

@@ -106,11 +106,30 @@ define(function (require, exports, module) {
                         if (status == google.maps.GeocoderStatus.OK) {
                             if (results[0]) {
                                 this.map.setZoom(11);
-                                var marker = new google.maps.Marker({
+                                this.initMarker = new google.maps.Marker({
                                     position: userLatLng,
                                     title: "Your current location",
+                                    draggable: true,
                                     map: this.map
                                 });
+                                google.maps.event.addListener(this.initMarker, 'dragend', function () {
+                                    var userPosition =this.initMarker.getPosition();
+
+                                    var draggedLatLng = new google.maps.LatLng(userPosition.k, userPosition.D);
+                                    geocoder.geocode({latLng:draggedLatLng}, function (results,status) {
+                                        document.getElementById("start").value = results[0].formatted_address;
+
+                                    })
+                                }.bind(this));
+
+
+                                this.userLocationInfo = new google.maps.InfoWindow({
+                                    content: '<div>' +
+                                    'Your Start Location' +
+                                    '</div>'
+                                });
+                                this.userLocationInfo.open(this.map, this.initMarker);
+
                                 var address = results[0].formatted_address;
 
                                 var startDirection = document.getElementById('start');
@@ -120,29 +139,22 @@ define(function (require, exports, module) {
                                 searchButton.onclick = function () {
                                     this.transportType = google.maps.TravelMode.DRIVING;
                                     calcRoute();
-                                    this.infowindow.open(this.map, this.svetMarker);
-                                    this.infowindow.close(this.map, marker);
                                 }.bind(this);
 
                                 var bus = document.getElementById('byPublic');
                                 bus.onclick = function () {
                                     this.transportType = google.maps.TravelMode.TRANSIT;
                                     calcRoute();
-
-                                    this.infowindow.open(this.map, this.svetMarker);
                                 }.bind(this);
                                 var car = document.getElementById('byCar');
-                                console.log(car);
                                 car.onclick = function () {
                                     this.transportType = google.maps.TravelMode.DRIVING;
                                     calcRoute();
-                                    this.infowindow.open(this.map, this.svetMarker);
                                 }.bind(this);
                                 var bike = document.getElementById('byBicicle');
                                 bike.onclick = function () {
                                     this.transportType = google.maps.TravelMode.BICYCLING;
                                     calcRoute();
-                                    this.infowindow.open(this.map, this.svetMarker);
                                 }.bind(this);
                             }
                         } else {
@@ -154,6 +166,9 @@ define(function (require, exports, module) {
 
                 function calcRoute() {
                     that.svetMarker.setMap(null);
+                    that.initMarker.setMap(null);
+                    that.infowindow.open(that.map, that.svetMarker);
+                    that.userLocationInfo.open(that.map, that.initMarker);
 
                     // Retrieve the start and end locations and create
                     // a DirectionsRequest using WALKING directions.
