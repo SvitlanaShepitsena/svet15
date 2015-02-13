@@ -108,20 +108,19 @@ define(function (require, exports, module) {
                                 this.map.setZoom(11);
                                 this.startMarker = new google.maps.Marker({
                                     position: that.userLatLng,
-                                    title: "Your current location",
+                                    title: "Drag to change your start location",
                                     draggable: true,
                                     map: this.map
                                 });
                                 google.maps.event.addListener(this.startMarker, 'dragend', function () {
-                                    var userPosition =this.startMarker.getPosition();
+                                    var userPosition = this.startMarker.getPosition();
 
-                                    that.userLatLng= new google.maps.LatLng(userPosition.k, userPosition.D);
-                                    geocoder.geocode({latLng:that.userLatLng}, function (results,status) {
+                                    that.userLatLng = new google.maps.LatLng(userPosition.k, userPosition.D);
+                                    geocoder.geocode({latLng: that.userLatLng}, function (results, status) {
                                         document.getElementById("start").value = results[0].formatted_address;
 
                                     })
                                 }.bind(this));
-
 
 
                                 var address = results[0].formatted_address;
@@ -163,16 +162,16 @@ define(function (require, exports, module) {
 
                 function calcRoute() {
                     that.svetMarker.setMap(null);
-                    that.startMarker.setMap(null);
+                    //that.startMarker.setMap(null);
 
                     that.userLocationInfo = new google.maps.InfoWindow({
                         content: '<div>' +
-                        'Your Start Location' +
-                        '</div>',
-                        position:that.userLatLng
+                        'Drag to change your start location' +
+                        '</div>'
+
                     });
                     that.infowindow.open(that.map, that.svetMarker);
-                    that.userLocationInfo.open(that.map);
+                    that.userLocationInfo.open(that.map, that.startMarker);
 
                     // Retrieve the start and end locations and create
                     // a DirectionsRequest using WALKING directions.

@@ -77,9 +77,6 @@ define(function (require, exports, module) {
             var directionsService;
             var stepDisplay;
 
-            this.infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
 
             var elm = document.getElementById(this.mapId);
 
@@ -95,6 +92,9 @@ define(function (require, exports, module) {
                     position: this.officeCoord,
                     map: map,
                     title: "Svet Office"
+                });
+                this.infowindow = new google.maps.InfoWindow({
+                    content: contentString
                 });
                 this.infowindow.open(map, that.svetMarker);
 
