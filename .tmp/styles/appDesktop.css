@@ -251,6 +251,16 @@ b {
   padding-right: 25px;
   margin: 0px;
 }
-.address {
+.address-svet {
   padding-left: 10px;
+}
+.address-marker {
+  padding-left: 0px !important;
+  font-size: 12px;
+  line-height: 18px;
+}
+.address-marker h4 {
+  font-size: 15px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
