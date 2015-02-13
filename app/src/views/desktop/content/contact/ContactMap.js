@@ -16,7 +16,7 @@ define(function (require, exports, module) {
     ContactMap.DEFAULT_OPTIONS = {
         viewProps: {
             //boxShadow: window.sv.scheme.boxShadow,
-            zIndex:101
+            zIndex: 101
             //backgroundColor: window.sv.scheme.textWhite
         }
     };
@@ -38,12 +38,7 @@ define(function (require, exports, module) {
         this.viewMod = new Modifier({
             size: [undefined, undefined]
         });
-        //this.bgSurf = new Surface({
-        //    properties: this.options.viewProps
-        //});
-        //this.bgSurf.pipe(this._eventOutput);
         this.rootNode = this.add(this.viewMod);
-        //this.rootNode.add(this.bgSurf);
     }
 
     function _addMap() {
@@ -69,15 +64,9 @@ define(function (require, exports, module) {
             }
         });
         this.mapView.on('load', function () {
-
-
-
-
             this.map = this.mapView.getMap();
-
-
             var homeMap2 = this.mapView.getMapId();
-            console.log("contact map: "+homeMap2);
+            console.log("contact map: " + homeMap2);
 
             var directionsService = new google.maps.DirectionsService();
 
@@ -113,7 +102,7 @@ define(function (require, exports, module) {
             var mapId = this.mapView.getMapId();
             var mapDomEl = document.getElementById(mapId);
 
-            var el = document.createElement( 'div' );
+            var el = document.createElement('div');
             el.innerHTML = directionForm;
 
             var node = el.getElementsByTagName('section')[0];
