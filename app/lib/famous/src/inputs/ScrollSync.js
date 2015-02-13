@@ -175,6 +175,9 @@ define(function(require, exports, module) {
     ScrollSync.prototype.getOptions = function getOptions() {
         return this.options;
     };
+    ScrollSync.prototype.getAbsolutePosition = function() {
+        return this._position;
+    };
 
     /**
      * Set internal options, overriding any default options

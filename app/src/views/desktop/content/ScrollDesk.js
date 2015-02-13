@@ -32,6 +32,7 @@ define(function (require, exports, module) {
 
         _init.call(this);
         _pages.call(this);
+        _scrollHandle.call(this);
     }
 
     function _init() {
@@ -44,10 +45,30 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.centerModifier);
     }
 
+    function _scrollHandle() {
+        var absolutePos = 0;
+        var scroll = new ScrollSync({direction: 1});
+        this.scrollView.pipe(scroll);
+
+
+
+        scroll.on('update', function (data) {
+            absolutePos = absolutePos + data.position > 0 ? 0 : absolutePos + data.position;
+            console.log(absolutePos);
+        })
+
+        var scrollPosition, currentIndex;
+
+    }
+
     function _pages() {
         this.scrollView = new FlexScrollView({
             layoutOptions: {
-                spacing: window.sv.sizing.headerHeight / 1.5
+                spacing: window.sv.sizing.headerHeight / 2.5
+            },
+
+            scrollSync: {
+                scale: 0.1
             },
             paginated: false,
             paginationMode: ScrollController.PaginationMode.PAGE,
@@ -56,12 +77,15 @@ define(function (require, exports, module) {
             alignment: 1,               // 0 = top/left, 1 = bottom/right
             flow: true,                // allow renderables to flow between layouts when not scrolling
             mouseMove: false,           // allow mouse to hold and move the view
-            useContainer: false,        // embeds inside a ContainerSurface for clipping and capturing input events
+            useContainer: true,        // embeds inside a ContainerSurface for clipping and capturing input events
             visibleItemThresshold: 0.5, // by default, when an item is 50% visible, it is considered visible by `getFirstVisibleItem`
             pullToRefreshHeader: undefined, // assign pull-to-refresh renderable here (renderable must have a size)
             leadingScrollView: undefined,
             trailingScrollView: undefined,
             autoPipeEvents: true
+        });
+        this.scrollView.setOptions({
+            overscroll: false   // disable overscroll
         });
         this.rootNode.add(this.scrollView);
 

@@ -220,8 +220,6 @@ define(function (require, exports, module) {
 
         this.mapView.on('load', function () {
             var mapInfo = this.mapView._getMapInfo();
-            var homeMap1 = this.mapView.getMapId();
-            console.log("home map: "+homeMap1);
             var endPoint = _getNormalizedCenter.call(this, mapInfo);
             this.mapView.setPosition(
                 endPoint,
