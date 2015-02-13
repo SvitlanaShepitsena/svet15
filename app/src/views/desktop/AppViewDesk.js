@@ -64,14 +64,25 @@ define(function (require, exports, module) {
             //    this.scrolldesk.scrollview.setPosition(0);
             //
             //} else
+            this.scrolldesk.goToPage.call(this.scrolldesk, data.index);
         }.bind(this))
         this.rootNode.add(this.headerDesk);
 
+        this.scrolldesk.subscribe(this.headerDesk);
     }
 
     function _content() {
+        this.scrolldesk = new ScrollDesk({ctx: this.options.ctx});
 
-        this.scrolldesk = new ScrollDesk();
+        this.scrolldesk.on('decrease:header', function () {
+            this.headerDesk.decreaseHeader.call(this.headerDesk);
+        }.bind(this));
+
+        this.scrolldesk.on('increase:header', function () {
+            this.headerDesk.increaseHeader.call(this.headerDesk);
+            //
+        }.bind(this));
+
         this.rootNode.add(this.scrolldesk);
     }
 

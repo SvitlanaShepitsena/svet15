@@ -8,6 +8,7 @@ define(function (require, exports, module) {
     var GenericSync = require("famous/inputs/GenericSync");
     var MouseSync = require('famous/inputs/MouseSync');
     var ScrollSync = require("famous/inputs/ScrollSync");
+    var TouchSync = require("famous/inputs/TouchSync");
     var RenderNode = require('famous/core/RenderNode');
     var Easing = require('famous/transitions/Easing');
     var Timer = require('famous/utilities/Timer');
@@ -33,7 +34,7 @@ define(function (require, exports, module) {
 
         _init.call(this);
         _pages.call(this);
-        _scrollHandle.call(this);
+        _handleScroll.call(this);
     }
 
     function _init() {
@@ -47,20 +48,120 @@ define(function (require, exports, module) {
     }
 
     function _scrollHandle() {
-        var absolutePos = 0;
-        var scroll = new ScrollSync({direction: 1});
-
         this.scrollView.pipe(scroll);
-
 
 
         scroll.on('update', function (data) {
             absolutePos = absolutePos + data.position > 0 ? 0 : absolutePos + data.position;
-        })
+        });
 
-        var scrollPosition, currentIndex;
 
     }
+
+
+    function _handleScroll() {
+
+        GenericSync.register(
+            {scroll: ScrollSync},
+            {touch: TouchSync}
+        );
+        this.sync = new GenericSync({
+            scroll: {
+                direction: 1,
+                rails: true,
+                scale: 0.3,
+                stallTime: 4
+            }
+        });
+        Engine.pipe(this.scrollView);
+        this.scrollView.pipe(this.sync);
+
+        this.headerFull = true;
+        this.HEADERLIMIT = 27;
+        this.moto1Limit = 107;
+        this.moto2Limit = 175;
+        this.logoBackLimit = 40;
+
+        this.firstMotoShown = true;
+        this.secondMotoShown = true;
+
+        var absPos = 0;
+
+        this.sync.on('update', function (data) {
+
+            absPos = absPos + data.position > 0 ? 0 : absPos + data.position;
+
+            _startAnimation.call(this, Math.abs(absPos));
+        }.bind(this));
+
+        //this.sync.on('end', function (data) {
+        //    if (data.delta > 0) {
+        //        this.dir = -1;
+        //    } else {
+        //        this.dir = 1;
+        //
+        //    }
+        //    var pos = this.containerTrans.get();
+        //
+        //    var endState = pos + data.delta;
+        //    endState = _restrict.call(this, endState);
+        //
+        //    var duration = Math.abs(pos - endState) * 12;
+        //    if (this.syncEnabled) {
+        //
+        //        this.containerTrans.set(endState, {
+        //            duration: duration, curve: 'linear'
+        //        }, function () {
+        //            pos = this.containerTrans.get();
+        //            _startAnimation.call(this, Math.abs(pos));
+        //        }.bind(this));
+        //    }
+        //
+        //}.bind(this));
+
+    }
+
+
+    function _startAnimation(absPos) {
+        if (absPos > this.HEADERLIMIT && this.headerFull) {
+            this._eventOutput.emit('decrease:header');
+            this.headerFull = false;
+        }
+        if (absPos < this.logoBackLimit && !this.headerFull) {
+            this._eventOutput.emit('increase:header');
+            this.headerFull = true;
+        }
+
+
+        if ((absPos > this.moto1Limit) && this.firstMotoShown) {
+            this.homeDesk.tuneToShortView();
+            this.firstMotoShown = false;
+        }
+        if ((absPos < this.moto1Limit) && !this.firstMotoShown) {
+            this.homeDesk.tuneToDefaultView();
+            this.firstMotoShown = true;
+        }
+        if ((absPos > this.moto2Limit) && this.secondMotoShown) {
+            this.homeDesk.tuneToShortMoto2();
+            this.secondMotoShown = false;
+        }
+        if ((absPos < this.moto2Limit) && !this.secondMotoShown) {
+            this.homeDesk.tuneToDefaultMoto2();
+            this.secondMotoShown = true;
+
+        }
+        if ((absPos > this.mapIconLimit) && !this.mapIconShown) {
+            this.homeDesk.showMapIcons();
+            this.mapIconShown = true;
+
+        }
+        if ((absPos < this.mapIconLimit - 200) && this.mapIconShown) {
+            this.homeDesk.hideMapIcons();
+            this.mapIconShown = false;
+
+        }
+    }
+
 
     function _pages() {
         this.scrollView = new FlexScrollView({
@@ -106,5 +207,41 @@ define(function (require, exports, module) {
         this.scrollView.sequenceFrom(this.surfaces);
     }
 
+
+    ScrollDesk.prototype.goToPage = function (pageIndex) {
+        switch (pageIndex) {
+            case 0:
+                this.scrollView.goToFirstPage();
+                this.homeDesk.tuneToDefaultView();
+                this.homeDesk.tuneToDefaultMoto2();
+
+                this._eventOutput.emit('increase:header');
+                this.headerFull = true;
+                break;
+
+            case 1:
+
+                this.scrollView.goToRenderNode(this.aboutDesk);
+
+                this._eventOutput.emit('decrease:header');
+                this.headerFull = false;
+
+
+                break;
+
+            case 2:
+                this.scrollView.goToRenderNode(this.radioDesk);
+
+                this._eventOutput.emit('decrease:header');
+                this.headerFull = false;
+                break;
+
+            case 3:
+                this.scrollView.goToLastPage();
+                this._eventOutput.emit('decrease:header');
+                this.headerFull = false;
+                break;
+        }
+    };
     module.exports = ScrollDesk;
 });
