@@ -62,9 +62,14 @@ define(function (require, exports, module) {
         this.opacityMain = new Transitionable(1);
         this.contentTrans = new Transitionable(0);
 
-        this.centerModifier = new Modifier({});
+        this.rootMod = new Modifier({
+            size: [undefined, 1.5*window.innerHeight],
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(0, 0, 0)
+        });
 
-        this.rootNode = this.add(this.rootNodeMod);
+        this.rootNode = this.add(this.rootMod);
     }
 
 
