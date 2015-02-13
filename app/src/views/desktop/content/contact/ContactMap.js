@@ -101,39 +101,36 @@ define(function (require, exports, module) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (pos) {
                     var geocoder = new google.maps.Geocoder();
-                    var userLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-                    geocoder.geocode({'latLng': userLatLng}, function (results, status) {
+                    that.userLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+                    geocoder.geocode({'latLng': that.userLatLng}, function (results, status) {
                         if (status == google.maps.GeocoderStatus.OK) {
                             if (results[0]) {
                                 this.map.setZoom(11);
-                                this.initMarker = new google.maps.Marker({
-                                    position: userLatLng,
+                                this.startMarker = new google.maps.Marker({
+                                    position: that.userLatLng,
                                     title: "Your current location",
                                     draggable: true,
                                     map: this.map
                                 });
-                                google.maps.event.addListener(this.initMarker, 'dragend', function () {
-                                    var userPosition =this.initMarker.getPosition();
+                                google.maps.event.addListener(this.startMarker, 'dragend', function () {
+                                    var userPosition =this.startMarker.getPosition();
 
-                                    var draggedLatLng = new google.maps.LatLng(userPosition.k, userPosition.D);
-                                    geocoder.geocode({latLng:draggedLatLng}, function (results,status) {
+                                    that.userLatLng= new google.maps.LatLng(userPosition.k, userPosition.D);
+                                    geocoder.geocode({latLng:that.userLatLng}, function (results,status) {
                                         document.getElementById("start").value = results[0].formatted_address;
 
                                     })
                                 }.bind(this));
 
 
-                                this.userLocationInfo = new google.maps.InfoWindow({
-                                    content: '<div>' +
-                                    'Your Start Location' +
-                                    '</div>'
-                                });
-                                this.userLocationInfo.open(this.map, this.initMarker);
 
                                 var address = results[0].formatted_address;
 
                                 var startDirection = document.getElementById('start');
                                 startDirection.value = address;
+
+                                this.transportType = google.maps.TravelMode.DRIVING;
+                                calcRoute();
 
                                 var searchButton = document.getElementById('searchRoute');
                                 searchButton.onclick = function () {
@@ -166,9 +163,16 @@ define(function (require, exports, module) {
 
                 function calcRoute() {
                     that.svetMarker.setMap(null);
-                    that.initMarker.setMap(null);
+                    that.startMarker.setMap(null);
+
+                    that.userLocationInfo = new google.maps.InfoWindow({
+                        content: '<div>' +
+                        'Your Start Location' +
+                        '</div>',
+                        position:that.userLatLng
+                    });
                     that.infowindow.open(that.map, that.svetMarker);
-                    that.userLocationInfo.open(that.map, that.initMarker);
+                    that.userLocationInfo.open(that.map);
 
                     // Retrieve the start and end locations and create
                     // a DirectionsRequest using WALKING directions.
