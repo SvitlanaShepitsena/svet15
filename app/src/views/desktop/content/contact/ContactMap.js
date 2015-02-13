@@ -13,13 +13,7 @@ define(function (require, exports, module) {
 
     ContactMap.prototype = Object.create(View.prototype);
     ContactMap.prototype.constructor = ContactMap;
-    ContactMap.DEFAULT_OPTIONS = {
-        viewProps: {
-            //boxShadow: window.sv.scheme.boxShadow,
-            zIndex: 101
-            //backgroundColor: window.sv.scheme.textWhite
-        }
-    };
+    ContactMap.DEFAULT_OPTIONS = {};
 
     function ContactMap() {
         View.apply(this, arguments);
@@ -30,7 +24,6 @@ define(function (require, exports, module) {
 
         _init.call(this);
         _addMap.call(this);
-        //_markerInfo.call(this);
     }
 
 
@@ -47,13 +40,11 @@ define(function (require, exports, module) {
             type: MapView.MapType.GOOGLEMAPS,
             mapOptions: {
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
+                styles: window.sv.mapPalettePale,
                 center: this.centerCoord,
                 zoom: 5,
                 minZum: 9,
                 panControl: true,
-                featureType: "water",
-                elementType: "all",
-                styles: window.sv.mapPalettePale,
                 scrollwheel: false,
                 scaleControl: false,
                 zoomControl: true,
@@ -63,63 +54,61 @@ define(function (require, exports, module) {
                 }
             }
         });
+        this.mapSurf = this.mapView.getSurface();
+        this.mapSurf.pipe(this._eventOutput);
+
         this.mapView.on('load', function () {
             this.map = this.mapView.getMap();
-            var homeMap2 = this.mapView.getMapId();
-            console.log("contact map: " + homeMap2);
-
-            var directionsService = new google.maps.DirectionsService();
-
-            // Create a renderer for directions and bind it to the map.
-            var rendererOptions = {
-                map: this.map
-            }
-
-            var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-
-            this.infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
             // Move across the globe and zoom-in when done
+            /*Pan the map useint famo.us transitions*/
             this.mapView.setPosition(
                 this.centerCoord,
                 {duration: 500, curve: Easing.inOutElastic},
-
                 function () {
                     this.map.setZoom(11);
                 }.bind(this)
             );
 
-            this.transportType = google.maps.TravelMode.DRIVING;
+            // Create a renderer for directions and bind it to the map.
+            var directionsService = new google.maps.DirectionsService();
+            var rendererOptions = {
+                map: this.map
+            }
+            var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 
+            /*Creating a marker with infoWindow*/
             this.svetMarker = new google.maps.Marker({
                 position: this.officeCoord,
                 map: this.map,
                 title: "Svet Office"
             });
+            this.infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
             this.infowindow.open(this.map, this.svetMarker);
 
+            /*Find map dom element*/
             var mapId = this.mapView.getMapId();
             var mapDomEl = document.getElementById(mapId);
-
+            /*Create Information Panel*/
             var el = document.createElement('div');
             el.innerHTML = directionForm;
-
-            var node = el.getElementsByTagName('section')[0];
-            mapDomEl.appendChild(node);
+            /*Append Information Panel to the map*/
+            var infoPanel = el.getElementsByTagName('section')[0];
+            mapDomEl.appendChild(infoPanel);
 
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (pos) {
-
                     var geocoder = new google.maps.Geocoder();
                     var userLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
                     geocoder.geocode({'latLng': userLatLng}, function (results, status) {
                         if (status == google.maps.GeocoderStatus.OK) {
                             if (results[0]) {
                                 this.map.setZoom(11);
-                                marker = new google.maps.Marker({
+                                var marker = new google.maps.Marker({
                                     position: userLatLng,
+                                    title: "Your current location",
                                     map: this.map
                                 });
                                 var address = results[0].formatted_address;
@@ -129,28 +118,31 @@ define(function (require, exports, module) {
 
                                 var searchButton = document.getElementById('searchRoute');
                                 searchButton.onclick = function () {
+                                    this.transportType = google.maps.TravelMode.DRIVING;
                                     calcRoute();
-                                };
+                                    this.infowindow.open(this.map, this.svetMarker);
+                                    this.infowindow.close(this.map, marker);
+                                }.bind(this);
 
                                 var bus = document.getElementById('byPublic');
                                 bus.onclick = function () {
                                     this.transportType = google.maps.TravelMode.TRANSIT;
                                     calcRoute();
 
-                                    this.infowindow.open(this.map, that.svetMarker);
+                                    this.infowindow.open(this.map, this.svetMarker);
                                 }.bind(this);
                                 var car = document.getElementById('byCar');
                                 console.log(car);
                                 car.onclick = function () {
-                                    that.transportType = google.maps.TravelMode.DRIVING;
+                                    this.transportType = google.maps.TravelMode.DRIVING;
                                     calcRoute();
-                                    this.infowindow.open(this.map, that.svetMarker);
+                                    this.infowindow.open(this.map, this.svetMarker);
                                 }.bind(this);
                                 var bike = document.getElementById('byBicicle');
                                 bike.onclick = function () {
-                                    that.transportType = google.maps.TravelMode.BICYCLING;
+                                    this.transportType = google.maps.TravelMode.BICYCLING;
                                     calcRoute();
-                                    this.infowindow.open(this.map, that.svetMarker);
+                                    this.infowindow.open(this.map, this.svetMarker);
                                 }.bind(this);
                             }
                         } else {
@@ -192,21 +184,12 @@ define(function (require, exports, module) {
 
 
         }.bind(this));
-        //this.svetMarker = new google.maps.Marker({
-        //    position: this.officeCoord,
-        //    map: map,
-        //    title: "Svet Office"
-        //});
-        //this.infowindow.open(map, that.svetMarker);
 
-        this.mapSurf = this.mapView.getSurface();
-        this.mapSurf.pipe(this._eventOutput);
 
         this.infoWindows = [];
         this.markers = [];
 
         this.rootNode.add(this.mapView);
-
     }
 
 

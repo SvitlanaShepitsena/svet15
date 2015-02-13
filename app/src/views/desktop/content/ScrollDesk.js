@@ -71,10 +71,10 @@ define(function (require, exports, module) {
         this.aboutDesk = new AboutUsDesk();
         this.radioDesk = new RadioDesk();
 
-        this.surfaces.push(this.contactMap);
         this.surfaces.push(this.homeDesk);
         this.surfaces.push(this.aboutDesk);
         this.surfaces.push(this.radioDesk);
+        this.surfaces.push(this.contactMap);
         //this.surfaces.push(this.contactUsDesk);
 
         this.scrollView.sequenceFrom(this.surfaces);
