@@ -104,6 +104,10 @@ define(function (require, exports, module) {
 
         }.bind(this));
 
+        this.gridTrans.halt();
+        this.gridEndState = 260;
+        this.gridTrans.set(this.gridEndState,{duration:1000});
+
     };
 
     HomeContentDesk.prototype.contentInit2 = function () {
@@ -118,6 +122,11 @@ define(function (require, exports, module) {
             }.bind(this));
 
         }.bind(this));
+
+
+        this.gridTrans.halt();
+        this.gridStartState = 450;
+        this.gridTrans.set(this.gridStartState,{duration:1000});
     };
 
     function _init() {
@@ -233,13 +242,16 @@ define(function (require, exports, module) {
         this.maxSectionHeight = 480;
         this.sectionHeight;
         this.gridRenderNode = new RenderNode();
-        this.gridTrans = new Transitionable(140);
+        this.gridTrans = new Transitionable(450);
+
         this.gridMod = new Modifier({
             size: function () {
                 _getSectionHeight.call(this);
                 return [undefined, this.sectionHeight];
             }.bind(this),
-            transform: Transform.translate(0, 450, 0)
+            transform: function () {
+                return Transform.translate(0,this.gridTrans.get());
+            }.bind(this)
         });
         this.dailyNews = new HomeSectionDesk({
             icon: 'news-daily',

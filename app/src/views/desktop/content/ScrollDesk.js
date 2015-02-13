@@ -47,16 +47,6 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.centerModifier);
     }
 
-    function _scrollHandle() {
-        this.scrollView.pipe(scroll);
-
-
-        scroll.on('update', function (data) {
-            absolutePos = absolutePos + data.position > 0 ? 0 : absolutePos + data.position;
-        });
-
-
-    }
 
 
     function _handleScroll() {
@@ -93,31 +83,6 @@ define(function (require, exports, module) {
 
             _startAnimation.call(this, Math.abs(absPos));
         }.bind(this));
-
-        //this.sync.on('end', function (data) {
-        //    if (data.delta > 0) {
-        //        this.dir = -1;
-        //    } else {
-        //        this.dir = 1;
-        //
-        //    }
-        //    var pos = this.containerTrans.get();
-        //
-        //    var endState = pos + data.delta;
-        //    endState = _restrict.call(this, endState);
-        //
-        //    var duration = Math.abs(pos - endState) * 12;
-        //    if (this.syncEnabled) {
-        //
-        //        this.containerTrans.set(endState, {
-        //            duration: duration, curve: 'linear'
-        //        }, function () {
-        //            pos = this.containerTrans.get();
-        //            _startAnimation.call(this, Math.abs(pos));
-        //        }.bind(this));
-        //    }
-        //
-        //}.bind(this));
 
     }
 

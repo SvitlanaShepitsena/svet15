@@ -63,7 +63,7 @@ define(function (require, exports, module) {
         this.contentTrans = new Transitionable(0);
 
         this.rootMod = new Modifier({
-            size: [undefined, 1.5*window.innerHeight],
+            size: [undefined, 1300],
             align: [0, 0],
             origin: [0, 0],
             transform: Transform.translate(0, 0, 0)
