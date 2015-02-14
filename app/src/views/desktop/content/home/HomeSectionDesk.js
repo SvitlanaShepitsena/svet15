@@ -29,8 +29,7 @@ define(function (require, exports, module) {
 
     HomePart.DEFAULT_OPTIONS = {
         align: [0, 0],
-        origin: [0, 0],
-        content: null,
+        origin: [0, 0], content: null,
         icon: null
     }
 
