@@ -63,8 +63,6 @@ define(function (require, exports, module) {
 
     function _flex() {
         this.flexMod = new Modifier({
-            align: this.options.center,
-            origin: this.options.center
         });
         this.layout = new FlexibleLayout({
             ratios: [4, 2, 2],

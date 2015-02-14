@@ -173,24 +173,10 @@ define(function (require, exports, module) {
         this.legendPlace = {lat: 42.131767, lng: -87.579624};
         this.northChicagoEnd = {lat: 42.150571, lng: -87.710238};
 
-        var styledMap = new google.maps.StyledMapType(window.sv.mapPalettePale,
-            {name: "Svet Media Group"});
-
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
-            syncS: this.options.sync,
             mapOptions: {
-                featureType: "water",
-                elementType: "all",
                 styles: window.sv.mapPalettePale,
-                stylers: [
-                    {
-                        visibility: "on"
-                    },
-                    {
-                        color: "#acbcc9"
-                    }
-                ],
                 zoom: 11,
                 center: this.northChicagoStart,
                 mapTypeControlOptions: {
@@ -203,14 +189,10 @@ define(function (require, exports, module) {
                 zoomControlOptions: {
                     style: google.maps.ZoomControlStyle.SMALL,
                     position: google.maps.ControlPosition.LEFT_CENTER
-                },
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
             }
         });
         this.mapSurf = this.mapView.getSurface();
-        this.mapSurf.on('scroll', function () {
-            console.log('ss');
-        })
         this.mapSurf.pipe(this._eventOutput);
 
         this.infoWindows = [];
@@ -226,9 +208,6 @@ define(function (require, exports, module) {
                 {duration: 500, curve: Easing.outBack}
             );
             this.gMap = this.mapView.getMap();
-
-            this.gMap.mapTypes.set('map_style', styledMap);
-            this.gMap.setMapTypeId('map_style');
 
             /*********************************
              * Here are Svet Statistics by towns
