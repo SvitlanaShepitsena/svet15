@@ -145,6 +145,9 @@ body {
 .map-info {
   width: auto;
 }
+.map-info p {
+  margin-bottom: 0px;
+}
 .map-marker-info {
   width: 150px !important;
   height: 60px !important;
@@ -168,9 +171,14 @@ body {
 .town-name {
   margin-top: 0px;
   margin-bottom: 5px;
-  font-size: 100%;
+  font-size: 110%;
   font-weight: bold;
   color: #696969;
+}
+@media only screen and (max-width: 400px) {
+  .town-name {
+    font-size: 100%;
+  }
 }
 .icon-text {
   padding-top: 5px;

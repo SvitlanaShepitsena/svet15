@@ -112,6 +112,8 @@ body
 **********************/
 .map-info
     width auto
+    p
+        margin-bottom 0px
 
 .map-marker-info
     width 150px !important
@@ -130,9 +132,11 @@ body
 .town-name
     margin-top 0px
     margin-bottom 5px
-    font-size 100%
+    font-size 110%
     font-weight bold
     color dimgrey
+    +below(size-s)
+        font-size 100%
 
 .icon-text
     padding-top 5px
