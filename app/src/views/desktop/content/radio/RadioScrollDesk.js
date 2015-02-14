@@ -86,7 +86,6 @@ define(function (require, exports, module) {
 
         var container = new ContainerSurface({
             size: [500, 400],
-
             properties: {
                 overflow: 'visible',
                 perspective:'1000px'

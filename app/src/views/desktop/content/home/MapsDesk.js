@@ -203,9 +203,14 @@ define(function (require, exports, module) {
         this.mapView.on('load', function () {
             var mapInfo = this.mapView._getMapInfo();
             var endPoint = _getNormalizedCenter.call(this, mapInfo);
+
+
+
             this.mapView.setPosition(
                 endPoint,
-                {duration: 500, curve: Easing.outBack}
+                {duration: 500, curve: Easing.outBack}, function () {
+                   console.log(this.mapView.getFinalPosition());
+                }.bind(this)
             );
             this.gMap = this.mapView.getMap();
 
