@@ -3,11 +3,31 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
+    var Transitionable = require('famous/transitions/Transitionable');
 
     var VideoExtraSurface = require('dviews/content/radio/VideoExtraSurface');
 
+
     RadioProgram.prototype = Object.create(View.prototype);
     RadioProgram.prototype.constructor = RadioProgram;
+
+
+    RadioProgram.prototype.setPerspective = function (perpective) {
+        this.zTrans.halt();
+        this.zTrans.set(perpective, {duration: 400});
+
+        this.bgSurface.setOptions({
+            properties:{
+                zIndex:  perpective
+            }
+        });
+        this.contentSurf.setOptions({
+            properties:{
+                zIndex:  perpective
+            }
+        });
+
+    };
 
     RadioProgram.DEFAULT_OPTIONS = {
         contentProps: {
@@ -31,11 +51,13 @@ define(function (require, exports, module) {
     }
 
     function _init() {
+        this.zTrans = new Transitionable(0);
         this.centerModifier = new Modifier({
-            size: [600, undefined],
-            align: [0.5, 0],
-            origin: [0.5, 0],
-            transform: Transform.translate(0, 0, 0)
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
+            transform: function () {
+                return Transform.translate(0, 0, this.zTrans.get());
+            }.bind(this)
         });
         this.rootNode = this.add(this.centerModifier);
     }
@@ -48,7 +70,7 @@ define(function (require, exports, module) {
         this.bgMod = new Modifier({
             align: [0, 0],
             origin: [0, 0],
-            transform: Transform.translate(0, 0, 0)
+            transform: Transform.translate(0, 0, this.zTrans.get())
         });
         this.bgSurface = new Surface({
             content: '',
@@ -71,9 +93,9 @@ define(function (require, exports, module) {
     function _radioProgramContent() {
 
         this.contentMod = new Modifier({
-            size: [500, 50],
-            align: [0.5, 0],
-            origin: [0.5, 0],
+            size: [300, 50],
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
             transform: Transform.translate(0, 30, 0)
         });
 

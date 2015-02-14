@@ -48,7 +48,6 @@ define(function (require, exports, module) {
     }
 
 
-
     function _handleScroll() {
 
         GenericSync.register(
@@ -141,7 +140,7 @@ define(function (require, exports, module) {
             paginationMode: ScrollController.PaginationMode.PAGE,
             paginationEnergyThresshold: 0.01,
             direction: 1,       // 0 = X, 1 = Y, undefined = use default from layout
-            alignment: 1,               // 0 = top/left, 1 = bottom/right
+            alignment: 0,               // 0 = top/left, 1 = bottom/right
             flow: true,                // allow renderables to flow between layouts when not scrolling
             mouseMove: false,           // allow mouse to hold and move the view
             useContainer: true,        // embeds inside a ContainerSurface for clipping and capturing input events
@@ -149,7 +148,8 @@ define(function (require, exports, module) {
             pullToRefreshHeader: undefined, // assign pull-to-refresh renderable here (renderable must have a size)
             leadingScrollView: undefined,
             trailingScrollView: undefined,
-            autoPipeEvents: true
+            autoPipeEvents: true,
+            layoutAll: true
         });
         this.scrollView.setOptions({
             overscroll: false   // disable overscroll
