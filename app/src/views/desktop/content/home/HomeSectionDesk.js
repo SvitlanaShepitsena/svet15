@@ -61,10 +61,6 @@ define(function (require, exports, module) {
         });
         this.bgMod = new Modifier({
             opacity: '.3',
-            size: function () {
-                _getSectionHeight.call(this);
-                return [undefined, this.sectionHeight / 1.8];
-            }.bind(this)
         });
         this.bg = new Surface({
             properties: {
