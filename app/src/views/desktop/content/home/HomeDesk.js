@@ -14,7 +14,6 @@ define(function (require, exports, module) {
 
     /*App Require*/
     var HomeContentDesk = require('dviews/content/home/HomeContentDesk');
-    var MapsDesk = require('dviews/content/home/MapsDesk');
     var MapDesk = require('dviews/content/home/MapsDesk');
 
 
@@ -41,7 +40,7 @@ define(function (require, exports, module) {
         var styledMap = new google.maps.StyledMapType(window.sv.mapPalette,
             {name: "Svet Media Group"});
 
-        this.mapDesk = new MapDesk({sync: this.options.sync});
+        this.mapDesk = new MapDesk();
 
         this.mapDesk.pipe(this._eventOutput);
         this.rootNode.add(this.modMap).add(this.mapDesk);

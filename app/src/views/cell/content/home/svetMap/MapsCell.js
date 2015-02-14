@@ -26,19 +26,6 @@ define(function (require, exports, module) {
     var niles = require('coord/Niles');
     var evanston = require('coord/Evanston');
 
-    function MapsCell() {
-        this.allowAnimation = true;
-        View.apply(this, arguments);
-
-        this.opacityLegendSvet = new Transitionable(0);
-        this.opacityLegendYp = new Transitionable(0);
-        this.geocoder = new google.maps.Geocoder();
-
-        _init.call(this);
-
-        _map.call(this);
-    }
-
     MapsCell.DEFAULT_OPTIONS = {
         colors: {
             buffaloGrove: 'coral',
@@ -58,6 +45,23 @@ define(function (require, exports, module) {
         strokeWeight: '2',
         fillOpacity: '0.35'
     };
+
+    function MapsCell() {
+        this.allowAnimation = true;
+        View.apply(this, arguments);
+
+        this.opacityLegendSvet = new Transitionable(0);
+        this.opacityLegendYp = new Transitionable(0);
+        this.geocoder = new google.maps.Geocoder();
+
+        this.mapId = 'home-map-cell';
+        this.centerCoordCell = {lat: 42.127553, lng: -87.827837};
+        this.officeCoordCell = {lat: 42.136286, lng: -87.791914};
+
+        _init.call(this);
+        _map.call(this);
+    }
+
     /**
      * Hide all overlays symbols.
      */
@@ -113,13 +117,12 @@ define(function (require, exports, module) {
         });
         this.opacityLegendYp.set(1, {duration: 500, curve: 'easeInOut'});
 
-        this.mapSurface.pipe(this.mapView);
+        this.mapSurface.pipe(this._eventOutput);
         this.rootNode.add(this.mapLegendYpMod).add(this.modifier).add(this.mapSurface);
     }
 
     function _map() {
         this.gMap;
-
         this.northChicagoStart = {lat: 41.011949, lng: -87.709012};
         this.legendPlace = {lat: 42.131767, lng: -87.579624};
         this.northChicagoEnd = {lat: 42.082571, lng: -87.710238};
@@ -127,38 +130,48 @@ define(function (require, exports, module) {
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
             mapOptions: {
+                styles: window.sv.mapPalettePale,
                 zoom: 10,
                 center: this.northChicagoStart,
-                disableDefaultUI: true,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                //disableDefaultUI: true,
+                scrollwheel: false,
+                panControl: false,
+                scaleControl: false,
+                zoomControl: false,
+                mapTypeControlOptions: {
+                    mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+                }
             }
         });
+        this.mapSurf = this.mapView.getSurface();
+        this.mapSurf.pipe(this._eventOutput);
+
         this.infoWindows = [];
         this.markers = [];
 
         this.rootNode.add(this.mapView);
 
         this.mapView.on('load', function () {
-
-            _legendSvet.call(this);
+            this.gMap = this.mapView.getMap();
             this.mapView.setPosition(
-                this.northChicagoEnd,
+                this.centerCoordCell,
                 {duration: 500, curve: Easing.outBack}
             );
-            this.gMap = this.mapView.getMap();
+            _legendSvet.call(this);
             /*********************************
              * Here are Svet Statistics by towns
              *********************************/
 
             /**
-             * 1.Buffalo Grove
+             * 1.=Buffalo Grove
              */
+
             var buffaloGroveCoordinates = buffaloGrove.getCoordinates();
 
             var buffaloGroveLayer = new google.maps.Polygon({
                 paths: buffaloGroveCoordinates,
-                strokeColor: this.options.colors.buffaloGrove,
-                fillColor: this.options.colors.buffaloGrove,
+                strokeColor: window.sv.cityMapColors.buffaloGrove,
+                fillColor: window.sv.cityMapColors.buffaloGrove,
                 strokeOpacity: this.options.strokeOpacity,
                 strokeWeight: this.options.strokeWeight,
                 fillOpacity: this.options.fillOpacity
@@ -455,6 +468,7 @@ define(function (require, exports, module) {
                 fillOpacity: this.options.fillOpacity
             });
             nilesLayer.setMap(this.gMap);
+
             google.maps.event.addListener(nilesLayer, 'click', function (e) {
                 _closeAllOverlays.call(this);
                 this.nilesInfo = new google.maps.InfoWindow({});
@@ -471,11 +485,7 @@ define(function (require, exports, module) {
     }
 
     function _init() {
-        this.centerModifier = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            transform: Transform.translate(0, 0, 101)
-        });
+        this.centerModifier = new Modifier({});
         this.rootNode = this.add(this.centerModifier);
     }
 

@@ -194,16 +194,10 @@ define(function (require, exports, module) {
                         }
                     });
                 }
-
-
             } else {
                 error('not supported');
             }
-
-
         }.bind(this));
-
-
         this.infoWindows = [];
         this.markers = [];
 
