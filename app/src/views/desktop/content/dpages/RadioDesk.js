@@ -45,7 +45,7 @@ define(function (require, exports, module) {
         this.scrollMod = new Modifier({
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
-            size: [600, 400],
+            size: [500, 400],
             transform: Transform.translate(0, 90, 0)
         });
         this.radioScrollDesk = new RadioScrollDesk();

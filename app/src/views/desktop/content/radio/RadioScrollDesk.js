@@ -3,9 +3,13 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
-    var ScrollContainer = require('famous/views/ScrollContainer');
+
+    var ContainerSurface = require("famous/surfaces/ContainerSurface");
+
 
     var RadioProgram = require('dviews/content/radio/RadioProgram');
+
+    var FlexScrollView = require('flex/FlexScrollView');
 
     function RadioScrollDesk() {
         View.apply(this, arguments);
@@ -52,7 +56,7 @@ define(function (require, exports, module) {
         });
 
         this.backSurf.on('click', function () {
-            this.container.scrollview.goToPreviousPage();
+            this.scrollview.goToPreviousPage();
         }.bind(this))
 
 
@@ -69,7 +73,7 @@ define(function (require, exports, module) {
             }
         });
         this.forwartSurf.on('click', function () {
-            this.container.scrollview.goToNextPage();
+            this.scrollview.goToNextPage();
         }.bind(this))
 
         this.rootNode.add(this.forwardMod).add(this.forwartSurf);
@@ -80,12 +84,24 @@ define(function (require, exports, module) {
         var bgLight = window.sv.scheme.lightGrey;
         var bgDark = window.sv.scheme.darkGrey;
 
+        var container = new ContainerSurface({
+            size: [500, 400],
+
+            properties: {
+                overflow: 'visible',
+                perspective:'1000px'
+            }
+        });
         var surfaces = [];
-        this.container = new ScrollContainer();
-        this.container.scrollview.setOptions({
-            direction: 0
-        })
-        this.container.scrollview.sequenceFrom(surfaces);
+        this.scrollview = new FlexScrollView({
+
+            visibleItemThresshold: 0.01, // by default, when an item is 50% visible, it is considered visible by `getFirstVisibleItem`
+            direction: 0,
+            paginated:true,
+            layoutAll: true       // set to true is you want all renderables layed out/rendered
+        });
+        container.add(this.scrollview);
+        this.scrollview.sequenceFrom(surfaces);
 
         var n = 1;
 
@@ -98,13 +114,39 @@ define(function (require, exports, module) {
                 date:dates[n - 1]
             });
             n++;
-            programSurface.pipe(this.container.scrollview);
+            programSurface.pipe(this.scrollview);
             programSurface.pipe(this._eventOutput);
             surfaces.push(programSurface);
         }
+        this.surface = new Surface({
+            size: [300, 200],
+            classes: [],
+            properties: {
+                color: 'white',
+                textAlign: 'center',
+                backgroundColor: '#FA5C4F'
+            }
+        });
+        //surfaces.push(this.surface);
 
-        this.rootNode.add(this.container);
-        this.container.scrollview.goToPage(4);
+        this.rootNode.add(container);
+        //this.scrollview.goToLastPage();
+        this.perspectiveStep = 50;
+
+        this.scrollview.on('pagechange', function () {
+            var activePage = this.scrollview.getCurrentIndex();
+            console.log(activePage);
+            for (var i = 0; i < surfaces.length; i++) {
+                var program = surfaces[i];
+                try {
+                program.setPerspective(-Math.abs(activePage-i)*this.perspectiveStep);
+
+                } catch (e) {
+
+                }
+
+            }
+        }.bind(this));
     }
 
 
