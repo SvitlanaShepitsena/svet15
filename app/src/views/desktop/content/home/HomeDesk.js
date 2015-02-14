@@ -115,10 +115,12 @@ define(function (require, exports, module) {
     }
     HomeDesk.prototype.tuneToShortMoto2 = function () {
         this.homeContentDesk.contentShort2();
+        this.mapDesk.moveMapUp();
     }
 
     HomeDesk.prototype.tuneToDefaultMoto2 = function () {
         this.homeContentDesk.contentInit2();
+        this.homeContentDesk.contentShort2();
     }
 
     HomeDesk.prototype.showMapIcons = function () {

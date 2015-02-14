@@ -624,6 +624,33 @@ define(function (require, exports, module) {
         legendYp.call(this);
 
     }
+
+    MapsDesk.prototype.moveMapUp = function () {
+        var currentPos = this.mapView.getPosition();
+        currentPos.lat -=0.08;
+        this.mapView.setPosition(
+            currentPos,
+            {duration: 1000}, function () {
+               console.log(this.mapView.getFinalPosition());
+            }.bind(this)
+        );
+
+
+    }
+
+    MapsDesk.prototype.moveMapDown = function () {
+        var currentPos = this.mapView.getPosition();
+        currentPos.lat -=0.08;
+        this.mapView.setPosition(
+            currentPos,
+            {duration: 1000}, function () {
+               console.log(this.mapView.getFinalPosition());
+            }.bind(this)
+        );
+
+
+    }
+
     MapsDesk.prototype.showSvetPoints = function () {
         this.allowAnimation = true;
         this.allowSvetAnimation = true;
