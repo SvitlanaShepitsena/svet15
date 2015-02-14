@@ -32,6 +32,11 @@ window.responsive = function responsive() {
     return device;
 }
 
+window.getCityInfo = function getCityInfo(cityName, ruSpeakingNum) {
+    this.mapCityInfo = '<div class="map-info" > <h6 class="town-name">' + cityName + '.</h6><p> <span class = "text-info">' + ruSpeakingNum + ' %</span> of Russian Speaking Customers</p></div>';
+    return this.mapCityInfo;
+}
+
 window.sv = {
     cities: {
         northbrook: 'Northbrook',
