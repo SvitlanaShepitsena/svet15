@@ -198,7 +198,6 @@ define(function (require, exports, module) {
             var endPoint = _getNormalizedCenter.call(this, mapInfo);
 
 
-
             //this.mapView.setPosition(
             //    endPoint,
             //    {duration: 500, curve: Easing.outBack}, function () {
@@ -624,6 +623,35 @@ define(function (require, exports, module) {
         legendYp.call(this);
 
     }
+
+    MapsDesk.prototype.moveMapUp = function () {
+        this.mapLatShift = 0.08;
+
+        var currentPos = this.mapView.getPosition();
+        currentPos.lat -= this.mapLatShift;
+        this.mapView.setPosition(
+            currentPos,
+            {duration: 1000}, function () {
+                console.log(this.mapView.getFinalPosition());
+            }.bind(this)
+        );
+
+
+    }
+
+    MapsDesk.prototype.moveMapDown = function () {
+        var currentPos = this.mapView.getPosition();
+        currentPos.lat += this.mapLatShift;
+        this.mapView.setPosition(
+            currentPos,
+            {duration: 1000}, function () {
+                console.log(this.mapView.getFinalPosition());
+            }.bind(this)
+        );
+
+
+    }
+
     MapsDesk.prototype.showSvetPoints = function () {
         this.allowAnimation = true;
         this.allowSvetAnimation = true;

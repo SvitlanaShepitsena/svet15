@@ -245,10 +245,6 @@ define(function (require, exports, module) {
         this.gridTrans = new Transitionable(450);
 
         this.gridMod = new Modifier({
-            size: function () {
-                _getSectionHeight.call(this);
-                return [undefined, this.sectionHeight];
-            }.bind(this),
             transform: function () {
                 return Transform.translate(0,this.gridTrans.get());
             }.bind(this)
