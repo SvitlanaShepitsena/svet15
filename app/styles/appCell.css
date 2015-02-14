@@ -143,7 +143,7 @@ body {
     =Home
 **********************/
 .map-info {
-  width: 200px !important;
+  width: auto;
 }
 .map-marker-info {
   width: 150px !important;
@@ -166,6 +166,8 @@ body {
   }
 }
 .town-name {
+  margin-top: 0px;
+  margin-bottom: 5px;
   font-size: 100%;
   font-weight: bold;
   color: #696969;

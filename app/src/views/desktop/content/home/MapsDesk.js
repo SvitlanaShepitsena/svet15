@@ -30,9 +30,9 @@ define(function (require, exports, module) {
 
     MapsDesk.DEFAULT_OPTIONS = {
         mapCityOpts: {
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillOpacity: 0.35
+            strokeOpacity: '0.8',
+            strokeWeight: '2',
+            fillOpacity: '0.35'
         }
     };
 
@@ -51,15 +51,8 @@ define(function (require, exports, module) {
     }
 
     function _init() {
-        this.centerModifier = new Modifier({
-            transform: Transform.translate(0, 0, 0)
-        });
+        this.centerModifier = new Modifier({});
         this.rootNode = this.add(this.centerModifier);
-    }
-
-    function _getCityInfo(cityName, ruSpeakingNum) {
-        this.mapCityInfo = '<p class="map-info" > <span class="town-name">' + cityName + '.</span> <span class = "text-info">' + ruSpeakingNum + ' %</span> of Russian speaking customers</p>';
-        return this.mapCityInfo;
     }
 
     function _svetMapIcons() {
@@ -233,7 +226,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.buffaloGroveInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.buffaloGroveInfo);
-                this.buffaloGroveInfo.setContent(_getCityInfo(window.sv.cities.buffaloGrove, 18.7));
+                this.buffaloGroveInfo.setContent(window.getCityInfo(window.sv.cities.buffaloGrove, 18.7));
                 this.buffaloGroveInfo.setPosition(e.latLng);
                 this.buffaloGroveInfo.open(this.gMap);
 
@@ -261,7 +254,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoHighlandPark = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoHighlandPark);
-                this.infoHighlandPark.setContent(_getCityInfo(window.sv.cities.highlandPark, 18.2));
+                this.infoHighlandPark.setContent(window.getCityInfo(window.sv.cities.highlandPark, 18.2));
                 this.infoHighlandPark.setPosition(e.latLng);
                 this.infoHighlandPark.open(this.gMap);
 
@@ -289,7 +282,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoDeerfield = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoDeerfield);
-                this.infoDeerfield.setContent(_getCityInfo(window.sv.cities.deerfield, 16.1));
+                this.infoDeerfield.setContent(window.getCityInfo(window.sv.cities.deerfield, 16.1));
                 this.infoDeerfield.setPosition(e.latLng);
                 this.infoDeerfield.open(this.gMap);
 
@@ -316,7 +309,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoGlencoe = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoGlencoe);
-                this.infoGlencoe.setContent(_getCityInfo(window.sv.cities.glencoe, 14.4));
+                this.infoGlencoe.setContent(window.getCityInfo(window.sv.cities.glencoe, 14.4));
                 this.infoGlencoe.setPosition(e.latLng);
                 this.infoGlencoe.open(this.gMap);
 
@@ -343,7 +336,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoNorthbrook = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoNorthbrook);
-                this.infoNorthbrook.setContent(_getCityInfo(window.sv.cities.northbrook, 14.3));
+                this.infoNorthbrook.setContent(window.getCityInfo(window.sv.cities.northbrook, 14.3));
                 this.infoNorthbrook.setPosition(e.latLng);
                 this.infoNorthbrook.open(this.gMap);
 
@@ -371,7 +364,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.vernonHillsInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.vernonHillsInfo);
-                this.vernonHillsInfo.setContent(_getCityInfo(window.sv.cities.vernonHills, 9.1));
+                this.vernonHillsInfo.setContent(window.getCityInfo(window.sv.cities.vernonHills, 9.1));
                 this.vernonHillsInfo.setPosition(e.latLng);
                 this.vernonHillsInfo.open(this.gMap);
 
@@ -401,7 +394,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.infoSkokie = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.infoSkokie);
-                this.infoSkokie.setContent(_getCityInfo(window.sv.cities.skokie, 20));
+                this.infoSkokie.setContent(window.getCityInfo(window.sv.cities.skokie, 20));
                 this.infoSkokie.setPosition(e.latLng);
                 this.infoSkokie.open(this.gMap);
 
@@ -429,7 +422,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.evanstonInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.evanstonInfo);
-                this.evanstonInfo.setContent(_getCityInfo(window.sv.cities.evanston, 7.2));
+                this.evanstonInfo.setContent(window.getCityInfo(window.sv.cities.evanston, 7.2));
                 this.evanstonInfo.setPosition(e.latLng);
                 this.evanstonInfo.open(this.gMap);
 
@@ -457,7 +450,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.wilmetteInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.wilmetteInfo);
-                this.wilmetteInfo.setContent(_getCityInfo(window.sv.cities.wilmette, 7.2));
+                this.wilmetteInfo.setContent(window.getCityInfo(window.sv.cities.wilmette, 7.2));
                 this.wilmetteInfo.setPosition(e.latLng);
                 this.wilmetteInfo.open(this.gMap);
 
@@ -484,7 +477,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.glenviewInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.glenviewInfo);
-                this.glenviewInfo.setContent(_getCityInfo(window.sv.cities.glenview, 13.8));
+                this.glenviewInfo.setContent(window.getCityInfo(window.sv.cities.glenview, 13.8));
                 this.glenviewInfo.setPosition(e.latLng);
                 this.glenviewInfo.open(this.gMap);
 
@@ -512,7 +505,7 @@ define(function (require, exports, module) {
                 _closeAllOverlays.call(this);
                 this.wheelingInfo = new google.maps.InfoWindow({});
                 this.infoWindows.push(this.wheelingInfo);
-                this.wheelingInfo.setContent(_getCityInfo(window.sv.cities.wheeling, 8.9));
+                this.wheelingInfo.setContent(window.getCityInfo(window.sv.cities.wheeling, 8.9));
                 this.wheelingInfo.setPosition(e.latLng);
                 this.wheelingInfo.open(this.gMap);
 
@@ -536,16 +529,13 @@ define(function (require, exports, module) {
             nilesLayer.setMap(this.gMap);
             google.maps.event.addListener(nilesLayer, 'click', function (e) {
                 _closeAllOverlays.call(this);
-                this.nilesInfo = new google.maps.InfoWindow({});
+                this.nilesInfo = new google.maps.InfoWindow();
                 this.infoWindows.push(this.nilesInfo);
-                this.nilesInfo.setContent(_getCityInfo(window.sv.cities.niles, 7.2));
+                this.nilesInfo.setContent(window.getCityInfo(window.sv.cities.niles, 7.2));
                 this.nilesInfo.setPosition(e.latLng);
                 this.nilesInfo.open(this.gMap);
 
             }.bind(this));
-
-
-            //_difier.call(this);
         }.bind(this));
     }
 
