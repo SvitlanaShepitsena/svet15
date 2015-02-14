@@ -162,7 +162,7 @@ define(function (require, exports, module) {
 
     function _map() {
         this.gMap;
-        this.northChicagoStart = {lat: 41.011949, lng: -87.709012};
+        this.northChicagoStart = {lat: 41.9899, lng: -87.710023};
         this.legendPlace = {lat: 42.131767, lng: -87.579624};
         this.northChicagoEnd = {lat: 42.150571, lng: -87.710238};
 
@@ -181,7 +181,7 @@ define(function (require, exports, module) {
                 zoomControl: true,
                 zoomControlOptions: {
                     style: google.maps.ZoomControlStyle.SMALL,
-                    position: google.maps.ControlPosition.LEFT_CENTER
+                    position: google.maps.ControlPosition.LEFT_TOP
                 }
             }
         });
@@ -199,12 +199,12 @@ define(function (require, exports, module) {
 
 
 
-            this.mapView.setPosition(
-                endPoint,
-                {duration: 500, curve: Easing.outBack}, function () {
-                   console.log(this.mapView.getFinalPosition());
-                }.bind(this)
-            );
+            //this.mapView.setPosition(
+            //    endPoint,
+            //    {duration: 500, curve: Easing.outBack}, function () {
+            //       console.log(this.mapView.getFinalPosition());
+            //    }.bind(this)
+            //);
             this.gMap = this.mapView.getMap();
 
             /*********************************
