@@ -7,27 +7,8 @@ define(function (require, exports, module) {
 
     var VideoExtraSurface = require('dviews/content/radio/VideoExtraSurface');
 
-
     RadioProgram.prototype = Object.create(View.prototype);
     RadioProgram.prototype.constructor = RadioProgram;
-
-
-    RadioProgram.prototype.setPerspective = function (perpective) {
-        this.zTrans.halt();
-        this.zTrans.set(perpective, {duration: 400});
-
-        this.bgSurface.setOptions({
-            properties:{
-                zIndex:  perpective
-            }
-        });
-        this.contentSurf.setOptions({
-            properties:{
-                zIndex:  perpective
-            }
-        });
-
-    };
 
     RadioProgram.DEFAULT_OPTIONS = {
         contentProps: {
@@ -41,6 +22,32 @@ define(function (require, exports, module) {
         }
     };
 
+    RadioProgram.prototype.setPerspective = function (perpective) {
+        this.zTrans.halt();
+        this.zTrans.set(perpective, {duration: 400});
+        this.bgSurface.setOptions({
+            properties: {
+                zIndex: perpective
+            }
+        });
+        this.contentSurf.setOptions({
+            properties: {
+                zIndex: perpective
+            }
+        });
+    };
+
+    function _init() {
+        this.zTrans = new Transitionable(0);
+        this.centerModifier = new Modifier({
+            transform: function () {
+                return Transform.translate(0, 0, this.zTrans.get());
+            }.bind(this)
+        });
+        this.rootNode = this.add(this.centerModifier);
+    }
+
+
     function RadioProgram() {
         View.apply(this, arguments);
         _init.call(this);
@@ -48,18 +55,6 @@ define(function (require, exports, module) {
         _programContent.call(this);
         _playStop.call(this);
         _radioProgramContent.call(this);
-    }
-
-    function _init() {
-        this.zTrans = new Transitionable(0);
-        this.centerModifier = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            transform: function () {
-                return Transform.translate(0, 0, this.zTrans.get());
-            }.bind(this)
-        });
-        this.rootNode = this.add(this.centerModifier);
     }
 
 

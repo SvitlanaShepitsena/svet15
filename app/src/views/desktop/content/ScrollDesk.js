@@ -39,9 +39,8 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            align: [0.5, .5],
-            origin: [0.5, .5],
-            transform: Transform.translate(0, 0, 0)
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5]
         });
 
         this.rootNode = this.add(this.centerModifier);
