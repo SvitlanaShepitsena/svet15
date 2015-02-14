@@ -95,7 +95,7 @@ define(function (require, exports, module) {
         var surfaces = [];
         this.scrollview = new FlexScrollView({
 
-            visibleItemThresshold: 0.01, // by default, when an item is 50% visible, it is considered visible by `getFirstVisibleItem`
+            //visibleItemThresshold: 0.5, // by default, when an item is 50% visible, it is considered visible by `getFirstVisibleItem`
             direction: 0,
             paginated:true,
             layoutAll: true       // set to true is you want all renderables layed out/rendered
@@ -130,12 +130,11 @@ define(function (require, exports, module) {
         //surfaces.push(this.surface);
 
         this.rootNode.add(container);
-        //this.scrollview.goToLastPage();
+        this.scrollview.goToLastPage();
         this.perspectiveStep = 50;
 
         this.scrollview.on('pagechange', function () {
             var activePage = this.scrollview.getCurrentIndex();
-            console.log(activePage);
             for (var i = 0; i < surfaces.length; i++) {
                 var program = surfaces[i];
                 try {

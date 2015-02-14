@@ -14,7 +14,7 @@ define(function (require, exports, module) {
 
     RadioProgram.prototype.setPerspective = function (perpective) {
         this.zTrans.halt();
-        this.zTrans.set(perpective, {duration: 300});
+        this.zTrans.set(perpective, {duration: 400});
 
         this.bgSurface.setOptions({
             properties:{

@@ -48,7 +48,6 @@ define(function (require, exports, module) {
     }
 
 
-
     function _handleScroll() {
 
         GenericSync.register(
@@ -149,7 +148,8 @@ define(function (require, exports, module) {
             pullToRefreshHeader: undefined, // assign pull-to-refresh renderable here (renderable must have a size)
             leadingScrollView: undefined,
             trailingScrollView: undefined,
-            autoPipeEvents: true
+            autoPipeEvents: true,
+            layoutAll: true
         });
         this.scrollView.setOptions({
             overscroll: false   // disable overscroll
@@ -163,8 +163,8 @@ define(function (require, exports, module) {
         this.aboutDesk = new AboutUsDesk();
         this.radioDesk = new RadioDesk();
 
-        //this.surfaces.push(this.homeDesk);
-        //this.surfaces.push(this.aboutDesk);
+        this.surfaces.push(this.homeDesk);
+        this.surfaces.push(this.aboutDesk);
         this.surfaces.push(this.radioDesk);
         this.surfaces.push(this.contactMap);
 
