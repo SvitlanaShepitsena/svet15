@@ -8,8 +8,23 @@ define(function (require, exports, module) {
     var Easing = require('famous/transitions/Easing');
     var Modifier = require("famous/core/Modifier");
     var ImageSurface = require('famous/surfaces/ImageSurface');
-
+    /*Require App*/
     var CommonSlideCell = require('views/cell/content/common/CommonSlideCell');
+
+    CommonPageCell.prototype = Object.create(View.prototype);
+    CommonPageCell.prototype.constructor = CommonPageCell;
+
+    CommonPageCell.DEFAULT_OPTIONS = {
+        bg: null,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        lightboxOpts: {
+            inTransform: Transform.translate(300, 0, 0),
+            outTransform: Transform.translate(-500, 0, 0),
+            inTransition: {duration: 500, curve: Easing.outBack},
+            outTransition: {duration: 350, curve: Easing.inQuad}
+        }
+    };
 
     function CommonPageCell() {
         View.apply(this, arguments);
@@ -22,23 +37,6 @@ define(function (require, exports, module) {
         _handleSwipe.call(this);
         _init.call(this);
     }
-
-
-    CommonPageCell.prototype = Object.create(View.prototype);
-    CommonPageCell.prototype.constructor = CommonPageCell;
-
-    CommonPageCell.DEFAULT_OPTIONS = {
-        size: [undefined, undefined],
-        bg: null,
-        width: window.innerWidth,
-        height: window.innerHeight,
-        lightboxOpts: {
-            inTransform: Transform.translate(300, 0, 0),
-            outTransform: Transform.translate(-500, 0, 0),
-            inTransition: {duration: 500, curve: Easing.outBack},
-            outTransition: {duration: 350, curve: Easing.inQuad}
-        }
-    };
 
     function _createSlides() {
         this.views = [];
@@ -55,7 +53,7 @@ define(function (require, exports, module) {
             this.commonSlideCell.pipe(this._eventOutput);
             this.views.push(this.commonSlideCell);
         }
-        if (this.options.folder !== 'radio') {
+        if (this.options.folder !== 'radio' || 'contact') {
 
             this.lightbox = new Lightbox(this.options.lightboxOpts);
             this.rootNode.add(this.lightbox);
@@ -66,8 +64,7 @@ define(function (require, exports, module) {
     }
 
     CommonPageCell.prototype.nextView = function () {
-
-        if (this.options.folder === 'radio') {
+        if (this.options.folder === 'radio' || 'contact') {
             return;
         }
         var currentView = this.views[this.currentIndex];
@@ -88,7 +85,7 @@ define(function (require, exports, module) {
 
     CommonPageCell.prototype.prevView = function () {
 
-        if (this.options.folder === 'radio') {
+        if (this.options.folder === 'radio' || 'contact') {
             return;
         }
         var currentView = this.views[this.currentIndex];
@@ -111,7 +108,7 @@ define(function (require, exports, module) {
         this.currentIndex = 0;
         this.currentView = this.views[this.currentIndex];
 
-        if (this.options.folder !== 'radio') {
+        if (this.options.folder !== 'radio' || 'contact') {
             this.lightbox.show(this.currentView);
         }
     }

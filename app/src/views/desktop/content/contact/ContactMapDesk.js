@@ -96,7 +96,7 @@ define(function (require, exports, module) {
             /*Append Information Panel to the map*/
             var infoPanel = el.getElementsByTagName('section')[0];
             mapDomEl.appendChild(infoPanel);
-            //console.log(mapDomEl);
+            console.log(mapDomEl);
             mapDomEl.style.visibility = "hidden";
             mapDomEl.style.visibility = "visible";
 
