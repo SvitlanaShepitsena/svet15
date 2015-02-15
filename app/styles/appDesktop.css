@@ -1,5 +1,6 @@
 .body-desktop {
-  background-color: #e9e5dc;
+  background-image: url("/img/bg/pattern-sepia.jpg");
+  background-repeat: repeat;
 }
 .h1-desk {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
