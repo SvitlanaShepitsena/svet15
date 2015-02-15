@@ -131,7 +131,6 @@ define(function (require, exports, module) {
             layoutOptions: {
                 spacing: window.sv.sizing.headerHeight / 2.5
             },
-
             scrollSync: {
                 scale: 0.1
             },
@@ -162,8 +161,8 @@ define(function (require, exports, module) {
         this.aboutDesk = new AboutUsDesk();
         this.radioDesk = new RadioDesk();
 
-        this.surfaces.push(this.homeDesk);
-        this.surfaces.push(this.aboutDesk);
+        //this.surfaces.push(this.homeDesk);
+        //this.surfaces.push(this.aboutDesk);
         this.surfaces.push(this.radioDesk);
         this.surfaces.push(this.contactMap);
 

@@ -100,7 +100,11 @@ window.sv = {
             footerColor: '#000000',
             aboutDesk: '#FFFAF0', radioDesk: '#FFFBE3',
             contactDesk: '#FFFAF0',
-            playerBg: 'black'
+            player: {
+                playerBg: 'black',
+                playerNavBtn: 'floralwhite',
+                playerBorder: '#595959'
+            }
         }
     },
 

@@ -23,20 +23,13 @@ define(function (require, exports, module) {
         }
     };
 
-    RadioProgram.prototype.setPerspective = function (perpective) {
-        this.zTrans.halt();
-        this.zTrans.set(perpective, {duration: 500});
-        this.playerBgSurf.setOptions({
-            properties: {
-                zIndex: perpective
-            }
-        });
-        this.contentSurf.setOptions({
-            properties: {
-                zIndex: perpective
-            }
-        });
-    };
+    function RadioProgram() {
+        View.apply(this, arguments);
+        _init.call(this);
+        _playerBg.call(this);
+        _programContent.call(this);
+        _radioProgramContent.call(this);
+    }
 
     function _init() {
         this.zTrans = new Transitionable(0);
@@ -48,21 +41,27 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.centerModifier);
     }
 
+    RadioProgram.prototype.setPerspective = function (perpective) {
+        this.zTrans.halt();
+        this.zTrans.set(perpective, {duration: 500});
+        this.playerBgSurf.setOptions({
+            properties: {
+                zIndex: perpective
+            }
+        });
+        this.programDateSurf.setOptions({
+            properties: {
+                zIndex: perpective
+            }
+        });
+    };
 
-    function RadioProgram() {
-        View.apply(this, arguments);
-        _init.call(this);
-        _bg.call(this);
-        _programContent.call(this);
-        _radioProgramContent.call(this);
-    }
 
-    function _bg() {
-        this.bgMod = new Modifier({
+    function _playerBg() {
+        this.playerBgMod = new Modifier({
             align: [0.5, 0.5],
             origin: [0.5, 0.5],
-            opacity: this.options.opacity,
-            transform: Transform.translate(0, 0, this.zTrans.get())
+            opacity: this.options.opacity
         });
         this.playerBgSurf = new Surface({
             properties: {
@@ -70,40 +69,36 @@ define(function (require, exports, module) {
                 borderStyle: 'groove',
                 borderRadius: '2px',
                 borderWidth: '3px',
-                borderColor: '#595959',
+                borderColor: this.options.borderColor,
                 backgroundColor: this.options.bg
             }
         });
-        this.rootNode.add(this.bgMod).add(this.playerBgSurf);
-
         this.playerBgSurf.pipe(this._eventOutput);
+        this.rootNode.add(this.playerBgMod).add(this.playerBgSurf);
     }
 
     function _radioProgramContent() {
-
-        this.contentMod = new Modifier({
-            size: [300, 50],
+        this.programDateMod = new Modifier({
+            size: [undefined, true],
             align: [0.5, 0.1],
             origin: [0.5, 0.1]
         });
-
-        this.contentSurf = new Surface({
+        this.programDateSurf = new Surface({
             content: this.options.date,
             properties: this.options.contentProps
-
         });
-        this.rootNode.add(this.contentMod).add(this.contentSurf);
+        this.rootNode.add(this.programDateMod).add(this.programDateSurf);
     }
 
     function _programContent() {
         var content = 'img/audio/' + this.options.mp3;
-        this.progSurface = new VideoExtraSurface({
+        this.programSurf = new VideoExtraSurface({
             autoplay: false,
             controls: true
         });
-        this.progSurface.setContent(content);
-        this.rootNode.add(this.progSurface);
-        this.progSurface.pipe(this._eventOutput);
+        this.programSurf.setContent(content);
+        this.rootNode.add(this.programSurf);
+        this.programSurf.pipe(this._eventOutput);
     }
 
     module.exports = RadioProgram;
