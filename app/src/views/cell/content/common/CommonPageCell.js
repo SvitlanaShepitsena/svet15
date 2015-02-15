@@ -67,7 +67,7 @@ define(function (require, exports, module) {
 
     CommonPageCell.prototype.nextView = function () {
 
-        if (this.options.folder === 'radio') {
+        if (this.options.folder === 'radio' || this.options.folder === 'contactus') {
             return;
         }
         var currentView = this.views[this.currentIndex];
@@ -88,7 +88,7 @@ define(function (require, exports, module) {
 
     CommonPageCell.prototype.prevView = function () {
 
-        if (this.options.folder === 'radio') {
+        if (this.options.folder === 'radio' || this.options.folder === 'contactus') {
             return;
         }
         var currentView = this.views[this.currentIndex];
