@@ -24,6 +24,7 @@ define(function (require, exports, module) {
     var ContactMap = require('dviews/content/contact/ContactMap');
     var StateModifier = require('famous/modifiers/StateModifier');
 
+    var Drag = require('famous/physics/forces/Drag');
     ScrollDesk.prototype = Object.create(View.prototype);
     ScrollDesk.prototype.constructor = ScrollDesk;
 
@@ -74,12 +75,24 @@ define(function (require, exports, module) {
         this.secondMotoShown = true;
 
         var absPos = 0;
+        var scrollFunc;
+        this.sync.on('start', function () {
+            scrollFunc = Timer.every(function () {
+                console.log('Run');
+            }.bind(this), 1);
+
+        }.bind(this));
 
         this.sync.on('update', function (data) {
 
             absPos = absPos + data.position > 0 ? 0 : absPos + data.position;
 
             _startAnimation.call(this, Math.abs(absPos));
+        }.bind(this));
+        this.sync.on('end', function (data) {
+
+            Timer.clear(scrollFunc);
+
         }.bind(this));
 
     }
@@ -133,10 +146,10 @@ define(function (require, exports, module) {
             },
 
             scrollSync: {
-                scale: 0.1
+                scale: 0.02
             },
             paginated: false,
-            paginationMode: ScrollController.PaginationMode.PAGE,
+            paginationMode: ScrollController.PaginationMode.SCROLL,
             paginationEnergyThresshold: 0.01,
             direction: 1,       // 0 = X, 1 = Y, undefined = use default from layout
             alignment: 0,               // 0 = top/left, 1 = bottom/right
@@ -148,7 +161,22 @@ define(function (require, exports, module) {
             leadingScrollView: undefined,
             trailingScrollView: undefined,
             autoPipeEvents: true,
-            layoutAll: true
+            layoutAll: true,
+            scrollDrag: {
+                forceFunction: Drag.FORCE_FUNCTIONS.QUADRATIC,
+                strength: 0.0001,
+                disabled: false
+            },
+            scrollFriction: {
+                forceFunction: Drag.FORCE_FUNCTIONS.LINEAR,
+                strength: 0.000025,
+                disabled: false
+            },
+            scrollSpring: {
+                dampingRatio: 0.2,
+                period: 150
+            }
+
         });
         this.scrollView.setOptions({
             overscroll: false   // disable overscroll
