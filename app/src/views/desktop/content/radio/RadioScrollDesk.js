@@ -3,14 +3,13 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
-    var ContainerSurface = require("famous/surfaces/ContainerSurface");
-    var FlexScrollView = require('flex/FlexScrollView');
 
-    /*Require App*/
+    var ContainerSurface = require("famous/surfaces/ContainerSurface");
+
+
     var RadioProgram = require('dviews/content/radio/RadioProgram');
 
-
-    RadioScrollDesk.DEFAULT_OPTIONS = {};
+    var FlexScrollView = require('flex/FlexScrollView');
 
     function RadioScrollDesk() {
         View.apply(this, arguments);
@@ -126,14 +125,17 @@ define(function (require, exports, module) {
                     program.setPerspective(-Math.abs(activePage - i) * this.perspectiveStep);
 
                 } catch (e) {
+
                 }
             }
         }.bind(this));
     }
 
+
     RadioScrollDesk.prototype = Object.create(View.prototype);
     RadioScrollDesk.prototype.constructor = RadioScrollDesk;
 
+    RadioScrollDesk.DEFAULT_OPTIONS = {};
 
     module.exports = RadioScrollDesk;
 });

@@ -219,13 +219,13 @@ define(function(require, exports, module) {
         },
         scrollDrag: {
             forceFunction: Drag.FORCE_FUNCTIONS.QUADRATIC,
-            strength: 0.1,
-            disabled: false
+            strength: 0.001,
+            disabled: true
         },
         scrollFriction: {
             forceFunction: Drag.FORCE_FUNCTIONS.LINEAR,
             strength: 0.0025,
-            disabled: true
+            disabled: false
         },
         scrollSpring: {
             dampingRatio: 1.0,
