@@ -7,6 +7,7 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
     var Flipper = require('famous/views/Flipper');
 
+    var RadioScrollCell = require('cviews/content/radio/RadioScrollCell');
 
     function HomePart() {
         View.apply(this, arguments);
@@ -81,8 +82,13 @@ define(function (require, exports, module) {
             }
         });
         this.flipSurf.pipe(this._eventOutput);
+        if (this.options.flipIcon === 'radio') {
+            this.radioScrollCell = new RadioScrollCell();
+            this.flipper.setBack(this.radioScrollCell);
 
-        this.flipper.setBack(this.flipSurf);
+        } else {
+            this.flipper.setBack(this.flipSurf);
+        }
 
         this.renderNode = new RenderNode();
         this.flipper.setFront(this.renderNode);

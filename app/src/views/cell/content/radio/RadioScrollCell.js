@@ -84,7 +84,7 @@ define(function (require, exports, module) {
 
         this.surfacesCont = new ContainerSurface({
             properties: {
-                overflow: 'visible',
+                overflow: 'hidden',
                 perspective: '1000px'
             }
         });

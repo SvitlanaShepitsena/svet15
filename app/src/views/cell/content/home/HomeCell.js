@@ -15,6 +15,7 @@ define(function (require, exports, module) {
     var flipYellowPages = require('text!cviews/content/home/jade/flipYellowPages.html');
     var flipRadioProgram = require('text!cviews/content/home/jade/flipRadioProgram.html');
 
+
     function HomeCell() {
         View.apply(this, arguments);
 

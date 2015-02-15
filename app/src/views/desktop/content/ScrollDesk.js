@@ -139,7 +139,6 @@ define(function (require, exports, module) {
             paginationEnergyThresshold: 0.01,
             direction: 1,       // 0 = X, 1 = Y, undefined = use default from layout
             alignment: 0,               // 0 = top/left, 1 = bottom/right
-            flow: true,                // allow renderables to flow between layouts when not scrolling
             mouseMove: false,           // allow mouse to hold and move the view
             useContainer: true,        // embeds inside a ContainerSurface for clipping and capturing input events
             visibleItemThresshold: 0.5, // by default, when an item is 50% visible, it is considered visible by `getFirstVisibleItem`
