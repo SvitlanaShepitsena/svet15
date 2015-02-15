@@ -198,12 +198,6 @@ define(function (require, exports, module) {
             var endPoint = _getNormalizedCenter.call(this, mapInfo);
 
 
-            //this.mapView.setPosition(
-            //    endPoint,
-            //    {duration: 500, curve: Easing.outBack}, function () {
-            //       console.log(this.mapView.getFinalPosition());
-            //    }.bind(this)
-            //);
             this.gMap = this.mapView.getMap();
 
             /*********************************

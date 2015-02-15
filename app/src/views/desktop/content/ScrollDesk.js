@@ -69,6 +69,9 @@ define(function (require, exports, module) {
         this.moto2Limit = 175;
         this.logoBackLimit = 40;
 
+        this.mapIconShown = false;
+        this.mapIconLimit = 275;
+
         this.firstMotoShown = true;
         this.secondMotoShown = true;
 
