@@ -20,19 +20,20 @@ define(function (require, exports, module) {
     }
 
     function _init() {
-        this.centerMod = new Modifier({
-            size: [undefined, undefined],
-            align: [0, 0],
-            origin: [0, 0],
-            transform: Transform.translate(0, 0, 0)
-        });
+        this.centerMod = new Modifier({});
         this.rootNode = this.add(this.centerMod);
     }
 
     function _getRaphaelRadioIcon(file) {
         var divDaily = document.createElement('div');
         var paper = Raphael(divDaily, 40, 50);
-        var element = paper.path(file).attr({fill: window.sv.scheme.textDark, stroke: 'none', opacity: '.6'});
+        var element = paper.path(file).attr({
+            fill: 'floralwhite',
+            strokeLinejoin: 'round',
+            strokeMiterlimit: '3',
+            opacity: '.5',
+            strokeOpacity: '.5'
+        });
         element.transform('t5 15, s2');
         this.iconElements.push(element);
         return divDaily;
@@ -46,7 +47,6 @@ define(function (require, exports, module) {
             size: [50, 70],
             align: [0, 0.5],
             origin: [0, 0.5],
-            transform: Transform.translate(0, 0, 0)
         });
         this.backSurf = new Surface({
             content: _getRaphaelRadioIcon.call(this, navBackIcon),
@@ -56,15 +56,14 @@ define(function (require, exports, module) {
         });
 
         this.backSurf.on('click', function () {
-            this.scrollview.goToPreviousPage();
+            this.scrollview.goToNextPage();
         }.bind(this))
 
 
         this.forwardMod = new Modifier({
             size: [50, 70],
             align: [1, 0.5],
-            origin: [1, 0.5],
-            transform: Transform.translate(0, 0, 0)
+            origin: [1, 0.5]
         });
         this.forwartSurf = new Surface({
             content: _getRaphaelRadioIcon.call(this, navForwardIcon),
@@ -73,7 +72,7 @@ define(function (require, exports, module) {
             }
         });
         this.forwartSurf.on('click', function () {
-            this.scrollview.goToNextPage();
+            this.scrollview.goToPreviousPage();
         }.bind(this))
 
         this.rootNode.add(this.forwardMod).add(this.forwartSurf);
@@ -81,22 +80,20 @@ define(function (require, exports, module) {
     }
 
     function _scrollRadio() {
-        var bgLight = window.sv.scheme.lightGrey;
-        var bgDark = window.sv.scheme.darkGrey;
+        var wigetBg = 'black';
 
         var container = new ContainerSurface({
             size: [500, 400],
             properties: {
                 overflow: 'visible',
-                perspective:'1000px'
+                perspective: '1000px'
             }
         });
         var surfaces = [];
         this.scrollview = new FlexScrollView({
-
             //visibleItemThresshold: 0.5, // by default, when an item is 50% visible, it is considered visible by `getFirstVisibleItem`
             direction: 0,
-            paginated:true,
+            paginated: true,
             layoutAll: true       // set to true is you want all renderables layed out/rendered
         });
         container.add(this.scrollview);
@@ -109,24 +106,15 @@ define(function (require, exports, module) {
         for (var i = 4; i < 30; i += 7) {
             var programSurface = new RadioProgram({
                 mp3: '01' + i + '.mp3',
-                bg: n % 2 === 0 ? bgDark : bgLight,
-                date:dates[n - 1]
+                bg: wigetBg,
+                opacity: n % 2 === 0 ? '.8' : '.7',
+                date: '<i class="fa fa-headphones"></i>' + dates[n - 1]
             });
             n++;
             programSurface.pipe(this.scrollview);
             programSurface.pipe(this._eventOutput);
             surfaces.push(programSurface);
         }
-        this.surface = new Surface({
-            size: [300, 200],
-            classes: [],
-            properties: {
-                color: 'white',
-                textAlign: 'center',
-                backgroundColor: '#FA5C4F'
-            }
-        });
-        //surfaces.push(this.surface);
 
         this.rootNode.add(container);
         this.scrollview.goToLastPage();
@@ -137,12 +125,11 @@ define(function (require, exports, module) {
             for (var i = 0; i < surfaces.length; i++) {
                 var program = surfaces[i];
                 try {
-                program.setPerspective(-Math.abs(activePage-i)*this.perspectiveStep);
+                    program.setPerspective(-Math.abs(activePage - i) * this.perspectiveStep);
 
                 } catch (e) {
 
                 }
-
             }
         }.bind(this));
     }
