@@ -34,7 +34,7 @@ define(function (require, exports, module) {
             opacity: '.5',
             strokeOpacity: '.5'
         });
-        element.transform('t5 15, s2');
+        element.transform('t5 15, s1');
         this.iconElements.push(element);
         return divPlayerNav;
     }
@@ -45,8 +45,8 @@ define(function (require, exports, module) {
 
         this.navBackMod = new Modifier({
             size: this.options.navBtnSize,
-            align: [0.1, 0.5],
-            origin: [0.1, 0.5]
+            align: [0, 0.5],
+            origin: [0, 0.5]
         });
         this.navBackSurf = new Surface({
             content: _getRaphaelRadioIcon.call(this, navBackIcon),
@@ -56,8 +56,8 @@ define(function (require, exports, module) {
         });
         this.navForwardMod = new Modifier({
             size: this.options.navBtnSize,
-            align: [.9, 0.5],
-            origin: [.9, 0.5]
+            align: [1, 0.5],
+            origin: [1, 0.5]
         });
         this.navForwardSurf = new Surface({
             content: _getRaphaelRadioIcon.call(this, navForwardIcon),
@@ -106,7 +106,7 @@ define(function (require, exports, module) {
                 bg: window.sv.scheme.player.playerBg,
                 borderColor: window.sv.scheme.player.playerBorder,
                 opacity: n % 2 === 0 ? '.8' : '.7',
-                date: '<i class="fa fa-headphones"></i>' + dates[n - 1]
+                date: '<i class="fa fa-headphones"></i> &nbsp' + dates[n - 1]
             });
             n++;
             this.programPlayer.pipe(this.programsScrollView);
