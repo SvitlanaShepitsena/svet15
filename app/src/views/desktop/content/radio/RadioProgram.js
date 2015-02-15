@@ -59,6 +59,8 @@ define(function (require, exports, module) {
 
     function _bg() {
         this.bgMod = new Modifier({
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5],
             opacity: this.options.opacity,
             transform: Transform.translate(0, 0, this.zTrans.get())
         });

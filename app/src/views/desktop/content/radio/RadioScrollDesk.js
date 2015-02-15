@@ -16,7 +16,7 @@ define(function (require, exports, module) {
         this.iconElements = [];
         _init.call(this);
         _scrollRadio.call(this);
-        _buttonsScroll.call(this);
+        _buttonsNav.call(this);
     }
 
     function _init() {
@@ -25,8 +25,8 @@ define(function (require, exports, module) {
     }
 
     function _getRaphaelRadioIcon(file) {
-        var divDaily = document.createElement('div');
-        var paper = Raphael(divDaily, 40, 50);
+        var divPlayerNav = document.createElement('div');
+        var paper = Raphael(divPlayerNav, 40, 50);
         var element = paper.path(file).attr({
             fill: 'floralwhite',
             strokeLinejoin: 'round',
@@ -36,52 +36,49 @@ define(function (require, exports, module) {
         });
         element.transform('t5 15, s2');
         this.iconElements.push(element);
-        return divDaily;
+        return divPlayerNav;
     }
 
-    function _buttonsScroll() {
+    function _buttonsNav() {
         var navBackIcon = 'M21.871,9.814 15.684,16.001 21.871,22.188 18.335,25.725 8.612,16.001 18.335,6.276z'
         var navForwardIcon = 'M10.129,22.186 16.316,15.999 10.129,9.812 13.665,6.276 23.389,15.999 13.665,25.725z'
 
-        this.backMod = new Modifier({
+        this.navBackMod = new Modifier({
             size: [50, 70],
             align: [0, 0.5],
-            origin: [0, 0.5],
+            origin: [0, 0.5]
         });
-        this.backSurf = new Surface({
+        this.navBackSurf = new Surface({
             content: _getRaphaelRadioIcon.call(this, navBackIcon),
             properties: {
                 cursor: 'pointer'
             }
         });
-
-        this.backSurf.on('click', function () {
-            this.scrollview.goToNextPage();
-        }.bind(this))
-
-
-        this.forwardMod = new Modifier({
+        this.navForwardMod = new Modifier({
             size: [50, 70],
             align: [1, 0.5],
             origin: [1, 0.5]
         });
-        this.forwartSurf = new Surface({
+        this.navForwardSurf = new Surface({
             content: _getRaphaelRadioIcon.call(this, navForwardIcon),
             properties: {
                 cursor: 'pointer'
             }
         });
-        this.forwartSurf.on('click', function () {
+
+        this.navBackSurf.on('click', function () {
+            this.scrollview.goToNextPage();
+        }.bind(this))
+
+        this.navForwardSurf.on('click', function () {
             this.scrollview.goToPreviousPage();
         }.bind(this))
 
-        this.rootNode.add(this.forwardMod).add(this.forwartSurf);
-        this.rootNode.add(this.backMod).add(this.backSurf);
+        this.rootNode.add(this.navForwardMod).add(this.navForwardSurf);
+        this.rootNode.add(this.navBackMod).add(this.navBackSurf);
     }
 
     function _scrollRadio() {
-        var wigetBg = 'black';
-
         var container = new ContainerSurface({
             size: [500, 400],
             properties: {
@@ -106,7 +103,7 @@ define(function (require, exports, module) {
         for (var i = 4; i < 30; i += 7) {
             var programSurface = new RadioProgram({
                 mp3: '01' + i + '.mp3',
-                bg: wigetBg,
+                bg: window.sv.scheme.playerBg,
                 opacity: n % 2 === 0 ? '.8' : '.7',
                 date: '<i class="fa fa-headphones"></i>' + dates[n - 1]
             });
