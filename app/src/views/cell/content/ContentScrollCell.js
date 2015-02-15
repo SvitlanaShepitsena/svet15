@@ -85,8 +85,8 @@ define(function (require, exports, module) {
         this.radioCell.pipe(this.options.sync);
         this.contactUsCell.pipe(this.options.sync);
 
-        //this.contents.push(this.homeCell);
-        //this.contents.push(this.aboutUsCell);
+        this.contents.push(this.homeCell);
+        this.contents.push(this.aboutUsCell);
         this.contents.push(this.radioCell);
         this.contents.push(this.contactUsCell);
         this.scrollview.sequenceFrom(this.contents);

@@ -7,6 +7,8 @@ define(function (require, exports, module) {
     /*Require App*/
     var VideoExtraSurfaceCell = require('cviews/content/radio/VideoExtraSurfaceCell');
 
+    var VideoExtraSurface = require('cviews/content/radio/VideoExtraSurface');
+
     RadioProgramCell.prototype = Object.create(View.prototype);
     RadioProgramCell.prototype.constructor = RadioProgramCell;
 
@@ -28,8 +30,90 @@ define(function (require, exports, module) {
         _init.call(this);
         _playerBg.call(this);
         _programContent.call(this);
+
+
         _radioProgramContent.call(this);
+        _playStop.call(this);
     }
+        function _playStop() {
+            this.playTrans = new Transitionable(1);
+            this.stopTrans = new Transitionable(0);
+
+            this.playMod= new Modifier({
+                size:[38,38],
+                align: [0.5, 0.5],
+                origin: [0.5, 0.75],
+                opacity: function () {
+                   return this.playTrans.get() ;
+                }.bind(this)
+            });
+
+
+            var playDiv = document.createElement('div');
+            var paper = Raphael(playDiv, 50,50);
+            var path = paper.path("M6.684,25.682L24.316,15.5L6.684,5.318V25.682z").attr({
+                fill: sv.scheme.sectionColor,
+                stroke:'none'
+            });
+            path.transform('t10,10s2');
+
+            var stopDiv = document.createElement('div');
+            var stopPaper = Raphael(stopDiv, 50,50);
+            var stopPath = stopPaper.path("M5.5,5.5h20v20h-20z").attr({
+                fill: sv.scheme.sectionColor,
+                stroke:'none'
+            });
+            stopPath.transform('t10,10s2');
+
+            this.playSurf = new Surface({
+                content: playDiv,
+                properties: {
+                    cursor: 'pointer',
+                    zIndex:10
+                }
+            });
+
+            this.stopMod= new Modifier({
+                size:[38,38],
+                align: [0.5, 0.5],
+                origin: [0.5, 0.75],
+                opacity: function () {
+                   return this.stopTrans.get() ;
+                }.bind(this)
+            });
+
+            this.stopSurf = new Surface({
+                content: stopDiv,
+                properties: {
+                    cursor: 'pointer',
+                    zIndex:0
+                }
+            });
+
+            this.playSurf.on('click', function () {
+                this.programSurf.play();
+                this.playSurf.setOptions({properties:{zIndex:0}});
+                this.stopSurf.setOptions({properties:{zIndex:10}});
+                this.programSurf.setOptions({zIndex:0});
+
+                this.playTrans.set(0, {duration:500});
+                this.stopTrans.set(1, {duration:500});
+            }.bind(this));
+
+            this.stopSurf.on('click', function () {
+                this.programSurf.pause();
+
+                this.playSurf.setOptions({properties:{zIndex:10}});
+                this.stopSurf.setOptions({properties:{zIndex:0}});
+
+                this.playTrans.set(1, {duration:500});
+                this.stopTrans.set(0, {duration:500});
+            }.bind(this));
+
+            this.rootNode.add(this.stopMod).add(this.stopSurf);
+            this.rootNode.add(this.playMod).add(this.playSurf);
+
+        }
 
     function _init() {
         this.zTrans = new Transitionable(0);
@@ -96,6 +180,8 @@ define(function (require, exports, module) {
             autoplay: false,
             controls: true
         });
+
+
         this.programSurf.setContent(content);
         this.rootNode.add(this.programSurf);
         this.programSurf.pipe(this._eventOutput);

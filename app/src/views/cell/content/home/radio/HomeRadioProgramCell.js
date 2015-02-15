@@ -4,23 +4,23 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
     var Transitionable = require('famous/transitions/Transitionable');
+    /*Require App*/
+    var VideoExtraSurfaceCell = require('cviews/content/radio/VideoExtraSurfaceCell');
 
-    var VideoExtraSurface = require('cviews/content/home/radio/VideoExtraSurface');
 
     RadioProgramCell.prototype = Object.create(View.prototype);
     RadioProgramCell.prototype.constructor = RadioProgramCell;
 
     RadioProgramCell.DEFAULT_OPTIONS = {
         contentProps: {
-            fontSize: "80%",
+            fontSize: "140%",
             opacity: '.7',
             color: 'floralwhite',
             textShadow: '1px 1px 1px black',
-            padding: '5px',
-            letterSpacing: '1px',
+            padding: '15px',
+            letterSpacing: '10px',
             textAlign: 'center',
-            fontWeight: 'bold',
-            cursor: 'pointer'
+            fontWeight: 'bold'
         }
     };
 
@@ -34,61 +34,85 @@ define(function (require, exports, module) {
         _radioProgramContent.call(this);
         _playStop.call(this);
     }
-        function _playStop() {
-            this.playTrans = new Transitionable(1);
-            this.stopTrans = new Transitionable(0);
+    function _playStop() {
+        this.playTrans = new Transitionable(1);
+        this.stopTrans = new Transitionable(0);
 
-            this.playMod= new Modifier({
-                align: [0.5, 0.5],
-                origin: [0.5, 0.5],
-                size: [undefined, undefined],
-                opacity: function () {
-                   return this.playTrans.get() ;
-                }.bind(this)
-            });
+        this.playMod= new Modifier({
+            size:[38,38],
+            align: [0.5, 0.5],
+            origin: [0.5, 0.75],
+            opacity: function () {
+                return this.playTrans.get() ;
+            }.bind(this)
+        });
 
-            this.playSurf = new Surface({
-                size: [100, 20],
-                content: 'Play',
-                properties: {
-                    backgroundColor: 'grey',
-                    cursor: 'pointer'
-                }
-            });
-            this.stopMod= new Modifier({
-                align: [0.5, 0.5],
-                origin: [0.5, 0.5],
-                size: [undefined, undefined],
-                opacity: function () {
-                   return this.stopTrans.get() ;
-                }.bind(this)
-            });
 
-            this.stopSurf = new Surface({
-                size: [100, 20],
-                content: 'Stop',
-                properties: {
-                    backgroundColor: 'grey',
-                    cursor: 'pointer'
-                }
-            });
+        var playDiv = document.createElement('div');
+        var paper = Raphael(playDiv, 50,50);
+        var path = paper.path("M6.684,25.682L24.316,15.5L6.684,5.318V25.682z").attr({
+            fill: sv.scheme.sectionColor,
+            stroke:'none'
+        });
+        path.transform('t10,10s2');
 
-            this.playSurf.on('click', function () {
-                this.programSurf.play();
-                this.playTrans.set(0, {duration:500});
-                this.stopTrans.set(1, {duration:500});
-            }.bind(this));
+        var stopDiv = document.createElement('div');
+        var stopPaper = Raphael(stopDiv, 50,50);
+        var stopPath = stopPaper.path("M5.5,5.5h20v20h-20z").attr({
+            fill: sv.scheme.sectionColor,
+            stroke:'none'
+        });
+        stopPath.transform('t10,10s2');
 
-            this.stopSurf.on('click', function () {
-                this.programSurf.pause();
-                this.playTrans.set(1, {duration:500});
-                this.stopTrans.set(0, {duration:500});
-            }.bind(this));
+        this.playSurf = new Surface({
+            content: playDiv,
+            properties: {
+                cursor: 'pointer',
+                zIndex:10
+            }
+        });
 
-            this.rootNode.add(this.stopMod).add(this.stopSurf);
-            this.rootNode.add(this.playMod).add(this.playSurf);
+        this.stopMod= new Modifier({
+            size:[38,38],
+            align: [0.5, 0.5],
+            origin: [0.5, 0.75],
+            opacity: function () {
+                return this.stopTrans.get() ;
+            }.bind(this)
+        });
 
-        }
+        this.stopSurf = new Surface({
+            content: stopDiv,
+            properties: {
+                cursor: 'pointer',
+                zIndex:0
+            }
+        });
+
+        this.playSurf.on('click', function () {
+            this.programSurf.play();
+            this.playSurf.setOptions({properties:{zIndex:0}});
+            this.stopSurf.setOptions({properties:{zIndex:10}});
+            this.programSurf.setOptions({zIndex:0});
+
+            this.playTrans.set(0, {duration:500});
+            this.stopTrans.set(1, {duration:500});
+        }.bind(this));
+
+        this.stopSurf.on('click', function () {
+            this.programSurf.pause();
+
+            this.playSurf.setOptions({properties:{zIndex:10}});
+            this.stopSurf.setOptions({properties:{zIndex:0}});
+
+            this.playTrans.set(1, {duration:500});
+            this.stopTrans.set(0, {duration:500});
+        }.bind(this));
+
+        this.rootNode.add(this.stopMod).add(this.stopSurf);
+        this.rootNode.add(this.playMod).add(this.playSurf);
+
+    }
 
     function _init() {
         this.zTrans = new Transitionable(0);
@@ -139,20 +163,19 @@ define(function (require, exports, module) {
     function _radioProgramContent() {
         this.programDateMod = new Modifier({
             size: [undefined, true],
-            align: [0.5, 0],
-            origin: [0.5, 0]
+            align: [0.5, 0.1],
+            origin: [0.5, 0.1]
         });
         this.programDateSurf = new Surface({
             content: this.options.date,
             properties: this.options.contentProps
         });
-        this.programDateSurf.pipe(this._eventOutput);
         this.rootNode.add(this.programDateMod).add(this.programDateSurf);
     }
 
     function _programContent() {
         var content = 'img/audio/' + this.options.mp3;
-        this.programSurf = new VideoExtraSurface({
+        this.programSurf = new VideoExtraSurfaceCell({
             autoplay: false,
             controls: true
         });
@@ -160,9 +183,7 @@ define(function (require, exports, module) {
 
         this.programSurf.setContent(content);
         this.rootNode.add(this.programSurf);
-
-
-            this.programSurf.pipe(this._eventOutput);
+        this.programSurf.pipe(this._eventOutput);
     }
 
     module.exports = RadioProgramCell;
