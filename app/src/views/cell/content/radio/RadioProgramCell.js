@@ -39,48 +39,72 @@ define(function (require, exports, module) {
             this.stopTrans = new Transitionable(0);
 
             this.playMod= new Modifier({
+                size:[38,38],
                 align: [0.5, 0.5],
-                origin: [0.5, 0.5],
-                size: [undefined, undefined],
+                origin: [0.5, 0.75],
                 opacity: function () {
                    return this.playTrans.get() ;
                 }.bind(this)
             });
 
+
+            var playDiv = document.createElement('div');
+            var paper = Raphael(playDiv, 50,50);
+            var path = paper.path("M6.684,25.682L24.316,15.5L6.684,5.318V25.682z").attr({
+                fill: sv.scheme.sectionColor,
+                stroke:'none'
+            });
+            path.transform('t10,10s2');
+
+            var stopDiv = document.createElement('div');
+            var stopPaper = Raphael(stopDiv, 50,50);
+            var stopPath = stopPaper.path("M5.5,5.5h20v20h-20z").attr({
+                fill: sv.scheme.sectionColor,
+                stroke:'none'
+            });
+            stopPath.transform('t10,10s2');
+
             this.playSurf = new Surface({
-                size: [100, 20],
-                content: 'Play',
+                content: playDiv,
                 properties: {
-                    backgroundColor: 'grey',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    zIndex:10
                 }
             });
+
             this.stopMod= new Modifier({
+                size:[38,38],
                 align: [0.5, 0.5],
-                origin: [0.5, 0.5],
-                size: [undefined, undefined],
+                origin: [0.5, 0.75],
                 opacity: function () {
                    return this.stopTrans.get() ;
                 }.bind(this)
             });
 
             this.stopSurf = new Surface({
-                size: [100, 20],
-                content: 'Stop',
+                content: stopDiv,
                 properties: {
-                    backgroundColor: 'grey',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    zIndex:0
                 }
             });
 
             this.playSurf.on('click', function () {
                 this.programSurf.play();
+                this.playSurf.setOptions({properties:{zIndex:0}});
+                this.stopSurf.setOptions({properties:{zIndex:10}});
+                this.programSurf.setOptions({zIndex:0});
+
                 this.playTrans.set(0, {duration:500});
                 this.stopTrans.set(1, {duration:500});
             }.bind(this));
 
             this.stopSurf.on('click', function () {
                 this.programSurf.pause();
+
+                this.playSurf.setOptions({properties:{zIndex:10}});
+                this.stopSurf.setOptions({properties:{zIndex:0}});
+
                 this.playTrans.set(1, {duration:500});
                 this.stopTrans.set(0, {duration:500});
             }.bind(this));
