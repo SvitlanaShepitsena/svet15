@@ -45,8 +45,8 @@ define(function (require, exports, module) {
 
         this.navBackMod = new Modifier({
             size: this.options.navBtnSize,
-            align: [0, 0.5],
-            origin: [0, 0.5]
+            align: [0.1, 0.5],
+            origin: [0.1, 0.5]
         });
         this.navBackSurf = new Surface({
             content: _getRaphaelRadioIcon.call(this, navBackIcon),
@@ -56,8 +56,8 @@ define(function (require, exports, module) {
         });
         this.navForwardMod = new Modifier({
             size: this.options.navBtnSize,
-            align: [1, 0.5],
-            origin: [1, 0.5]
+            align: [.9, 0.5],
+            origin: [.9, 0.5]
         });
         this.navForwardSurf = new Surface({
             content: _getRaphaelRadioIcon.call(this, navForwardIcon),

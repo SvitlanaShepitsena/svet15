@@ -29,26 +29,28 @@ define(function (require, exports, module) {
         this.viewMod = new Modifier({
             //size: [undefined, window.sv.sizing.viewHeight]
         });
-        this.mapSurface = new Surface({
+        this.viewSurf = new Surface({
             properties: this.options.viewProps
         });
 
-        this.mapSurface.pipe(this._eventOutput);
+        this.viewSurf.pipe(this._eventOutput);
         this.rootNode = this.add(this.viewMod);
-        this.rootNode.add(this.mapSurface);
+        this.rootNode.add(this.viewSurf);
 
         _svRadio.call(this);
         _scrollPrograms.call(this);
     }
 
     function _svRadio() {
-        this.radioMod = new Modifier({});
-        this.radioSurf = new Surface({
+        this.viewHeaderMod = new Modifier({
+            size: [undefined, true]
+        });
+        this.viewHeaderSurf = new Surface({
             content: radioDesk,
             properties: this.options.radioProps
         });
-        this.radioSurf.pipe(this._eventOutput);
-        this.rootNode.add(this.radioMod).add(this.radioSurf);
+        this.viewHeaderSurf.pipe(this._eventOutput);
+        this.rootNode.add(this.viewHeaderMod).add(this.viewHeaderSurf);
     }
 
     function _scrollPrograms() {
@@ -60,5 +62,6 @@ define(function (require, exports, module) {
         this.radioScrollDesk = new RadioScrollDesk();
         this.rootNode.add(this.scrollMod).add(this.radioScrollDesk);
     }
+
     module.exports = RadioDesk;
 });
