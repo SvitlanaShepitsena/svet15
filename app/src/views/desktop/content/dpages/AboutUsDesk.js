@@ -30,7 +30,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         this.viwMod = new Modifier({
-            size: [undefined, window.sv.sizing.viewHeight]
+            //size: [undefined, window.sv.sizing.viewHeight]
         });
         this.bgSurf = new Surface({
             properties: this.options.viewProps

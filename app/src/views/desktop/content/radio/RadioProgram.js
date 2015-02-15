@@ -7,54 +7,40 @@ define(function (require, exports, module) {
 
     var VideoExtraSurface = require('dviews/content/radio/VideoExtraSurface');
 
-
     RadioProgram.prototype = Object.create(View.prototype);
     RadioProgram.prototype.constructor = RadioProgram;
 
-
-    RadioProgram.prototype.setPerspective = function (perpective) {
-        this.zTrans.halt();
-        this.zTrans.set(perpective, {duration: 400});
-
-        this.bgSurface.setOptions({
-            properties:{
-                zIndex:  perpective
-            }
-        });
-        this.contentSurf.setOptions({
-            properties:{
-                zIndex:  perpective
-            }
-        });
-
-    };
-
     RadioProgram.DEFAULT_OPTIONS = {
         contentProps: {
-            fontSize: "20px",
+            fontSize: "140%",
+            opacity: '.7',
+            color: 'floralwhite',
+            textShadow: '1px 1px 1px black',
             padding: '15px',
             letterSpacing: '10px',
-            fontFamily: "Open Sans Condensed",
             textAlign: 'center',
-            fontWeight: 'bold',
-            color: window.sv.scheme.textDark
+            fontWeight: 'bold'
         }
     };
 
-    function RadioProgram() {
-        View.apply(this, arguments);
-        _init.call(this);
-        _bg.call(this);
-        _programContent.call(this);
-        _playStop.call(this);
-        _radioProgramContent.call(this);
-    }
+    RadioProgram.prototype.setPerspective = function (perpective) {
+        this.zTrans.halt();
+        this.zTrans.set(perpective, {duration: 500});
+        this.playerBgSurf.setOptions({
+            properties: {
+                zIndex: perpective
+            }
+        });
+        this.contentSurf.setOptions({
+            properties: {
+                zIndex: perpective
+            }
+        });
+    };
 
     function _init() {
         this.zTrans = new Transitionable(0);
         this.centerModifier = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
             transform: function () {
                 return Transform.translate(0, 0, this.zTrans.get());
             }.bind(this)
@@ -63,45 +49,44 @@ define(function (require, exports, module) {
     }
 
 
-    function _playStop() {
+    function RadioProgram() {
+        View.apply(this, arguments);
+        _init.call(this);
+        _bg.call(this);
+        _programContent.call(this);
+        _radioProgramContent.call(this);
     }
 
     function _bg() {
         this.bgMod = new Modifier({
-            align: [0, 0],
-            origin: [0, 0],
+            opacity: this.options.opacity,
             transform: Transform.translate(0, 0, this.zTrans.get())
         });
-        this.bgSurface = new Surface({
-            content: '',
-            classes: [],
+        this.playerBgSurf = new Surface({
             properties: {
-                color: 'white',
                 textAlign: 'center',
                 borderStyle: 'groove',
-                borderRadius: '9px',
+                borderRadius: '2px',
                 borderWidth: '3px',
                 borderColor: '#595959',
                 backgroundColor: this.options.bg
             }
         });
-        this.rootNode.add(this.bgMod).add(this.bgSurface);
+        this.rootNode.add(this.bgMod).add(this.playerBgSurf);
 
-        this.bgSurface.pipe(this._eventOutput);
+        this.playerBgSurf.pipe(this._eventOutput);
     }
 
     function _radioProgramContent() {
 
         this.contentMod = new Modifier({
             size: [300, 50],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
-            transform: Transform.translate(0, 30, 0)
+            align: [0.5, 0.1],
+            origin: [0.5, 0.1]
         });
 
         this.contentSurf = new Surface({
             content: this.options.date,
-            classes: ['panel', 'panel-default'],
             properties: this.options.contentProps
 
         });
@@ -118,7 +103,6 @@ define(function (require, exports, module) {
         this.rootNode.add(this.progSurface);
         this.progSurface.pipe(this._eventOutput);
     }
-
 
     module.exports = RadioProgram;
 });

@@ -27,7 +27,7 @@ define(function (require, exports, module) {
         View.apply(this, arguments);
 
         this.viewMod = new Modifier({
-            size: [undefined, window.sv.sizing.viewHeight]
+            //size: [undefined, window.sv.sizing.viewHeight]
         });
         this.mapSurface = new Surface({
             properties: this.options.viewProps
@@ -41,26 +41,24 @@ define(function (require, exports, module) {
         _scrollPrograms.call(this);
     }
 
+    function _svRadio() {
+        this.radioMod = new Modifier({});
+        this.radioSurf = new Surface({
+            content: radioDesk,
+            properties: this.options.radioProps
+        });
+        this.radioSurf.pipe(this._eventOutput);
+        this.rootNode.add(this.radioMod).add(this.radioSurf);
+    }
+
     function _scrollPrograms() {
         this.scrollMod = new Modifier({
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5],
             size: [500, 400],
-            transform: Transform.translate(0, 90, 0)
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5]
         });
         this.radioScrollDesk = new RadioScrollDesk();
         this.rootNode.add(this.scrollMod).add(this.radioScrollDesk);
     }
-
-    function _svRadio() {
-        this.radivoMod = new Modifier({});
-        this.radivoSurf = new Surface({
-            content: radioDesk,
-            properties: this.options.radioProps
-        });
-        this.radivoSurf.pipe(this._eventOutput);
-        this.rootNode.add(this.radivoMod).add(this.radivoSurf);
-    }
-
     module.exports = RadioDesk;
 });
