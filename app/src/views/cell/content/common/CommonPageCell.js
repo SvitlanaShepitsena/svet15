@@ -55,11 +55,21 @@ define(function (require, exports, module) {
             this.commonSlideCell.pipe(this._eventOutput);
             this.views.push(this.commonSlideCell);
         }
-        this.lightbox = new Lightbox(this.options.lightboxOpts);
-        this.rootNode.add(this.lightbox);
+        if (this.options.folder !== 'radio') {
+
+            this.lightbox = new Lightbox(this.options.lightboxOpts);
+            this.rootNode.add(this.lightbox);
+        } else {
+
+            this.rootNode.add(this.commonSlideCell);
+        }
     }
 
     CommonPageCell.prototype.nextView = function () {
+
+        if (this.options.folder === 'radio') {
+            return;
+        }
         var currentView = this.views[this.currentIndex];
         var nextIndex = (this.currentIndex === this.views.length - 1) ? 0 : this.currentIndex + 1;
         var nextView = this.views[nextIndex];
@@ -77,6 +87,10 @@ define(function (require, exports, module) {
     }
 
     CommonPageCell.prototype.prevView = function () {
+
+        if (this.options.folder === 'radio') {
+            return;
+        }
         var currentView = this.views[this.currentIndex];
         var prevIndex = (this.currentIndex === 0) ? this.views.length - 1 : this.currentIndex - 1;
         var prevView = this.views[prevIndex];
@@ -96,7 +110,10 @@ define(function (require, exports, module) {
     function _init() {
         this.currentIndex = 0;
         this.currentView = this.views[this.currentIndex];
-        this.lightbox.show(this.currentView);
+
+        if (this.options.folder !== 'radio') {
+            this.lightbox.show(this.currentView);
+        }
     }
 
     function _handleSwipe() {
