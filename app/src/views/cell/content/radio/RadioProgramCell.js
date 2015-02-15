@@ -7,7 +7,6 @@ define(function (require, exports, module) {
     /*Require App*/
     var VideoExtraSurfaceCell = require('cviews/content/radio/VideoExtraSurfaceCell');
 
-    var VideoExtraSurface = require('cviews/content/radio/VideoExtraSurface');
 
     RadioProgramCell.prototype = Object.create(View.prototype);
     RadioProgramCell.prototype.constructor = RadioProgramCell;
