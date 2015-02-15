@@ -20,7 +20,7 @@ define(function (require, exports, module) {
             letterSpacing: '10px',
             textAlign: 'center',
             fontWeight: 'bold',
-            cursor:'pointer'
+            cursor: 'pointer'
         }
     };
 
@@ -29,8 +29,66 @@ define(function (require, exports, module) {
         _init.call(this);
         _playerBg.call(this);
         _programContent.call(this);
+
+
         _radioProgramContent.call(this);
+        _playStop.call(this);
     }
+        function _playStop() {
+            this.playTrans = new Transitionable(1);
+            this.stopTrans = new Transitionable(0);
+
+            this.playMod= new Modifier({
+                align: [0.5, 0.5],
+                origin: [0.5, 0.5],
+                size: [undefined, undefined],
+                opacity: function () {
+                   return this.playTrans.get() ;
+                }.bind(this)
+            });
+
+            this.playSurf = new Surface({
+                size: [100, 20],
+                content: 'Play',
+                properties: {
+                    backgroundColor: 'grey',
+                    cursor: 'pointer'
+                }
+            });
+            this.stopMod= new Modifier({
+                align: [0.5, 0.5],
+                origin: [0.5, 0.5],
+                size: [undefined, undefined],
+                opacity: function () {
+                   return this.stopTrans.get() ;
+                }.bind(this)
+            });
+
+            this.stopSurf = new Surface({
+                size: [100, 20],
+                content: 'Stop',
+                properties: {
+                    backgroundColor: 'grey',
+                    cursor: 'pointer'
+                }
+            });
+
+            this.playSurf.on('click', function () {
+                this.programSurf.play();
+                this.playTrans.set(0, {duration:500});
+                this.stopTrans.set(1, {duration:500});
+            }.bind(this));
+
+            this.stopSurf.on('click', function () {
+                this.programSurf.pause();
+                this.playTrans.set(1, {duration:500});
+                this.stopTrans.set(0, {duration:500});
+            }.bind(this));
+
+            this.rootNode.add(this.stopMod).add(this.stopSurf);
+            this.rootNode.add(this.playMod).add(this.playSurf);
+
+        }
 
     function _init() {
         this.zTrans = new Transitionable(0);
@@ -98,9 +156,13 @@ define(function (require, exports, module) {
             autoplay: false,
             controls: true
         });
+
+
         this.programSurf.setContent(content);
         this.rootNode.add(this.programSurf);
-        this.programSurf.pipe(this._eventOutput);
+
+
+            this.programSurf.pipe(this._eventOutput);
     }
 
     module.exports = RadioProgramCell;
