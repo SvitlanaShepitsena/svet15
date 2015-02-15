@@ -178,7 +178,7 @@ define(function (require, exports, module) {
         var content = 'img/audio/' + this.options.mp3;
         this.programSurf = new VideoExtraSurfaceCell({
             autoplay: false,
-            controls: true
+            controls: false
         });
 
 
