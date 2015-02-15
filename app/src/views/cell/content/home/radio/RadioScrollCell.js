@@ -105,7 +105,7 @@ define(function (require, exports, module) {
                 mp3: '01' + i + '.mp3',
                 bg: window.sv.scheme.player.playerBg,
                 borderColor: window.sv.scheme.player.playerBorder,
-                opacity: n % 2 === 0 ? '.8' : '.7',
+                opacity: n % 2 === 0 ? '.9' : '.8',
                 date: '<i class="fa fa-headphones"></i> &nbsp' + dates[n - 1]
             });
             n++;

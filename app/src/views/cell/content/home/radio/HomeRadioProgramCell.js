@@ -13,12 +13,12 @@ define(function (require, exports, module) {
 
     RadioProgramCell.DEFAULT_OPTIONS = {
         contentProps: {
-            fontSize: "140%",
-            opacity: '.7',
+            fontSize: "90%",
+            opacity: '.9',
             color: 'floralwhite',
             textShadow: '1px 1px 1px black',
-            padding: '15px',
-            letterSpacing: '10px',
+            paddingTop: '0px',
+            letterSpacing: '1px',
             textAlign: 'center',
             fontWeight: 'bold'
         }
@@ -34,33 +34,34 @@ define(function (require, exports, module) {
         _radioProgramContent.call(this);
         _playStop.call(this);
     }
+
     function _playStop() {
         this.playTrans = new Transitionable(1);
         this.stopTrans = new Transitionable(0);
 
-        this.playMod= new Modifier({
-            size:[38,38],
+        this.playMod = new Modifier({
+            size: [38, 38],
             align: [0.5, 0.5],
             origin: [0.5, 0.75],
             opacity: function () {
-                return this.playTrans.get() ;
+                return this.playTrans.get();
             }.bind(this)
         });
 
 
         var playDiv = document.createElement('div');
-        var paper = Raphael(playDiv, 50,50);
+        var paper = Raphael(playDiv, 50, 50);
         var path = paper.path("M6.684,25.682L24.316,15.5L6.684,5.318V25.682z").attr({
             fill: sv.scheme.sectionColor,
-            stroke:'none'
+            stroke: 'none'
         });
         path.transform('t10,10s2');
 
         var stopDiv = document.createElement('div');
-        var stopPaper = Raphael(stopDiv, 50,50);
+        var stopPaper = Raphael(stopDiv, 50, 50);
         var stopPath = stopPaper.path("M5.5,5.5h20v20h-20z").attr({
             fill: sv.scheme.sectionColor,
-            stroke:'none'
+            stroke: 'none'
         });
         stopPath.transform('t10,10s2');
 
@@ -68,16 +69,16 @@ define(function (require, exports, module) {
             content: playDiv,
             properties: {
                 cursor: 'pointer',
-                zIndex:10
+                zIndex: 10
             }
         });
 
-        this.stopMod= new Modifier({
-            size:[38,38],
+        this.stopMod = new Modifier({
+            size: [38, 38],
             align: [0.5, 0.5],
             origin: [0.5, 0.75],
             opacity: function () {
-                return this.stopTrans.get() ;
+                return this.stopTrans.get();
             }.bind(this)
         });
 
@@ -85,28 +86,28 @@ define(function (require, exports, module) {
             content: stopDiv,
             properties: {
                 cursor: 'pointer',
-                zIndex:0
+                zIndex: 0
             }
         });
 
         this.playSurf.on('click', function () {
             this.programSurf.play();
-            this.playSurf.setOptions({properties:{zIndex:0}});
-            this.stopSurf.setOptions({properties:{zIndex:10}});
-            this.programSurf.setOptions({zIndex:0});
+            this.playSurf.setOptions({properties: {zIndex: 0}});
+            this.stopSurf.setOptions({properties: {zIndex: 10}});
+            this.programSurf.setOptions({zIndex: 0});
 
-            this.playTrans.set(0, {duration:500});
-            this.stopTrans.set(1, {duration:500});
+            this.playTrans.set(0, {duration: 500});
+            this.stopTrans.set(1, {duration: 500});
         }.bind(this));
 
         this.stopSurf.on('click', function () {
             this.programSurf.pause();
 
-            this.playSurf.setOptions({properties:{zIndex:10}});
-            this.stopSurf.setOptions({properties:{zIndex:0}});
+            this.playSurf.setOptions({properties: {zIndex: 10}});
+            this.stopSurf.setOptions({properties: {zIndex: 0}});
 
-            this.playTrans.set(1, {duration:500});
-            this.stopTrans.set(0, {duration:500});
+            this.playTrans.set(1, {duration: 500});
+            this.stopTrans.set(0, {duration: 500});
         }.bind(this));
 
         this.rootNode.add(this.stopMod).add(this.stopSurf);
@@ -177,7 +178,7 @@ define(function (require, exports, module) {
         var content = 'img/audio/' + this.options.mp3;
         this.programSurf = new VideoExtraSurfaceCell({
             autoplay: false,
-            controls: true
+            controls: false
         });
 
 
