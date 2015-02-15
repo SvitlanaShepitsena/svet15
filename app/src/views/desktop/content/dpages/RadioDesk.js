@@ -14,7 +14,9 @@ define(function (require, exports, module) {
     RadioDesk.DEFAULT_OPTIONS = {
         viewProps: {
             boxShadow: window.sv.scheme.boxShadow,
+            border: '1px solid rgb(221, 221, 221)',
             background: "#595153 url('img/bg/radio-desk.jpg')"
+            //background: "#F2F2F2"
         },
         radioProps: {
             paddingTop: '50px',
