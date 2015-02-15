@@ -34,7 +34,7 @@ define(function (require, exports, module) {
     }
     function _radioPlayer() {
         this.radioPlayerMod = new Modifier({
-            size: [window.innerWidth, 200],
+            size: [window.innerWidth, window.innerHeight/2.4],
             align: [0.5, 0.8],
             origin: [0.5, 0.8],
             transform: Transform.translate(0, 0, 0)
