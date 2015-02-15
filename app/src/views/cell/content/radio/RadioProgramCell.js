@@ -12,12 +12,12 @@ define(function (require, exports, module) {
 
     RadioProgramCell.DEFAULT_OPTIONS = {
         contentProps: {
-            fontSize: "140%",
+            fontSize: "80%",
             opacity: '.7',
             color: 'floralwhite',
             textShadow: '1px 1px 1px black',
-            padding: '15px',
-            letterSpacing: '10px',
+            padding: '5px',
+            letterSpacing: '1px',
             textAlign: 'center',
             fontWeight: 'bold',
             cursor:'pointer'
@@ -81,8 +81,8 @@ define(function (require, exports, module) {
     function _radioProgramContent() {
         this.programDateMod = new Modifier({
             size: [undefined, true],
-            align: [0.5, 0.1],
-            origin: [0.5, 0.1]
+            align: [0.5, 0],
+            origin: [0.5, 0]
         });
         this.programDateSurf = new Surface({
             content: this.options.date,
