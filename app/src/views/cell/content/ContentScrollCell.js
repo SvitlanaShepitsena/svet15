@@ -11,14 +11,13 @@ define(function (require, exports, module) {
     var CommonPageCell = require('cviews/content/common/CommonPageCell');
     var HomeCell = require('cviews/content/home/HomeCell');
     var RadioPageCell = require('cviews/content/radio/RadioPageCell');
+    var RadioScrollCell = require('cviews/content/radio/RadioScrollCell');
 
     /*Html*/
     var about1 = require('text!cviews/jade/about/about1.html');
     var about2 = require('text!cviews/jade/about/about2.html');
     var about3 = require('text!cviews/jade/about/about3.html');
 
-    var radio1 = require('text!cviews/jade/radio/radio1.html');
-    var radio2 = require('text!cviews/jade/radio/radio2.html');
     var contactus1 = require('text!cviews/jade/contactus/contactus1.html');
 
     ContentScrollCell.prototype = Object.create(ScrollContainer.prototype);
@@ -66,10 +65,8 @@ define(function (require, exports, module) {
             pages: ['about1', 'about2', 'about3'],
             sync: this.options.sync
         });
-        this.radioCell = new CommonPageCell({
-            bgColor: 'floralwhite',
-            folder: 'radio',
-            pages: ['radio1'],
+
+        this.radioCell = new RadioPageCell({
             sync: this.options.sync
         });
 
