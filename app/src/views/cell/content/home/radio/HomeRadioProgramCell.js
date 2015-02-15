@@ -17,7 +17,7 @@ define(function (require, exports, module) {
             opacity: '.9',
             color: 'floralwhite',
             textShadow: '1px 1px 1px black',
-            paddingTop: '5px',
+            paddingTop: '0px',
             letterSpacing: '1px',
             textAlign: 'center',
             fontWeight: 'bold'
