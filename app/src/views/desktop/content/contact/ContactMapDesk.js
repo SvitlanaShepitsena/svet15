@@ -11,11 +11,11 @@ define(function (require, exports, module) {
     var directionForm = require('text!dviews/jade/contact/direction-form.html');
     var contentString = require('text!dviews/jade/contact/svet-map-info.html');
 
-    ContactMap.prototype = Object.create(View.prototype);
-    ContactMap.prototype.constructor = ContactMap;
-    ContactMap.DEFAULT_OPTIONS = {};
+    ContactMapDesk.prototype = Object.create(View.prototype);
+    ContactMapDesk.prototype.constructor = ContactMapDesk;
+    ContactMapDesk.DEFAULT_OPTIONS = {};
 
-    function ContactMap() {
+    function ContactMapDesk() {
         View.apply(this, arguments);
 
         this.mapId = 'contact-map';
@@ -205,7 +205,7 @@ define(function (require, exports, module) {
     }
 
 
-    ContactMap.prototype.render = function () {
+    ContactMapDesk.prototype.render = function () {
         if (!this.map) {
             var el = document.getElementById(this.mapId);
             if (el) {
@@ -214,5 +214,5 @@ define(function (require, exports, module) {
         }
         return this._node.render();
     }
-    module.exports = ContactMap;
+    module.exports = ContactMapDesk;
 });

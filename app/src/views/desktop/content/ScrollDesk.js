@@ -21,7 +21,7 @@ define(function (require, exports, module) {
     var HomeDesk = require('dviews/content/home/HomeDesk');
     var AboutUsDesk = require('dviews/content/dpages/AboutUsDesk');
     var RadioDesk = require('dviews/content/dpages/RadioDesk');
-    var ContactMap = require('dviews/content/contact/ContactMap');
+    var ContactMapDesk = require('dviews/content/contact/ContactMapDesk');
     var StateModifier = require('famous/modifiers/StateModifier');
 
     ScrollDesk.prototype = Object.create(View.prototype);
@@ -42,7 +42,6 @@ define(function (require, exports, module) {
             align: [0.5, 0.5],
             origin: [0.5, 0.5]
         });
-
         this.rootNode = this.add(this.centerModifier);
     }
 
@@ -156,7 +155,7 @@ define(function (require, exports, module) {
 
         this.surfaces = [];
         this.homeDesk = new HomeDesk();
-        this.contactMap = new ContactMap();
+        this.contactMap = new ContactMapDesk();
         this.aboutDesk = new AboutUsDesk();
         this.radioDesk = new RadioDesk();
 

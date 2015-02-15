@@ -23,12 +23,26 @@ define(function (require, exports, module) {
     var SpringTransition = require('famous/transitions/SpringTransition');
 
 
+    AppViewCell.DEFAULT_OPTIONS = {
+        posThreshold: 95.5,
+        velThreshold: 0.75,
+        transition: {
+            duration: 300,
+            curve: 'easeOut'
+        },
+        maxOpenPos: window.innerWidth / 2
+    };
+
+    AppViewCell.prototype = Object.create(View.prototype);
+    AppViewCell.prototype.constructor = AppViewCell;
+
     function AppViewCell() {
-        Transitionable.registerMethod('spring', WallTransition);
+        Transitionable.registerMethod('spring', SpringTransition);
 
         this.imgModifier = new StateModifier({
             opacity: 1
-        }); this.imgSurface = new ImageSurface({
+        });
+        this.imgSurface = new ImageSurface({
             size: [undefined, undefined],
             properties: {
                 lineHeight: window.innerHeight + "px",
@@ -72,18 +86,6 @@ define(function (require, exports, module) {
         _handleTouch.call(this);
     }
 
-    AppViewCell.prototype = Object.create(View.prototype);
-    AppViewCell.prototype.constructor = AppViewCell;
-
-    AppViewCell.DEFAULT_OPTIONS = {
-        posThreshold: 95.5,
-        velThreshold: 0.75,
-        transition: {
-            duration: 300,
-            curve: 'easeOut'
-        },
-        maxOpenPos: window.innerWidth / 2
-    };
 
     function _handleTouch() {
         GenericSync.register(MouseSync);
@@ -143,6 +145,7 @@ define(function (require, exports, module) {
             this.menuToggle = true;
         }.bind(this));
     };
+
 
     module.exports = AppViewCell;
 });

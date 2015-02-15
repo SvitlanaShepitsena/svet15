@@ -7,7 +7,7 @@ define(function (require, exports, module) {
     var FlexScrollView = require('flex/FlexScrollView');
 
     /*Require App*/
-    var RadioProgramCell = require('cviews/content/radio/RadioProgramCell');
+    var RadioProgramCell = require('cviews/content/home/radio/RadioProgramCell');
 
     RadioScrollCell.DEFAULT_OPTIONS = {
         navBtnSize: [50, 70]

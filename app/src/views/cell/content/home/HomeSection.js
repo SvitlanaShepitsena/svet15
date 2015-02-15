@@ -7,7 +7,7 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
     var Flipper = require('famous/views/Flipper');
 
-    var RadioScrollCell = require('cviews/content/radio/RadioScrollCell');
+    var RadioScrollCell = require('cviews/content/home/radio/RadioScrollCell');
 
     function HomePart() {
         View.apply(this, arguments);

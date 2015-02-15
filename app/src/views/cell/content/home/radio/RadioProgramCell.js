@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var Transitionable = require('famous/transitions/Transitionable');
 
-    var VideoExtraSurface = require('cviews/content/radio/VideoExtraSurface');
+    var VideoExtraSurface = require('cviews/content/home/radio/VideoExtraSurface');
 
     RadioProgramCell.prototype = Object.create(View.prototype);
     RadioProgramCell.prototype.constructor = RadioProgramCell;
