@@ -7,13 +7,13 @@ define(function (require, exports, module) {
     var FlexScrollView = require('flex/FlexScrollView');
 
     /*Require App*/
-    var RadioProgramDesk = require('dviews/content/radio/RadioProgramDesk');
+    var RadioProgramCell = require('cviews/content/radio/RadioProgramCell');
 
-    RadioScrollDesk.DEFAULT_OPTIONS = {
+    RadioScrollCell.DEFAULT_OPTIONS = {
         navBtnSize: [50, 70]
     };
 
-    function RadioScrollDesk() {
+    function RadioScrollCell() {
         View.apply(this, arguments);
         _init.call(this);
         _scrollRadioPrograms.call(this);
@@ -101,7 +101,7 @@ define(function (require, exports, module) {
         var n = 1;
         var dates = ['01.04.2015', '01.11.2015', '01.18.2015', '01.25.2015'];
         for (var i = 4; i < 30; i += 7) {
-            this.programPlayer = new RadioProgramDesk({
+            this.programPlayer = new RadioProgramCell({
                 mp3: '01' + i + '.mp3',
                 bg: window.sv.scheme.player.playerBg,
                 borderColor: window.sv.scheme.player.playerBorder,
@@ -131,9 +131,9 @@ define(function (require, exports, module) {
         }.bind(this));
     }
 
-    RadioScrollDesk.prototype = Object.create(View.prototype);
-    RadioScrollDesk.prototype.constructor = RadioScrollDesk;
+    RadioScrollCell.prototype = Object.create(View.prototype);
+    RadioScrollCell.prototype.constructor = RadioScrollCell;
 
 
-    module.exports = RadioScrollDesk;
+    module.exports = RadioScrollCell;
 });

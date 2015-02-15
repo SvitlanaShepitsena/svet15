@@ -5,12 +5,12 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var Transitionable = require('famous/transitions/Transitionable');
 
-    var VideoExtraSurface = require('dviews/content/radio/VideoExtraSurface');
+    var VideoExtraSurfaceDesk = require('dviews/content/radio/VideoExtraSurfaceDesk');
 
-    RadioProgram.prototype = Object.create(View.prototype);
-    RadioProgram.prototype.constructor = RadioProgram;
+    RadioProgramDesk.prototype = Object.create(View.prototype);
+    RadioProgramDesk.prototype.constructor = RadioProgramDesk;
 
-    RadioProgram.DEFAULT_OPTIONS = {
+    RadioProgramDesk.DEFAULT_OPTIONS = {
         contentProps: {
             fontSize: "140%",
             opacity: '.7',
@@ -23,7 +23,7 @@ define(function (require, exports, module) {
         }
     };
 
-    function RadioProgram() {
+    function RadioProgramDesk() {
         View.apply(this, arguments);
         _init.call(this);
         _playerBg.call(this);
@@ -41,7 +41,7 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.centerModifier);
     }
 
-    RadioProgram.prototype.setPerspective = function (perpective) {
+    RadioProgramDesk.prototype.setPerspective = function (perpective) {
         this.zTrans.halt();
         this.zTrans.set(perpective, {duration: 500});
         this.playerBgSurf.setOptions({
@@ -92,7 +92,7 @@ define(function (require, exports, module) {
 
     function _programContent() {
         var content = 'img/audio/' + this.options.mp3;
-        this.programSurf = new VideoExtraSurface({
+        this.programSurf = new VideoExtraSurfaceDesk({
             autoplay: false,
             controls: true
         });
@@ -101,5 +101,5 @@ define(function (require, exports, module) {
         this.programSurf.pipe(this._eventOutput);
     }
 
-    module.exports = RadioProgram;
+    module.exports = RadioProgramDesk;
 });
