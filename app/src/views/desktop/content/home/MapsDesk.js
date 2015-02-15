@@ -625,10 +625,7 @@ define(function (require, exports, module) {
         currentPos.lat -= this.mapLatShift;
         this.mapView.setPosition(
             currentPos,
-            {duration: 1000}, function () {
-                console.log(this.mapView.getFinalPosition());
-            }.bind(this)
-        );
+            {duration: 1000});
 
 
     }
@@ -638,10 +635,7 @@ define(function (require, exports, module) {
         currentPos.lat += this.mapLatShift;
         this.mapView.setPosition(
             currentPos,
-            {duration: 1000}, function () {
-                console.log(this.mapView.getFinalPosition());
-            }.bind(this)
-        );
+            {duration: 1000});
 
 
     }
