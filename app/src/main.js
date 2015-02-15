@@ -87,7 +87,7 @@ window.sv = {
             textWhite: '#fffaf0',
             textDark: '#393939',
             textShadow: '1px 1px #BD8D46',
-            boxShadow: 'rgba(0, 0, 0, 0.298039) 0px 2px 6px 0px',
+            boxShadow: 'rgba(0, 0, 0, 0.298039) 1px 2px 6px 0px',
             lightRed: '#FA5C4F',
             lightGrey: '#F2EDE4',
             darkGrey: '#DED9D1',

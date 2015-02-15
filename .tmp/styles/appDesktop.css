@@ -158,6 +158,12 @@
 .h-radio-desk {
   line-height: 36px;
 }
+.radio-auth-pic {
+  text-align: center;
+}
+.radio-auth-pic img {
+  display: inline-block;
+}
 /**********************
     =Contact Us
 **********************/
