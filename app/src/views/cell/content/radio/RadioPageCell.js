@@ -18,25 +18,12 @@ define(function (require, exports, module) {
         _radioPlayer.call(this);
     }
 
-    function _radioPlayer() {
-        this.radioPlayerMod = new Modifier({
-            size: [undefined, 300],
-            align: [0.5, 0.6],
-            origin: [0.5, 0.6],
-            transform: Transform.translate(0, 0, 0)
-        });
-        this.radioScrollCell = new RadioScrollCell();
-        this.rootNode.add(this.radioPlayerMod).add(this.radioScrollCell);
-    }
-
-
     function _init() {
         this.viewMod = new Modifier({});
         this.viewBg = new CommonPageCell({
             bgColor: 'floralwhite',
             folder: 'radio',
             pages: ['radio1'],
-            content: RadioPageCell,
             sync: this.options.sync
         });
 
@@ -45,6 +32,18 @@ define(function (require, exports, module) {
         this.rootNode = this.add(this.viewMod);
         this.rootNode.add(this.viewBg);
     }
+    function _radioPlayer() {
+        this.radioPlayerMod = new Modifier({
+            size: [window.innerWidth, 200],
+            align: [0.5, 0.8],
+            origin: [0.5, 0.8],
+            transform: Transform.translate(0, 0, 0)
+        });
+        this.radioScrollCell = new RadioScrollCell();
+        this.rootNode.add(this.radioPlayerMod).add(this.radioScrollCell);
+    }
+
+
 
 
     module.exports = RadioPageCell;
