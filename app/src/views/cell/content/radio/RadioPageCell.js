@@ -5,37 +5,47 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     /*Require App*/
     var CommonPageCell = require('cviews/content/common/CommonPageCell');
+    var RadioScrollCell = require('cviews/content/radio/RadioScrollCell');
+    var radio1 = require('text!cviews/jade/radio/radio1.html');
 
     RadioPageCell.prototype = Object.create(View.prototype);
     RadioPageCell.prototype.constructor = RadioPageCell;
-    RadioPageCell.DEFAULT_OPTIONS = {
-        surfopts: {
-            //color: window.sv.scheme.textWhite,
-            textAlign: 'center'
-        }
-    };
+    RadioPageCell.DEFAULT_OPTIONS = {};
 
     function RadioPageCell() {
         View.apply(this, arguments);
         _init.call(this);
+        _radioPlayer.call(this);
     }
 
-    function _init() {
-        this.centerModifier = new Modifier({
-            align: [0.5, 0],
-            origin: [0.5, 0],
+    function _radioPlayer() {
+        this.radioPlayerMod = new Modifier({
+            size: [undefined, 300],
+            align: [0.5, 0.6],
+            origin: [0.5, 0.6],
             transform: Transform.translate(0, 0, 0)
         });
-        fn
-
-        this.surface = new Surface({
-            properties: this.options.surfopts
-        });
-        this.surface.pipe(this._eventOutput);
-
-        this.rootNode = this.add(this.centerModifier);
-        this.rootNode.add(this.surface);
+        this.radioScrollCell = new RadioScrollCell();
+        this.rootNode.add(this.radioPlayerMod).add(this.radioScrollCell);
     }
+
+
+    function _init() {
+        this.viewMod = new Modifier({});
+        this.viewBg = new CommonPageCell({
+            bgColor: 'floralwhite',
+            folder: 'radio',
+            pages: ['radio1'],
+            content: RadioPageCell,
+            sync: this.options.sync
+        });
+
+        this.viewBg.pipe(this._eventOutput);
+
+        this.rootNode = this.add(this.viewMod);
+        this.rootNode.add(this.viewBg);
+    }
+
 
     module.exports = RadioPageCell;
 });
