@@ -84,6 +84,7 @@ define(function (require, exports, module) {
         this.flipSurf.pipe(this._eventOutput);
         if (this.options.flipIcon === 'radio') {
             this.radioScrollCell = new RadioScrollCell();
+            this.radioScrollCell.pipe(this._eventOutput);
             this.flipper.setBack(this.radioScrollCell);
 
         } else {

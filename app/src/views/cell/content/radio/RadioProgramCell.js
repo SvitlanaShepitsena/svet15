@@ -19,7 +19,8 @@ define(function (require, exports, module) {
             padding: '15px',
             letterSpacing: '10px',
             textAlign: 'center',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            cursor:'pointer'
         }
     };
 
@@ -87,6 +88,7 @@ define(function (require, exports, module) {
             content: this.options.date,
             properties: this.options.contentProps
         });
+        this.programDateSurf.pipe(this._eventOutput);
         this.rootNode.add(this.programDateMod).add(this.programDateSurf);
     }
 
