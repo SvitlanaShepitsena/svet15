@@ -59,7 +59,6 @@ define(function (require, exports, module) {
 
     function _init() {
         this.opacityMain = new Transitionable(1);
-        this.contentTrans = new Transitionable(0);
 
         this.rootMod = new Modifier({
             size: [undefined, 1300],

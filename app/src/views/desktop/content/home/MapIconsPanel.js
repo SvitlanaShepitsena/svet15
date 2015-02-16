@@ -5,26 +5,44 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
     var GridLayout = require("famous/views/GridLayout");
-
-    var HomeContentDesk = require('dviews/content/home/HomeContentDesk');
-    var MapsDesk = require('dviews/content/home/MapsDesk');
     var Transitionable = require('famous/transitions/Transitionable');
     var ImageSurface = require('famous/surfaces/ImageSurface');
     var Slider = require('famous/widgets/Slider');
     var VideoSurface = require('famous/surfaces/VideoSurface');
-
     var RenderNode = require('famous/core/RenderNode');
 
+    var HomeContentDesk = require('dviews/content/home/HomeContentDesk');
+    var MapsDesk = require('dviews/content/home/MapsDesk');
+
+
+    MapIconsPanel.DEFAULT_OPTIONS = {
+        iconsPanelSize: [90, 40],
+        iconsGridSize: [100, 40],
+        mapIconProps: {
+            cursor: 'pointer'
+        }
+    };
 
     function MapIconsPanel() {
         View.apply(this, arguments);
         this.iconElements = [];
-
         _init.call(this);
         _mapIcons.call(this);
-
     }
 
+    function _init() {
+        this.centerModifier = new Modifier({
+            align: [0.6, 0.05],
+            origin: [0.5, 0.5],
+            size: this.options.iconsPanelSize,
+            opacity: function () {
+                return this.gridIconTrans.get();
+            }.bind(this),
+            transform: Transform.translate(0, 0, 0)
+
+        });
+        this.rootNode = this.add(this.centerModifier);
+    }
 
     MapIconsPanel.prototype = Object.create(View.prototype);
     MapIconsPanel.prototype.constructor = MapIconsPanel;
@@ -48,7 +66,6 @@ define(function (require, exports, module) {
     }
 
     MapIconsPanel.prototype.animateDown = function () {
-
         this.gridIconTrans.halt();
         var n = 2;
         var interval = setInterval(function () {
@@ -65,31 +82,6 @@ define(function (require, exports, module) {
                 clearInterval(interval)
             }
         }.bind(this), 800);
-
-
-    }
-
-    MapIconsPanel.DEFAULT_OPTIONS = {
-        iconsPanelSize: [90, 40],
-        iconsGridSize: [100, 40],
-        mapIconProps: {
-            cursor: 'pointer'
-        }
-    };
-
-    function _init() {
-        this.centerModifier = new Modifier({
-            align: [0.6, 0.05],
-            origin: [0.5, 0.5],
-            size: this.options.iconsPanelSize,
-            opacity: function () {
-                return this.gridIconTrans.get();
-            }.bind(this),
-            transform: Transform.translate(0, 0, 0)
-
-        });
-
-        this.rootNode = this.add(this.centerModifier);
     }
 
 
@@ -115,6 +107,7 @@ define(function (require, exports, module) {
                 border: '1px',
                 borderStyle: 'solid',
                 borderColor: '#999999',
+                boxShadow: window.sv.scheme.boxShadow,
                 color: 'white',
                 backgroundColor: 'floralwhite'
             }
