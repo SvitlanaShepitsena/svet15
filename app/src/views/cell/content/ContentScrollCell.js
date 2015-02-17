@@ -48,7 +48,6 @@ define(function (require, exports, module) {
             pageStopSpeed: 10,
             pageSwitchSpeed: 0.5,
             speedLimit: 1,
-            groupScroll: false,
             syncScale: 0.5
         })
         _createContent.call(this);
@@ -89,6 +88,9 @@ define(function (require, exports, module) {
         this.contents.push(this.aboutUsCell);
         this.contents.push(this.radioCell);
         this.contents.push(this.contactUsCell);
+
+
+
         this.scrollview.sequenceFrom(this.contents);
 
     };
