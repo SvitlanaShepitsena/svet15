@@ -21,7 +21,9 @@ define(function (require, exports, module) {
     }
 
     function _init() {
-        this.viewMod = new Modifier({});
+        this.viewMod = new Modifier({
+            size:[undefined, window.innerHeight]
+        });
         this.viewBg = new CommonPageCell({
             bgColor: 'floralwhite',
             folder: 'radio',
