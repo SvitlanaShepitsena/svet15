@@ -40,7 +40,6 @@ define(function (require, exports, module) {
             mapOptions: {
                 id: 'contact-map',
                 center: this.centerCoord,
-                zoomTransition: 800,
                 zoom: 5,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 styles: window.sv.mapPalettePale,
