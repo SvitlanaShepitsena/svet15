@@ -148,7 +148,11 @@ define(function (require, exports, module) {
             leadingScrollView: undefined,
             trailingScrollView: undefined,
             autoPipeEvents: true,
-            layoutAll: true
+            layoutAll: true,
+
+            touchMoveDirectionThresshold: undefined, // 0..1
+            touchMoveNoVelocityDuration: 100
+
         });
         this.scrollView.setOptions({
             overscroll: false   // disable overscroll
