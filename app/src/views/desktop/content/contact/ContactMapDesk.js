@@ -18,6 +18,7 @@ define(function (require, exports, module) {
     function ContactMapDesk() {
         View.apply(this, arguments);
 
+        this.mapId = 'contact-map';
         this.centerCoord = {lat: 42.059773, lng: -87.886823};
         this.officeCoord = {lat: 42.136286, lng: -87.791914};
 
@@ -38,7 +39,6 @@ define(function (require, exports, module) {
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
             mapOptions: {
-                id: 'contact-map',
                 center: this.centerCoord,
                 zoom: 5,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -63,7 +63,9 @@ define(function (require, exports, module) {
             /*Pan the map useint famo.us transitions*/
             this.mapView.setPosition(
                 this.centerCoord,
-                {duration: 500, curve: Easing.inOutElastic},
+                {
+                    duration: 500
+                },
                 function () {
                     this.map.setZoom(11);
                 }.bind(this)
