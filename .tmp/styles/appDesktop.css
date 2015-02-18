@@ -2,6 +2,9 @@
   background-image: url("/img/bg/pattern-sepia-desk.jpg");
   background-repeat: repeat;
 }
+section {
+  max-width: 100%;
+}
 .h1-desk {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
