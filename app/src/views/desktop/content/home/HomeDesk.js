@@ -84,7 +84,8 @@ define(function (require, exports, module) {
         this.backdropSurf = new VideoSurface({
             //src: 'img/sky.webm',
             src: 'img/chicago-sunset.mp4',
-            autoplay: true,
+            autoplay: false,
+            //autoplay: true,
             properties: {
                 backgroundSize: 'cover'
             }
