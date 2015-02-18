@@ -66,7 +66,7 @@ define(function (require, exports, module) {
         this.flexMod = new Modifier({
         });
         this.layout = new FlexibleLayout({
-            ratios: [4, 2, 2],
+            ratios: [3, 2, 2],
             direction: 1
         });
         this.maps = new MapsCell();
@@ -139,6 +139,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
+            size:[undefined, window.innerHeight],
             align: this.options.center,
             origin: this.options.center
         });
