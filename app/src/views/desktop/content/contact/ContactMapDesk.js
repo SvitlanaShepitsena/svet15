@@ -20,8 +20,6 @@ define(function (require, exports, module) {
 
         this.centerCoord = {lat: 42.059773, lng: -87.886823};
         this.officeCoord = {lat: 42.136298, lng: -87.791989};
-        this.markerCoord = {lat: 42.141079, lng: -87.767287};
-
 
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
@@ -85,8 +83,9 @@ define(function (require, exports, module) {
             //console.log(this.mapDomEl);
 
 
-            /*Creating an info window for Svet using MapView marker*/
-
+            /**
+             *Creating an info window for Svet using MapView marker
+             */
 
             this.mapMod = new MapModifier({
                 size: [200, 100],
