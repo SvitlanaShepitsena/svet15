@@ -22,7 +22,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.viewMod = new Modifier({
-            size:[undefined, window.innerHeight]
+            size: [undefined, window.innerHeight]
         });
         this.viewBg = new CommonPageCell({
             bgColor: 'floralwhite',
@@ -39,7 +39,7 @@ define(function (require, exports, module) {
 
     function _addContent() {
         this.contentMod = new Modifier({
-            size: [undefined, window.innerHeight/2.5],
+            size: [undefined, window.innerHeight / 2.5],
             transform: Transform.translate(0, 0, 0)
         });
         this.contentSurf = new Surface({
@@ -61,6 +61,7 @@ define(function (require, exports, module) {
             transform: Transform.translate(0, 0, 0)
         });
         this.radioScrollCell = new RadioScrollCell();
+        this.radioScrollCell.pipe(this._eventOutput);
         this.rootNode.add(this.radioPlayerMod).add(this.radioScrollCell);
     }
 

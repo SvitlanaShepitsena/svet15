@@ -90,7 +90,6 @@ define(function (require, exports, module) {
         this.contents.push(this.contactUsCell);
 
 
-
         this.scrollview.sequenceFrom(this.contents);
 
     };

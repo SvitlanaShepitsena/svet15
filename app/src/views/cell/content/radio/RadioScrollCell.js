@@ -94,6 +94,7 @@ define(function (require, exports, module) {
             paginated: true,
             layoutAll: true       // set to true is you want all renderables layed out/rendered
         });
+        this.programsScrollView.pipe(this._eventOutput);
         this.surfacesCont.add(this.programsScrollView);
         this.programsScrollView.sequenceFrom(surfaces);
 
