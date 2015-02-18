@@ -2,13 +2,17 @@
   "name": "svet15",
   "description": "Russian Media Group",
   "version": "0.4.0",
-  "homepage": "https://github.com/ChicagoBusinessIntelligence1/svet15",
+  "homepage": "http://svet15.herokuapp.com",
   "author": {
     "name": "Svetlana Shepitsena"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChicagoBusinessIntelligence1/svet15.git"
+  },
   "license": "ISC",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": "0.12.x"
   },
   "devDependencies": {
     "body-parser": "^1.10.0",
@@ -16,7 +20,6 @@
     "consolidate": "^0.10.0",
     "error-handler": "^0.1.4",
     "errorhandler": "^1.3.0",
-    "express": "~4.1.1",
     "generator-famous": "^0.8.0",
     "grunt-usemin": "^2.1.1",
     "gulp": "^3.8.10",
@@ -74,7 +77,6 @@
     "jshint-stylish": "^0.4",
     "lodash": "^2.4.1",
     "merge-stream": "^0.1.5",
-    "method-override": "^1.0.0",
     "minimist": "^1.1.0",
     "morgan": "^1.0.0",
     "multipipe": "^0.1.2",
@@ -105,16 +107,16 @@
   "dependencies": {
     "amd-optimize": "^0.4.0",
     "cheerio": "^0.18.0",
+
+    "express": "~4.1.1",
+    "method-override": "^2.3.1",
     "connect-browser-sync": "^1.0.2",
-    "consolidate": "^0.10.0",
     "core-util-is": "^1.0.1",
     "ejs": "^1.0.0",
-    "express": "^4.10.6",
     "express-jade": "0.0.3",
     "express-logger": "0.0.3",
     "glob": "^4.3.2",
     "glob-stream": "^4.0.0",
-    "gulp": "^3.8.10",
     "handlebars": "^2.0.0",
     "imagemin-pngquant": "^4.0.0",
     "inherits": "^2.0.1",
@@ -122,13 +124,10 @@
     "isarray": "0.0.1",
     "jeet": "^6.1.2",
     "lru-cache": "^2.5.0",
-    "method-override": "^2.3.0",
     "mime-db": "^1.4.0",
     "minimatch": "^2.0.1",
-    "nodemon": "^1.2.1",
     "once": "^1.3.1",
     "pngquant": "^0.4.0",
-    "readable-stream": "^1.0.33",
     "requirejs": "^2.1.15",
     "rimraf": "^2.2.8",
     "run-sequence": "^1.0.2",
@@ -138,7 +137,6 @@
     "strip-dirs": "^1.0.0",
     "tar-stream": "^1.1.1",
     "through2": "^0.6.3",
-    "uglifyjs": "^2.3.6",
     "underscore": "^1.7.0"
   }
 }
