@@ -99,7 +99,7 @@ define(function (require, exports, module) {
                     backgroundColor: '#FA5C4F'
                 }
             });
-            this.rootNode.add(this.mapMod).add(this.svetMarkerMod).add(this.svetMarkerSurf);
+            this.rootNode.add(this.mapMod);
 
 
             /*Creating a marker to bound infoWindow to it*/
