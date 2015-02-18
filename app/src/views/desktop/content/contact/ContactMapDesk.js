@@ -118,8 +118,6 @@ define(function (require, exports, module) {
                     this.geocoder = new google.maps.Geocoder();
                     this.userLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
                     this.geocoder.geocode({'latLng': that.userLatLng}, function (results, status) {
-                        console.log(pos.coords.latitude);
-                        console.log(pos.coords.longitude);
                         if (status == google.maps.GeocoderStatus.OK) {
                             if (results[0]) {
                                 //console.log(results);
