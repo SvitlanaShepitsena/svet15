@@ -20,7 +20,7 @@ define(function (require, exports, module) {
 
         this.centerCoord = {lat: 42.059773, lng: -87.886823};
         this.officeCoord = {lat: 42.136298, lng: -87.791989};
-        this.markerCoord = {lat: 42.152627, lng: -87.772768};
+        this.markerCoord = {lat: 42.141079, lng: -87.767287};
 
 
         this.mapView = new MapView({
@@ -85,33 +85,30 @@ define(function (require, exports, module) {
             //console.log(this.mapDomEl);
 
 
+            /*Creating an info window for Svet using MapView marker*/
+
+
             this.mapMod = new MapModifier({
+                size: [200, 100],
                 mapView: this.mapView,
-                position: this.markerCoord
+                position: this.officeCoord
             });
             this.svetMarkerMod = new Modifier({
-                size: [50, 50]
+                size: [200, 100],
+                transform: Transform.translate(50, -50, 0)
             });
+
             this.svetMarkerSurf = new Surface({
+                content: contentString,
                 properties: {
-                    color: 'white',
-                    textAlign: 'center',
-                    backgroundColor: '#FA5C4F'
+                    padding: '15px',
+                    backgroundColor: window.sv.scheme.textWhite,
+                    boxShadow: window.sv.scheme.boxShadow
                 }
             });
+
             this.rootNode.add(this.mapMod).add(this.svetMarkerMod).add(this.svetMarkerSurf);
 
-
-            /*Creating a marker to bound infoWindow to it*/
-            this.svetMarker = new google.maps.Marker({
-                position: this.officeCoord,
-                map: this.map,
-                title: "Svet Office"
-            });
-            this.infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
-            this.infowindow.open(this.map, this.svetMarker);
 
             if (window.navigator.geolocation) {
                 window.navigator.geolocation.getCurrentPosition(function (pos) {
@@ -181,7 +178,6 @@ define(function (require, exports, module) {
                 });
 
                 function calcRoute() {
-                    that.svetMarker.setMap(null);
                     //that.startMarker.setMap(null);
 
                     that.userLocationInfo = new google.maps.InfoWindow({
@@ -191,7 +187,6 @@ define(function (require, exports, module) {
 
                     });
                     that.userLocationInfo.open(that.map, that.startMarker);
-                    that.infowindow.open(that.map, that.svetMarker);
 
                     // Retrieve the start and end locations and create
                     // a DirectionsRequest using WALKING directions.
@@ -227,14 +222,5 @@ define(function (require, exports, module) {
     }
 
 
-    ContactMapDesk.prototype.render = function () {
-        if (!this.map) {
-            var el = document.getElementById(this.mapId);
-            if (el) {
-                this.map = new google.maps.Map(el, this.contactMapOptions);
-            }
-        }
-        return this._node.render();
-    }
     module.exports = ContactMapDesk;
 });

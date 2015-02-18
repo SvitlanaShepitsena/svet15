@@ -246,6 +246,7 @@ b {
   line-height: 18px;
 }
 .address-marker h4 {
+  font-weight: bold;
   font-size: 15px;
   margin-bottom: 5px;
   margin-top: 5px;
