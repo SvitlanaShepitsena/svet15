@@ -254,8 +254,10 @@ define(function (require, exports, module) {
 
         //group_a.transform('s5');
         var step = 4;
+        var hslColors = [];
         for (var i = 0; i < group_a.length; i++) {
             var path = group_a[i];
+            var rgb = Raphael.get
             var transPath = i * step;
             path.transform('s1.3,t' + transPath + ',0');
         }
