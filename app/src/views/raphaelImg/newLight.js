@@ -17,17 +17,21 @@ define(function (require, exports, module) {
     function newLight() {
         View.apply(this, arguments);
         _init.call(this);
-        _newLightSvg.call(this);
     }
 
     function _init() {
         this.centerModifier = new Modifier({
+            size: [200, 30],
             align: [0.5, 0],
             origin: [0.5, 0],
             transform: Transform.translate(0, 0, 0)
         });
         this.surface = new Surface({
-            properties: this.options.surfopts
+            content: _newLightSvg.call(this),
+            properties: {
+                backgroundColor: 'blue'
+            }
+
         });
         this.surface.pipe(this._eventOutput);
 
@@ -38,7 +42,7 @@ define(function (require, exports, module) {
     function _newLightSvg() {
 
         var divNewLight = document.createElement('div');
-        var rsr = Raphael('divNewLight', '120', '50');
+        var rsr = Raphael(divNewLight, '200', '30');
         var Text = rsr.set();
         var path_a = rsr.path("M15.107,32.034h-2.415v-4.353H8.266v4.353H5.858V21.347h2.407v4.264h4.427v-4.264h2.415V32.034z").attr({
             fill: '#FCFAFC',
@@ -183,7 +187,21 @@ define(function (require, exports, module) {
         Red_lines.push(path_m, path_n, path_o, path_p, path_q, path_r, path_s);
         Banner_stars.push();
         layer5.push(rect8796);
+        var group = rsr.set();
 
+        var step = 3.5;
+        for (var i = 0; i < rsrGroups.length; i++) {
+            var arr = rsrGroups[i];
+            for (var j = 0; j < arr.length; j++) {
+                var path = arr[j];
+                var transPath = j * step;
+                //path.transform('t' + transPath + ',-7');
+                path.transform('...s1.5,1.5, 0,0 t0,-14');
+                console.log(path.translate());
+            }
+
+
+        }
         return divNewLight;
     }
 
