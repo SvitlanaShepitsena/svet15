@@ -72,20 +72,24 @@ define(function (require, exports, module) {
      */
 
     /*=Raphael Icon Design*/
+    /*Converted*/
+    /*Converted End*/
 
     function _logoSaturday() {
         var divSat = document.createElement('div');
-        divSat.style.position = 'relative';
-        var paper = Raphael(divSat, 100, 50);
-        var text = paper.text(50, 10, 'Суббота+');
-        text.attr({
-            'stroke': 'none',
-            'fill': '#595959',
-            'font-size': 18,
-            'font-weight': 'bold',
-            'line-height': 20,
-            'font-family': "Myriad Pro"
-        });
+
+        var rsr = Raphael(divSat, '120', '50');
+        var Text = rsr.set();
+        var text_a = rsr.text(0, 0, 'Суб\nб\nота\n+').attr({
+            parent: 'Text',
+            'stroke-width': '0',
+            'stroke-opacity': '1',
+            'fill': '#000000'
+        }).transform("m1 0 0 1 22.8071 29.7646").data('id', 'text_a');
+        Text.attr({'id': 'Text', 'name': 'Text'});
+        var rsrGroups = [Text];
+        Text.push(text_a);
+        //var text = paper.text(50, 10, "Raphaël\nkicks\nbutt!");
         this.logoSvgMod = new Modifier({
             size: [150, 50],
             transform: Transform.translate(-30, 96, 0)
@@ -164,6 +168,9 @@ define(function (require, exports, module) {
         this.rootNode.add(this.YpMod).add(this.YpSurf);
     }
 
+    function () {
+        
+    }
 
     function _mapIcons() {
         this.iconBgMod = new Modifier({
