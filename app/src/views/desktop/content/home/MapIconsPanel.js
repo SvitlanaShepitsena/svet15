@@ -194,7 +194,7 @@ define(function (require, exports, module) {
     function _saturdaySvg() {
         var divSat = document.createElement('div');
 
-        var rsr = Raphael(divSat, '120', '50');
+        var rsr = Raphael(divSat, '140', '50');
         var Text = rsr.set();
         Text.attr({'id': 'Text', 'name': 'Text'});
         var group_a = rsr.set();
@@ -250,8 +250,26 @@ define(function (require, exports, module) {
         var rsrGroups = [Text, group_a];
         Text.push();
         group_a.push(path_b, path_c, path_d, path_e, path_f, path_g, path_h, path_i);
+        /*Scale Raphael Svg Group */
+
+        //group_a.transform('s5');
+        var step = 4;
+        for (var i = 0; i < group_a.length; i++) {
+            var path = group_a[i];
+            var transPath = i * step;
+            path.transform('s1.3,t' + transPath + ',0');
+        }
+        group_a.hover(function () {
+            group_a.animate({
+                fill: 'red',
+                stroke: 'blue'
+            }, 500);
+        }, function () {
+
+        });
 
         return divSat;
+
     }
 
 
