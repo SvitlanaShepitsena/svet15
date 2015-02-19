@@ -81,6 +81,7 @@ define(function (require, exports, module) {
             }.bind(this),
             transform: Transform.translate(0, 0, 0)
         });
+
         this.backdropSurf = new VideoSurface({
             //src: 'img/sky.webm',
             src: 'img/chicago-sunset.mp4',
@@ -90,17 +91,20 @@ define(function (require, exports, module) {
                 backgroundSize: 'cover'
             }
         });
+
         this.backdropSurf.pipe(this._eventOutput);
         this.rootNode.add(this.backdropMod).add(this.backdropSurf);
     }
 
     function _fillHomeContent() {
+
         this.contentMod = new Modifier({
             opacity: function () {
                 return this.opacityMain.get();
             }.bind(this),
             transform: Transform.translate(0, 0, 0)
         });
+
         this.homeContentDesk = new HomeContentDesk();
         this.homeContentDesk.pipe(this._eventOutput);
         this.rootNode.add(this.contentMod).add(this.homeContentDesk);
