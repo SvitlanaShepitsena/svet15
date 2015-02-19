@@ -76,19 +76,19 @@ define(function (require, exports, module) {
     function _logoSaturday() {
         var divSat = document.createElement('div');
         divSat.style.position = 'relative';
-        var paper = Raphael(divSat, 120, 50);
-        var text = paper.text(55, 15, 'Суббота+');
-
+        var paper = Raphael(divSat, 100, 50);
+        var text = paper.text(50, 10, 'Суббота+');
         text.attr({
-            stroke: 'none',
-            fill: '#393939',
-            'font-size': 22,
-            'text-align': 'center',
-            'line-height': '5em',
+            'stroke': 'none',
+            'fill': '#595959',
+            'font-size': 18,
+            'font-weight': 'bold',
+            'line-height': 20,
             'font-family': "Myriad Pro"
         });
         this.logoSvgMod = new Modifier({
-            transform: Transform.translate(0, 50, 0)
+            size: [150, 50],
+            transform: Transform.translate(-30, 96, 0)
         });
         this.logoSatSurf = new Surface({
             content: divSat,
@@ -106,19 +106,20 @@ define(function (require, exports, module) {
 
     function _logoNewLight() {
         var divNewWorld = document.createElement('div');
-        var paper = Raphael(divNewWorld, 120, 50);
-        var text = paper.text(55, 15, 'Новый Свет');
+        var paper = Raphael(divNewWorld, 135, 50);
+        var text = paper.text(65, 10, 'НОВЫЙ СВЕТ');
 
         text.attr({
             stroke: 'none',
-            fill: '#393939',
-            'font-size': 22,
-            'text-align': 'center',
-            'line-height': '5em',
+            'fill': '#595959',
+            'font-size': 18,
+            'line-height': 20,
+            'font-weight': 'bold',
             'font-family': "Myriad Pro"
         });
         this.newSvetMod = new Modifier({
-            transform: Transform.translate(12, 90, 0)
+            size: [150, 50],
+            transform: Transform.translate(-30, 127, 0)
         });
         this.newSvetSurf = new Surface({
             content: divNewWorld,
@@ -134,27 +135,25 @@ define(function (require, exports, module) {
     }
 
 
-
     function _logoYp() {
         var divYp = document.createElement('div');
-        var paper = Raphael(divYp, 120, 50);
-        var text = paper.text(60, 15, 'Yellow Pages');
+        var paper = Raphael(divYp, 150, 50);
+        var text = paper.text(68, 10, 'Yellow Pages');
 
         text.attr({
-            stroke: 'none',
-            fill: '#393939',
-            'font-size': 22,
-            'text-align': 'center',
-            'line-height': '5em',
+            'stroke': 'none',
+            'fill': '#595959',
+            'font-weight': 'bold',
+            'font-size': 18,
+            'line-height': 20,
             'font-family': "Myriad Pro"
         });
         this.YpMod = new Modifier({
-            transform: Transform.translate(14, 130, 0)
+            transform: Transform.translate(-35, 155, 0)
         });
         this.YpSurf = new Surface({
             content: divYp,
             properties: {
-
                 cursor: 'pointer'
             }
         });
@@ -166,27 +165,9 @@ define(function (require, exports, module) {
     }
 
 
-
     function _mapIcons() {
-
-        /*Map Icons Panel*/
-        this.mapIconsBg = new Surface({
-            properties: {
-                border: '1px',
-                borderStyle: 'solid',
-                borderColor: '#999999',
-                boxShadow: window.sv.scheme.boxShadow,
-                color: 'white',
-                backgroundColor: 'floralwhite'
-            }
-        });
-
-
-        /*Grid Layout for Map Icons*/
-        this.iconPanelTrans = new Transitionable(0);
-
         this.iconBgMod = new Modifier({
-            size: [210, 160],
+            size: [300, 180],
             align: [0.5, 0.75],
             origin: [0.3, 0],
 
@@ -195,6 +176,27 @@ define(function (require, exports, module) {
             }.bind(this),
             transform: Transform.translate(0, 0, 0)
         });
+
+        /*Map Icons Panel*/
+        this.mapIconsBg = new Surface({
+            content: '<h class="text-info">Svet Distribution Points</h><hr/>',
+            properties: {
+                border: '1px',
+                fontSize: '19px',
+                padding: '15px',
+                paddingTop: '20px',
+                borderStyle: 'solid',
+                fontWeight: 'bold',
+                borderColor: '#999999',
+                boxShadow: window.sv.scheme.boxShadow,
+                backgroundColor: 'floralwhite'
+            }
+        });
+
+
+        /*Grid Layout for Map Icons*/
+        this.iconPanelTrans = new Transitionable(0);
+
 
         this.rootNode.add(this.iconBgMod).add(this.mapIconsBg);
 
