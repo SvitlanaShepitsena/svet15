@@ -10,5 +10,6 @@
     <orderEntry type="library" name="googlemaps-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="Node.js v0.12.0 Core Modules" level="application" />
     <orderEntry type="library" name="svet15 node_modules" level="project" />
+    <orderEntry type="library" name="raphael-DefinitelyTyped" level="application" />
   </component>
 </module>

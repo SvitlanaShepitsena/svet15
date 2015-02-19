@@ -196,7 +196,7 @@ define(function (require, exports, module) {
     function _saturdaySvg() {
         var divSat = document.createElement('div');
 
-        var rsr = Raphael(divSat, '140', '50');
+        var rsr = Raphael(divSat, '140', '100');
         var Text = rsr.set();
         Text.attr({'id': 'Text', 'name': 'Text'});
         var group_a = rsr.set();
@@ -256,19 +256,46 @@ define(function (require, exports, module) {
 
         //group_a.transform('s5');
         var step = 4;
-        var hslColors = [];
+        var hslColorsInit = [];
+        var hslColorsLight = [];
+
         for (var i = 0; i < group_a.length; i++) {
             var path = group_a[i];
-            var rgb = Raphael.get
+            var rgb = Raphael.getRGB(path.attrs.fill);
+            var hsl = Raphael.rgb2hsl(rgb.r, rgb.g, rgb.b);
+            hslColorsInit.push(path.attrs.fill);
+            var hslLight = (function (hsl) {
+               var temp = hsl.constructor() ;
+                for(var key in hsl){
+                    if (hsl.hasOwnProperty(key)) {
+                        temp[key] = hsl[key];
+                    }
+                }
+                return temp;
+            })(hsl);
+
+            hslLight.l *= 1.3;
+            hslLight.h *= 1.3;
+            hslColorsLight.push(Raphael.hsl2rgb(hslLight).hex);
+
             var transPath = i * step;
             path.transform('s1.3,t' + transPath + ',0');
         }
+        console.log(hslColorsLight);
+        console.log(hslColorsInit);
+
         group_a.hover(function () {
-            group_a.animate({
-                fill: 'red',
-                stroke: 'blue'
-            }, 500);
+            for (var n = 0; n < group_a.length; n++) {
+                var pathElem = group_a[n];
+                pathElem.animate({fill:hslColorsLight[n]},100);
+
+            }
         }, function () {
+            for (var m = 0; m < group_a.length; m++) {
+                var pathElem = group_a[m];
+                pathElem.animate({fill:hslColorsInit[m]},100);
+
+            }
 
         });
 
