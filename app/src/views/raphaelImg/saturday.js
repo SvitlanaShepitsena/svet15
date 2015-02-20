@@ -12,7 +12,7 @@ define(function (require, exports, module) {
         this.background = 'white';
         this.purple = '#552D90';
         this.grey = '#393939';
-        this.border = '1px solid #E5E5E5',
+        this.border = '1px solid #E5E5E5';
             View.apply(this, arguments);
         _init.call(this);
         var div = document.createElement('div');
