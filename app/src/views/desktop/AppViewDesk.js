@@ -68,6 +68,9 @@ define(function (require, exports, module) {
             size: [45, 33],
             align: [0.5, 0],
             origin: [0.5, 0],
+            opacity: function () {
+                return
+            }.bind(this),
             transform: function () {
                 return Transform.multiply4x4(Transform.translate(0, window.innerHeight - 50, 2), Transform.rotateX(this.arrowAngle.get()));
             }.bind(this)

@@ -1,0 +1,32 @@
+{
+  "name": "raphael-svg-import-classic",
+  "description": "Import SVG files to Raphel",
+  "version": "0.3.1",
+  "main": "raphael-svg-import.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crccheck/raphael-svg-import-classic"
+  },
+  "author": "Chris Chang",
+  "contributors": [
+    "Ingvar Stepanyan",
+    "Miguel González"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/crccheck/raphael-svg-import-classic/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-connect": "^0.9.0",
+    "grunt-contrib-jshint": "~0.7.1",
+    "grunt-contrib-qunit": "~0.2.2",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

@@ -25,6 +25,8 @@
   "dependencies": {
     "d3": "~3.5.3",
     "bootstrap": "~3.3.1",
-    "famous-flex": "~0.1.9"
+    "famous-flex": "~0.1.9",
+    "raphael-svg-import-classic": "~0.3.1",
+    "raphael": "~2.1.3"
   }
 }

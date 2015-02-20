@@ -37,7 +37,7 @@ define(function (require, exports, module) {
         _mapIcons.call(this);
         _logoSaturday.call(this);
         _logoNewLight.call(this);
-        _logoYp.call(this);
+        //_logoYp.call(this);
     }
 
     function _init() {
@@ -112,23 +112,34 @@ define(function (require, exports, module) {
     function _logoYp() {
         var divYp = document.createElement('div');
         var paper = Raphael(divYp, 150, 50);
-        var text = paper.text(68, 10, 'Yellow Pages');
+        var newLight = paper.set();
+        var DOMURL = self.URL || self.webkitURL || self;
 
-        text.attr({
-            'stroke': 'none',
-            'fill': '#595959',
-            'font-weight': 'bold',
-            'font-size': 18,
-            'line-height': 20,
-            'font-family': "Myriad Pro"
+
+        callAjax('/img/svg/new.svg', function (svg) {
+
+            var svgEl = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+           svgEl.innerHTML = svg;
+
+
+
+
+            var elll = paper.importSVG(svgEl);
+            newLight.transform('s1.2,1.2,0,0');
         });
+        paper.renderfix();
+
+
         this.YpMod = new Modifier({
-            transform: Transform.translate(-35, 155, 0)
+            size:[140,50],
+            transform: Transform.translate(0, 155, 0)
         });
         this.YpSurf = new Surface({
             content: divYp,
             properties: {
-                cursor: 'pointer'
+                cursor: 'pointer',
+                backgroundColor:'blue'
             }
         });
         this.YpSurf.pipe(this._eventOutput);
@@ -136,6 +147,20 @@ define(function (require, exports, module) {
             this._eventOutput.emit('show:ypCompanies');
         }.bind(this));
         this.rootNode.add(this.YpMod).add(this.YpSurf);
+    }
+
+
+    function callAjax(url, callback){
+        var xmlhttp;
+        // compatible with IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function(){
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                callback(xmlhttp.responseText);
+            }
+        }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
     }
 
     function _mapIcons() {

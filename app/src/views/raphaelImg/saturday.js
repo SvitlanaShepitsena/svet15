@@ -15,6 +15,321 @@ define(function (require, exports, module) {
         this.border = '1px solid #E5E5E5',
             View.apply(this, arguments);
         _init.call(this);
+        var div = document.createElement('div');
+        var mySVG = Raphael(div, 707.08618, 605.22797, {
+            "path": "M 32.324881,539.20469 226.27417,708.91032 c 0,0 20.20305,20.20305 40.4061,16.16244 20.20305,-4.04061 408.10163,-303.04577 408.10163,-303.04577 0,0 12.12183,-12.12183 8.08122,-36.36549 C 678.82251,361.41784 472.75139,236.15893 472.75139,236.15893 z",
+            "fill-opacity": "1",
+            "filter": "url(#filter4119)",
+            "fill": "red",
+            "stroke": "none",
+            "type": "path"
+        }, {
+            "x": 11.428572,
+            "stroke": "none",
+            "y": 112.36218,
+            "width": 717.14288,
+            "height": 717.14288,
+            "fill": "none",
+            "type": "rect"
+        }, {
+            "path": "m 70.710677,446.77573 c 0,0 1.778647,38.42985 -7.071067,50.00255 14.142135,10.6066 130.54823,114.21069 167.68533,145.96704 14.78208,12.64033 37.97601,18.39239 48.99239,6.56599 C 298.10576,610.46497 72.828255,445.89847 70.710677,446.77573 z",
+            "stroke": "#2e3436",
+            "stroke-miterlimit": "4",
+            "stroke-opacity": "1",
+            "type": "path",
+            "fill": "#888a85",
+            "stroke-linecap": "butt",
+            "stroke-width": "10",
+            "stroke-linejoin": "miter",
+            "stroke-dasharray": "none"
+        }, {
+            "stroke": "#ffffff",
+            "stroke-dasharray": "none",
+            "fill-opacity": "1",
+            "fill": "black",
+            "stroke-linecap": "butt",
+            "stroke-linejoin": "miter",
+            "opacity": "0.65094341",
+            "path": "M 87.378195,445.26051 443.45696,186.66145 c 0,0 89.66553,51.96865 154.04827,102.53048 19.23791,15.10815 55.36498,60.71019 25.75889,90.91373 -38.52812,39.3056 -335.71815,251.94619 -335.37064,252.03307 0,0 -5.55584,-18.18275 -21.71828,-36.3655 C 250.01276,577.59049 87.378195,445.26051 87.378195,445.26051 z",
+            "stroke-miterlimit": "4",
+            "stroke-opacity": "1",
+            "stroke-width": "10",
+            "type": "path"
+        }, {
+            "opacity": "0.50628931",
+            "path": "m 77.930331,467.5419 c -0.184356,-0.91744 1.743574,9.62075 -4.607774,27.30909 12.547946,9.36665 117.914333,101.61927 149.792953,130.41814 13.27095,11.98886 38.23942,29.55468 45.74113,21.13114 C 284.63984,612.09523 79.809202,466.76719 77.930331,467.5419 z",
+            "stroke": "#ffffff",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "#2e3436",
+            "stroke-linecap": "butt",
+            "stroke-width": "5.31109476",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "path": "M 67.175144,444.75543 442.44681,173.52947 c 0,0 101.28228,58.53464 165.66502,109.09647 19.23791,15.10815 55.55839,66.67008 28.28427,98.99495 -34.09849,40.41301 -356.58384,270.72089 -356.58384,270.72089 0,0 -4.54569,-29.7995 -20.70813,-47.98225 C 242.94169,586.17679 67.175144,444.75543 67.175144,444.75543 z",
+            "stroke": "#555753",
+            "stroke-miterlimit": "4",
+            "stroke-opacity": "1",
+            "type": "path",
+            "fill": "#d3d7cf",
+            "stroke-linecap": "butt",
+            "stroke-width": "17",
+            "stroke-linejoin": "round",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.65094341",
+            "path": "M 87.378195,445.26051 443.45696,186.66145 c 0,0 89.66553,51.96865 154.04827,102.53048 19.23791,15.10815 55.36498,60.71019 25.75889,90.91373 -38.52812,39.3056 -335.71815,251.94619 -335.37064,252.03307 0,0 -5.55584,-18.18275 -21.71828,-36.3655 C 250.01276,577.59049 87.378195,445.26051 87.378195,445.26051 z",
+            "stroke": "#ffffff",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "butt",
+            "stroke-width": "10",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "path": "M 78.286822,492.2326 C 78.168779,491.76043 239.52368,635.49755 255.36682,640.26327 295.27409,652.26764 139.03519,510.09936 81.822356,477.83792",
+            "stroke": "#2e3436",
+            "stroke-miterlimit": "4",
+            "stroke-opacity": "1",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "butt",
+            "stroke-width": "3",
+            "stroke-linejoin": "miter",
+            "stroke-dasharray": "none"
+        }, {
+            "path": "M 80.714286,489.1479 C 139.96119,537.81426 206.68576,597.47499 256.42857,635.21932 208.89776,576.67487 140.48583,533.30738 82.5,482.36218",
+            "stroke": "#2e3436",
+            "stroke-miterlimit": "4",
+            "stroke-opacity": "1",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "3",
+            "stroke-linejoin": "miter",
+            "stroke-dasharray": "none"
+        }, {
+            "fill": "#888a85",
+            "stroke": "none",
+            "type": "path",
+            "path": "M 135.36044,446.27066 440.42651,219.99649 501.03566,264.4432 195.9696,494.75799 z"
+        }, {
+            "fill": "#eeeeec",
+            "stroke": "none",
+            "type": "path",
+            "path": "m 400.02041,385.6615 119.198,-94.95434 72.73098,48.48733 c 0,0 22.22336,16.16244 20.20305,32.32488 -2.0203,16.16244 -2.0203,16.16244 -2.0203,16.16244 l -117.1777,86.87312 c 0,0 -3.50083,-20.58666 -12.12183,-27.22336 -10.81581,-8.32632 -80.8122,-61.67007 -80.8122,-61.67007 z"
+        }, {
+            "opacity": "0.42767298",
+            "path": "M 421.42857,388.07647 523.57143,306.6479",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "4",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "m 452.64393,392.64156 74.71214,-59.84447",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "M 450.66999,410.37469 552.18715,330.77825",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "m 460.82849,417.75602 99.0573,-75.78768",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "M 470.02138,428.20307 572.83576,347.23558",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "M 478.5705,439.28348 586.42949,356.15517",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "M 495.07973,444.45169 588.4917,373.84411",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "m 500.41108,458.07138 101.3207,-78.56125",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "butt",
+            "stroke-width": "2",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "fill": "#eeeeec",
+            "stroke": "none",
+            "type": "path",
+            "path": "m 222.23356,504.8595 153.54319,-111.11678 88.89342,66.67007 c 11.09666,9.42809 12.29765,18.85618 12.12183,28.28427 l -161.62441,117.1777 c 0,0 -2.0203,-32.32488 -10.10152,-36.36549 -8.08122,-4.04061 -82.83251,-64.64977 -82.83251,-64.64977 z"
+        }, {
+            "opacity": "0.42767298",
+            "path": "M 259.83839,510.27071 321.5067,466.28623",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "4",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "fill": "#babdb6",
+            "stroke": "none",
+            "type": "path",
+            "path": "m 329.30973,454.35188 47.47717,-36.3655 46.46702,33.33504 -47.47718,34.34518 z"
+        }, {
+            "opacity": "0.42767298",
+            "path": "m 266.52696,527.84765 75.84373,-52.91286",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "m 277.63864,535.92887 75.84373,-52.91286",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "M 289.76047,546.0304 365.6042,493.11754",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "M 305.6132,556.44164 436.6246,467.55402",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2.00870752",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "M 318.74518,569.57362 449.75658,480.686",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2.00870752",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "opacity": "0.42767298",
+            "path": "M 326.82431,582.70769 455.81959,492.80573",
+            "stroke": "#000000",
+            "stroke-linejoin": "miter",
+            "stroke-miterlimit": "4",
+            "type": "path",
+            "fill": "none",
+            "stroke-linecap": "round",
+            "stroke-width": "2.00453186",
+            "stroke-opacity": "1",
+            "stroke-dasharray": "none"
+        }, {
+            "path": "M 284.14873,642.06693 C 283.3683,620.4952 245.47389,578.66198 223.67084,564.47773 L 604.27428,289.06322 c 18.74301,12.00807 50.67887,62.61649 28.01994,91.25165 -98.13709,83.01574 -235.54937,181.51478 -348.14549,261.75206 z",
+            "fill": "url(#linearGradient4103)",
+            "stroke": "none",
+            "fill-opacity": "1",
+            "type": "path"
+        });
+
+
+        this.surface = new Surface({
+            content: div,
+            classes: [],
+            properties: {
+                color: 'white',
+                textAlign: 'center'
+            }
+        });
+        this.rootNode.add(this.surface);
     }
 
     function _init() {
@@ -53,7 +368,7 @@ define(function (require, exports, module) {
         this.surface.pipe(this._eventOutput);
 
         this.rootNode = this.add(this.centerModifier);
-        this.rootNode.add(this.surface);
+        //this.rootNode.add(this.surface);
     }
 
     function _saturdaySvg() {

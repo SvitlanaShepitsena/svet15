@@ -1,0 +1,34 @@
+{
+  "name": "raphael-svg-import-classic",
+  "version": "0.3.1",
+  "homepage": "https://github.com/crccheck/raphael-svg-import-classic",
+  "authors": [
+    "crccheck <c@crccheck.com>"
+  ],
+  "description": "Import SVG files to Raphael",
+  "main": "raphael-svg-import.js",
+  "keywords": [
+    "svg",
+    "vml",
+    "ie",
+    "raphael"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.3.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.3.1",
+    "commit": "3ddb1703ad2909b94e5436db9a99c53d1c311e59"
+  },
+  "_source": "git://github.com/crccheck/raphael-svg-import-classic.git",
+  "_target": "~0.3.1",
+  "_originalSource": "raphael-svg-import-classic",
+  "_direct": true
+}
