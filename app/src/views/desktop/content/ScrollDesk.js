@@ -173,18 +173,18 @@ define(function (require, exports, module) {
 
         this.scrollView.sequenceFrom(this.surfaces);
 
-        //setTimeout(function () {
-        //
-        //    this.scrollView.scroll(-600);
-        //
-        //    this.homeDesk.tuneToShortView();
-        //    this.homeDesk.tuneToShortMoto2();
-        //    this.firstMotoShown = true;
-        //
-        //    this.homeDesk.showMapIcons();
-        //    this.mapIconShown = true;
-        //    this._eventOutput.emit('decrease:header');
-        //}.bind(this), 500);
+        setTimeout(function () {
+
+            this.scrollView.scroll(-600);
+
+            this.homeDesk.tuneToShortView();
+            this.homeDesk.tuneToShortMoto2();
+            this.firstMotoShown = true;
+
+            this.homeDesk.showMapIcons();
+            this.mapIconShown = true;
+            this._eventOutput.emit('decrease:header');
+        }.bind(this), 500);
 
     }
 

@@ -125,6 +125,7 @@ define(function (require, exports, module) {
         var red_lines = paper.set();
         var path_n = paper.path("M62.221,31.176v0.86h20.058c-0.706-0.164-1.323-0.451-1.852-0.86H62.221z").attr({
             fill: '#BF2033',
+            stroke: '#BF2033',
             parent: 'red_lines',
             'stroke-width': '0',
             'stroke-opacity': '1'
@@ -161,8 +162,9 @@ define(function (require, exports, module) {
         }).data('id', 'path_s');
         var path_t = paper.path("M80.856,22.157c0.511-0.357,1.088-0.603,1.715-0.764v-0.042H70.382v0.806H80.856z").attr({
             fill: '#BF2033',
+            stroke: '#BF2033',
             parent: 'red_lines',
-            'stroke-width': '0',
+            'stroke-width': '1',
             'stroke-opacity': '1'
         }).data('id', 'path_t');
         red_lines.attr({'id': 'red_lines', 'name': 'red_lines'});

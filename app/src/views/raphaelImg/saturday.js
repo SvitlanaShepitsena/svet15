@@ -114,9 +114,7 @@ define(function (require, exports, module) {
             x: '58.041',
             y: '4.602',
             fill: this.purple,
-            parent: 'group',
-            'stroke-width': '0',
-            'stroke-opacity': '1'
+            parent: 'group'
         }).data('id', 'rect_i');
         var rect_j = paper.rect(54.916, 7.727, 8.586, 2.336).attr({
             x: '54.916',
