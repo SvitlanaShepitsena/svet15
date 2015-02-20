@@ -192,7 +192,7 @@ define(function (require, exports, module) {
                 var transPath = j * step;
                 //path.transform('t' + transPath + ',-7');
                 path.transform('...s1.15,1.15, 0,0, t0,-16');
-                console.log(path.translate());
+                //console.log(path.translate());
             }
         }
         return divNewLight;
