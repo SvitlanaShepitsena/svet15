@@ -97,7 +97,7 @@ window.sv = {
             logoColor: 'red',
             sectionColor: '#FF7F50',
             sectionFlipColor: '#F2CA80',
-            aboutDesk: '#FFFAF0',
+            aboutDesk: 'floralwhite',
             radioDesk: '#FFFBE3',
             contactDesk: '#FFFAF0',
             player: {

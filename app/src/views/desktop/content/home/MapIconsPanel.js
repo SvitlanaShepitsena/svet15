@@ -162,7 +162,7 @@ define(function (require, exports, module) {
                 fontWeight: 'bold',
                 borderColor: '#999999',
                 boxShadow: window.sv.scheme.boxShadow,
-                backgroundColor: 'floralwhite'
+                backgroundColor: window.sv.scheme.aboutDesk
             }
         });
 
@@ -173,7 +173,6 @@ define(function (require, exports, module) {
 
         this.rootNode.add(this.iconBgMod).add(this.mapIconsBg);
     }
-
 
 
     module.exports = MapIconsPanel;
