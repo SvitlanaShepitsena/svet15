@@ -127,7 +127,7 @@ define(function (require, exports, module) {
             fill: '#BF2033',
             stroke: '#BF2033',
             parent: 'red_lines',
-            'stroke-width': '0',
+            'stroke-width': '1',
             'stroke-opacity': '1'
         }).data('id', 'path_n');
         var path_o = paper.path("M62.221,30.318H79.58c-0.202-0.267-0.374-0.553-0.517-0.86H62.221V30.318z").attr({
