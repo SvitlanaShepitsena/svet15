@@ -6,32 +6,27 @@ define(function (require, exports, module) {
 
     newLight.prototype = Object.create(View.prototype);
     newLight.prototype.constructor = newLight;
-    newLight.DEFAULT_OPTIONS = {
-        surfopts: {
-            color: 'white',
-            textAlign: 'center',
-            backgroundColor: '#FA5C4F'
-        }
-    };
+    newLight.DEFAULT_OPTIONS = {};
 
     function newLight() {
+        this.blue = '#046DC9'
         View.apply(this, arguments);
         _init.call(this);
     }
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [200, 30],
-            align: [0.5, 0],
-            origin: [0.5, 0],
-            transform: Transform.translate(0, 0, 0)
+            size: [138, 24],
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(0, 5, 0)
         });
         this.surface = new Surface({
             content: _newLightSvg.call(this),
             properties: {
-                backgroundColor: 'blue'
+                cursor: 'pointer',
+                backgroundColor: this.blue
             }
-
         });
         this.surface.pipe(this._eventOutput);
 
@@ -42,7 +37,7 @@ define(function (require, exports, module) {
     function _newLightSvg() {
 
         var divNewLight = document.createElement('div');
-        var rsr = Raphael(divNewLight, '200', '30');
+        var rsr = Raphael(divNewLight, '136', '24');
         var Text = rsr.set();
         var path_a = rsr.path("M15.107,32.034h-2.415v-4.353H8.266v4.353H5.858V21.347h2.407v4.264h4.427v-4.264h2.415V32.034z").attr({
             fill: '#FCFAFC',
@@ -160,6 +155,7 @@ define(function (require, exports, module) {
             'stroke-width': '0',
             'stroke-opacity': '1'
         }).data('id', 'path_s');
+
         Red_lines.attr({'id': 'Red_lines', 'name': 'Red_lines'});
         var Banner_stars = rsr.set();
         Banner_stars.attr({'id': 'Banner_stars', 'name': 'Banner_stars'});
@@ -168,7 +164,7 @@ define(function (require, exports, module) {
             id: 'rect8796',
             x: '62.221',
             y: '21.347',
-            fill: '#213065',
+            fill: this.blue,
             label: 'field',
             groupmode: 'layer',
             parent: 'Banner_stars',
@@ -188,7 +184,6 @@ define(function (require, exports, module) {
         Banner_stars.push();
         layer5.push(rect8796);
         var group = rsr.set();
-
         var step = 3.5;
         for (var i = 0; i < rsrGroups.length; i++) {
             var arr = rsrGroups[i];
@@ -196,11 +191,9 @@ define(function (require, exports, module) {
                 var path = arr[j];
                 var transPath = j * step;
                 //path.transform('t' + transPath + ',-7');
-                path.transform('...s1.5,1.5, 0,0 t0,-14');
+                path.transform('...s1.15,1.15, 0,0, t0,-16');
                 console.log(path.translate());
             }
-
-
         }
         return divNewLight;
     }

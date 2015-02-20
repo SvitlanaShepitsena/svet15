@@ -6,28 +6,27 @@ define(function (require, exports, module) {
 
     saturday.prototype = Object.create(View.prototype);
     saturday.prototype.constructor = saturday;
-    saturday.DEFAULT_OPTIONS = {
-        surfopts: {
-            color: 'white',
-            textAlign: 'center',
-            backgroundColor: '#FA5C4F'
-        }
-    };
+    saturday.DEFAULT_OPTIONS = {};
 
     function saturday() {
-        View.apply(this, arguments);
+        this.background = 'white';
+        this.border = '1px solid #999999',
+            View.apply(this, arguments);
         _init.call(this);
     }
 
     function _init() {
         this.centerModifier = new Modifier({
-            align: [0.5, 0],
-            origin: [0.5, 0],
+            size: [138, 24],
+            align: [0, 0],
+            origin: [0, 0],
             transform: Transform.translate(0, 0, 0)
         });
         this.surface = new Surface({
             content: _saturdaySvg.call(this),
             properties: {
+                backgroundColor: this.background,
+                border: this.border,
                 cursor: 'pointer'
             }
         });
@@ -137,7 +136,7 @@ define(function (require, exports, module) {
             })(hsl);
 
             hslLight.l += .2;
-            hslLight.s -=0.1;
+            hslLight.s -= 0.1;
             hslColorsLight.push(Raphael.hsl2rgb(hslLight).hex);
 
             var transPath = i * step;
@@ -148,23 +147,7 @@ define(function (require, exports, module) {
         this.init = hslColorsInit;
         this.light = hslColorsLight;
 
-        //group_a.hover(function () {
-        //    for (var n = 0; n < group_a.length; n++) {
-        //        var pathElem = group_a[n];
-        //        pathElem.animate({fill:hslColorsLight[n]},100);
-        //
-        //    }
-        //}, function () {
-        //    for (var m = 0; m < group_a.length; m++) {
-        //        var pathElem = group_a[m];
-        //        pathElem.animate({fill:hslColorsInit[m]},100);
-        //
-        //    }
-        //
-        //});
-
         return divSat;
-
     }
 
     module.exports = saturday;
