@@ -16,6 +16,7 @@ define(function (require, exports, module) {
 
     var Saturday = require('views/raphaelImg/saturday');
     var NewLight = require('views/raphaelImg/newLight');
+    var Yp = require('views/raphaelImg/yp');
 
 
     MapIconsPanel.DEFAULT_OPTIONS = {
@@ -110,32 +111,18 @@ define(function (require, exports, module) {
 
 
     function _logoYp() {
-        var divYp = document.createElement('div');
-        var paper = Raphael(divYp, 150, 50);
-        var text = paper.text(68, 10, 'Yellow Pages');
-
-        text.attr({
-            'stroke': 'none',
-            'fill': '#595959',
-            'font-weight': 'bold',
-            'font-size': 18,
-            'line-height': 20,
-            'font-family': "Myriad Pro"
+        this.yp = new Yp();
+        this.ypMod = new Modifier({
+            size: [150, 50],
+            transform: Transform.translate(-30, 165, 0)
         });
-        this.YpMod = new Modifier({
-            transform: Transform.translate(-35, 155, 0)
-        });
-        this.YpSurf = new Surface({
-            content: divYp,
-            properties: {
-                cursor: 'pointer'
-            }
-        });
-        this.YpSurf.pipe(this._eventOutput);
-        this.YpSurf.on('click', function () {
+        this.yp.pipe(this._eventOutput);
+        this.yp.on('click', function () {
             this._eventOutput.emit('show:ypCompanies');
         }.bind(this));
-        this.rootNode.add(this.YpMod).add(this.YpSurf);
+
+        this.rootNode.add(this.ypMod).add(this.yp);
+
     }
 
     function _mapIcons() {
