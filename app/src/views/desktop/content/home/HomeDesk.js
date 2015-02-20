@@ -13,6 +13,7 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
 
     /*App Require*/
+
     var HomeContentDesk = require('dviews/content/home/HomeContentDesk');
     var MapDesk = require('dviews/content/home/MapsDesk');
 
@@ -29,6 +30,7 @@ define(function (require, exports, module) {
         _map.call(this);
         //_shortViewIcons.call(this);
     }
+
 
     function _map() {
         this.modMap = new Modifier({

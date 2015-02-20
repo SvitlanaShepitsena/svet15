@@ -6,6 +6,8 @@ define(function (require, exports, module) {
 
     var ScrollDesk = require('dviews/content/ScrollDesk');
     var HeaderDesk = require('dviews/header/HeaderDesk');
+    var ArrowDown = require('dviews/common/ArrowDown');
+    var Transitionable = require('famous/transitions/Transitionable');
     //var MapDesk = require('dviews/BgMapsDesk');
 
     var Transitionable = require('famous/transitions/Transitionable');
@@ -51,6 +53,30 @@ define(function (require, exports, module) {
             this.heightTransitionable.halt();
             this.heightTransitionable.set(window.innerHeight, {duration: 300, curve: "easeInOut"});
         }.bind(this)
+
+        _arrows.call(this);
+    }
+
+    function _arrows() {
+
+        var initialAngle = 120 * Math.PI / 180;
+        this.arrowAngle = new Transitionable(initialAngle);
+        this.arrowOpacity = new Transitionable(0);
+
+
+        this.arrowDownMod = new Modifier({
+            size: [45, 33],
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            transform: function () {
+                return Transform.multiply4x4(Transform.translate(0, window.innerHeight - 50, 2), Transform.rotateX(this.arrowAngle.get()));
+            }.bind(this)
+        });
+
+        this.arrowDown = new ArrowDown();
+
+        this.rootNode.add(this.arrowDownMod).add(this.arrowDown);
+        this.arrowAngle.set(0, {duration: 1000});
     }
 
 

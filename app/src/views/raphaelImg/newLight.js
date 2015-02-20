@@ -197,7 +197,6 @@ define(function (require, exports, module) {
                 var transPath = j * step;
                 //path.transform('t' + transPath + ',-7');
                 path.transform('...s1.5,1.5, 0,0 t0,-14');
-                console.log(path.translate());
             }
 
 
