@@ -15,7 +15,7 @@ define(function (require, exports, module) {
     };
 
     function yp() {
-        this.background = 'black';
+        this.background = '#363536';
         this.border = '1px solid #E5E5E5';
         View.apply(this, arguments);
         _init.call(this);
@@ -49,7 +49,7 @@ define(function (require, exports, module) {
         var text = paper.text(68, 10, 'Yellow Pages');
         text.attr({
             'stroke': 'none',
-            'fill': 'yellow',
+            'fill': '#F2EB80',
             'font-weight': 'bold',
             'font-size': 18,
             'font-family': "Myriad Pro"

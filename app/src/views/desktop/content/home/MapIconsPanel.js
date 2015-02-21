@@ -16,6 +16,7 @@ define(function (require, exports, module) {
 
     var Saturday = require('views/raphaelImg/saturday');
     var NewLight = require('views/raphaelImg/newLight');
+    var Yp = require('views/raphaelImg/yp');
 
 
     MapIconsPanel.DEFAULT_OPTIONS = {
@@ -37,7 +38,7 @@ define(function (require, exports, module) {
         _mapIcons.call(this);
         _logoSaturday.call(this);
         _logoNewLight.call(this);
-        //_logoYp.call(this);
+        _logoYp.call(this);
     }
 
     function _init() {
@@ -110,57 +111,18 @@ define(function (require, exports, module) {
 
 
     function _logoYp() {
-        var divYp = document.createElement('div');
-        var paper = Raphael(divYp, 150, 50);
-        var newLight = paper.set();
-        var DOMURL = self.URL || self.webkitURL || self;
-
-
-        callAjax('/img/svg/new.svg', function (svg) {
-
-            var svgEl = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-
-           svgEl.innerHTML = svg;
-
-
-
-
-            var elll = paper.importSVG(svgEl);
-            newLight.transform('s1.2,1.2,0,0');
+        this.yp = new Yp();
+        this.ypMod = new Modifier({
+            size: [150, 50],
+            transform: Transform.translate(-30, 166, 0)
         });
-        paper.renderfix();
-
-
-        this.YpMod = new Modifier({
-            size:[140,50],
-            transform: Transform.translate(0, 155, 0)
-        });
-        this.YpSurf = new Surface({
-            content: divYp,
-            properties: {
-                cursor: 'pointer',
-                backgroundColor:'blue'
-            }
-        });
-        this.YpSurf.pipe(this._eventOutput);
-        this.YpSurf.on('click', function () {
+        this.yp.pipe(this._eventOutput);
+        this.yp.on('click', function () {
             this._eventOutput.emit('show:ypCompanies');
         }.bind(this));
-        this.rootNode.add(this.YpMod).add(this.YpSurf);
-    }
 
+        this.rootNode.add(this.ypMod).add(this.yp);
 
-    function callAjax(url, callback){
-        var xmlhttp;
-        // compatible with IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function(){
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-                callback(xmlhttp.responseText);
-            }
-        }
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();
     }
 
     function _mapIcons() {

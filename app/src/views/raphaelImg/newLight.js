@@ -10,13 +10,14 @@ define(function (require, exports, module) {
 
     function newLight() {
         this.blue = '#046DC9'
-        View.apply(this, arguments);
+        this.border = '1px solid #E5E5E5',
+            View.apply(this, arguments);
         _init.call(this);
     }
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [138, 24],
+            size: [138, 30],
             align: [0, 0],
             origin: [0, 0],
             transform: Transform.translate(0, 5, 0)
@@ -25,6 +26,7 @@ define(function (require, exports, module) {
             content: _newLightSvg.call(this),
             properties: {
                 cursor: 'pointer',
+                border: this.border,
                 backgroundColor: this.blue
             }
         });
@@ -37,7 +39,7 @@ define(function (require, exports, module) {
     function _newLightSvg() {
 
         var divNewLight = document.createElement('div');
-        var paper = Raphael(divNewLight, '136', '24');
+        var paper = Raphael(divNewLight, '136', '30');
 
         var objects = paper.set();
         var path_a = paper.path("M16.54,33.383h-2.913v-5.25H8.288v5.25H5.384V20.492h2.903v5.143h5.339v-5.143h2.913V33.383z").attr({
@@ -174,7 +176,7 @@ define(function (require, exports, module) {
             for (var j = 0; j < arr.length; j++) {
                 var path = arr[j];
                 var transPath = j * step;
-                path.transform('...s0.95,0.95, 0,0, t1,-15')
+                path.transform('...s0.95,0.95, 0,0, t1,-12')
                 //path.transform('t' + transPath + ',-7');
                 //console.log(path.translate());
             }
