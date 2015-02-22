@@ -91,6 +91,8 @@ window.sv = {
             lightRed: '#FA5C4F',
             lightGrey: '#F2EDE4',
             darkGrey: '#DED9D1',
+            sectionText: '#595959',
+            mapSectionText: '#3E3A3B',
             headerColor: '#000000',
             navColor: '#0B0B0B',
             homeIconColor: '#faebd7',
