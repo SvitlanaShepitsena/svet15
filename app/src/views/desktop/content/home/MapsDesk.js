@@ -57,8 +57,8 @@ define(function (require, exports, module) {
 
     function _svetMapIcons() {
         this.modMap = new Modifier({
-            align: [0.5, 0.3],
-            origin: [0.5, 0.2],
+            align: [0.8, 0.05],
+            origin: [0.8, 0.05],
             transform: Transform.translate(0, 0, 0)
         });
         this.mapIconsPanel = new MapIconsPanel();
@@ -108,7 +108,7 @@ define(function (require, exports, module) {
         });
 
         this.mapSurface = new Surface({
-            content: '<p><img src="img/svet-icon.png">  Svet distribution points</p>',
+            content: '<p><img src="../../../../../img/google-map/svet-distribution.png">  Svet distribution points</p>',
             properties: {
                 fontSize: '12px',
                 color: window.sv.scheme.textDark
@@ -141,7 +141,7 @@ define(function (require, exports, module) {
 
         this.mapSurface = new Surface({
             size: [170, 50],
-            content: '<p><img src="img/google-icon.png">  Our current clients </p>',
+            content: '<p><img src="img/google-map/yp-business.png">  Our current clients </p>',
             properties: {
                 zIndex: 1,
                 color: window.sv.scheme.textDark
@@ -163,8 +163,8 @@ define(function (require, exports, module) {
     function _map() {
         this.gMap;
         this.northChicagoStart = {lat: 41.9899, lng: -87.710023};
-        this.legendPlace = {lat: 42.131767, lng: -87.579624};
         this.northChicagoEnd = {lat: 42.150571, lng: -87.710238};
+        this.legendPlace = {lat: 42.131767, lng: -87.579624};
 
         this.mapView = new MapView({
             type: MapView.MapType.GOOGLEMAPS,
@@ -586,6 +586,7 @@ define(function (require, exports, module) {
             var latLng = new google.maps.LatLng(baseLat + that.randomPoint(counter), baseLong + that.randomPoint(counter + 2));
             that.ypMarker = new google.maps.Marker({
                 position: latLng,
+                icon: 'img/google-map/yp-business.png',
                 animation: google.maps.Animation.DROP
             });
             that.markerInfo = new google.maps.InfoWindow();
@@ -661,7 +662,7 @@ define(function (require, exports, module) {
             var latLng = new google.maps.LatLng(baseLat + that.randomPoint(counter), baseLong + that.randomPoint(counter + 2));
             this.svetMarker = new google.maps.Marker({
                 position: latLng,
-                icon: 'img/svet-icon.png',
+                icon: 'img/google-map/svet-distribution.png',
                 animation: google.maps.Animation.DROP
             });
             this.markerInfo = new google.maps.InfoWindow();

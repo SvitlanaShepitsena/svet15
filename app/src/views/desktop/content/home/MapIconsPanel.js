@@ -10,7 +10,7 @@ define(function (require, exports, module) {
     var Slider = require('famous/widgets/Slider');
     var VideoSurface = require('famous/surfaces/VideoSurface');
     var RenderNode = require('famous/core/RenderNode');
-
+    /*App Require*/
     var HomeContentDesk = require('dviews/content/home/HomeContentDesk');
     var MapsDesk = require('dviews/content/home/MapsDesk');
 
@@ -18,13 +18,26 @@ define(function (require, exports, module) {
     var NewLight = require('views/raphaelImg/newLight');
     var Yp = require('views/raphaelImg/yp');
 
+    MapIconsPanel.prototype = Object.create(View.prototype);
+    MapIconsPanel.prototype.constructor = MapIconsPanel;
 
     MapIconsPanel.DEFAULT_OPTIONS = {
         fillDark: '#393939',
         satPaperWidth: '100px',
         satPaperHeight: '50px',
-        iconsPanelSize: [90, 40],
+        iconsPanelSize: [300, 240],
         iconsGridSize: [100, 40],
+        mapPanelProps: {
+            border: '1px',
+            fontSize: '19px',
+            color: window.sv.scheme.textDark,
+            padding: '20px 15px',
+            borderStyle: 'solid',
+            fontWeight: 'bold',
+            borderColor: '#999999',
+            boxShadow: window.sv.scheme.boxShadow,
+            backgroundColor: window.sv.scheme.aboutDesk
+        },
         mapIconProps: {
             cursor: 'pointer'
         }
@@ -43,28 +56,30 @@ define(function (require, exports, module) {
 
     function _init() {
         this.iconPanelTrans = new Transitionable(0);
-
         this.centerModifier = new Modifier({
-            align: [0.6, 0],
-            origin: [0.5, 0.2],
             size: this.options.iconsPanelSize,
             opacity: function () {
                 return this.iconPanelTrans.get();
             }.bind(this),
-            transform: Transform.translate(-10, 0, 0)
-
+            transform: Transform.translate(0, 0, 0)
         });
         this.rootNode = this.add(this.centerModifier);
     }
 
-    MapIconsPanel.prototype = Object.create(View.prototype);
-    MapIconsPanel.prototype.constructor = MapIconsPanel;
+    function _mapIcons() {
+        /*Map Icons Panel*/
+        this.mapIconsBg = new Surface({
+            content: '<h>Our Products and Services</h><hr/>',
+            properties: this.options.mapPanelProps
+        });
+        /*Grid Layout for Map Icons*/
+        this.iconPanelTrans = new Transitionable(0);
+        this.rootNode.add(this.mapIconsBg);
+    }
 
     MapIconsPanel.prototype.animateUp = function () {
         this.iconPanelTrans.halt();
         this.iconPanelTrans.set(1, {duration: 1000, curve: "easeOutBounce"});
-
-
     }
 
 
@@ -86,7 +101,7 @@ define(function (require, exports, module) {
 
         this.logoSvgMod = new Modifier({
             size: [150, 50],
-            transform: Transform.translate(-30, 96, 0)
+            transform: Transform.translate(15, 75, 0)
         });
         this.saturday.pipe(this._eventOutput);
         this.saturday.on('click', function () {
@@ -99,7 +114,7 @@ define(function (require, exports, module) {
     function _logoNewLight() {
         this.newSvetMod = new Modifier({
             size: [150, 50],
-            transform: Transform.translate(-30, 127, 0)
+            transform: Transform.translate(15, 110, 0)
         });
         this.newLight = new NewLight();
         this.newLight.pipe(this._eventOutput);
@@ -114,7 +129,7 @@ define(function (require, exports, module) {
         this.yp = new Yp();
         this.ypMod = new Modifier({
             size: [150, 50],
-            transform: Transform.translate(-30, 166, 0)
+            transform: Transform.translate(15, 155, 0)
         });
         this.yp.pipe(this._eventOutput);
         this.yp.on('click', function () {
@@ -123,42 +138,6 @@ define(function (require, exports, module) {
 
         this.rootNode.add(this.ypMod).add(this.yp);
 
-    }
-
-    function _mapIcons() {
-        this.iconBgMod = new Modifier({
-            size: [300, 180],
-            align: [0.5, 0.75],
-            origin: [0.3, 0],
-
-            opacity: function () {
-                return this.iconPanelTrans.get();
-            }.bind(this),
-            transform: Transform.translate(0, 0, 0)
-        });
-
-        /*Map Icons Panel*/
-        this.mapIconsBg = new Surface({
-            content: '<h class="text-info">Svet Distribution Points</h><hr/>',
-            properties: {
-                border: '1px',
-                fontSize: '19px',
-                padding: '15px',
-                paddingTop: '20px',
-                borderStyle: 'solid',
-                fontWeight: 'bold',
-                borderColor: '#999999',
-                boxShadow: window.sv.scheme.boxShadow,
-                backgroundColor: window.sv.scheme.aboutDesk
-            }
-        });
-
-
-        /*Grid Layout for Map Icons*/
-        this.iconPanelTrans = new Transitionable(0);
-
-
-        this.rootNode.add(this.iconBgMod).add(this.mapIconsBg);
     }
 
 

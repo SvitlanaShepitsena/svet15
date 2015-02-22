@@ -41,8 +41,7 @@ define(function (require, exports, module) {
         this.geocoder = new google.maps.Geocoder();
 
         this.mapId = 'home-map-cell';
-        this.centerCoordCell = {lat: 42.127553, lng: -87.827837};
-
+        this.centerCoordCell = {lat: 42.127572, lng: -87.788725};
         _init.call(this);
         _map.call(this);
     }
@@ -76,7 +75,7 @@ define(function (require, exports, module) {
             zoomScale: 0.3
         });
         this.mapsLegendCell = new MapsLegendCell({
-            legendContent: '<p><img src="../../../../../../img/svet-icon.png">  Svet distribution points</p>'
+            legendContent: '<p><img src="../../../../../../img/google-map/svet-distribution.png">  Svet distribution points</p>'
         });
         this.rootNode.add(this.mapLegendSvetMod).add(this.mapsLegendCell);
     }
@@ -92,7 +91,7 @@ define(function (require, exports, module) {
 
         this.mapSurface = new Surface({
             size: [170, 50],
-            content: '<p><img src="../../../../../../img/google-icon.png"> Our current clients </p>',
+            content: '<p><img src="../../../../../../img/google-map/yp-business.png"> Our current clients </p>',
             properties: {
                 color: 'black'
             }
@@ -514,6 +513,7 @@ define(function (require, exports, module) {
             var latLng = new google.maps.LatLng(baseLat + that.randomPoint(counter), baseLong + that.randomPoint(counter + 2));
             that.ypMarker = new google.maps.Marker({
                 position: latLng,
+                icon: 'img/google-map/yp-business.png',
                 animation: google.maps.Animation.DROP
             });
             that.markerInfo = new google.maps.InfoWindow();
@@ -562,7 +562,7 @@ define(function (require, exports, module) {
             var latLng = new google.maps.LatLng(baseLat + that.randomPoint(counter), baseLong + that.randomPoint(counter + 2));
             this.svetMarker = new google.maps.Marker({
                 position: latLng,
-                icon: 'img/svet-icon.png',
+                icon: 'img/google-map/svet-distribution.png',
                 animation: google.maps.Animation.DROP
             });
             this.markerInfo = new google.maps.InfoWindow();
