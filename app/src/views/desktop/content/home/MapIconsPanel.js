@@ -30,7 +30,7 @@ define(function (require, exports, module) {
         mapPanelProps: {
             border: '1px',
             fontSize: '18px',
-            color: window.sv.scheme.textDark,
+            color: window.sv.scheme.sectionText,
             padding: '20px 15px',
             borderStyle: 'solid',
             fontWeight: 'bold',
