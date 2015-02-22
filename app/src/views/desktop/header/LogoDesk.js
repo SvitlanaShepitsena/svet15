@@ -30,13 +30,13 @@ define(function (require, exports, module) {
 
     LogoDesk.DEFAULT_OPTIONS = {
         logoHeight: null,
-        paperWidth: window.sv.sizing.logoContainerWidth * .77,
+        paperWidth: window.sv.sizing.logoContainerWidth ,
         paperHeight: window.sv.sizing.headerHeight * .9
     };
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [this.options.paperWidth, window.sv.sizing.headerHeight * .8],
+            size: [undefined, window.sv.sizing.headerHeight * .8],
             align: [0.5, 0.5],
             origin: [0.5, 0.5]
         });
@@ -143,7 +143,7 @@ define(function (require, exports, module) {
                 shift = window.innerWidth > 1160 ? 84 : 10;
                 this.svgLine.halt();
                 this.svgLine.set(shift, {duration: 50});
-                return Transform.translate(this.svgLine.get()-25, this.svetSvgTrans.get()+ shiftUpArrow+23, 0);
+                return Transform.translate(this.svgLine.get()-55, this.svetSvgTrans.get()+ shiftUpArrow+23, 0);
             }.bind(this)
         });
         this.arrowUp = new ArrowUp();
