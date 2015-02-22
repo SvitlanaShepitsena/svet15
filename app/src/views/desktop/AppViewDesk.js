@@ -7,10 +7,17 @@ define(function (require, exports, module) {
     var ScrollDesk = require('dviews/content/ScrollDesk');
     var HeaderDesk = require('dviews/header/HeaderDesk');
     var ArrowDown = require('dviews/common/ArrowDown');
+    var ArrowUp = require('dviews/common/ArrowUp');
     var Transitionable = require('famous/transitions/Transitionable');
-    //var MapDesk = require('dviews/BgMapsDesk');
 
-    var Transitionable = require('famous/transitions/Transitionable');
+    //var SpringTransition = require('famous/transitions/SpringTransition');
+    //var WallTransition = require('famous/transitions/WallTransition');
+    //var SnapTransition = require('famous/transitions/SnapTransition');
+    //
+    //Transitionable.registerMethod('spring', SpringTransition);
+    //Transitionable.registerMethod('wall', WallTransition);
+    //Transitionable.registerMethod('snap', SnapTransition);
+
 
     function AppViewDesk() {
         View.apply(this, arguments);
@@ -54,14 +61,16 @@ define(function (require, exports, module) {
             this.heightTransitionable.set(window.innerHeight, {duration: 300, curve: "easeInOut"});
         }.bind(this)
 
-        _arrows.call(this);
+        _downArrow.call(this);
+        _upArrow.call(this);
     }
 
-    function _arrows() {
+    function _downArrow() {
+        this.velocityStep = 0.65;
 
-        var initialAngle = 120 * Math.PI / 180;
-        this.arrowAngle = new Transitionable(initialAngle);
-        this.arrowOpacity = new Transitionable(0);
+        this.initialDownAngle = 120 * Math.PI / 180;
+        this.arrowDownAngleTrans = new Transitionable(this.initialDownAngle);
+        this.arrowDownOpacity = new Transitionable(0);
 
 
         this.arrowDownMod = new Modifier({
@@ -69,17 +78,53 @@ define(function (require, exports, module) {
             align: [0.5, 0],
             origin: [0.5, 0],
             opacity: function () {
-                return
+                return this.arrowDownOpacity.get();
             }.bind(this),
             transform: function () {
-                return Transform.multiply4x4(Transform.translate(0, window.innerHeight - 50, 2), Transform.rotateX(this.arrowAngle.get()));
+                return Transform.multiply4x4(Transform.translate(0, window.innerHeight - 50, 2), Transform.rotateX(this.arrowDownAngleTrans.get()));
             }.bind(this)
         });
-
+        this.arrowDownOpacity.set(1, {duration: 1000});
         this.arrowDown = new ArrowDown();
 
+        this.arrowDown.on('mousedown', function () {
+            this.scrolldesk.scroll(this.velocityStep * -1);
+
+        }.bind(this));
+
         this.rootNode.add(this.arrowDownMod).add(this.arrowDown);
-        this.arrowAngle.set(0, {duration: 1000});
+        this.arrowDownAngleTrans.set(0, {duration: 1000});
+    }
+
+    function _upArrow() {
+
+        var initialAngle = 0;
+        this.arrowUpAngle = new Transitionable(initialAngle);
+        this.arrowUpOpacity = new Transitionable(0);
+
+
+        var shiftUpArrow = sv.sizing.headerHeightSm - 55;
+
+        this.arrowUpMod = new Modifier({
+            size: [45, 33],
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            opacity: function () {
+                return this.arrowUpOpacity.get();
+            }.bind(this),
+            transform: function () {
+                return Transform.multiply4x4(Transform.translate(5, shiftUpArrow, 20), Transform.rotateX(this.arrowUpAngle.get()));
+            }.bind(this)
+        });
+        this.arrowUp = new ArrowUp();
+
+        this.arrowUp.on('mousedown', function () {
+            this.scrolldesk.scroll(this.velocityStep);
+
+        }.bind(this));
+
+        this.rootNode.add(this.arrowUpMod).add(this.arrowUp);
+        this.arrowUpAngle.set(0, {duration: 1000});
     }
 
 
@@ -104,13 +149,34 @@ define(function (require, exports, module) {
         this.scrolldesk = new ScrollDesk({ctx: this.options.ctx});
 
         this.scrolldesk.on('decrease:header', function () {
+            this.arrowUpOpacity.halt();
+            this.arrowUpOpacity.set(1, {duration: 2000});
             this.headerDesk.decreaseHeader.call(this.headerDesk);
         }.bind(this));
 
         this.scrolldesk.on('increase:header', function () {
+            this.arrowUpOpacity.halt();
+            this.arrowUpOpacity.set(0, {duration: 1000});
             this.headerDesk.increaseHeader.call(this.headerDesk);
             //
         }.bind(this));
+
+        this.scrolldesk.on('hide:downArrow', function () {
+            this.arrowDownOpacity.halt();
+            this.arrowDownOpacity.set(0, {duration: 1000});
+            this.arrowDownAngleTrans.halt()
+            this.arrowDownAngleTrans.set(this.initialDownAngle, {duration: 1000});
+            //
+        }.bind(this));
+
+        this.scrolldesk.on('show:downArrow', function () {
+            this.arrowDownOpacity.halt();
+            this.arrowDownAngleTrans.halt()
+            this.arrowDownOpacity.set(1, {duration: 1000});
+            this.arrowDownAngleTrans.set(0, {duration: 1000});
+            //
+        }.bind(this));
+
 
         this.rootNode.add(this.scrolldesk);
     }

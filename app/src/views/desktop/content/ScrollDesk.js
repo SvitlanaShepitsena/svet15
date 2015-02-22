@@ -58,31 +58,51 @@ define(function (require, exports, module) {
                 rails: true,
                 scale: 0.3,
                 stallTime: 4
-            }
+            },
+            touch: 'touch'
         });
         Engine.pipe(this.scrollView);
         this.scrollView.pipe(this.sync);
 
         this.headerFull = true;
-        this.HEADERLIMIT = 27;
+        this.HEADERLIMIT = 37;
         this.moto1Limit = 107;
         this.moto2Limit = 175;
         this.logoBackLimit = 40;
 
         this.mapIconShown = false;
         this.mapIconLimit = 275;
+        this.maxScrollSize = 2900;
 
         this.firstMotoShown = true;
         this.secondMotoShown = true;
+        this.downArrowShown = true;
+        var absPos = 0, delta;
 
-        var absPos = 0;
+        this.scrollView.on('scroll', function (data) {
 
-        this.sync.on('update', function (data) {
-
-            absPos = absPos + data.position > 0 ? 0 : absPos + data.position;
+            delta = data.scrollOffset - data.oldScrollOffset;
+            absPos += delta;
 
             _startAnimation.call(this, Math.abs(absPos));
         }.bind(this));
+
+        this.scrollView.on('scrollend', function (data) {
+            absPos = data.target._scroll.groupStart + data.target._scroll.particleValue;
+            if (Math.abs(absPos) < this.logoBackLimit && !this.headerFull) {
+                this._eventOutput.emit('increase:header');
+                this.headerFull = true;
+            }
+            if (Math.abs(absPos) > this.maxScrollSize && this.downArrowShown) {
+                this._eventOutput.emit('hide:downArrow');
+                this.downArrowShown = false;
+            }
+            if (!this.downArrowShown && Math.abs(absPos) < this.maxScrollSize) {
+                this._eventOutput.emit('show:downArrow');
+                this.downArrowShown = true;
+            }
+        }.bind(this));
+
 
     }
 
@@ -162,9 +182,9 @@ define(function (require, exports, module) {
 
         this.surfaces = [];
         this.homeDesk = new HomeDesk();
-        this.contactMap = new ContactMapDesk();
         this.aboutDesk = new AboutUsDesk();
         this.radioDesk = new RadioDesk();
+        this.contactMap = new ContactMapDesk();
 
         this.surfaces.push(this.homeDesk);
         this.surfaces.push(this.aboutDesk);
@@ -173,21 +193,26 @@ define(function (require, exports, module) {
 
         this.scrollView.sequenceFrom(this.surfaces);
 
-        setTimeout(function () {
+        function scrollToIconPanel() {
+            setTimeout(function () {
+                this.scrollView.scroll(-600);
+                this.homeDesk.tuneToShortView();
+                this.homeDesk.tuneToShortMoto2();
+                this.firstMotoShown = true;
+                this.homeDesk.showMapIcons();
+                this.mapIconShown = true;
+                this._eventOutput.emit('decrease:header');
+            }.bind(this), 500);
+        }
 
-            this.scrollView.scroll(-600);
-
-            this.homeDesk.tuneToShortView();
-            this.homeDesk.tuneToShortMoto2();
-            this.firstMotoShown = true;
-
-            this.homeDesk.showMapIcons();
-            this.mapIconShown = true;
-            this._eventOutput.emit('decrease:header');
-        }.bind(this), 500);
-
+        //scrollToIconPanel.call(this);
     }
 
+    ScrollDesk.prototype.scroll = function (velocity) {
+        this.scrollView.scroll(-1);
+        this.scrollView.setVelocity(velocity);
+
+    }
 
     ScrollDesk.prototype.goToPage = function (pageIndex) {
         switch (pageIndex) {
@@ -203,6 +228,7 @@ define(function (require, exports, module) {
             case 1:
 
                 this.scrollView.goToRenderNode(this.aboutDesk);
+
 
                 this._eventOutput.emit('decrease:header');
                 this.headerFull = false;
