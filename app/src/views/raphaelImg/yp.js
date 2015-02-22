@@ -33,6 +33,7 @@ define(function (require, exports, module) {
             content: _ypSvg.call(this),
             properties: {
                 backgroundColor: this.background,
+                boxShadow: window.sv.scheme.boxShadow,
                 border: this.border,
                 cursor: 'pointer'
             }
@@ -45,7 +46,9 @@ define(function (require, exports, module) {
 
     function _ypSvg() {
         var divYp = document.createElement('div');
-        var paper = Raphael(divYp, 150, 50);
+        divYp.style.height = '30px';
+
+        var paper = Raphael(divYp, 138, 30);
         var text = paper.text(68, 10, 'Yellow Pages');
         text.attr({
             'stroke': 'none',
