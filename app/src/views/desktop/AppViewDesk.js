@@ -65,7 +65,12 @@ define(function (require, exports, module) {
     }
 
     function _downArrow() {
-        this.velocityStep = 2.85;
+
+        var h = window.innerHeight;
+        var dif = (h-768)/100;
+        this.velocityStep = dif;
+
+
 
         this.initialDownAngle = 120 * Math.PI / 180;
         this.arrowDownAngleTrans = new Transitionable(this.initialDownAngle);
@@ -98,7 +103,6 @@ define(function (require, exports, module) {
         this.rootNode.add(this.arrowDownMod).add(this.arrowDown);
         this.arrowDownAngleTrans.set(0, {duration: 1000});
     }
-
 
 
     function _header() {
