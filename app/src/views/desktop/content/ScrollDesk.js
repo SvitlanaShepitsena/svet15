@@ -210,6 +210,7 @@ define(function (require, exports, module) {
 
     ScrollDesk.prototype.scroll = function (velocity) {
         this.scrollView.scroll(-1);
+        this.scrollView.scroll(1);
         this.scrollView.setVelocity(velocity);
 
     }

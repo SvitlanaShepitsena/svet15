@@ -1502,6 +1502,10 @@ define(function(require, exports, module) {
         return this._scroll.isScrolling;
     };
 
+    ScrollController.prototype.scrollTo = function() {
+        this.scroll(-1);
+    };
+
     /**
      * Checks whether any boundaries have been reached.
      *
