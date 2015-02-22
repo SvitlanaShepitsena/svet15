@@ -67,9 +67,9 @@ define(function (require, exports, module) {
     function _downArrow() {
 
         var h = window.innerHeight;
-        var dif = (h-768)/100;
-        this.velocityStep = dif;
-
+        var dif = (h - 768) / 100;
+        console.log(dif);
+        this.velocityStep = dif < 0 ? 0.85 : dif;
 
 
         this.initialDownAngle = 120 * Math.PI / 180;
