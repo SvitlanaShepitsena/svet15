@@ -43,7 +43,8 @@ define(function (require, exports, module) {
         this.surface = new Surface({
             content: div,
             properties:{
-                zIndex:10
+                zIndex:10,
+                cursor:'pointer'
             }
         });
         this.surface.pipe(this._eventOutput);

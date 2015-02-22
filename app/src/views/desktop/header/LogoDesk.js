@@ -84,6 +84,7 @@ define(function (require, exports, module) {
 
     function _svetSvg() {
         var div = document.createElement('div');
+        this.svetSvgTrans = new Transitionable(-70);
         var paper = Raphael(div, this.options.paperWidth, this.options.paperHeight);
         var text = paper.text(129, 44, 'SVET');
         text.attr({
@@ -99,7 +100,7 @@ define(function (require, exports, module) {
                 shift = window.innerWidth > 1160 ? 84 : 10;
                 this.svgLine.halt();
                 this.svgLine.set(shift, {duration: 50});
-                return Transform.translate(this.svgLine.get(), -70, 0);
+                return Transform.translate(this.svgLine.get(), this.svetSvgTrans.get(), 0);
             }.bind(this)
         });
         this.svetSvgSurf = new Surface({
@@ -113,6 +114,8 @@ define(function (require, exports, module) {
         if (currentPosition !== this.fullPosition) {
             this.shiftTransitionable.halt();
             this.opacityTransitionable.halt();
+            this.svetSvgTrans.halt();
+            this.svetSvgTrans.set(-70, {duration:500});
             this.shiftTransitionable.set(this.fullPosition + 50, {duration: 500, curve: "linear"});
             this.opacityTransitionable.set(1, {duration: 500, curve: "linear"});
             this.changeColorHigh.call(this);
@@ -124,6 +127,9 @@ define(function (require, exports, module) {
         if (currentPosition !== this.shortPosition) {
             this.shiftTransitionable.halt();
             this.opacityTransitionable.halt();
+
+            this.svetSvgTrans.halt();
+            this.svetSvgTrans.set(-50, {duration:500});
 
             this.shiftTransitionable.set(this.shortPosition, {duration: 500, curve: "linear"});
             this.opacityTransitionable.set(0, {duration: 500, curve: "linear"});

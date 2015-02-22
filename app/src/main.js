@@ -70,7 +70,7 @@ window.sv = {
         headerHeightCell: 0.08 * window.innerHeight,
         footerSize: 0 * window.innerHeight,
         headerHeight: 140,
-        headerHeightSm: 140 / 2.4,
+        headerHeightSm: 140 / 2,
         viewHeight: window.innerHeight - 140 / 1.6,
         headerWidth: 1280,
         headerSmallHeight: Math.ceil(140 / 2.8),
