@@ -65,7 +65,7 @@ define(function (require, exports, module) {
     }
 
     function _downArrow() {
-        this.velocityStep = 0.85;
+        this.velocityStep = 2.85;
 
         this.initialDownAngle = 120 * Math.PI / 180;
         this.arrowDownAngleTrans = new Transitionable(this.initialDownAngle);
