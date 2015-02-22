@@ -28,6 +28,7 @@ define(function (require, exports, module) {
             content: _saturdaySvg.call(this),
             properties: {
                 backgroundColor: this.background,
+                boxShadow: window.sv.scheme.boxShadow,
                 border: this.border,
                 cursor: 'pointer'
             }
@@ -58,7 +59,9 @@ define(function (require, exports, module) {
 
     function _saturdaySvg() {
         var divSat = document.createElement('div');
-        var paper = Raphael(divSat, '140', '100');
+        divSat.style.height = '30px';
+
+        var paper = Raphael(divSat, '138', '30');
 
         var path_a = paper.path("M25.979,12.896,5.979,12.896,5.979,19.562,25.979,19.562z");
         path_a.attr({

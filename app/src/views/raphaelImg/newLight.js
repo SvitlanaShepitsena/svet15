@@ -25,9 +25,10 @@ define(function (require, exports, module) {
         this.surface = new Surface({
             content: _newLightSvg.call(this),
             properties: {
-                cursor: 'pointer',
+                backgroundColor: this.blue,
+                boxShadow: window.sv.scheme.boxShadow,
                 border: this.border,
-                backgroundColor: this.blue
+                cursor: 'pointer'
             }
         });
         this.surface.pipe(this._eventOutput);
@@ -39,7 +40,8 @@ define(function (require, exports, module) {
     function _newLightSvg() {
 
         var divNewLight = document.createElement('div');
-        var paper = Raphael(divNewLight, '136', '30');
+        divNewLight.style.height = '30px';
+        var paper = Raphael(divNewLight, '138', '30');
 
         var objects = paper.set();
         var path_a = paper.path("M16.54,33.383h-2.913v-5.25H8.288v5.25H5.384V20.492h2.903v5.143h5.339v-5.143h2.913V33.383z").attr({

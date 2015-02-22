@@ -25,7 +25,7 @@ define(function (require, exports, module) {
         fillDark: '#393939',
         satPaperWidth: '100px',
         satPaperHeight: '50px',
-        iconsPanelSize: [300, 240],
+        iconsPanelSize: [300, 310],
         iconsGridSize: [100, 40],
         mapPanelProps: {
             border: '1px',
@@ -57,15 +57,16 @@ define(function (require, exports, module) {
 
     function _svetDistribution() {
         this.distPointsMod = new Modifier({
-            size: [undefined, 50],
+            size: [270, 50],
             align: [0, 0],
             origin: [0, 0],
             transform: Transform.translate(15, 200 , 0)
         });
         this.distPointsSurf = new Surface({
-            content: '<p><span class = "">*</span><img src="img/google-map/svet-distribution-xs.png"> Svet Media Distribution Points</p>',
+            content: '<hr/><p><span>*</span><img src="img/google-map/svet-distribution-xs.png"> Svet Media Distribution Points</p>' +
+            '<p><span>*</span><img src="img/google-map/yp-business-xs.png"> Svet Yellow Pages Clients</p>',
             properties: {
-                fontSize: '14px',
+                fontSize: '12px',
                 cursor: 'pointer'
             }
         });
@@ -113,16 +114,12 @@ define(function (require, exports, module) {
     /** =Map Svet Icons
      */
 
-    /*=Raphael Icon Design*/
-    /*Converted*/
-    /*Converted End*/
-
     function _logoSaturday() {
         this.saturday = new Saturday();
 
         this.logoSvgMod = new Modifier({
             size: [150, 50],
-            transform: Transform.translate(15, 75, 0)
+            transform: Transform.translate(25, 80, 0)
         });
         this.saturday.pipe(this._eventOutput);
         this.saturday.on('click', function () {
@@ -135,7 +132,7 @@ define(function (require, exports, module) {
     function _logoNewLight() {
         this.newSvetMod = new Modifier({
             size: [150, 50],
-            transform: Transform.translate(15, 110, 0)
+            transform: Transform.translate(25, 120, 0)
         });
         this.newLight = new NewLight();
         this.newLight.pipe(this._eventOutput);
@@ -150,7 +147,7 @@ define(function (require, exports, module) {
         this.yp = new Yp();
         this.ypMod = new Modifier({
             size: [150, 50],
-            transform: Transform.translate(15, 155, 0)
+            transform: Transform.translate(25, 170, 0)
         });
         this.yp.pipe(this._eventOutput);
         this.yp.on('click', function () {
