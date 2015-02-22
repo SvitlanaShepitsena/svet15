@@ -6,6 +6,7 @@ define(function (require, exports, module) {
     var Modifier = require("famous/core/Modifier");
     var Transitionable = require('famous/transitions/Transitionable');
 
+    var ArrowUp = require('dviews/common/ArrowUp');
     function LogoDesk() {
         this.fullPosition = window.sv.sizing.headerHeight * .09;
         this.shortPosition = -window.sv.sizing.headerHeight * 0.36;
@@ -21,6 +22,7 @@ define(function (require, exports, module) {
         _svetSvg.call(this);
         //_rmgText.call(this);
         _logoSvg.call(this);
+        _upArrow.call(this);
     }
 
     LogoDesk.prototype = Object.create(View.prototype);
@@ -85,6 +87,8 @@ define(function (require, exports, module) {
     }
 
     function _svetSvg() {
+        var shiftUpArrow = sv.sizing.headerHeightSm - 65;
+        var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
         var div = document.createElement('div');
         this.svetSvgTrans = new Transitionable(-70);
         var paper = Raphael(div, this.options.paperWidth, this.options.paperHeight);
@@ -96,24 +100,71 @@ define(function (require, exports, module) {
             'font-weight': 'bold',
             'font-family': "Myriad Pro"
         })
-        var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
         this.svetSvgMod = new Modifier({
             transform: function () {
                 shift = window.innerWidth > 1160 ? 84 : 10;
                 this.svgLine.halt();
                 this.svgLine.set(shift, {duration: 50});
-                return Transform.translate(this.svgLine.get(), this.svetSvgTrans.get(), 0);
+                return Transform.translate(this.svgLine.get(), this.svetSvgTrans.get()- shiftUpArrow, 0);
             }.bind(this)
         });
+
         this.svetSvgSurf = new Surface({
             content: div
         });
+
+
+
         this.rootNode.add(this.svetSvgMod).add(this.svetSvgSurf);
     }
+
+    function _upArrow() {
+        this.arrowUp = new ArrowUp();
+
+        var shiftUpArrow = sv.sizing.headerHeightSm - 65;
+        var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
+
+        var initialAngle = 0;
+        this.arrowUpAngle = new Transitionable(initialAngle);
+        this.arrowUpOpacity = new Transitionable(0);
+
+
+
+
+        this.arrowUpMod = new Modifier({
+            size: [45, 33],
+            align: [0.5, 0],
+            origin: [0.5, 0],
+            opacity: function () {
+                return this.arrowUpOpacity.get();
+            }.bind(this),
+
+            transform: function () {
+                shift = window.innerWidth > 1160 ? 84 : 10;
+                this.svgLine.halt();
+                this.svgLine.set(shift, {duration: 50});
+                return Transform.translate(this.svgLine.get()-25, this.svetSvgTrans.get()+ shiftUpArrow+23, 0);
+            }.bind(this)
+        });
+        this.arrowUp = new ArrowUp();
+
+        this.arrowUp.on('mousedown', function () {
+            this._eventOutput.emit('scroll:up');
+
+        }.bind(this));
+
+        this.rootNode.add(this.arrowUpMod).add(this.arrowUp);
+        this.arrowUpAngle.set(0, {duration: 1000});
+        this.rootNode.add(this.arrowUpMod).add(this.arrowUp);
+    }
+
 
     LogoDesk.prototype.increaseLogo = function () {
         var currentPosition = this.shiftTransitionable.get();
         if (currentPosition !== this.fullPosition) {
+
+            this.arrowUpOpacity.halt();
+            this.arrowUpOpacity.set(0, {duration: 1000});
             this.shiftTransitionable.halt();
             this.opacityTransitionable.halt();
             this.svetSvgTrans.halt();
@@ -127,6 +178,9 @@ define(function (require, exports, module) {
     LogoDesk.prototype.decreaseLogo = function () {
         var currentPosition = this.shiftTransitionable.get();
         if (currentPosition !== this.shortPosition) {
+
+            this.arrowUpOpacity.halt();
+            this.arrowUpOpacity.set(1, {duration: 2000});
             this.shiftTransitionable.halt();
             this.opacityTransitionable.halt();
 

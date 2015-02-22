@@ -18,8 +18,8 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            align: [0.5, 0],
-            origin: [0.5, 0],
+            align: [0.75, 0],
+            origin: [0.2, 0],
             transform: Transform.translate(0, 0, 1)
         });
 
