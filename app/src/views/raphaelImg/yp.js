@@ -49,7 +49,7 @@ define(function (require, exports, module) {
         var text = paper.text(68, 10, 'Yellow Pages');
         text.attr({
             'stroke': 'none',
-            'fill': '#F2EB80',
+            'gradient': '90-#F2B263-#F2EB80-#F2B263',
             'font-weight': 'bold',
             'font-size': 18,
             'font-family': "Myriad Pro"

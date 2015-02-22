@@ -48,34 +48,6 @@ define(function (require, exports, module) {
         _init.call(this);
         _map.call(this);
         _svetMapIcons.call(this);
-        _raphaelIcon.call(this);
-    }
-
-    function _raphaelIcon() {
-        var myCircle = document.createElement('div');
-        var paper = Raphael(myCircle, 450, 450);
-        var c = paper.circle(50, 50, 40);
-        c.attr({
-            stroke: 'none',
-            fill: "#900"
-        });
-
-        paper.renderfix();
-        this.circleMod = new Modifier({
-            size: [150, 150],
-            align: [0, 0],
-            origin: [0, 0],
-            transform: Transform.translate(0, 0, 10)
-        });
-        this.circleSurf = new Surface({
-            content: myCircle,
-            properties: {
-                cursor: 'pointer'
-            }
-        });
-
-        this.circleSurf.pipe(this._eventOutput);
-        this.rootNode.add(this.circleMod).add(this.circleSurf);
     }
 
     function _init() {
