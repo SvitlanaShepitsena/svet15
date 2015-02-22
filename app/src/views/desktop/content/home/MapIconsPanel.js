@@ -29,7 +29,7 @@ define(function (require, exports, module) {
         iconsGridSize: [100, 40],
         mapPanelProps: {
             border: '1px',
-            fontSize: '19px',
+            fontSize: '18px',
             color: window.sv.scheme.textDark,
             padding: '20px 15px',
             borderStyle: 'solid',
@@ -91,7 +91,9 @@ define(function (require, exports, module) {
     function _mapIcons() {
         /*Map Icons Panel*/
         this.mapIconsBg = new Surface({
-            content: '<h>Our Products and Services</h><hr/>',
+            content: '<h>' +
+            '<i class="fa fa-info-circle"></i>' +
+            '&nbsp Our Products and Services</h><hr/>',
             properties: this.options.mapPanelProps
         });
         /*Grid Layout for Map Icons*/
