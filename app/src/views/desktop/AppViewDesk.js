@@ -66,7 +66,7 @@ define(function (require, exports, module) {
     }
 
     function _downArrow() {
-        this.velocityStep = 0.65;
+        this.velocityStep = 0.85;
 
         this.initialDownAngle = 120 * Math.PI / 180;
         this.arrowDownAngleTrans = new Transitionable(this.initialDownAngle);
@@ -113,7 +113,7 @@ define(function (require, exports, module) {
                 return this.arrowUpOpacity.get();
             }.bind(this),
             transform: function () {
-                return Transform.multiply4x4(Transform.translate(5, shiftUpArrow, 20), Transform.rotateX(this.arrowUpAngle.get()));
+                return Transform.multiply4x4(Transform.translate(0, shiftUpArrow, 20), Transform.rotateX(this.arrowUpAngle.get()));
             }.bind(this)
         });
         this.arrowUp = new ArrowUp();

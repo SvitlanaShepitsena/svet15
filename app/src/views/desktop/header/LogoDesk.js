@@ -34,7 +34,9 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [this.options.paperWidth, window.sv.sizing.headerHeight * .8]
+            size: [this.options.paperWidth, window.sv.sizing.headerHeight * .8],
+            align: [0.5, 0.5],
+            origin: [0.5, 0.5]
         });
         this.rootNode = this.add(this.centerModifier);
     }
