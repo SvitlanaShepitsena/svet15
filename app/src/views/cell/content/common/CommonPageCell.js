@@ -118,7 +118,7 @@ define(function (require, exports, module) {
 
     function _handleSwipe() {
         var that = this;
-        var verticalShiftAbs, horisontalShiftAbs, isVertical;
+        var verticalShiftAbs, horisontalShiftAbs, isHorisontal;
         /**
          * Define wheter this scroll is horizontal
          * Then if it is horizontal, define wheter it is scroll back or force
@@ -130,8 +130,9 @@ define(function (require, exports, module) {
             if (verticalShiftAbs === horisontalShiftAbs) {
                 return;
             }
-            isVertical = verticalShiftAbs > horisontalShiftAbs;
-            if (!isVertical) {
+            isHorisontal = horisontalShiftAbs > 3*verticalShiftAbs;
+
+            if (isHorisontal) {
                 if (data.delta[0] < 0) {
                     this.nextView.call(that);
                 }

@@ -80,43 +80,6 @@ define(function (require, exports, module) {
     }
 
 
-    function _handleTouch() {
-        GenericSync.register(MouseSync);
-        this.sync = new GenericSync(function () {
-            return this.pageViewCellPos.get(0);
-        }.bind(this), {direction: GenericSync.DIRECTION_X});
-
-        this.pageViewCell.pipe(this.sync);
-
-        this.sync.on('update', function (data) {
-            console.log(data);
-            if (this.pageViewCellPos.get() === 0 && data.position > 0) {
-                this.menuView.animateNavItems();
-            }
-
-            this.pageViewCellPos.set(Math.min(Math.max(0, data.position), this.options.maxOpenPos));
-        }.bind(this));
-
-        this.sync.on('end', (function (data) {
-            console.log(data);
-            var velocity = data.velocity;
-            var position = this.pageViewCellPos.get();
-
-            if (this.pageViewCellPos.get() > this.options.posThreshold) {
-                if (velocity < -this.options.velThreshold) {
-                    this.slideLeft();
-                } else {
-                    this.slideRight();
-                }
-            } else {
-                if (velocity > this.options.velThreshold) {
-                    this.slideRight();
-                } else {
-                    this.slideLeft();
-                }
-            }
-        }).bind(this));
-    }
 
     AppViewCell.prototype.toggleMenu = function () {
         if (this.menuToggle) {

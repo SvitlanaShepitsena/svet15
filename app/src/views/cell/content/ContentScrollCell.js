@@ -123,16 +123,16 @@ define(function (require, exports, module) {
 
         this.scrollview = new FlexScrollView({
             scrollSync: {
-                scale: 0.1
+                scale: 0.5
             },
             paginated: true,
             paginationMode: ScrollController.PaginationMode.PAGE,
-            paginationEnergyThresshold: 0.001,
+            paginationEnergyThresshold: 0.1,
             direction: 1,       // 0 = X, 1 = Y, undefined = use default from layout
             alignment: 0,               // 0 = top/left, 1 = bottom/right
             mouseMove: false,           // allow mouse to hold and move the view
             useContainer: true,        // embeds inside a ContainerSurface for clipping and capturing input events
-            visibleItemThresshold: 0.4, // by default, when an item is 50% visible, it is considered visible by `getFirstVisibleItem`
+            visibleItemThresshold: 0.5, // by default, when an item is 50% visible, it is considered visible by `getFirstVisibleItem`
             pullToRefreshHeader: undefined, // assign pull-to-refresh renderable here (renderable must have a size)
             leadingScrollView: undefined,
             trailingScrollView: undefined,
@@ -140,7 +140,7 @@ define(function (require, exports, module) {
             layoutAll: true,
             scrollDrag: {
                 forceFunction: Drag.FORCE_FUNCTIONS.QUADRATIC,
-                strength: 0.001,
+                strength: 0.01,
                 disabled: false
             }
         });
