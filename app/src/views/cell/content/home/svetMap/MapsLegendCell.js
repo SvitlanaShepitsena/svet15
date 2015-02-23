@@ -8,11 +8,6 @@ define(function (require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
     var Transitionable = require('famous/transitions/Transitionable');
 
-    function MapsLegendCell(options) {
-        View.apply(this, arguments);
-        //this.add(yourstuff);
-        _init.call(this);
-    }
 
     MapsLegendCell.prototype = Object.create(View.prototype);
     MapsLegendCell.prototype.constructor = MapsLegendCell;
@@ -22,6 +17,11 @@ define(function (require, exports, module) {
         legendOpacity: null,
         legendColor: null
     };
+
+    function MapsLegendCell(options) {
+        View.apply(this, arguments);
+        _init.call(this);
+    }
 
     function _init() {
         this.legendTrans = new Transitionable(0);
