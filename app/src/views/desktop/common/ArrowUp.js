@@ -7,7 +7,7 @@ define(function (require, exports, module) {
     ArrowUp.prototype = Object.create(View.prototype);
     ArrowUp.prototype.constructor = ArrowUp;
     ArrowUp.DEFAULT_OPTIONS = {
-        arrowOopts: {
+        arrowOpts: {
             zIndex: 10,
             cursor: 'pointer'
         }
