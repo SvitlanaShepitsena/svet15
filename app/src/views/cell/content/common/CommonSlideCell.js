@@ -47,17 +47,18 @@ define(function (require, exports, module) {
             align: this.options.align,
             origin: this.options.origin,
             size: [this.options.width * .9, this.options.height * .8],
-            transform: Transform.translate(0, 0, 2)
+            transform: Transform.translate(0, 0, 20)
         });
         this.viewContent = new Surface({
             content: require('text!cviews/jade/' + this.options.folder + '/' + this.options.content + '.html'),
             properties: {
                 textAlign: 'center',
                 marginBottom: '10px',
-                zIndex: 2,
-                pointerEvents: 'none'
+                zIndex: 20,
+                pointerEvents: 'visible'
             }
         });
+        this.viewContent.pipe(this._eventOutput);
         this.rootNode.add(this.contentModifier).add(this.viewContent);
     }
 
