@@ -145,7 +145,6 @@ define(function (require, exports, module) {
             }
         });
 
-        this.scrollview.goToNextPage();
 
         this.scrollview.setOptions({
             overscroll: false   // disable overscroll
@@ -203,6 +202,9 @@ define(function (require, exports, module) {
                 this.nextTrans.set(0, {duration: 200});
             }
         }.bind(this));
+
+
+        //this.scrollview.goToNextPage();
 
     };
 
