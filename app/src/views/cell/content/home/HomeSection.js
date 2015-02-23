@@ -7,9 +7,28 @@ define(function (require, exports, module) {
     var RenderNode = require('famous/core/RenderNode');
     var Flipper = require('famous/views/Flipper');
 
+    /*App Requiere*/
     var RadioScrollCell = require('cviews/content/home/radio/RadioScrollCell');
 
-    function HomePart() {
+    HomeSection.prototype = Object.create(View.prototype);
+    HomeSection.prototype.constructor = HomeSection;
+
+    HomeSection.DEFAULT_OPTIONS = {
+        frontContent: null,
+        flipInfo: null,
+        flipIcon: null,
+        period: 0,
+        dampingRatio: 0,
+        sign: 0,
+        sectionPop: {
+            paddingTop: window.innerWidth / 4.15 + 'px',
+            color: window.sv.scheme.textWhite,
+            backgroundColor: window.sv.scheme.sectionColor,
+            cursor: 'pointer',
+            textAlign: 'center'
+        }
+    };
+    function HomeSection() {
         View.apply(this, arguments);
 
         this.flipperFrontSide = true;
@@ -33,24 +52,6 @@ define(function (require, exports, module) {
         _sectionIcon.call(this);
     }
 
-    HomePart.prototype = Object.create(View.prototype);
-    HomePart.prototype.constructor = HomePart;
-
-    HomePart.DEFAULT_OPTIONS = {
-        frontContent: null,
-        flipInfo: null,
-        flipIcon: null,
-        period: 0,
-        dampingRatio: 0,
-        sign: 0,
-        sectionPop: {
-            paddingTop: window.innerWidth / 4.15 + 'px',
-            color: window.sv.scheme.textWhite,
-            backgroundColor: window.sv.scheme.sectionColor,
-            cursor: 'pointer',
-            textAlign: 'center'
-        }
-    };
 
     function _initTransform() {
         this.spring = {
@@ -114,7 +115,6 @@ define(function (require, exports, module) {
         });
 
         this.sectionIconSurface = new Surface({
-            size: [undefined, undefined],
             content: "<img style='width:" + (this.sectionImgWidth) + "px; height: " + (this.sectionImgWidth) + "px; margin:" + this.iconImgMargin + "px;' src='img/home-page/icons-color/" + this.options.flipIcon + ".png'/>",
             properties: {
                 cursor: 'pointer',
@@ -128,5 +128,5 @@ define(function (require, exports, module) {
     }
 
 
-    module.exports = HomePart;
+    module.exports = HomeSection;
 });

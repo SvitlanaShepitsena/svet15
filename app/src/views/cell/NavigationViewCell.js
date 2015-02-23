@@ -3,16 +3,8 @@ define(function (require, exports, module) {
     var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var EventHandler = require('famous/core/EventHandler');
+    /*App Require*/
     var View = require('famous/core/View');
-
-    function NavigationView() {
-        View.apply(this, arguments);
-
-        this.eventOutput = new EventHandler();
-        EventHandler.setOutputHandler(this, this.eventOutput);
-
-        _createIcon.call(this);
-    }
 
     NavigationView.prototype = Object.create(View.prototype);
     NavigationView.prototype.constructor = NavigationView;
@@ -23,6 +15,15 @@ define(function (require, exports, module) {
         iconUrl: null,
         index: null
     };
+
+    function NavigationView() {
+        View.apply(this, arguments);
+
+        this.eventOutput = new EventHandler();
+        EventHandler.setOutputHandler(this, this.eventOutput);
+        _createIcon.call(this);
+    }
+
 
     function _createIcon() {
         var that = this;

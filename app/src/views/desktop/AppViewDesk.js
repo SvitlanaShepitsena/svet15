@@ -3,12 +3,16 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
-
+    var Transitionable = require('famous/transitions/Transitionable');
+    /*App Require*/
     var ScrollDesk = require('dviews/content/ScrollDesk');
     var HeaderDesk = require('dviews/header/HeaderDesk');
     var ArrowDown = require('dviews/common/ArrowDown');
     var ArrowUp = require('dviews/common/ArrowUp');
-    var Transitionable = require('famous/transitions/Transitionable');
+
+    AppViewDesk.prototype = Object.create(View.prototype);
+    AppViewDesk.prototype.constructor = AppViewDesk;
+    AppViewDesk.DEFAULT_OPTIONS = {};
 
     function AppViewDesk() {
         View.apply(this, arguments);
@@ -19,9 +23,6 @@ define(function (require, exports, module) {
         _header.call(this);
     }
 
-    AppViewDesk.prototype = Object.create(View.prototype);
-    AppViewDesk.prototype.constructor = AppViewDesk;
-    AppViewDesk.DEFAULT_OPTIONS = {};
 
     AppViewDesk.prototype.resize = function (mainWidth) {
     }

@@ -6,8 +6,8 @@ define(function (require, exports, module) {
     var Transitionable = require('famous/transitions/Transitionable');
     var Easing = require('famous/transitions/Easing');
 
+    /*App Requiere*/
     var MapsLegendCell = require('cviews/content/home/svetMap/MapsLegendCell');
-
     /*Map Functionality*/
     var MapView = require('fmaps/MapView');
     var MapModifier = require('fmaps/MapModifier');
@@ -70,12 +70,12 @@ define(function (require, exports, module) {
     function _legendSvet() {
         this.mapLegendSvetMod = new MapModifier({
             mapView: this.mapView,
-            position: {lat: 42.131767, lng: -87.579624},
+            position: this.legendPlace,
             zoomBase: 9,
             zoomScale: 0.3
         });
         this.mapsLegendCell = new MapsLegendCell({
-            legendContent: '<p><img src="../../../../../../img/google-map/svet-distribution.png">  Svet distribution points</p>'
+            legendContent: '<p><img src="../../../../../../img/google-map/svet-distribution-xs.png">  Svet distribution  <br/> &nbsp &nbsp &nbsp points</p>'
         });
         this.rootNode.add(this.mapLegendSvetMod).add(this.mapsLegendCell);
     }
@@ -83,26 +83,24 @@ define(function (require, exports, module) {
 
     function legendYp() {
         this.mapLegendYpMod = new MapModifier({
+            size: [170, 50],
             mapView: this.mapView,
             position: this.legendPlace,
             zoomBase: 9,
             zoomScale: 0.3
         });
 
-        this.mapSurface = new Surface({
-            size: [170, 50],
-            content: '<p><img src="../../../../../../img/google-map/yp-business.png"> Our current clients </p>',
-            properties: {
-                color: 'black'
-            }
-        });
         this.modifier = new Modifier({
+            size: [170, 50],
             align: [0, 0],
             origin: [0.5, 0.5],
             opacity: function () {
                 return this.opacityLegendYp.get();
             }.bind(this)
 
+        });
+        this.mapSurface = new Surface({
+            content: '<p><img src="../../../../../../img/google-map/yp-business-xs.png"> Our current clients </p>'
         });
         this.opacityLegendYp.set(1, {duration: 500, curve: 'easeInOut'});
 
@@ -113,7 +111,7 @@ define(function (require, exports, module) {
     function _map() {
         this.gMap;
         this.northChicagoStart = {lat: 41.011949, lng: -87.709012};
-        this.legendPlace = {lat: 42.131767, lng: -87.579624};
+        this.legendPlace = {lat: 42.195, lng: -87.61};
         this.northChicagoEnd = {lat: 42.082571, lng: -87.710238};
 
         this.mapView = new MapView({
@@ -513,7 +511,7 @@ define(function (require, exports, module) {
             var latLng = new google.maps.LatLng(baseLat + that.randomPoint(counter), baseLong + that.randomPoint(counter + 2));
             that.ypMarker = new google.maps.Marker({
                 position: latLng,
-                icon: 'img/google-map/yp-business.png',
+                icon: 'img/google-map/yp-business-s.png',
                 animation: google.maps.Animation.DROP
             });
             that.markerInfo = new google.maps.InfoWindow();
@@ -562,7 +560,7 @@ define(function (require, exports, module) {
             var latLng = new google.maps.LatLng(baseLat + that.randomPoint(counter), baseLong + that.randomPoint(counter + 2));
             this.svetMarker = new google.maps.Marker({
                 position: latLng,
-                icon: 'img/google-map/svet-distribution.png',
+                icon: 'img/google-map/svet-distribution-s.png',
                 animation: google.maps.Animation.DROP
             });
             this.markerInfo = new google.maps.InfoWindow();

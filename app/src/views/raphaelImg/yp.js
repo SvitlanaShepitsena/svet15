@@ -6,13 +6,7 @@ define(function (require, exports, module) {
 
     yp.prototype = Object.create(View.prototype);
     yp.prototype.constructor = yp;
-    yp.DEFAULT_OPTIONS = {
-        surfopts: {
-            color: 'white',
-            textAlign: 'center',
-            backgroundColor: '#FA5C4F'
-        }
-    };
+    yp.DEFAULT_OPTIONS = {};
 
     function yp() {
         this.background = '#363536';
@@ -24,10 +18,7 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [138, 30],
-            align: [0, 0],
-            origin: [0, 0],
-            transform: Transform.translate(0, 0, 0)
+            size: [138, 30]
         });
         this.surface = new Surface({
             content: _ypSvg.call(this),

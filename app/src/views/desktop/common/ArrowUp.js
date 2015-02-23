@@ -7,7 +7,10 @@ define(function (require, exports, module) {
     ArrowUp.prototype = Object.create(View.prototype);
     ArrowUp.prototype.constructor = ArrowUp;
     ArrowUp.DEFAULT_OPTIONS = {
-        surfopts: {}
+        arrowOopts: {
+            zIndex: 10,
+            cursor: 'pointer'
+        }
     };
 
     function ArrowUp() {
@@ -31,15 +34,12 @@ define(function (require, exports, module) {
         arrowPaper.path('M21.871,9.814 15.684,16.001 21.871,22.188 18.335,25.725 8.612,16.001 18.335,6.276z').attr({
             fill: 'black',
             opacity: .8,
-            stroke: 'none'
+            stroke: 'white'
         }).transform('...s2.4 t8.5,0 r90');
 
         this.surface = new Surface({
             content: arrowDiv,
-            properties: {
-                zIndex: 10,
-                cursor: 'pointer'
-            }
+            properties: this.options.arrowOpts
         });
         this.surface.pipe(this._eventOutput);
         this.rootNode.add(this.surface);

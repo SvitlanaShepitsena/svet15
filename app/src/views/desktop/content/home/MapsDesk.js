@@ -494,8 +494,6 @@ define(function (require, exports, module) {
 
         x = (x << 13) ^ x;
         return 0.01 + maxRandomDisp * ( 1.0 - ( (x * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
-
-
     }
 
 
@@ -506,9 +504,7 @@ define(function (require, exports, module) {
         that.allowYpAnimation = true;
 
         var baseLat = 42.14,
-
             baseLong = -87.9;
-
         _closeAllOverlays.call(this);
 
 

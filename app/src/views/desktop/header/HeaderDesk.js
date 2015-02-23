@@ -8,7 +8,7 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var Transitionable = require('famous/transitions/Transitionable');
     var Easing = require('famous/transitions/Easing');
-
+    /*App Require*/
     var LogoDesk = require('dviews/header/LogoDesk');
     var NavDesk = require('dviews/header/NavDesk');
 
@@ -20,8 +20,7 @@ define(function (require, exports, module) {
         this.opacityTransitionable = new Transitionable(0);
         this.heightTransitionable = new Transitionable(window.sv.sizing.headerHeight);
         this.widthTransitionable = new Transitionable(this.contentSize);
-        this.navBtnContainerWidth = (window.sv.sizing.contentWidth - window.sv.sizing.logoContainerWidth) / 4;
-        this.logoMargin = (window.sv.sizing.headerHeight * .6 ) / 2
+       
         View.apply(this, arguments);
         _headerBackground.call(this);
         _flex.call(this);

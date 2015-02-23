@@ -55,27 +55,6 @@ define(function (require, exports, module) {
         _svetDistribution.call(this);
     }
 
-    function _svetDistribution() {
-        this.distPointsMod = new Modifier({
-            size: [270, 50],
-            align: [0, 0],
-            origin: [0, 0],
-            transform: Transform.translate(15, 200 , 0)
-        });
-        this.distPointsSurf = new Surface({
-            content: '<hr/><p><span>*</span><img src="img/google-map/svet-distribution-xs.png"> Svet Media Distribution Points</p>' +
-            '<p><span>*</span><img src="img/google-map/yp-business-xs.png"> Svet Yellow Pages Clients</p>',
-            properties: {
-                fontSize: '12px',
-                cursor: 'pointer'
-            }
-        });
-
-        this.distPointsSurf.pipe(this._eventOutput);
-        this.rootNode.add(this.distPointsMod).add(this.distPointsSurf);
-
-    }
-
     function _init() {
         this.iconPanelTrans = new Transitionable(0);
         this.centerModifier = new Modifier({
@@ -87,6 +66,26 @@ define(function (require, exports, module) {
         });
         this.rootNode = this.add(this.centerModifier);
     }
+
+    function _svetDistribution() {
+        this.distPointsMod = new Modifier({
+            size: [270, 50],
+            align: [0, 0],
+            origin: [0, 0],
+            transform: Transform.translate(15, 200, 0)
+        });
+        this.distPointsSurf = new Surface({
+            content: '<hr/><p><span>*</span><img src="img/google-map/svet-distribution-xs.png"> Svet Media Distribution Points</p>' +
+            '<p><span>*</span><img src="img/google-map/yp-business-xs.png"> Svet Yellow Pages Clients</p>',
+            properties: {
+                fontSize: '12px',
+                cursor: 'pointer'
+            }
+        });
+        this.distPointsSurf.pipe(this._eventOutput);
+        this.rootNode.add(this.distPointsMod).add(this.distPointsSurf);
+    }
+
 
     function _mapIcons() {
         /*Map Icons Panel*/

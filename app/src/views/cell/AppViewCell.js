@@ -7,20 +7,17 @@ define(function (require, exports, module) {
     var MouseSync = require('famous/inputs/MouseSync');
     var GenericSync = require('famous/inputs/GenericSync');
     var HeaderFooterLayout = require('famous/views/HeaderFooterLayout');
-
     var GridLayout = require("famous/views/GridLayout");
     var EventHandler = require('famous/core/EventHandler');
-
-    var MenuViewCell = require('./MenuViewCell');
-    var PageViewCell = require('./content/PageViewCell');
     var ImageSurface = require('famous/surfaces/ImageSurface');
 
     var WallTransition = require('famous/transitions/WallTransition');
     var SnapTransition = require('famous/transitions/SnapTransition');
-
-
     var Transitionable = require('famous/transitions/Transitionable');
     var SpringTransition = require('famous/transitions/SpringTransition');
+    /*App Require*/
+    var MenuViewCell = require('./MenuViewCell');
+    var PageViewCell = require('./content/PageViewCell');
 
 
     AppViewCell.DEFAULT_OPTIONS = {
@@ -43,7 +40,6 @@ define(function (require, exports, module) {
             opacity: 1
         });
         this.imgSurface = new ImageSurface({
-            size: [undefined, undefined],
             properties: {
                 lineHeight: window.innerHeight + "px",
                 textAlign: "center",
@@ -51,7 +47,6 @@ define(function (require, exports, module) {
                 background: "#595153 url('img/bg/pattern-sepia1.jpg')"
             }
         });
-
         var that = this;
         View.apply(this, arguments);
         this.menuToggle = false;
@@ -71,7 +66,6 @@ define(function (require, exports, module) {
         })
 
         this.pageModifier = new Modifier();
-
         this.pageModifier.transformFrom(function () {
             return Transform.translate(this.pageViewCellPos.get(), 0, 0);
         }.bind(this));
@@ -79,7 +73,6 @@ define(function (require, exports, module) {
         this.pageViewCell.on('menuToggle', this.toggleMenu.bind(this));
 
         this.add(this.imgModifier).add(this.imgSurface);
-
         this.add(this.menuView);
         this.add(this.pageModifier).add(this.pageViewCell);
 

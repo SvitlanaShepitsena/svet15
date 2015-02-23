@@ -6,8 +6,23 @@ define(function (require, exports, module) {
     var View = require('famous/core/View');
     var Timer = require('famous/utilities/Timer');
 
+    /*App Require*/
     var EventHandler = require('famous/core/EventHandler');
     var NavigationViewCell = require('./NavigationViewCell');
+
+    MenuViewCell.prototype = Object.create(View.prototype);
+    MenuViewCell.prototype.constructor = MenuViewCell;
+
+    /*options for nav icon*/
+    MenuViewCell.DEFAULT_OPTIONS = {
+        navWidth: 191,
+        backgroundColor: '#0D0D0D',
+        navHeight: 81,
+        topOffset: 10,
+        navItemOffset: window.innerHeight / 6,
+        duration: 400,
+        staggerDelay: 35
+    };
 
     function MenuViewCell() {
         View.apply(this, arguments);
@@ -25,20 +40,6 @@ define(function (require, exports, module) {
         _createBacking.call(this);
         _createNavigationViews.call(this);
     }
-
-    MenuViewCell.prototype = Object.create(View.prototype);
-    MenuViewCell.prototype.constructor = MenuViewCell;
-
-    /*options for nav icon*/
-    MenuViewCell.DEFAULT_OPTIONS = {
-        navWidth: 191,
-        backgroundColor: '#0D0D0D',
-        navHeight: 81,
-        topOffset: 10,
-        navItemOffset: window.innerHeight / 6,
-        duration: 400,
-        staggerDelay: 35
-    };
 
 
     MenuViewCell.prototype.resetNavItems = function () {
@@ -81,7 +82,6 @@ define(function (require, exports, module) {
         this.backSurface = new Surface({
             size: [window.innerWidth / 2, this.options.height],
             properties: {
-                //backgroundColor: '#595153'
                 backgroundColor: this.options.backgroundColor
             }
         });

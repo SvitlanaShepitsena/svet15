@@ -38,7 +38,7 @@ define(function (require, exports, module) {
             content: this.options.legendContent,
             properties: {
                 color: window.sv.scheme.textDark,
-                zIndex:0
+                zIndex: 0
             }
         });
 
@@ -49,11 +49,11 @@ define(function (require, exports, module) {
 
     MapsLegendCell.prototype.show = function () {
         this.legendTrans.set(1, {duration: 500});
-        this.legendSurf.setOptions({properties:{zIndex:10}});
+        this.legendSurf.setOptions({properties: {zIndex: 10}});
     }
     MapsLegendCell.prototype.hide = function () {
         this.legendTrans.set(0, {duration: 500});
-        this.legendSurf.setOptions({properties:{zIndex:-1}});
+        this.legendSurf.setOptions({properties: {zIndex: -1}});
     }
 
     module.exports = MapsLegendCell;

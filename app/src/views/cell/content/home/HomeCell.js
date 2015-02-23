@@ -15,6 +15,26 @@ define(function (require, exports, module) {
     var flipYellowPages = require('text!cviews/content/home/jade/flipYellowPages.html');
     var flipRadioProgram = require('text!cviews/content/home/jade/flipRadioProgram.html');
 
+    HomeCell.prototype = Object.create(View.prototype);
+    HomeCell.prototype.constructor = HomeCell;
+
+    HomeCell.DEFAULT_OPTIONS = {
+        center: [0.5, 0.5],
+        height: window.innerHeight,
+        width: window.innerWidth,
+        fromRight: 1,
+        fromLeft: -1,
+        color: 'white',
+        contProp: {
+            backgroundColor: '#FFF2DF'
+        },
+        sectionProp: {
+            paddingLeft: '10px',
+            paddingRight: '10px',
+            paddingTop: '5px',
+            textAlign: "center"
+        }
+    };
 
     function HomeCell() {
         View.apply(this, arguments);
@@ -41,30 +61,17 @@ define(function (require, exports, module) {
         }.bind(this))
     }
 
-    HomeCell.prototype = Object.create(View.prototype);
-    HomeCell.prototype.constructor = HomeCell;
-
-    HomeCell.DEFAULT_OPTIONS = {
-        center: [0.5, 0.5],
-        height: window.innerHeight,
-        width: window.innerWidth,
-        fromRight: 1,
-        fromLeft: -1,
-        color: 'white',
-        contProp: {
-            backgroundColor: '#FFF2DF'
-        },
-        sectionProp: {
-            paddingLeft: '10px',
-            paddingRight: '10px',
-            paddingTop: '5px',
-            textAlign: "center"
-        }
-    };
+    function _init() {
+        this.centerModifier = new Modifier({
+            size: [undefined, undefined],
+            align: this.options.center,
+            origin: this.options.center
+        });
+        this.rootNode = this.add(this.centerModifier);
+    }
 
     function _flex() {
-        this.flexMod = new Modifier({
-        });
+        this.flexMod = new Modifier({});
         this.layout = new FlexibleLayout({
             ratios: [3, 2, 2],
             direction: 1
@@ -137,14 +144,6 @@ define(function (require, exports, module) {
         this.flexContent.push(this.gridContentBottom);
     }
 
-    function _init() {
-        this.centerModifier = new Modifier({
-            size:[undefined, window.innerHeight],
-            align: this.options.center,
-            origin: this.options.center
-        });
-        this.rootNode = this.add(this.centerModifier);
-    }
 
     module.exports = HomeCell;
 });
