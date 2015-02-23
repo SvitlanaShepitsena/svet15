@@ -124,13 +124,13 @@ define(function (require, exports, module) {
          * Then if it is horizontal, define wheter it is scroll back or force
          */
         this.options.sync.on("end", function (data) {
-
+console.log('ddd');
             verticalShiftAbs = Math.abs(data.delta[1]);
             horisontalShiftAbs = Math.abs(data.delta[0]);
             if (verticalShiftAbs === horisontalShiftAbs) {
                 return;
             }
-            isHorisontal = horisontalShiftAbs > 3*verticalShiftAbs;
+            isHorisontal = horisontalShiftAbs > verticalShiftAbs;
 
             if (isHorisontal) {
                 if (data.delta[0] < 0) {

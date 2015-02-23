@@ -127,7 +127,7 @@ define(function (require, exports, module) {
             },
             paginated: true,
             paginationMode: ScrollController.PaginationMode.PAGE,
-            paginationEnergyThresshold: 0.1,
+            paginationEnergyThresshold: 0.011,
             direction: 1,       // 0 = X, 1 = Y, undefined = use default from layout
             alignment: 0,               // 0 = top/left, 1 = bottom/right
             mouseMove: false,           // allow mouse to hold and move the view
@@ -140,7 +140,7 @@ define(function (require, exports, module) {
             layoutAll: true,
             scrollDrag: {
                 forceFunction: Drag.FORCE_FUNCTIONS.QUADRATIC,
-                strength: 0.01,
+                strength: 0.001,
                 disabled: false
             }
         });
