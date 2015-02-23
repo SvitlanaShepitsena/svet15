@@ -90,7 +90,6 @@ define(function (require, exports, module) {
         for (var i = 0; i < menuItems.length; i++) {
             if (menuItems[i] === 'Logo') {
                 var renderNode = new RenderNode();
-
                 var logoMod = new Modifier({
                     size: [window.sv.sizing.logoContainerWidth * .9, window.sv.sizing.headerHeight * .8],
                     transform: Transform.translate(0, 50, 0)
@@ -99,12 +98,12 @@ define(function (require, exports, module) {
                 this.contents.push(renderNode);
                 continue;
             }
-
             this.renderNode = new RenderNode();
-
             this.navBtnMod = new Modifier({
+                align: [0.5, 0],
+                origin: [0.5, 0],
                 size: [undefined, 20],
-                transform: Transform.translate(0, 50, 0)
+                transform: Transform.translate(-10, 50, 0)
             });
             this.navBtnSurf = new Surface({
                 content: menuItems[i],

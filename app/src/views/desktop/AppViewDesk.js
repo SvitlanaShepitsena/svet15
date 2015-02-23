@@ -10,15 +10,6 @@ define(function (require, exports, module) {
     var ArrowUp = require('dviews/common/ArrowUp');
     var Transitionable = require('famous/transitions/Transitionable');
 
-    //var SpringTransition = require('famous/transitions/SpringTransition');
-    //var WallTransition = require('famous/transitions/WallTransition');
-    //var SnapTransition = require('famous/transitions/SnapTransition');
-    //
-    //Transitionable.registerMethod('spring', SpringTransition);
-    //Transitionable.registerMethod('wall', WallTransition);
-    //Transitionable.registerMethod('snap', SnapTransition);
-
-
     function AppViewDesk() {
         View.apply(this, arguments);
 
@@ -36,9 +27,6 @@ define(function (require, exports, module) {
     }
 
     function _init() {
-
-        //this.mapDesk = new MapDesk();
-        //this.add(this.mapDesk);
         var limitSize = window.sv.sizing.contentWidth;
 
         this.contentSize = window.innerWidth > limitSize ? limitSize : window.innerWidth;
@@ -67,10 +55,8 @@ define(function (require, exports, module) {
     function _downArrow() {
 
         var h = window.innerHeight;
-        var dif = (h-768)/100;
+        var dif = (h - 768) / 100;
         this.velocityStep = dif;
-
-
 
         this.initialDownAngle = 120 * Math.PI / 180;
         this.arrowDownAngleTrans = new Transitionable(this.initialDownAngle);

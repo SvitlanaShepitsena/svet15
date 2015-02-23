@@ -1,12 +1,11 @@
 define(['require', 'famous/core/Engine', 'views/cell/AppViewCell', 'views/desktop/AppViewDesk'], function (require, Engine, AppViewCell, AppViewDesk) {
     var Transform = require('famous/core/Transform');
     var mainContext = Engine.createContext();
+    /*When using Famo.us on an Android device, it is common that images will be blurry. This can be fixed by setting a perspective on your context to any non-zero value, like this: context.setPerspective(1)*/
     mainContext.setPerspective(1000);
 
     var initialDevice = window.responsive();
     var appView = initialDevice === 'cell' ? new AppViewCell() : new AppViewDesk({ctx: mainContext});
-
-
     mainContext.on('resize', function () {
         var newDevice = window.responsive();
         if (newDevice !== initialDevice) {
@@ -79,6 +78,7 @@ window.sv = {
         contentWidth: 1200,
         contentHeight: window.innerHeight,
         logoContainerWidth: 340,
+        logoWidth: 260,
         navContainerWidth: 500
     },
     options: {

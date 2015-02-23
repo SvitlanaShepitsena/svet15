@@ -5,8 +5,17 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
     var Transitionable = require('famous/transitions/Transitionable');
-
+    /*App Require*/
     var ArrowUp = require('dviews/common/ArrowUp');
+
+    LogoDesk.prototype = Object.create(View.prototype);
+    LogoDesk.prototype.constructor = LogoDesk;
+
+    LogoDesk.DEFAULT_OPTIONS = {
+        paperWidth: window.sv.sizing.logoWidth,
+        paperHeight: window.sv.sizing.headerHeight * .9
+    };
+
     function LogoDesk() {
         this.fullPosition = window.sv.sizing.headerHeight * .09;
         this.shortPosition = -window.sv.sizing.headerHeight * 0.36;
@@ -25,35 +34,28 @@ define(function (require, exports, module) {
         _upArrow.call(this);
     }
 
-    LogoDesk.prototype = Object.create(View.prototype);
-    LogoDesk.prototype.constructor = LogoDesk;
-
-    LogoDesk.DEFAULT_OPTIONS = {
-        logoHeight: null,
-        paperWidth: window.sv.sizing.logoContainerWidth ,
-        paperHeight: window.sv.sizing.headerHeight * .9
-    };
 
     function _init() {
         this.centerModifier = new Modifier({
-            size: [undefined, window.sv.sizing.headerHeight * .8],
-            align: [0.5, 0.5],
-            origin: [0.5, 0.5]
+            size: [window.sv.sizing.logoWidth, window.sv.sizing.headerHeight * .8],
+            align: [0.5, 0],
+            origin: [0.5, 0]
         });
         this.rootNode = this.add(this.centerModifier);
     }
 
     function _logoSvg() {
-        var div = document.createElement('div');
-        var paper = Raphael(div, this.options.paperWidth, this.options.paperHeight);
-        var path = drawpath(paper, "M80,80 L20,80 L130,10 L240,80 L180,80", this.options.paperWidth, {
+        var logoDiv = document.createElement('div');
+        logoDiv.style.height = this.options.paperHeight + 'px';
+        var logoPaper = Raphael(logoDiv, 260, this.options.paperHeight);
+        var path = drawpath(logoPaper, "M80,80 L20,80 L130,10 L240,80 L180,80", 260, {
             fill: 'none',
             stroke: window.sv.scheme.logoColor,
             'text-align': 'center',
             'stroke-width': 11,
             'fill-opacity': 0
         });
-        var text = paper.text(129, 56, 'RUSSIAN MEDIA GROUP');
+        var text = logoPaper.text(129, 56, 'RUSSIAN MEDIA GROUP');
         text.attr({
             stroke: 'none',
             fill: window.sv.scheme.textWhite,
@@ -73,11 +75,11 @@ define(function (require, exports, module) {
                 shift = window.innerWidth > 1160 ? 84 : 10;
                 this.svgLine.halt();
                 this.svgLine.set(shift, {duration: 50});
-                return Transform.translate(this.svgLine.get(), -70, 0);
+                return Transform.translate(this.svgLine.get() - 34, -70, 0);
             }.bind(this)
         });
         this.logoSvgSurf = new Surface({
-            content: div,
+            content: logoDiv,
             properties: {
                 textAlign: 'center'
             }
@@ -89,46 +91,49 @@ define(function (require, exports, module) {
     function _svetSvg() {
         var shiftUpArrow = sv.sizing.headerHeightSm - 65;
         var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
-        var div = document.createElement('div');
-        this.svetSvgTrans = new Transitionable(-70);
-        var paper = Raphael(div, this.options.paperWidth, this.options.paperHeight);
-        var text = paper.text(129, 44, 'SVET');
-        text.attr({
+        var divSvet = document.createElement('div');
+        divSvet.style.height = '30px';
+        divSvet.style.width = '73px';
+
+        this.svetSvgTrans = new Transitionable(-55);
+        var paper = Raphael(divSvet, 80, 32);
+        var textSvet = paper.text(35, 10, 'SVET');
+        textSvet.attr({
             stroke: 'none',
             fill: window.sv.scheme.textWhite,
             'font-size': 32,
             'font-weight': 'bold',
             'font-family': "Myriad Pro"
-        })
+        }).transform(' t5,8');
         this.svetSvgMod = new Modifier({
+            size: [73, 32],
+            align: [0.5, 0.6],
+            origin: [0.5, 0.6],
             transform: function () {
                 shift = window.innerWidth > 1160 ? 84 : 10;
                 this.svgLine.halt();
                 this.svgLine.set(shift, {duration: 50});
-                return Transform.translate(this.svgLine.get(), this.svetSvgTrans.get()- shiftUpArrow, 0);
+                return Transform.translate(this.svgLine.get() - 38, this.svetSvgTrans.get() - shiftUpArrow, 0);
             }.bind(this)
         });
 
         this.svetSvgSurf = new Surface({
-            content: div
+            properties: {
+                'zIndex': '5'
+            },
+            content: divSvet
         });
-
-
-
         this.rootNode.add(this.svetSvgMod).add(this.svetSvgSurf);
     }
 
     function _upArrow() {
         this.arrowUp = new ArrowUp();
-
         var shiftUpArrow = sv.sizing.headerHeightSm - 65;
         var shift = window.innerWidth > 1160 ? 0 : (window.innerWidth - 1160) / 5;
 
         var initialAngle = 0;
         this.arrowUpAngle = new Transitionable(initialAngle);
         this.arrowUpOpacity = new Transitionable(0);
-
-
 
 
         this.arrowUpMod = new Modifier({
@@ -143,10 +148,9 @@ define(function (require, exports, module) {
                 shift = window.innerWidth > 1160 ? 84 : 10;
                 this.svgLine.halt();
                 this.svgLine.set(shift, {duration: 50});
-                return Transform.translate(this.svgLine.get()-55, this.svetSvgTrans.get()+ shiftUpArrow+23, 0);
+                return Transform.translate(this.svgLine.get() - 55, this.svetSvgTrans.get() + shiftUpArrow + 23, 0);
             }.bind(this)
         });
-        this.arrowUp = new ArrowUp();
 
         this.arrowUp.on('mousedown', function () {
             this._eventOutput.emit('scroll:up');
@@ -158,7 +162,6 @@ define(function (require, exports, module) {
         this.rootNode.add(this.arrowUpMod).add(this.arrowUp);
     }
 
-
     LogoDesk.prototype.increaseLogo = function () {
         var currentPosition = this.shiftTransitionable.get();
         if (currentPosition !== this.fullPosition) {
@@ -168,7 +171,7 @@ define(function (require, exports, module) {
             this.shiftTransitionable.halt();
             this.opacityTransitionable.halt();
             this.svetSvgTrans.halt();
-            this.svetSvgTrans.set(-70, {duration:500});
+            this.svetSvgTrans.set(-70, {duration: 500});
             this.shiftTransitionable.set(this.fullPosition + 50, {duration: 500, curve: "linear"});
             this.opacityTransitionable.set(1, {duration: 500, curve: "linear"});
             this.changeColorHigh.call(this);
@@ -185,7 +188,7 @@ define(function (require, exports, module) {
             this.opacityTransitionable.halt();
 
             this.svetSvgTrans.halt();
-            this.svetSvgTrans.set(-50, {duration:500});
+            this.svetSvgTrans.set(-50, {duration: 500});
 
             this.shiftTransitionable.set(this.shortPosition, {duration: 500, curve: "linear"});
             this.opacityTransitionable.set(0, {duration: 500, curve: "linear"});
@@ -237,7 +240,6 @@ define(function (require, exports, module) {
         }, interval_length);
         return result;
     }
-
 
     module.exports = LogoDesk;
 });

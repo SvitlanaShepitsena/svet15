@@ -18,40 +18,32 @@ define(function (require, exports, module) {
 
     function _init() {
         this.centerModifier = new Modifier({
-            align: [0.75, 0],
-            origin: [0.2, 0],
-            transform: Transform.translate(0, 0, 1)
+            transform: Transform.translate(4, 80, 1)
         });
-
         this.rootNode = this.add(this.centerModifier);
     }
 
-
     function _arrowUp() {
+        var arrowDiv = document.createElement('div');
+        arrowDiv.style.height = '35px';
+        var arrowPaper = Raphael(arrowDiv, 60, 35);
 
-
-        this.rootNode = this.add(this.centerModifier);
-        var div = document.createElement('div');
-        var paper = Raphael(div, 84, 40);
-
-        paper.path('M21.871,9.814 15.684,16.001 21.871,22.188 18.335,25.725 8.612,16.001 18.335,6.276z').attr({
-            fill: 'red',
-            stroke: "white"
-        }).transform('t8.5,0r90s2.4');
-
+        arrowPaper.path('M21.871,9.814 15.684,16.001 21.871,22.188 18.335,25.725 8.612,16.001 18.335,6.276z').attr({
+            fill: 'black',
+            opacity: .8,
+            stroke: 'none'
+        }).transform('...s2.4 t8.5,0 r90');
 
         this.surface = new Surface({
-            content: div,
-            properties:{
-                zIndex:10,
-                cursor:'pointer'
+            content: arrowDiv,
+            properties: {
+                zIndex: 10,
+                cursor: 'pointer'
             }
         });
         this.surface.pipe(this._eventOutput);
         this.rootNode.add(this.surface);
-
     }
-
 
     module.exports = ArrowUp;
 });
