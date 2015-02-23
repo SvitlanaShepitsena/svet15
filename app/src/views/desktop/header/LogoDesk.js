@@ -151,7 +151,7 @@ define(function (require, exports, module) {
                 shift = window.innerWidth > 1160 ? 84 : 10;
                 this.svgLine.halt();
                 this.svgLine.set(shift, {duration: 50});
-                return Transform.translate(this.svgLine.get() - 55, this.svetSvgTrans.get() + shiftUpArrow + 23, 0);
+                return Transform.translate(this.svgLine.get() - 55, this.svetSvgTrans.get() + shiftUpArrow + 33, 0);
             }.bind(this)
         });
 
