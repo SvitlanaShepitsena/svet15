@@ -19,6 +19,7 @@ define(function (require, exports, module) {
     var RadioScrollCell = require('cviews/content/radio/RadioScrollCell');
 
     /*Html*/
+    var aboutVideo = require('text!cviews/jade/about/aboutVideo.html');
     var about1 = require('text!cviews/jade/about/about1.html');
     var about2 = require('text!cviews/jade/about/about2.html');
     var about3 = require('text!cviews/jade/about/about3.html');
@@ -80,20 +81,20 @@ define(function (require, exports, module) {
         var nextSvg = 'M16,1.466C7.973,1.466,1.466,7.973,1.466,16c0,8.027,6.507,14.534,14.534,14.534c8.027,0,14.534-6.507,14.534-14.534C30.534,7.973,24.027,1.466,16,1.466zM13.665,25.725l-3.536-3.539l6.187-6.187l-6.187-6.187l3.536-3.536l9.724,9.723L13.665,25.725z';
 
         this.back = new Surface({
-            content: _getRaphaelIcon.call(this,backSvg),
+            content: _getRaphaelIcon.call(this, backSvg),
             classes: [],
             properties: {
                 cursor: 'pointer'
             }
         });
 
-       this.back.on('click', function () {
-           this.contents[this.scrollview.getCurrentIndex()].prevView() ;
-       }.bind(this))
+        this.back.on('click', function () {
+            this.contents[this.scrollview.getCurrentIndex()].prevView();
+        }.bind(this))
 
         this.next = new Surface({
 
-            content: _getRaphaelIcon.call(this,nextSvg),
+            content: _getRaphaelIcon.call(this, nextSvg),
             size: [50, 50],
             classes: [],
             properties: {
@@ -101,9 +102,9 @@ define(function (require, exports, module) {
             }
         });
 
-       this.next.on('click', function () {
-         this.contents[this.scrollview.getCurrentIndex()].nextView() ;
-       }.bind(this))
+        this.next.on('click', function () {
+            this.contents[this.scrollview.getCurrentIndex()].nextView();
+        }.bind(this))
         this.rootNode.add(this.backMod).add(this.back);
         this.rootNode.add(this.nextMod).add(this.next);
 
@@ -154,7 +155,7 @@ define(function (require, exports, module) {
         this.aboutUsCell = new CommonPageCell({
             bgColor: 'floralwhite',
             folder: 'about',
-            pages: ['about1', 'about2', 'about3'],
+            pages: ['aboutVideo','about1', 'about2', 'about3'],
             sync: this.options.sync
         });
 
