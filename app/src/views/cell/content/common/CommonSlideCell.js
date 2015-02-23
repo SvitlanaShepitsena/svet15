@@ -54,8 +54,7 @@ define(function (require, exports, module) {
             properties: {
                 textAlign: 'center',
                 marginBottom: '10px',
-                zIndex: 20,
-                pointerEvents: 'visible'
+                zIndex: 20
             }
         });
         this.viewContent.pipe(this._eventOutput);
