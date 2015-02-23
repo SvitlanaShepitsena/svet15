@@ -76,7 +76,7 @@ define(function (require, exports, module) {
         this.add(this.menuView);
         this.add(this.pageModifier).add(this.pageViewCell);
 
-        _handleTouch.call(this);
+        //_handleTouch.call(this);
     }
 
 
@@ -89,6 +89,7 @@ define(function (require, exports, module) {
         this.pageViewCell.pipe(this.sync);
 
         this.sync.on('update', function (data) {
+            console.log(data);
             if (this.pageViewCellPos.get() === 0 && data.position > 0) {
                 this.menuView.animateNavItems();
             }
@@ -97,6 +98,7 @@ define(function (require, exports, module) {
         }.bind(this));
 
         this.sync.on('end', (function (data) {
+            console.log(data);
             var velocity = data.velocity;
             var position = this.pageViewCellPos.get();
 

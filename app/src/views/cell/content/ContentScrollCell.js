@@ -144,6 +144,9 @@ define(function (require, exports, module) {
                 disabled: false
             }
         });
+
+        this.scrollview.goToNextPage();
+
         this.scrollview.setOptions({
             overscroll: false   // disable overscroll
         });
