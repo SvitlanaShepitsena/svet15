@@ -102,8 +102,6 @@ define(function (require, exports, module) {
                 this.downArrowShown = true;
             }
         }.bind(this));
-
-
     }
 
 

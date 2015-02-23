@@ -3,19 +3,9 @@ define(function (require, exports, module) {
     var Surface = require('famous/core/Surface');
     var Modifier = require("famous/core/Modifier");
     var GridLayout = require("famous/views/GridLayout");
-
+    /*App Require*/
     var NavItemDesk = require('dviews/header/NavItemDesk');
 
-    function NavDesk() {
-        View.apply(this, arguments);
-        this.centerModifier = new Modifier({
-            size: this.options.size,
-            align: this.options.align,
-            origin: this.options.origin
-        });
-        this.rootNode = this.add(this.centerModifier);
-        _grid.call(this);
-    }
 
     NavDesk.prototype = Object.create(View.prototype);
     NavDesk.prototype.constructor = NavDesk;
@@ -28,6 +18,17 @@ define(function (require, exports, module) {
         origin: [0, 0],
         navTitles: null
     };
+
+    function NavDesk() {
+        View.apply(this, arguments);
+        this.centerModifier = new Modifier({
+            size: this.options.size,
+            align: this.options.align,
+            origin: this.options.origin
+        });
+        this.rootNode = this.add(this.centerModifier);
+        _grid.call(this);
+    }
 
     function _grid() {
         this.grid = new GridLayout({

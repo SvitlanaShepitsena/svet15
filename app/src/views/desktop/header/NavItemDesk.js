@@ -4,16 +4,11 @@ define(function (require, exports, module) {
     var Transform = require('famous/core/Transform');
     var Modifier = require("famous/core/Modifier");
     var ImageSurface = require('famous/surfaces/ImageSurface');
-
+    /*App Require*/
     var EventHandler = require('famous/core/EventHandler');
 
-    function NavItemDesk() {
-        View.apply(this, arguments);
-
-        this.eventOutput = new EventHandler();
-        EventHandler.setOutputHandler(this, this.eventOutput);
-        _navItem.call(this);
-    }
+    NavItemDesk.prototype = Object.create(View.prototype);
+    NavItemDesk.prototype.constructor = NavItemDesk;
 
     NavItemDesk.DEFAULT_OPTIONS = {
         title: null,
@@ -30,8 +25,16 @@ define(function (require, exports, module) {
         }
     };
 
-    function _navItem() {
+    function NavItemDesk() {
+        View.apply(this, arguments);
 
+        this.eventOutput = new EventHandler();
+        EventHandler.setOutputHandler(this, this.eventOutput);
+        _navItem.call(this);
+    }
+
+
+    function _navItem() {
         var div = document.createElement('div');
         var paper = Raphael(div, 200, 32);
         var t = paper.text(10, 20, this.options.title);
@@ -39,7 +42,6 @@ define(function (require, exports, module) {
             stroke: 'white',
             'font-size': 18
         });
-
         this.centerModifier = new Modifier({});
         this.itemSurface = new Surface({
             content: div,
@@ -54,8 +56,6 @@ define(function (require, exports, module) {
         this.rootNode.add(this.itemSurface);
     }
 
-    NavItemDesk.prototype = Object.create(View.prototype);
-    NavItemDesk.prototype.constructor = NavItemDesk;
 
     module.exports = NavItemDesk;
 });

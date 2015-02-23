@@ -12,19 +12,6 @@ define(function (require, exports, module) {
     var LogoDesk = require('dviews/header/LogoDesk');
     var NavDesk = require('dviews/header/NavDesk');
 
-    function HeaderDesk() {
-        this.flexShiftInit = 30;
-        this.flexShiftShort = -25;
-
-        this.flexTransitionable = new Transitionable(30);
-        this.opacityTransitionable = new Transitionable(0);
-        this.heightTransitionable = new Transitionable(window.sv.sizing.headerHeight);
-        this.widthTransitionable = new Transitionable(this.contentSize);
-       
-        View.apply(this, arguments);
-        _headerBackground.call(this);
-        _flex.call(this);
-    }
 
     HeaderDesk.prototype = Object.create(View.prototype);
     HeaderDesk.prototype.constructor = HeaderDesk;
@@ -51,8 +38,22 @@ define(function (require, exports, module) {
             textAlign: 'center',
             fontSize: '1.2em'
         }
-
     };
+
+    function HeaderDesk() {
+        this.flexShiftInit = 30;
+        this.flexShiftShort = -25;
+
+        this.flexTransitionable = new Transitionable(30);
+        this.opacityTransitionable = new Transitionable(0);
+        this.heightTransitionable = new Transitionable(window.sv.sizing.headerHeight);
+        this.widthTransitionable = new Transitionable(this.contentSize);
+
+        View.apply(this, arguments);
+        _headerBackground.call(this);
+        _flex.call(this);
+    }
+
     function _headerBackground() {
         this.backgroundMod = new Modifier({
             size: function () {
